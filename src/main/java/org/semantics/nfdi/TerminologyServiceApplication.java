@@ -4,10 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NfdiApplication {
+public class TerminologyServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NfdiApplication.class, args);
+		SpringApplication.run(TerminologyServiceApplication.class, args);
 	}
-
 }
