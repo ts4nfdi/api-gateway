@@ -1,5 +1,7 @@
 package org.semantics.nfdi.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,19 +13,26 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.semantics.nfdi.model.TransformResponse;
+
 @Service
 public class SearchService {
 
     private final RestTemplate restTemplate = new RestTemplate();
+    private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
+
+    private final TransformResponse transformResponse = new TransformResponse();
 
     @Async
     public CompletableFuture<List<Object>> searchBioportal(String query, String apiKey) {
-        String url = String.format("http://data.bioontology.org/search?q=%s&apikey=%s", query, apiKey);
+        String url = String.format("https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s", query, apiKey);
+        logger.info("Accessing URL: {}", url);
         ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
         if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-            List<Object> collection = (List<Object>) response.getBody().get("collection");
-            return CompletableFuture.completedFuture(collection != null ? collection : List.of());
+            // logger.info("Received response from Bioportal: {}", response.getBody());
+            return CompletableFuture.completedFuture(transformResponse.transformResponse(response.getBody(), "Bioportal"));
         } else {
+            logger.error("Error accessing URL: {}", url);
             return CompletableFuture.completedFuture(List.of());
         }
     }
@@ -31,13 +40,13 @@ public class SearchService {
     @Async
     public CompletableFuture<List<Object>> searchOls(String query) {
         String url = String.format("https://www.ebi.ac.uk/ols/api/search?q=%s", query);
+        logger.info("Accessing URL: {}", url);
         ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
         if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-            Map responseWrapper = (Map) response.getBody().get("response");
-            List<Object> docs = (List<Object>) responseWrapper.get("docs");
-            return CompletableFuture.completedFuture(docs != null ? docs : List.of());
+            // logger.info("Received response from OLS: {}", response.getBody());
+            return CompletableFuture.completedFuture(transformResponse.transformResponse(response.getBody(), "OLS"));
         } else {
-            // Log error or handle it accordingly
+            logger.error("Error accessing URL: {}", url);
             return CompletableFuture.completedFuture(List.of());
         }
 
@@ -53,7 +62,5 @@ public class SearchService {
             return combinedResults;
         });
     }
-
-    // Other methods for handling faceted search, autocomplete, and translation of queries across different portal configurations can be added here.
 
 }
