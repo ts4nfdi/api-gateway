@@ -15,4 +15,5 @@ public class OntologyConfig {
     private String name;
     private List<String> fields;
     private String url;
+    private String key;
 }

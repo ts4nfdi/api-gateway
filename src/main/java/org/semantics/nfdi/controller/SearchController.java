@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -29,8 +30,8 @@ public class SearchController {
         return searchService.performFederatedSearch(query, ApiKey);
     }
 
-    @GetMapping("/nfdi/federatedSearch")
-    public CompletableFuture<List<Object>> performDynFederatedSearch(@RequestParam String query) {
+    @GetMapping("/federatedSearch")
+    public CompletableFuture<List<Map<String, Object>>> performDynFederatedSearch(@RequestParam String query) {
         return dynSearchService.performDynFederatedSearch(query);
     }
 

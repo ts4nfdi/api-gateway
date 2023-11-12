@@ -38,7 +38,7 @@ public class TransformResponse {
                 newItem.put("iri", docMap.get("iri"));
                 newItem.put("Label", docMap.get("label"));
                 newItem.put("source", docMap.get("ontology_name"));
-                newItem.put("synonym", docMap.get("synonym"));
+                newItem.put("synonym", docMap.get("description"));
                 newItem.put("ontology", docMap.get("id"));
 
                 result.add(newItem);
@@ -78,7 +78,7 @@ public class TransformResponse {
         }
     }
 
-    // Handle 'results' field (for the new structure in (2))
+    // Handle 'results' field
     List<Map<String, Object>> results = (List<Map<String, Object>>) response.get("results");
     if (results != null) {
         for (Map<String, Object> item : results) {
