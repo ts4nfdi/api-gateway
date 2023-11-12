@@ -42,44 +42,6 @@ public class DynSearchService extends SearchService {
         }
     }
 
-
-    public CompletableFuture<List<Object>> performDynFederatedSearch(String query) {
-        List<CompletableFuture<List<Object>>> futures = ontologyConfigs.stream()
-                .map(config -> search(query, config))
-                .collect(Collectors.toList());
-
-        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
-                .thenApply(v -> futures.stream()
-                        .flatMap(future -> future.join().stream())
-                        .collect(Collectors.toList()));
-    }
-
-    @Async
-    public CompletableFuture<List<Object>> search(String query, OntologyConfig config) {
-        if (config == null || config.getUrl() == null) {
-            logger.error("Configuration or URL is null");
-            return CompletableFuture.completedFuture(List.of());
-        }
-
-        String url = constructUrl(query, config);
-
-        logger.info("Accessing URL: {}", url);
-        ResponseEntity<Map> response;
-        try {
-            response = restTemplate.getForEntity(url, Map.class);
-        } catch (Exception e) {
-            logger.error("Error accessing URL: {}", url, e);
-            return CompletableFuture.completedFuture(List.of());
-        }
-
-        if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-            return CompletableFuture.completedFuture(dynTransformResponse.dynTransformResponse(response.getBody(), config));
-        } else {
-            logger.error("Unsuccessful response from URL: {}", url);
-            return CompletableFuture.completedFuture(List.of());
-        }
-    }
-
     private String constructUrl(String query, OntologyConfig config) {
         String url = config.getUrl();
         if (url.contains("%s")) {
@@ -89,5 +51,45 @@ public class DynSearchService extends SearchService {
         }
 
         return url;
+    }
+
+    @Async
+    public CompletableFuture<List<Map<String, Object>>> search(String query, OntologyConfig config) {
+        CompletableFuture<List<Map<String, Object>>> future = new CompletableFuture<>();
+
+        if (config == null || config.getUrl() == null) {
+            logger.error("Configuration or URL is null");
+            future.complete(List.of());
+            return future;
+        }
+
+        String url = constructUrl(query, config);
+        logger.info("Accessing URL: {}", url);
+
+        try {
+            ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+                future.complete(dynTransformResponse.dynTransformResponse(response.getBody(), config));
+            } else {
+                logger.error("Unsuccessful response from URL: {}", url);
+                future.complete(List.of());
+            }
+        } catch (Exception e) {
+            logger.error("Error accessing URL: {}", url, e);
+            future.completeExceptionally(e);
+        }
+
+        return future;
+    }
+
+    public CompletableFuture<List<Map<String, Object>>> performDynFederatedSearch(String query) {
+        List<CompletableFuture<List<Map<String, Object>>>> futures = ontologyConfigs.stream()
+                .map(config -> search(query, config))
+                .collect(Collectors.toList());
+
+        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+                .thenApply(v -> futures.stream()
+                        .flatMap(future -> future.join().stream())
+                        .collect(Collectors.toList()));
     }
 }

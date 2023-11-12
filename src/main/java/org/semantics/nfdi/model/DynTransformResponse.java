@@ -10,9 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 @Component
 public class DynTransformResponse {
@@ -25,34 +22,45 @@ public class DynTransformResponse {
             return result;
         }
 
-        // Assume 'docs' is the common key for entries in the response of different databases
-        List<Object> docs = (List<Object>) response.getOrDefault("docs", new ArrayList<>());
-
+        String responseKey = config.getKey();
+        Object responseData = response.getOrDefault(responseKey, new HashMap<>());
+        logger.info("key: {}", responseKey);
         logger.info("Response: {}", response);
+        logger.info("Response data type: {}", responseData.getClass().getSimpleName());
 
-        for (Object doc : docs) {
-            if (doc == null) {
-                continue;
+        if (responseData instanceof List) {
+            List<Object> keys = (List<Object>) responseData;
+            for (Object key : keys) {
+                processKey(key, config, result);
             }
-
-            Map<String, Object> docMap = (Map<String, Object>) doc;
-            Map<String, Object> newItem = new HashMap<>();
-
-            // Use the fields from OntologyConfig to process the response
-            for (String field : config.getFields()) {
-                try {
-                    Object value = PropertyUtils.getNestedProperty(docMap, field);
-                    newItem.put(field, value);
-                } catch (Exception e) {
-                    logger.error("Error mapping response field: {}", field, e);
-                }
-            }
-
-            result.add(newItem);
+        } else if (responseData instanceof Map) {
+            processKey(responseData, config, result);
+        } else {
+            logger.error("Unexpected data type for key: {}. Type is: {}", responseKey, responseData.getClass().getSimpleName());
         }
 
         logger.info("Transformed response: {}", result);
-
         return result;
+    }
+
+    private void processKey(Object key, OntologyConfig config, List<Map<String, Object>> result) {
+        if (key == null) {
+            return;
+        }
+
+        Map<String, Object> keyMap = (Map<String, Object>) key;
+        Map<String, Object> newItem = new HashMap<>();
+
+        for (String field : config.getFields()) {
+            try {
+                Object value = PropertyUtils.getNestedProperty(keyMap, field);
+                newItem.put(field, value);
+                logger.info("Accessed field: {} with value: {}", field, value);
+            } catch (Exception e) {
+                logger.error("Error mapping response field: {}", field, e);
+            }
+        }
+
+        result.add(newItem);
     }
 }
