@@ -9,8 +9,9 @@ import java.util.Map;
 import org.semantics.nfdi.service.SearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class TransformResponse {
 
     private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
@@ -38,7 +39,7 @@ public class TransformResponse {
                 newItem.put("Label", docMap.get("label"));
                 newItem.put("source", docMap.get("ontology_name"));
                 newItem.put("synonym", docMap.get("synonym"));
-                newItem.put("ontology", docMap.get("ontology_name"));
+                newItem.put("ontology", docMap.get("id"));
 
                 result.add(newItem);
             }
@@ -76,6 +77,26 @@ public class TransformResponse {
             result.add(newItem);
         }
     }
+
+    // Handle 'results' field (for the new structure in (2))
+    List<Map<String, Object>> results = (List<Map<String, Object>>) response.get("results");
+    if (results != null) {
+        for (Map<String, Object> item : results) {
+            if (item == null) {
+                continue;
+            }
+
+            Map<String, Object> newItem = new HashMap<>();
+            newItem.put("iri", item.get("uri"));
+            newItem.put("Label", item.get("label"));
+            newItem.put("description", item.get("description"));
+            newItem.put("source", item.get("sourceTerminology"));
+            newItem.put("internal", item.get("internal"));
+
+            result.add(newItem);
+        }
+    }
+
 
     return result;
     }

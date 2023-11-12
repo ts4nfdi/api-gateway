@@ -1,0 +1,18 @@
+search:
+  ontologies:
+    - name: Bioportal
+      fields:
+        - iri
+        - label
+        - source
+        - synonym
+        - ontology
+      url: "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=53a72292-cb9e-4855-acac-4676fc9eaa41"
+    - name: OLS
+      fields:
+        - iri
+        - label
+        - source
+        - synonym
+        - ontology
+      url: "https://www.ebi.ac.uk/ols/api/search?q=%s"

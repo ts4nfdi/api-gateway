@@ -1,0 +1,18 @@
+databases:
+  - name: "bioportal"
+    url: "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s"
+    apiKey: "53a72292-cb9e-4855-acac-4676fc9eaa41"
+    responseMapping:
+      iri: "iri"
+      label: "label"
+      source: "ontology_name"
+      synonym: "synonym"
+      ontology: "id"
+  - name: "ols"
+    url: "https://www.ebi.ac.uk/ols/api/search?q=%s"
+    responseMapping:
+      iri: "@id"
+      label: "prefLabel"
+      source: "ontology"
+      synonym: "synonym"
+      ontology: "id"

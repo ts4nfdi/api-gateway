@@ -1,0 +1,6 @@
+- name: Bioportal
+  url: https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s
+  apiKey: your-api-key
+- name: OLS
+  url: https://www.ebi.ac.uk/ols/api/search?q=%s
+  apiKey: null
