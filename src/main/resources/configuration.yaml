@@ -1,0 +1,17 @@
+search:
+  ontologies:
+    - name: Bioportal
+      apiKey: ${BIODIVPORTAL_API_KEY}
+      fields: 
+        -iri
+        -label
+        -source
+        -synonym
+        -ontology
+    - name: OLS
+      fields: 
+        -iri
+        -label
+        -source
+        -synonym 
+        -ontology

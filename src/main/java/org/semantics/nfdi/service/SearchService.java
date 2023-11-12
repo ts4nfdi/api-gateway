@@ -49,8 +49,22 @@ public class SearchService {
             logger.error("Error accessing URL: {}", url);
             return CompletableFuture.completedFuture(List.of());
         }
-
     }
+
+    @Async
+    public CompletableFuture<List<Object>> searchTerminologies(String query) {
+        String url = String.format("https://terminologies.gfbio.org/api/terminologies/search?query=%s", query);
+        logger.info("Accessing URL: {}", url);
+        ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+        if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+            // logger.info("Received response from Terminologies: {}", response.getBody());
+            return CompletableFuture.completedFuture(transformResponse.transformResponse(response.getBody(), "Terminologies"));
+        } else {
+            logger.error("Error accessing URL: {}", url);
+            return CompletableFuture.completedFuture(List.of());
+        }
+    }
+    
 
     public CompletableFuture<List<Object>> performFederatedSearch(String query, String bioportalApiKey) {
         CompletableFuture<List<Object>> bioPortalFuture = searchBioportal(query, bioportalApiKey);
