@@ -20,6 +20,7 @@ public class DynTransformResponse {
     public List<Map<String, Object>> dynTransformResponse(Map<String, Object> response, OntologyConfig config) {
         List<Map<String, Object>> result = new ArrayList<>();
         if (response == null) {
+            logger.error("Response is null");
             return result;
         }
 
@@ -31,7 +32,10 @@ public class DynTransformResponse {
         if (nestedData instanceof List) {
             List<Map<String, Object>> nestedList = (List<Map<String, Object>>) nestedData;
             for (Map<String, Object> item : nestedList) {
-                processItem(item, config, result);
+                Map<String, Object> newItem = processItem(item, config);
+                if (!newItem.isEmpty()) {
+                    result.add(newItem);
+                }
             }
         } else {
             logger.error("Expected List for nested JSON key: {}, but found: {}", nestedJsonKey, nestedData.getClass().getSimpleName());
@@ -41,25 +45,30 @@ public class DynTransformResponse {
         return result;
     }
 
-    private void processItem(Map<String, Object> item, OntologyConfig config, List<Map<String, Object>> result) {
+    private Map<String, Object> processItem(Map<String, Object> item, OntologyConfig config) {
+        Map<String, Object> newItem = new HashMap<>();
         if (item == null) {
-            return;
+            logger.error("Item is null");
+            return newItem;
         }
 
-        Map<String, Object> newItem = new HashMap<>();
         ResponseMapping responseMapping = config.getResponseMapping(); 
         List<String> fieldList = responseMapping.getFieldList(); 
 
         for (String field : fieldList) {
             try {
                 Object value = PropertyUtils.getNestedProperty(item, field);
-                newItem.put(field, value);
-                logger.info("Accessed field: {} with value: {}", field, value);
+                if (value != null) {
+                    newItem.put(field, value);
+                    logger.info("Accessed field: {} with value: {}", field, value);
+                } else {
+                    logger.warn("Value for field {} is null", field);
+                }
             } catch (Exception e) {
                 logger.error("Error mapping response field: {}", field, e);
             }
         }
 
-        result.add(newItem);
+        return newItem;
     }
 }

@@ -47,11 +47,7 @@ public class DynSearchService extends SearchService {
         String apiKey = config.getApiKey();
     
         if (url.contains("%s")) {
-            if (!apiKey.isEmpty()) {
-                url = String.format(url, query, apiKey);
-            } else {
-                url = String.format(url, query);
-            }
+            url = apiKey.isEmpty() ? String.format(url, query) : String.format(url, query, apiKey);
         } else {
             url += query;
         }
@@ -77,7 +73,7 @@ public class DynSearchService extends SearchService {
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 future.complete(dynTransformResponse.dynTransformResponse(response.getBody(), config));
             } else {
-                logger.error("Unsuccessful response from URL: {}", url);
+                logger.error("Unsuccessful or empty response from URL: {}", url);
                 future.complete(List.of());
             }
         } catch (Exception e) {
