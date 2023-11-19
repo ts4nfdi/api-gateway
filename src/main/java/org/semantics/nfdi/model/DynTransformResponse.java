@@ -23,42 +23,36 @@ public class DynTransformResponse {
             return result;
         }
 
-        String responseKey = config.getApiKey();
-        Object responseData = response.getOrDefault(responseKey, new HashMap<>());
-        logger.info("key: {}", responseKey);
-        logger.info("Response: {}", response);
-        logger.info("Response data type: {}", responseData.getClass().getSimpleName());
+        String nestedJsonKey = config.getResponseMapping().getNestedJson();
+        Object nestedData = response.getOrDefault(nestedJsonKey, new ArrayList<>());
+        logger.info("Nested JSON key: {}", nestedJsonKey);
+        logger.info("Nested data type: {}", nestedData.getClass().getSimpleName());
 
-        if (responseData instanceof List) {
-            List<Object> keys = (List<Object>) responseData;
-            for (Object key : keys) {
-                processKey(key, config, result);
+        if (nestedData instanceof List) {
+            List<Map<String, Object>> nestedList = (List<Map<String, Object>>) nestedData;
+            for (Map<String, Object> item : nestedList) {
+                processItem(item, config, result);
             }
-        } else if (responseData instanceof Map) {
-            processKey(responseData, config, result);
         } else {
-            logger.error("Unexpected data type for key: {}. Type is: {}", responseKey, responseData.getClass().getSimpleName());
+            logger.error("Expected List for nested JSON key: {}, but found: {}", nestedJsonKey, nestedData.getClass().getSimpleName());
         }
 
         logger.info("Transformed response: {}", result);
         return result;
     }
 
-    private void processKey(Object key, OntologyConfig config, List<Map<String, Object>> result) {
-        if (key == null) {
+    private void processItem(Map<String, Object> item, OntologyConfig config, List<Map<String, Object>> result) {
+        if (item == null) {
             return;
         }
 
-        Map<String, Object> keyMap = (Map<String, Object>) key;
         Map<String, Object> newItem = new HashMap<>();
-
         ResponseMapping responseMapping = config.getResponseMapping(); 
-
-        List<String> fieldList = ((ResponseMapping) responseMapping).getFieldList(); 
+        List<String> fieldList = responseMapping.getFieldList(); 
 
         for (String field : fieldList) {
             try {
-                Object value = PropertyUtils.getNestedProperty(keyMap, field);
+                Object value = PropertyUtils.getNestedProperty(item, field);
                 newItem.put(field, value);
                 logger.info("Accessed field: {} with value: {}", field, value);
             } catch (Exception e) {
