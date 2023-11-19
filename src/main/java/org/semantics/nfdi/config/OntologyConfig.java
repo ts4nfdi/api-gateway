@@ -1,6 +1,5 @@
 package org.semantics.nfdi.config;
 
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +11,8 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OntologyConfig {
-    private String name;
-    private List<String> fields;
+    private String ontology;
     private String url;
-    private String key;
+    private String apiKey;
+    private ResponseMapping responseMapping;
 }

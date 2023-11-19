@@ -12,5 +12,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Search {
-    private List<OntologyConfig> ontologies;
+    private List<OntologyConfig> ontology;
 }
