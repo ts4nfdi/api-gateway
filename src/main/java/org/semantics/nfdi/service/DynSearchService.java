@@ -25,7 +25,7 @@ import org.semantics.nfdi.config.OntologyConfig;
 @Service
 public class DynSearchService extends SearchService {
 
-    @Value("classpath:configuration.yaml")
+    @Value("classpath:config.yaml")
     private Resource dbConfigResource;
     private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
     private final RestTemplate restTemplate = new RestTemplate();
@@ -37,22 +37,28 @@ public class DynSearchService extends SearchService {
         Yaml yaml = new Yaml(new Constructor(DatabaseConfig.class));
         try (InputStream in = dbConfigResource.getInputStream()) {
             DatabaseConfig dbConfig = yaml.loadAs(in, DatabaseConfig.class);
-            this.ontologyConfigs = dbConfig.getSearch().getOntologies();
+            this.ontologyConfigs = dbConfig.getDatabases();
             ontologyConfigs.forEach(config -> logger.info("Loaded config: {}", config));
         }
     }
 
     private String constructUrl(String query, OntologyConfig config) {
         String url = config.getUrl();
+        String apiKey = config.getApiKey();
+    
         if (url.contains("%s")) {
-            url = String.format(url, query);
+            if (!apiKey.isEmpty()) {
+                url = String.format(url, query, apiKey);
+            } else {
+                url = String.format(url, query);
+            }
         } else {
             url += query;
         }
-
+    
         return url;
     }
-
+    
     @Async
     public CompletableFuture<List<Map<String, Object>>> search(String query, OntologyConfig config) {
         CompletableFuture<List<Map<String, Object>>> future = new CompletableFuture<>();

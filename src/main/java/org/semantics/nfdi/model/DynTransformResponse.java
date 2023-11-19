@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.semantics.nfdi.config.OntologyConfig;
+import org.semantics.nfdi.config.ResponseMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,7 @@ public class DynTransformResponse {
             return result;
         }
 
-        String responseKey = config.getKey();
+        String responseKey = config.getApiKey();
         Object responseData = response.getOrDefault(responseKey, new HashMap<>());
         logger.info("key: {}", responseKey);
         logger.info("Response: {}", response);
@@ -51,7 +52,11 @@ public class DynTransformResponse {
         Map<String, Object> keyMap = (Map<String, Object>) key;
         Map<String, Object> newItem = new HashMap<>();
 
-        for (String field : config.getFields()) {
+        ResponseMapping responseMapping = config.getResponseMapping(); 
+
+        List<String> fieldList = ((ResponseMapping) responseMapping).getFieldList(); 
+
+        for (String field : fieldList) {
             try {
                 Object value = PropertyUtils.getNestedProperty(keyMap, field);
                 newItem.put(field, value);

@@ -1,20 +1,17 @@
 search:
   ontologies:
     - name: Bioportal
-      url: "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=${BIODIVPORTAL_API_KEY}"
-      key: "collection"
-      fields:
-        - "@id"
-        - "prefLabel"
-        - "source"
-        - "synonym"
-        - "links.ontology"
+      apiKey: ${BIODIVPORTAL_API_KEY}
+      fields: 
+        -iri
+        -label
+        -source
+        -synonym
+        -ontology
     - name: OLS
-      url: "https://www.ebi.ac.uk/ols/api/search?q=%s"
-      key: "response.docs"
-      fields:
-        - "iri"
-        - "label"
-        - "ontology_name"
-        - "description"
-        - "id"
+      fields: 
+        -iri
+        -label
+        -source
+        -synonym 
+        -ontology

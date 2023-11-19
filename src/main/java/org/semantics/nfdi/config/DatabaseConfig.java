@@ -1,10 +1,12 @@
 package org.semantics.nfdi.config;
 
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 
 @Getter
@@ -12,6 +14,6 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DatabaseConfig {
-    private Search search;
+    private List<OntologyConfig> databases;
 }
 
