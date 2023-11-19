@@ -3,6 +3,7 @@ databases:
     url: "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s"
     apiKey: "${BIODIVPORTAL_API_KEY}"
     responseMapping:
+      nestedJson: "collection"
       iri: "@id"
       label: "prefLabel"
       source: "ontology"
@@ -12,6 +13,7 @@ databases:
     url: "https://www.ebi.ac.uk/ols4/api/search?q=%s"
     apiKey: ""
     responseMapping:
+      nestedJson: "resonses.docs"
       iri: "iri"
       label: "label"
       source: "ontology_name"

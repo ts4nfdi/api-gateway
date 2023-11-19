@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseMapping {
+    private String nestedJson;
     private String iri;
     private String label;
     private String source;
