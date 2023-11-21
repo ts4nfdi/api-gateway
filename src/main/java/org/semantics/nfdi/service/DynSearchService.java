@@ -80,20 +80,27 @@ public class DynSearchService extends SearchService {
     }
 
     public CompletableFuture<Map<String, List<Map<String, Object>>>> performDynFederatedSearch(String query, String database) {
-        Stream<OntologyConfig> filteredConfigs = ontologyConfigs.stream();
+        CompletableFuture<Map<String, List<Map<String, Object>>>> future = new CompletableFuture<>();
+    
         if (database != null && !database.isEmpty()) {
-            filteredConfigs = filteredConfigs.filter(config -> config.getOntology().equalsIgnoreCase(database));
+            boolean databaseExists = ontologyConfigs.stream()
+                    .anyMatch(config -> config.getOntology().equalsIgnoreCase(database));
+    
+            if (!databaseExists) {
+                future.completeExceptionally(new IllegalArgumentException("Database not found: " + database));
+                return future;
+            }
         }
-
+    
         ConcurrentMap<String, List<Map<String, Object>>> groupedResults = new ConcurrentHashMap<>();
-
-        List<CompletableFuture<Void>> futures = filteredConfigs
+    
+        List<CompletableFuture<Void>> futures = ontologyConfigs.stream()
+                .filter(config -> database == null || config.getOntology().equalsIgnoreCase(database))
                 .map(config -> search(query, config)
                         .thenAccept(results -> groupedResults.put(config.getOntology(), results)))
                 .collect(Collectors.toList());
-
+    
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
                 .thenApply(v -> groupedResults);
     }
-    
 }

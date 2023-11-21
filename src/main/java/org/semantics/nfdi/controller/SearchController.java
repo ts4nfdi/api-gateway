@@ -1,8 +1,10 @@
 package org.semantics.nfdi.controller;
 
+import org.apache.http.HttpStatus;
 import org.semantics.nfdi.service.DynSearchService;
 import org.semantics.nfdi.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,8 +34,19 @@ public class SearchController {
     }
 
     @GetMapping("/federatedSearch")
-    public CompletableFuture<Map<String, List<Map<String, Object>>>> performDynFederatedSearch(@RequestParam String query, 
-                                                                                            @RequestParam(required = false) String database) {
-        return dynSearchService.performDynFederatedSearch(query, database);
+    public CompletableFuture<ResponseEntity<?>> performDynFederatedSearch(@RequestParam String query, 
+                                                                        @RequestParam(required = false) String database) {
+        return dynSearchService.performDynFederatedSearch(query, database)
+                .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
+                .exceptionally(e -> {
+                    if (e.getCause() instanceof IllegalArgumentException) {
+                        return ResponseEntity
+                                .status(HttpStatus.SC_BAD_REQUEST)
+                                .body("Error: " + e.getCause().getMessage());
+                    }
+                    return ResponseEntity
+                            .status(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+                            .body("Error: An internal server error occurred");
+                });
     }
 }
