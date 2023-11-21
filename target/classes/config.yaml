@@ -10,10 +10,10 @@ databases:
       synonym: "links.synonym" 
       ontology: "ontologyType"
   - ontology: "ols"
-    url: "https://www.ebi.ac.uk/ols4/api/search?q=%s"
+    url: "https://ebi.ac.uk/ols4/api/search?q=%s"
     apiKey: ""
     responseMapping:
-      nestedJson: "response.docs"  
+      nestedJson: "response"  
       iri: "iri"
       label: "label"
       source: "ontology_name"

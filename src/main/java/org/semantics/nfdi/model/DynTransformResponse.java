@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.semantics.nfdi.config.OntologyConfig;
 import org.semantics.nfdi.config.ResponseMapping;
 import org.slf4j.Logger;
@@ -30,19 +29,31 @@ public class DynTransformResponse {
         logger.info("Nested data type: {}", nestedData.getClass().getSimpleName());
 
         if (nestedData instanceof List) {
-            List<Map<String, Object>> nestedList = (List<Map<String, Object>>) nestedData;
-            for (Map<String, Object> item : nestedList) {
-                Map<String, Object> newItem = processItem(item, config);
-                if (!newItem.isEmpty()) {
-                    result.add(newItem);
-                }
+            processList((List<?>) nestedData, result, config);
+        } else if (nestedData instanceof Map) {
+            Object docs = ((Map<?, ?>) nestedData).get("docs");
+            if (docs instanceof List) {
+                processList((List<?>) docs, result, config);
+            } else {
+                logger.error("Expected List for key 'docs', but found: {}", docs.getClass().getSimpleName());
             }
         } else {
-            logger.error("Expected List for nested JSON key: {}, but found: {}", nestedJsonKey, nestedData.getClass().getSimpleName());
+            logger.error("Expected List or Map for nested JSON key: {}, but found: {}", nestedJsonKey, nestedData.getClass().getSimpleName());
         }
 
         logger.info("Transformed response: {}", result);
         return result;
+    }
+
+    private void processList(List<?> dataList, List<Map<String, Object>> result, OntologyConfig config) {
+        for (Object item : dataList) {
+            if (item instanceof Map) {
+                Map<String, Object> newItem = processItem((Map<String, Object>) item, config);
+                if (!newItem.isEmpty()) {
+                    result.add(newItem);
+                }
+            }
+        }
     }
 
     private Map<String, Object> processItem(Map<String, Object> item, OntologyConfig config) {
@@ -62,10 +73,10 @@ public class DynTransformResponse {
                     newItem.put(field, value);
                     logger.info("Accessed field: {} with value: {}", field, value);
                 } else {
-                    logger.warn("Value for field {} is null", field);
+                    logger.warn("Value for field {} is null or missing", field);
                 }
             } catch (Exception e) {
-                logger.error("Error mapping response field: {}", field, e);
+                logger.error("Error accessing or mapping field: {}", field, e);
             }
         }
 
