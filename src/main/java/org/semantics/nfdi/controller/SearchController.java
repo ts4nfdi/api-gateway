@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -31,8 +32,8 @@ public class SearchController {
     }
 
     @GetMapping("/federatedSearch")
-    public CompletableFuture<List<Map<String, Object>>> performDynFederatedSearch(@RequestParam String query) {
-        return dynSearchService.performDynFederatedSearch(query);
+    public CompletableFuture<Map<String, List<Map<String, Object>>>> performDynFederatedSearch(@RequestParam String query, 
+                                                                                            @RequestParam(required = false) String database) {
+        return dynSearchService.performDynFederatedSearch(query, database);
     }
-
 }
