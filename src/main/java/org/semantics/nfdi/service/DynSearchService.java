@@ -19,7 +19,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.semantics.nfdi.config.DatabaseConfig;
 import org.slf4j.Logger;
@@ -79,28 +78,13 @@ public class DynSearchService extends SearchService {
         return future;
     }
 
-    public CompletableFuture<Map<String, List<Map<String, Object>>>> performDynFederatedSearch(String query, String database) {
-        CompletableFuture<Map<String, List<Map<String, Object>>>> future = new CompletableFuture<>();
+    public CompletableFuture<List<Map<String, Object>>> performDynFederatedSearch(String query) {
+        List<CompletableFuture<List<Map<String, Object>>>> futures = ontologyConfigs.stream()
+                .map(config -> search(query, config)).collect(Collectors.toList());
     
-        if (database != null && !database.isEmpty()) {
-            boolean databaseExists = ontologyConfigs.stream()
-                    .anyMatch(config -> config.getOntology().equalsIgnoreCase(database));
-    
-            if (!databaseExists) {
-                future.completeExceptionally(new IllegalArgumentException("Database not found: " + database));
-                return future;
-            }
-        }
-    
-        ConcurrentMap<String, List<Map<String, Object>>> groupedResults = new ConcurrentHashMap<>();
-    
-        List<CompletableFuture<Void>> futures = ontologyConfigs.stream()
-                .filter(config -> database == null || config.getOntology().equalsIgnoreCase(database))
-                .map(config -> search(query, config)
-                        .thenAccept(results -> groupedResults.put(config.getOntology(), results)))
-                .collect(Collectors.toList());
-    
-        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
-                .thenApply(v -> groupedResults);
+        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).thenApply(v -> futures.stream()
+                .flatMap(future -> future.join().stream())
+                .collect(Collectors.toList()));
+
     }
 }

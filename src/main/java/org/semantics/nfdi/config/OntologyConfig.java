@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OntologyConfig {
-    private String ontology;
+    private String Database;
     private String url;
     private String apiKey;
     private ResponseMapping responseMapping;

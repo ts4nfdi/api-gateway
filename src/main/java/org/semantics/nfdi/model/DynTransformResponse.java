@@ -31,11 +31,12 @@ public class DynTransformResponse {
         if (nestedData instanceof List) {
             processList((List<?>) nestedData, result, config);
         } else if (nestedData instanceof Map) {
-            Object docs = ((Map<?, ?>) nestedData).get("docs");
+            String docsKey = config.getResponseMapping().getKey();
+            Object docs = ((Map<?, ?>) nestedData).get(docsKey);
             if (docs instanceof List) {
                 processList((List<?>) docs, result, config);
             } else {
-                logger.error("Expected List for key 'docs', but found: {}", docs.getClass().getSimpleName());
+                logger.error("Expected List for key '{}', but found: {}", docsKey, docs.getClass().getSimpleName());
             }
         } else {
             logger.error("Expected List or Map for nested JSON key: {}, but found: {}", nestedJsonKey, nestedData.getClass().getSimpleName());

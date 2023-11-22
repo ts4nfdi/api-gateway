@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -36,7 +35,7 @@ public class SearchController {
     @GetMapping("/federatedSearch")
     public CompletableFuture<ResponseEntity<?>> performDynFederatedSearch(@RequestParam String query, 
                                                                         @RequestParam(required = false) String database) {
-        return dynSearchService.performDynFederatedSearch(query, database)
+        return dynSearchService.performDynFederatedSearch(query)
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> {
                     if (e.getCause() instanceof IllegalArgumentException) {

@@ -19,6 +19,7 @@ public class ResponseMapping {
     private String source;
     private String synonym;
     private String ontology;
+    private String key;
 
     public List<String> getFieldList() {
         return Arrays.asList(iri, label, source, synonym, ontology);
