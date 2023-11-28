@@ -20,8 +20,26 @@ public class ResponseMapping {
     private String synonym;
     private String ontology;
     private String key;
+    private String description;
 
     public List<String> getFieldList() {
-        return Arrays.asList(iri, label, source, synonym, ontology);
+        return Arrays.asList(iri, label, source, synonym, ontology, description);
+    }
+
+    public String getFieldName(String field) {
+        switch (field) {
+            case "iri":
+                return this.iri;
+            case "label":
+                return this.label;
+            case "source":
+                return this.source;
+            case "synonym":
+                return this.synonym;
+            case "ontology":
+                return this.ontology;
+            default:
+                return field;
+        }
     }
 }
