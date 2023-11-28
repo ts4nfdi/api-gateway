@@ -63,24 +63,33 @@ public class DynTransformResponse {
             logger.error("Item is null");
             return newItem;
         }
-
+    
         ResponseMapping responseMapping = config.getResponseMapping(); 
-        List<String> fieldList = responseMapping.getFieldList(); 
-
-        for (String field : fieldList) {
-            try {
-                Object value = PropertyUtils.getNestedProperty(item, field);
-                if (value != null) {
-                    newItem.put(field, value);
-                    logger.info("Accessed field: {} with value: {}", field, value);
-                } else {
-                    logger.warn("Value for field {} is null or missing", field);
-                }
-            } catch (Exception e) {
-                logger.error("Error accessing or mapping field: {}", field, e);
+    
+        // Mapping fields based on the YAML configuration
+        try {
+            if (responseMapping.getIri() != null && item.containsKey(responseMapping.getIri())) {
+                newItem.put("iri", item.get(responseMapping.getIri()));
             }
+            if (responseMapping.getLabel() != null && item.containsKey(responseMapping.getLabel())) {
+                newItem.put("label", item.get(responseMapping.getLabel()));
+            }
+            if (responseMapping.getSynonym() != null && item.containsKey(responseMapping.getSynonym())) {
+                newItem.put("synonym", item.get(responseMapping.getSynonym()));
+            }
+            if (responseMapping.getDescription() != null && item.containsKey(responseMapping.getDescription())) {
+                newItem.put("description", item.get(responseMapping.getDescription()));
+            }
+            if (responseMapping.getOntology() != null && item.containsKey(responseMapping.getOntology())) {
+                newItem.put("ontology", item.get(responseMapping.getOntology()));
+            }
+            newItem.put("source", config.getDatabase());
+        } catch (Exception e) {
+            logger.error("Error processing item: {}", e.getMessage(), e);
         }
-
+    
         return newItem;
     }
+    
+    
 }

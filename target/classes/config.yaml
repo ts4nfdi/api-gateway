@@ -6,9 +6,9 @@ databases:
       nestedJson: "collection"
       iri: "@id"
       label: "prefLabel"
-      source: "links.ontology"  
-      synonym: "links.synonym" 
-      ontology: "ontologyType"
+      synonym: "synonym" 
+      ontology: "links.ontology"
+      description: "definition"
   - database: "ols"
     url: "https://ebi.ac.uk/ols4/api/search?q=%s"
     apiKey: ""
@@ -17,9 +17,9 @@ databases:
       key: "docs" # hashmap --> key for the array of results
       iri: "iri"
       label: "label"
-      source: "ontology_name"
       synonym: "short_form"  
       ontology: "ontology_prefix"
+      description: "description"
   - database: "gfbio"
     url: "https://terminologies.gfbio.org/api/terminologies/search?query=%s"
     apiKey: ""
@@ -27,6 +27,9 @@ databases:
       nestedJson: "results"
       iri: "uri"
       label: "label"
-      source: "sourceTerminology"
-      synonym: "description" 
+      synonym: "synonym" 
       ontology: "internal"
+      description: "description"
+
+
+
