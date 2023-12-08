@@ -1,0 +1,81 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "response": {
+        "type": "object",
+        "properties": {
+          "docs": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "iri": {
+                    "type": "string"
+                  },
+                  "ontology_prefix": {
+                    "type": "string"
+                  },
+                  "short_form": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "iri",
+                  "ontology_prefix",
+                  "short_form",
+                  "description",
+                  "label"
+                ]
+              }
+            ]
+          },
+          "numFound": {
+            "type": "integer"
+          },
+          "start": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "docs",
+          "numFound",
+          "start"
+        ]
+      },
+      "responseHeader": {
+        "type": "object",
+        "properties": {
+          "QTime": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "QTime",
+          "status"
+        ]
+      }
+    },
+    "required": [
+      "response",
+      "responseHeader"
+    ]
+  }

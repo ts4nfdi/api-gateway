@@ -30,6 +30,3 @@ databases:
       synonym: "synonym" 
       ontology: "internal"
       description: "description"
-
-
-

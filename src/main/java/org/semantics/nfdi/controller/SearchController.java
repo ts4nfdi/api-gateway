@@ -34,8 +34,10 @@ public class SearchController {
 
     @GetMapping("/federatedSearch")
     public CompletableFuture<ResponseEntity<?>> performDynFederatedSearch(@RequestParam String query, 
-                                                                        @RequestParam(required = false) String database) {
-        return dynSearchService.performDynFederatedSearch(query)
+                                                                        @RequestParam(required = false) String database,
+                                                                        @RequestParam(required = false) String format,
+                                                                        @RequestParam(required = false, defaultValue = "false") boolean databaseSchema) {
+                return dynSearchService.performDynFederatedSearch(query, database, format, databaseSchema)
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> {
                     if (e.getCause() instanceof IllegalArgumentException) {

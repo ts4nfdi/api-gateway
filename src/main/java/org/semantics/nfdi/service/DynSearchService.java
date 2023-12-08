@@ -1,5 +1,6 @@
 package org.semantics.nfdi.service;
 
+import org.semantics.nfdi.model.DatabaseTransform;
 import org.semantics.nfdi.model.DynTransformResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -13,17 +14,26 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import org.semantics.nfdi.model.DatabaseTransform;
+import com.github.jsonldjava.utils.JsonUtils;
 import org.semantics.nfdi.config.DatabaseConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.semantics.nfdi.config.OntologyConfig;
+import org.semantics.nfdi.config.ResponseMapping;
 
 @Service
 public class DynSearchService extends SearchService {
@@ -34,6 +44,8 @@ public class DynSearchService extends SearchService {
     private final RestTemplate restTemplate = new RestTemplate();
     private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
     private List<OntologyConfig> ontologyConfigs;
+    private final DatabaseTransform databaseTransform = new DatabaseTransform();
+
 
     @PostConstruct
     public void loadDbConfigs() throws IOException {
@@ -59,32 +71,118 @@ public class DynSearchService extends SearchService {
     }
 
     @Async
-    public CompletableFuture<List<Map<String, Object>>> search(String query, OntologyConfig config) {
+    public CompletableFuture<List<Map<String, Object>>> search(String query, OntologyConfig config, String format) {
         CompletableFuture<List<Map<String, Object>>> future = new CompletableFuture<>();
-
-        String url = constructUrl(query, config);
-        logger.info("Accessing URL: {}", url);
-
         try {
+            String url = constructUrl(query, config);
+            logger.info("Accessing URL: {}", url);
             ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-                future.complete(dynTransformResponse.dynTransformResponse(response.getBody(), config));
+                List<Map<String, Object>> transformedResponse = dynTransformResponse.dynTransformResponse(response.getBody(), config);
+    
+                if ("jsonld".equalsIgnoreCase(format)) {
+                    transformedResponse = convertToJsonLd(transformedResponse, config);
+                }
+    
+                future.complete(transformedResponse);
             } else {
                 future.complete(List.of());
             }
         } catch (Exception e) {
+            logger.error("An error occurred while processing the request", e);
             future.completeExceptionally(e);
         }
         return future;
     }
 
-    public CompletableFuture<List<Map<String, Object>>> performDynFederatedSearch(String query) {
-        List<CompletableFuture<List<Map<String, Object>>>> futures = ontologyConfigs.stream()
-                .map(config -> search(query, config)).collect(Collectors.toList());
+    private List<Map<String, Object>> convertToJsonLd(List<Map<String, Object>> response, OntologyConfig config) {
+        Map<String, Object> context = new HashMap<>();
+        context.put("@vocab", "http://base4nfdi.de/ts4nfdi/schema/");
+        context.put("ts", "http://base4nfdi.de/ts4nfdi/schema/");
+        String type = "ts:Resource";
     
-        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).thenApply(v -> futures.stream()
-                .flatMap(future -> future.join().stream())
-                .collect(Collectors.toList()));
+        ResponseMapping responseMapping = config.getResponseMapping();
 
+        //    List<Map<String, Object>> graph = response.stream().map(item -> {
+    
+        return response.stream().map(item -> {
+            try {
+                Map<String, Object> jsonLd = new HashMap<>();
+                jsonLd.put("@context", context);
+                jsonLd.put("@type", type);
+                // add key-value pairs to jsonLd
+                for (Map.Entry<String, Object> entry : item.entrySet()) {
+                    String key = entry.getKey();
+                    Object value = entry.getValue();
+    
+                    if (responseMapping.containsKey(key)) {
+                        key = responseMapping.get(key);
+                    }
+    
+                    jsonLd.put(key, value);
+                }
+                // convert
+                String jsonString = JsonUtils.toString(jsonLd);
+                if (jsonString != null) {
+                    String jsonLdString = convertJsonToJsonLd(jsonString);
+                    return (Map<String, Object>) JsonUtils.fromString(jsonLdString);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return null;
+        }).collect(Collectors.toList());
+
+        //Map<String, Object> result = new HashMap<>();
+        //result.put("@context", context);
+        //result.put("@graph", graph);
+    
+        //return result;
     }
+
+    
+    public static String convertJsonToJsonLd(String json) {
+        Model model = ModelFactory.createDefaultModel();
+        RDFDataMgr.read(model, new StringReader(json), null, Lang.JSONLD);
+
+        StringWriter out = new StringWriter();
+        RDFDataMgr.write(out, model, Lang.JSONLD);
+        return out.toString();
+    }
+
+    public CompletableFuture<List<Map<String, Object>>> performDynFederatedSearch(
+        String query, String database, String format, boolean transformToDatabaseSchema) {
+            CompletableFuture<List<Map<String, Object>>> future = new CompletableFuture<>();
+    
+        boolean databaseExists = database != null && !database.isEmpty() && 
+                                 ontologyConfigs.stream().anyMatch(config -> config.getDatabase().equalsIgnoreCase(database));
+    
+        if (!databaseExists && database != null && !database.isEmpty()) {
+            future.completeExceptionally(new IllegalArgumentException("Database not found: " + database));
+            return future;
+        }
+    
+        Stream<OntologyConfig> configsStream = ontologyConfigs.stream();
+        if (database != null && !database.isEmpty()) {
+            configsStream = configsStream.filter(config -> database.equalsIgnoreCase(config.getDatabase()));
+        }
+
+        List<CompletableFuture<List<Map<String, Object>>>> futures = configsStream
+            .map(config -> search(query, config, format))
+            .collect(Collectors.toList());
+
+            return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+            .thenApply(v -> {
+                List<Map<String, Object>> combinedResults = futures.stream()
+                    .flatMap(resultFuture -> resultFuture.join().stream())
+                    .collect(Collectors.toList());
+
+                if (transformToDatabaseSchema) {
+                    return databaseTransform.transformDatabaseResponse(combinedResults);
+                } else {
+                    return combinedResults;
+                }
+            });
+    }
+    
 }
