@@ -42,4 +42,12 @@ public class ResponseMapping {
                 return field;
         }
     }
+
+    public boolean containsKey(String key2) {
+        return false;
+    }
+
+    public String get(String key2) {
+        return null;
+    }
 }
