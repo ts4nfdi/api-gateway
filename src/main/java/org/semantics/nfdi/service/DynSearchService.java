@@ -46,7 +46,6 @@ public class DynSearchService extends SearchService {
     private List<OntologyConfig> ontologyConfigs;
     private final DatabaseTransform databaseTransform = new DatabaseTransform();
 
-
     @PostConstruct
     public void loadDbConfigs() throws IOException {
         Yaml yaml = new Yaml(new Constructor(DatabaseConfig.class));
@@ -150,9 +149,9 @@ public class DynSearchService extends SearchService {
         return out.toString();
     }
 
-    public CompletableFuture<List<Map<String, Object>>> performDynFederatedSearch(
+    public CompletableFuture<Object> performDynFederatedSearch(
         String query, String database, String format, boolean transformToDatabaseSchema) {
-            CompletableFuture<List<Map<String, Object>>> future = new CompletableFuture<>();
+            CompletableFuture<Object> future = new CompletableFuture<>();
     
         boolean databaseExists = database != null && !database.isEmpty() && 
                                  ontologyConfigs.stream().anyMatch(config -> config.getDatabase().equalsIgnoreCase(database));
