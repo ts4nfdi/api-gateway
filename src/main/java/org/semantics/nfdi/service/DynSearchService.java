@@ -38,7 +38,7 @@ import org.semantics.nfdi.config.ResponseMapping;
 @Service
 public class DynSearchService extends SearchService {
 
-    @Value("classpath:config.yaml")
+    @Value("classpath:config.json")
     private Resource dbConfigResource;
     private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
     private final RestTemplate restTemplate = new RestTemplate();
@@ -48,14 +48,14 @@ public class DynSearchService extends SearchService {
 
     @PostConstruct
     public void loadDbConfigs() throws IOException {
-        Yaml yaml = new Yaml(new Constructor(DatabaseConfig.class));
+        ObjectMapper objectMapper = new ObjectMapper();
         try (InputStream in = dbConfigResource.getInputStream()) {
-            DatabaseConfig dbConfig = yaml.loadAs(in, DatabaseConfig.class);
+            DatabaseConfig dbConfig = objectMapper.readValue(in, DatabaseConfig.class);
             this.ontologyConfigs = dbConfig.getDatabases();
             ontologyConfigs.forEach(config -> logger.info("Loaded config: {}", config));
         }
     }
-
+    
     private String constructUrl(String query, OntologyConfig config) {
         String url = config.getUrl();
         String apiKey = config.getApiKey();
