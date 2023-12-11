@@ -1,5 +1,6 @@
 package org.semantics.nfdi.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.semantics.nfdi.model.DatabaseTransform;
 import org.semantics.nfdi.model.DynTransformResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,9 +49,9 @@ public class DynSearchService extends SearchService {
 
     @PostConstruct
     public void loadDbConfigs() throws IOException {
-        Yaml yaml = new Yaml(new Constructor(DatabaseConfig.class));
+        ObjectMapper objectMapper = new ObjectMapper();
         try (InputStream in = dbConfigResource.getInputStream()) {
-            DatabaseConfig dbConfig = yaml.loadAs(in, DatabaseConfig.class);
+            DatabaseConfig dbConfig = objectMapper.readValue(in, DatabaseConfig.class);
             this.ontologyConfigs = dbConfig.getDatabases();
             ontologyConfigs.forEach(config -> logger.info("Loaded config: {}", config));
         }
