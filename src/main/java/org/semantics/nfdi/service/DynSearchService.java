@@ -38,7 +38,7 @@ import org.semantics.nfdi.config.ResponseMapping;
 @Service
 public class DynSearchService extends SearchService {
 
-    @Value("classpath:config.yaml")
+    @Value("classpath:config.json")
     private Resource dbConfigResource;
     private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
     private final RestTemplate restTemplate = new RestTemplate();
