@@ -17,3 +17,5 @@ public class DatabaseConfig {
     private List<OntologyConfig> databases;
 }
 
+
+

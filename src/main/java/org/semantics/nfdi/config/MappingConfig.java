@@ -19,3 +19,4 @@ public class MappingConfig {
         this.mapping = mapping;
     }
 }
+
