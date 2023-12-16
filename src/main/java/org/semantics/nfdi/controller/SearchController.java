@@ -2,7 +2,6 @@ package org.semantics.nfdi.controller;
 
 import org.apache.http.HttpStatus;
 import org.semantics.nfdi.service.DynSearchService;
-import org.semantics.nfdi.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,18 +17,11 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/nfdi")
 public class SearchController {
 
-    private final SearchService searchService;
     private final DynSearchService dynSearchService;
 
     @Autowired
-    public SearchController(SearchService searchService, DynSearchService dynSearchService) {
-        this.searchService = searchService;
+    public SearchController(DynSearchService dynSearchService) {
         this.dynSearchService = dynSearchService;
-    }
-
-    @GetMapping("/search")
-    public CompletableFuture<List<Object>> search(@RequestParam String query, @RequestParam(required = false) String ApiKey) {
-        return searchService.performFederatedSearch(query, ApiKey);
     }
 
     @GetMapping("/federatedSearch")

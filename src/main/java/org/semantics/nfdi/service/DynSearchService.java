@@ -36,11 +36,11 @@ import org.semantics.nfdi.config.OntologyConfig;
 import org.semantics.nfdi.config.ResponseMapping;
 
 @Service
-public class DynSearchService extends SearchService {
+public class DynSearchService {
 
     @Value("classpath:config.yaml")
     private Resource dbConfigResource;
-    private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
+    private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
     private final RestTemplate restTemplate = new RestTemplate();
     private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
     private List<OntologyConfig> ontologyConfigs;
