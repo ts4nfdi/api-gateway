@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "request": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "executionTime": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "query",
+        "executionTime"
+      ]
+    },
+    "results": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "uri": {
+              "type": "string"
+            },
+            "sourceTerminology": {
+              "type": "string"
+            },
+            "internal": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "label",
+            "uri",
+            "sourceTerminology",
+            "internal"
+          ]
+        }
+      ]
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {}
+    }
+  },
+  "required": [
+    "request",
+    "results",
+    "diagnostics"
+  ]
+}
