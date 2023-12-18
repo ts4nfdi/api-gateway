@@ -2,6 +2,7 @@ package org.semantics.nfdi.service;
 
 import org.semantics.nfdi.model.DatabaseTransform;
 import org.semantics.nfdi.model.DynTransformResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +28,14 @@ import org.apache.jena.riot.RDFDataMgr;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.semantics.nfdi.model.DatabaseTransform;
+import org.semantics.nfdi.model.DynDatabaseTransform;
 import com.github.jsonldjava.utils.JsonUtils;
 import org.semantics.nfdi.config.DatabaseConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.semantics.nfdi.config.OntologyConfig;
 import org.semantics.nfdi.config.ResponseMapping;
+
 
 @Service
 public class DynSearchService {
@@ -45,6 +47,9 @@ public class DynSearchService {
     private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
     private List<OntologyConfig> ontologyConfigs;
     private final DatabaseTransform databaseTransform = new DatabaseTransform();
+
+    @Autowired
+    private DynDatabaseTransform dynDatabaseTransform;
 
     @PostConstruct
     public void loadDbConfigs() throws IOException {
@@ -150,38 +155,38 @@ public class DynSearchService {
     }
 
     public CompletableFuture<Object> performDynFederatedSearch(
-        String query, String database, String format, boolean transformToDatabaseSchema) {
-            CompletableFuture<Object> future = new CompletableFuture<>();
-    
-        boolean databaseExists = database != null && !database.isEmpty() && 
-                                 ontologyConfigs.stream().anyMatch(config -> config.getDatabase().equalsIgnoreCase(database));
-    
+            String query, String database, String format, boolean transformToDatabaseSchema) {
+
+        boolean databaseExists = database != null && !database.isEmpty() &&
+                ontologyConfigs.stream().anyMatch(config -> config.getDatabase().equalsIgnoreCase(database));
+
         if (!databaseExists && database != null && !database.isEmpty()) {
+            CompletableFuture<Object> future = new CompletableFuture<>();
             future.completeExceptionally(new IllegalArgumentException("Database not found: " + database));
             return future;
         }
-    
+
         Stream<OntologyConfig> configsStream = ontologyConfigs.stream();
         if (database != null && !database.isEmpty()) {
             configsStream = configsStream.filter(config -> database.equalsIgnoreCase(config.getDatabase()));
         }
 
         List<CompletableFuture<List<Map<String, Object>>>> futures = configsStream
-            .map(config -> search(query, config, format))
-            .collect(Collectors.toList());
+                .map(config -> search(query, config, format))
+                .collect(Collectors.toList());
 
-            return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
-            .thenApply(v -> {
-                List<Map<String, Object>> combinedResults = futures.stream()
-                    .flatMap(resultFuture -> resultFuture.join().stream())
-                    .collect(Collectors.toList());
+        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+                .thenApply(v -> {
+                    List<Map<String, Object>> combinedResults = futures.stream()
+                            .flatMap(resultFuture -> resultFuture.join().stream())
+                            .collect(Collectors.toList());
 
-                if (transformToDatabaseSchema) {
-                    return databaseTransform.transformDatabaseResponse(combinedResults);
-                } else {
-                    return combinedResults;
-                }
-            });
+                    if (transformToDatabaseSchema) {
+                        return dynDatabaseTransform.transformDatabaseResponse(database, combinedResults);
+                    } else {
+                        return combinedResults;
+                    }
+                });
     }
     
 }

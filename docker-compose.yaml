@@ -1,0 +1,15 @@
+version: '1.0'
+
+services:
+
+  nfdi-backend:
+    image: dockerhub.fokus.fraunhofer.de:5000/nfdi/nfdi:latest
+    container_name: karma-mapping-backend
+    ports:
+      - 8080:8080
+    restart: always
+    networks:
+      - nfdi
+
+networks:
+  nfdi:    

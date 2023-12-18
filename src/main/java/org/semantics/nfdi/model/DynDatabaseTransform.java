@@ -1,55 +1,45 @@
 package org.semantics.nfdi.model;
 
+import org.semantics.nfdi.config.DatabaseConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.semantics.nfdi.config.MappingConfig;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
+import org.semantics.nfdi.config.DatabaseConfig;
 
 @Component
 public class DynDatabaseTransform {
 
-    private final MappingConfig mappingConfig;
+    private final DatabaseConfig databaseConfig;
 
-    @Autowired
-    public DynDatabaseTransform(MappingConfig mappingConfig) {
-        this.mappingConfig = mappingConfig;
+    public DynDatabaseTransform(DatabaseConfig databaseConfig) {
+        this.databaseConfig = databaseConfig;
     }
 
-    public Map<String, Object> transformDatabaseResponse(List<Map<String, Object>> olsResponse) {
-        List<Map<String, Object>> transformedDocs = new ArrayList<>();
-        Map<String, String> mapping = mappingConfig.getMapping();
-        Map<String, Object> responseStructure = mappingConfig.getResponseStructure();
+    public Map<String, Object> transformDatabaseResponse(String databaseName, List<Map<String, Object>> response) {
+        List<Map<String, String>> mappings = databaseConfig.getMappings().get(databaseName);
+        if (mappings == null) {
+            throw new IllegalArgumentException("No mappings found for database: " + databaseName);
+        }
 
-        for (Map<String, Object> item : olsResponse) {
+        List<Map<String, Object>> transformedDocs = new ArrayList<>();
+        for (Map<String, Object> item : response) {
             Map<String, Object> transformedItem = new HashMap<>();
-            for (Map.Entry<String, String> entry : mapping.entrySet()) {
-                String olsField = entry.getKey();
-                String responseField = entry.getValue();
-                transformedItem.put(olsField, item.get(responseField));
+            for (Map<String, String> mapping : mappings) {
+                mapping.forEach((key, value) -> transformedItem.put(key, item.get(value)));
             }
             transformedDocs.add(transformedItem);
         }
 
-        Map<String, Object> response = new HashMap<>();
-        response.put((String) responseStructure.get("docs"), transformedDocs);
-        response.put(responseStructure.get("numFound").toString(), transformedDocs.size());
-        response.put(responseStructure.get("start").toString(), 0);
-
+        // Assuming the structure of the response is consistent across different databases
         Map<String, Object> wrappedResponse = new HashMap<>();
-        wrappedResponse.put("response", response);
-        wrappedResponse.put("responseHeader", createResponseHeader(responseStructure));
+        wrappedResponse.put("response", Map.of("docs", transformedDocs, "numFound", transformedDocs.size(), "start", 0));
+        wrappedResponse.put("responseHeader", Map.of("QTime", 0, "status", 0));
 
         return wrappedResponse;
-    }
-
-    private Map<String, Object> createResponseHeader(Map<String, Object> responseStructure) {
-        Map<String, Object> responseHeader = new HashMap<>();
-        Map<String, String> headerStructure = (Map<String, String>) responseStructure.get("responseHeader");
-        responseHeader.put(headerStructure.get("QTime"), 0); // Placeholder for query time
-        responseHeader.put(headerStructure.get("status"), 0); // Placeholder for status
-        return responseHeader;
     }
 }
