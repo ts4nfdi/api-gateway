@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
 
 @RestController
 @RequestMapping("/nfdi")
@@ -25,11 +23,15 @@ public class SearchController {
     }
 
     @GetMapping("/federatedSearch")
-    public CompletableFuture<ResponseEntity<?>> performDynFederatedSearch(@RequestParam String query, 
-                                                                        @RequestParam(required = false) String database,
-                                                                        @RequestParam(required = false) String format,
-                                                                        @RequestParam(required = false, defaultValue = "false") boolean databaseSchema) {
-                return dynSearchService.performDynFederatedSearch(query, database, format, databaseSchema)
+    public CompletableFuture<ResponseEntity<?>> performDynFederatedSearch(
+            @RequestParam String query,
+            @RequestParam(required = false) String database,
+            @RequestParam(required = false) String format,
+            @RequestParam(required = false) String targetSchema) {
+
+        boolean transformToDatabaseSchema = targetSchema != null && !targetSchema.isEmpty();
+
+        return dynSearchService.performDynFederatedSearch(query, database, format, transformToDatabaseSchema, targetSchema)
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> {
                     if (e.getCause() instanceof IllegalArgumentException) {

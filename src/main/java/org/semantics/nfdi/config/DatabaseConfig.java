@@ -18,8 +18,6 @@ import java.util.Map;
 @Component
 public class DatabaseConfig {
     private List<OntologyConfig> databases;
-    private Map<String, List<Map<String, String>>> mappings;
-
 }
 
 

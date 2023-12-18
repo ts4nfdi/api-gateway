@@ -18,10 +18,3 @@ A standout feature of this service is its dynamic nature, governed by a YAML con
 
 The service's dynamic configuration approach allows for straightforward extensibility. Adding a new database or modifying an existing one involves updating the YAML configuration file with the relevant details and mappings. This flexibility ensures that the service can adapt to evolving data sources and requirements without the need for significant code changes.
 
-## Getting Started
-
-To start using the service, configure the desired databases and their response mappings in the YAML file. The service will handle the rest, from querying the databases to transforming and returning the aggregated results.
-
-## Conclusion
-
-The NFDI Federated Search Service is a powerful tool for organizations and projects that require advanced search capabilities across multiple ontology databases. Its dynamic nature, combined with the ability to transform responses to specific schemas, makes it a versatile and valuable asset in any data-driven environment.
