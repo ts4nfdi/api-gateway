@@ -1,18 +1,35 @@
 databases:
-  ols:
+  gfbio:
     ontology:
       - database: "gfbio"
         url: "iri"
-        apiKey: "ontology_prefix"
         responseMapping:
           nestedJson: "internal"
-          iri: "iri"
-          label: "label"
-          source: "source"
-          synonym: "synonym"
-          ontology: "ontology"
-          key: "key"
+          uri: "iri"
+          internal: "ontology_prefix"
+          synonym: "short_form"
           description: "description"
+          label: "label"
+      responseStructure:
+      topLevel: "response.docs"
+      staticFields:
+        response:
+          numFound: "${size}"
+          start: 0
+        responseHeader:
+          QTime: 0
+          status: 0
+  ols:
+    ontology:
+      - database: "ols"
+        url: "iri"
+        responseMapping:
+          nestedJson: "internal"
+          iri: "uri"
+          ontology_prefix: "sourceTerminology"
+          short_form: "internal"
+          description: "description"
+          label: "label"
     responseStructure:
       topLevel: "results"
       staticFields:
