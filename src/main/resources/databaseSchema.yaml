@@ -1,0 +1,22 @@
+databases:
+  ols:
+    ontology:
+      - database: "gfbio"
+        url: "iri"
+        apiKey: "ontology_prefix"
+        responseMapping:
+          nestedJson: "internal"
+          iri: "iri"
+          label: "label"
+          source: "source"
+          synonym: "synonym"
+          ontology: "ontology"
+          key: "key"
+          description: "description"
+    responseStructure:
+      topLevel: "results"
+      staticFields:
+        request:
+          query: "http://terminologies.gfbio.org/api/terminologies/search?query=habitat"
+          executionTime: ""
+        diagnostics: []

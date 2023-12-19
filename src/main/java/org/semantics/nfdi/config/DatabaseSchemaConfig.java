@@ -1,9 +1,9 @@
 package org.semantics.nfdi.config;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -14,5 +14,14 @@ import java.util.Map;
 @AllArgsConstructor
 @Component
 public class DatabaseSchemaConfig {
-    private Map<String, Object> databases;
+    private Map<String, DatabaseConfig> databases;
+
+    // Getters and setters
+    public Map<String, DatabaseConfig> getDatabases() {
+        return databases;
+    }
+
+    public void setDatabases(Map<String, DatabaseConfig> databases) {
+        this.databases = databases;
+    }
 }
