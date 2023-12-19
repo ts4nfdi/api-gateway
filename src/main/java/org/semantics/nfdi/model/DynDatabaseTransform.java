@@ -1,6 +1,6 @@
 package org.semantics.nfdi.model;
 
-import org.semantics.nfdi.config.DatabaseSchemaConfig;
+import org.semantics.nfdi.config.MappingConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -13,11 +13,11 @@ import java.util.Map;
 @Component
 public class DynDatabaseTransform {
 
-    private final DatabaseSchemaConfig databaseSchemaConfig;
+    private final MappingConfig mappingConfig;
     private static final Logger logger = LoggerFactory.getLogger(DynDatabaseTransform.class);
 
-    public DynDatabaseTransform(DatabaseSchemaConfig databaseSchemaConfig) {
-        this.databaseSchemaConfig = databaseSchemaConfig;
+    public DynDatabaseTransform(MappingConfig mappingconfig) {
+        this.mappingConfig = mappingconfig;
     }
 
     public Map<String, Object> transformDatabaseResponse(String targetSchema, List<Map<String, Object>> response, Map<String, Object> dbSchemaConfig) {

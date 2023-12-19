@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.semantics.nfdi.config.MappingConfig;
-import org.semantics.nfdi.config.OntologyConfig;
-import org.semantics.nfdi.config.ResponseMapping;
+import org.semantics.nfdi.config.MappingConfig.OntologyConfig;
+import org.semantics.nfdi.config.MappingConfig.ResponseMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -17,7 +15,7 @@ public class DynTransformResponse {
 
     private static final Logger logger = LoggerFactory.getLogger(DynTransformResponse.class);
 
-    public List<Map<String, Object>> dynTransformResponse(Map<String, Object> response, MappingConfig.OntologyConfig config) {
+    public List<Map<String, Object>> dynTransformResponse(Map<String, Object> response, OntologyConfig config) {
         List<Map<String, Object>> result = new ArrayList<>();
         if (response == null) {
             logger.error("Response is null");
@@ -47,7 +45,7 @@ public class DynTransformResponse {
         return result;
     }
 
-    private void processList(List<?> dataList, List<Map<String, Object>> result, MappingConfig.OntologyConfig config) {
+    private void processList(List<?> dataList, List<Map<String, Object>> result, OntologyConfig config) {
         for (Object item : dataList) {
             if (item instanceof Map) {
                 Map<String, Object> newItem = processItem((Map<String, Object>) item, config);
@@ -58,15 +56,15 @@ public class DynTransformResponse {
         }
     }
 
-    private Map<String, Object> processItem(Map<String, Object> item, MappingConfig.OntologyConfig config) { // Change parameter type to MappingConfig.OntologyConfig
+    private Map<String, Object> processItem(Map<String, Object> item, OntologyConfig config) {
         Map<String, Object> newItem = new HashMap<>();
         if (item == null) {
             logger.error("Item is null");
             return newItem;
         }
-
-        MappingConfig.ResponseMapping responseMapping = config.getResponseMapping(); // Change to MappingConfig.ResponseMapping
-
+    
+        ResponseMapping responseMapping = config.getResponseMapping(); 
+    
         // Mapping fields based on the YAML configuration
         try {
             if (responseMapping.getIri() != null && item.containsKey(responseMapping.getIri())) {
@@ -88,7 +86,7 @@ public class DynTransformResponse {
         } catch (Exception e) {
             logger.error("Error processing item: {}", e.getMessage(), e);
         }
-
+    
         return newItem;
     }
 }

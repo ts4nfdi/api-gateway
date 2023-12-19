@@ -1,7 +1,5 @@
 package org.semantics.nfdi.service;
 
-import org.semantics.nfdi.config.MappingConfig;
-import org.semantics.nfdi.model.DynTransformResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -28,13 +26,16 @@ import org.apache.jena.riot.RDFDataMgr;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.semantics.nfdi.model.DynDatabaseTransform;
 import com.github.jsonldjava.utils.JsonUtils;
-import org.semantics.nfdi.config.DatabaseConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.semantics.nfdi.config.OntologyConfig;
-import org.semantics.nfdi.config.ResponseMapping;
+import org.semantics.nfdi.model.DatabaseTransform;
+import org.semantics.nfdi.model.DynTransformResponse;
+import org.semantics.nfdi.config.MappingConfig;
+import org.semantics.nfdi.config.MappingConfig.DatabaseConfig;
+import org.semantics.nfdi.config.MappingConfig.OntologyConfig;
+import org.semantics.nfdi.config.MappingConfig.ResponseMapping;
+import org.semantics.nfdi.config.MappingConfig.ResponseStructure;
 
 
 @Service
@@ -42,42 +43,39 @@ public class DynSearchService {
 
     @Value("classpath:config.yaml")
     private Resource dbConfigResource;
-
-    @Value("classpath:databaseSchema.yaml")
-    private Resource dbSchemaConfigResource;
+    private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
     private final RestTemplate restTemplate = new RestTemplate();
     private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
-    private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
-    private List<MappingConfig.OntologyConfig> ontologyConfigs; // Use OntologyConfig from MappingConfig
+    private List<OntologyConfig> ontologyConfigs;
+    private final DatabaseTransform databaseTransform = new DatabaseTransform();
+
+    @Value("classpath:dbSchemaConfig.yaml") // Adjust the path as necessary
+    private Resource dbSchemaConfigResource;
     private Map<String, Object> dbSchemaConfig;
 
     @Autowired
-    private DynDatabaseTransform dynDatabaseTransform;
+    private MappingConfig mappingConfig;
 
     @PostConstruct
     public void loadDbConfigs() throws IOException {
         Yaml yaml = new Yaml(new Constructor(MappingConfig.class));
         try (InputStream in = dbConfigResource.getInputStream()) {
-            MappingConfig mappingConfig = yaml.loadAs(in, MappingConfig.class);
-            this.ontologyConfigs = mappingConfig.getDatabases().get("yourDatabaseName").getOntology();
-            ontologyConfigs.forEach(config -> logger.info("Loaded config: {}", config));
+            MappingConfig config = yaml.loadAs(in, MappingConfig.class);
+            ontologyConfigs = config.getDatabases().values().stream()
+                                .flatMap(dbConfig -> dbConfig.getOntology().stream())
+                                .collect(Collectors.toList());
+            ontologyConfigs.forEach(ontologyConfig -> logger.info("Loaded config: {}", ontologyConfig));
         }
-    }
-
-    private String constructUrl(String query, MappingConfig.OntologyConfig config) {
-        String url = config.getUrl();
-        String apiKey = config.getApiKey();
-        return apiKey.isEmpty() ? String.format(url, query) : String.format(url, query, apiKey);
     }
 
     @PostConstruct
     public void loadDbSchemaConfigs() throws IOException {
         Yaml yaml = new Yaml(new Constructor(MappingConfig.class));
         try (InputStream in = dbSchemaConfigResource.getInputStream()) {
-            MappingConfig mappingConfig = yaml.loadAs(in, MappingConfig.class);
+            MappingConfig schemaMappingConfig = yaml.loadAs(in, MappingConfig.class);
 
-            Map<String, MappingConfig.DatabaseConfig> databases = mappingConfig.getDatabases();
-            Map<String, Object> responseStructure = (Map<String, Object>) mappingConfig.getResponseStructure();
+            dbSchemaConfig = schemaMappingConfig.getResponseStructure().getTopLevel();
+            logger.info("Loaded database schema config: {}", dbSchemaConfig);
         } catch (Exception e) {
             logger.error("Error loading database schema configuration", e);
             throw e;
@@ -85,61 +83,51 @@ public class DynSearchService {
     }
 
 
+    private String constructUrl(String query, OntologyConfig config) {
+        String url = config.getUrl();
+        String apiKey = config.getApiKey();
+        return apiKey.isEmpty() ? String.format(url, query) : String.format(url, query, apiKey);
+    }
+
     public List<Map<String, Object>> filterResultsByFacets(List<Map<String, Object>> results, Map<String, String> selectedFacets) {
         return results.stream()
-                .filter(result -> selectedFacets.entrySet().stream()
-                        .allMatch(facet -> result.containsKey(facet.getKey()) && result.get(facet.getKey()).equals(facet.getValue())))
-                .collect(Collectors.toList());
+            .filter(result -> selectedFacets.entrySet().stream()
+                .allMatch(facet -> result.containsKey(facet.getKey()) && result.get(facet.getKey()).equals(facet.getValue())))
+            .collect(Collectors.toList());
     }
 
     @Async
-    public CompletableFuture<Object> performDynFederatedSearch(
-            String query, String database, String format, boolean transformToDatabaseSchema, String targetSchema) {
-
-        Stream<MappingConfig.OntologyConfig> configsStream = ontologyConfigs.stream();
-        if (database != null && !database.isEmpty()) {
-            configsStream = configsStream.filter(config -> database.equalsIgnoreCase(config.getDatabase()));
+    public CompletableFuture<List<Map<String, Object>>> search(String query, OntologyConfig config, String format) {
+        CompletableFuture<List<Map<String, Object>>> future = new CompletableFuture<>();
+        try {
+            String url = constructUrl(query, config);
+            logger.info("Accessing URL: {}", url);
+            ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+                List<Map<String, Object>> transformedResponse = dynTransformResponse.dynTransformResponse(response.getBody(), config);
+    
+                if ("jsonld".equalsIgnoreCase(format)) {
+                    transformedResponse = convertToJsonLd(transformedResponse, config);
+                }
+    
+                future.complete(transformedResponse);
+            } else {
+                future.complete(List.of());
+            }
+        } catch (Exception e) {
+            logger.error("An error occurred while processing the request", e);
+            future.completeExceptionally(e);
         }
-
-        List<CompletableFuture<List<Map<String, Object>>>> futures = configsStream
-                .map(config -> search(query, config, format)) // Pass MappingConfig.OntologyConfig here
-                .collect(Collectors.toList());
-
-        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
-                .thenApply(v -> {
-                    List<Map<String, Object>> combinedResults = futures.stream()
-                            .flatMap(resultFuture -> resultFuture.join().stream())
-                            .collect(Collectors.toList());
-
-                    if (transformToDatabaseSchema && targetSchema != null && !targetSchema.isEmpty()) {
-                        // Check if target schema exists in the dbSchemaConfig
-                        if (dbSchemaConfig.containsKey(targetSchema)) {
-                            // Retrieve the target schema's name from dbSchemaConfig
-                            Map<String, Object> targetSchemaConfig = (Map<String, Object>) dbSchemaConfig.get(targetSchema);
-                            // Use DynDatabaseTransform to transform the response
-                            return dynDatabaseTransform.transformDatabaseResponse(
-                                    targetSchema,
-                                    combinedResults,
-                                    targetSchemaConfig
-                            );
-                        } else {
-                            logger.error("Target schema not found in dbSchemaConfig: {}", targetSchema);
-                            throw new IllegalArgumentException("Target schema not found in dbSchemaConfig: " + targetSchema);
-                        }
-                    } else {
-                        return combinedResults;
-                    }
-                });
+        return future;
     }
 
-
-    private List<Map<String, Object>> convertToJsonLd(List<Map<String, Object>> response, MappingConfig.OntologyConfig config) {
+    private List<Map<String, Object>> convertToJsonLd(List<Map<String, Object>> response, OntologyConfig config) {
         Map<String, Object> context = new HashMap<>();
         context.put("@vocab", "http://base4nfdi.de/ts4nfdi/schema/");
         context.put("ts", "http://base4nfdi.de/ts4nfdi/schema/");
         String type = "ts:Resource";
     
-        MappingConfig.ResponseMapping responseMapping = config.getResponseMapping();
+        ResponseMapping responseMapping = config.getResponseMapping();
 
         //    List<Map<String, Object>> graph = response.stream().map(item -> {
     
@@ -188,29 +176,39 @@ public class DynSearchService {
         return out.toString();
     }
 
-    private CompletableFuture<List<Map<String, Object>>> search(String query, MappingConfig.OntologyConfig config, String format) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                String url = constructUrl(query, config);
-                logger.info("Accessing URL: {}", url);
-                ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+    public CompletableFuture<Object> performDynFederatedSearch(
+        String query, String database, String format, boolean transformToDatabaseSchema) {
+            CompletableFuture<Object> future = new CompletableFuture<>();
+    
+        boolean databaseExists = database != null && !database.isEmpty() && 
+                                 ontologyConfigs.stream().anyMatch(config -> config.getDatabase().equalsIgnoreCase(database));
+    
+        if (!databaseExists && database != null && !database.isEmpty()) {
+            future.completeExceptionally(new IllegalArgumentException("Database not found: " + database));
+            return future;
+        }
+    
+        Stream<OntologyConfig> configsStream = ontologyConfigs.stream();
+        if (database != null && !database.isEmpty()) {
+            configsStream = configsStream.filter(config -> database.equalsIgnoreCase(config.getDatabase()));
+        }
 
-                if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-                    List<Map<String, Object>> transformedResponse = dynTransformResponse.dynTransformResponse(response.getBody(), config);
+        List<CompletableFuture<List<Map<String, Object>>>> futures = configsStream
+            .map(config -> search(query, config, format))
+            .collect(Collectors.toList());
 
-                    if ("jsonld".equalsIgnoreCase(format)) {
-                        transformedResponse = convertToJsonLd(transformedResponse, config);
-                    }
+            return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+            .thenApply(v -> {
+                List<Map<String, Object>> combinedResults = futures.stream()
+                    .flatMap(resultFuture -> resultFuture.join().stream())
+                    .collect(Collectors.toList());
 
-                    return transformedResponse;
+                if (transformToDatabaseSchema) {
+                    return databaseTransform.transformDatabaseResponse(combinedResults);
                 } else {
-                    return List.of();
+                    return combinedResults;
                 }
-            } catch (Exception e) {
-                logger.error("An error occurred while processing the request", e);
-                throw new RuntimeException("Error during search", e);
-            }
-        });
+            });
     }
-
+    
 }
