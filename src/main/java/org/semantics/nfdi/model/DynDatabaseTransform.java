@@ -20,33 +20,26 @@ public class DynDatabaseTransform {
         this.databaseSchemaConfig = databaseSchemaConfig;
     }
 
-    public Map<String, Object> transformDatabaseResponse(String targetSchema, List<Map<String, Object>> response) {
+    public Map<String, Object> transformDatabaseResponse(String targetSchema, List<Map<String, Object>> response, Map<String, Object> dbSchemaConfig) {
         try {
-            Map<String, Object> dbConfig = (Map<String, Object>) databaseSchemaConfig.getDatabases().get(targetSchema);
-            if (dbConfig == null) {
-                logger.error("No configuration found for target schema: {}", targetSchema);
-                throw new IllegalArgumentException("No configuration found for target schema: " + targetSchema);
+            // Check if the target schema exists in dbSchemaConfig
+            if (!dbSchemaConfig.containsKey(targetSchema)) {
+                logger.error("Target schema not found in dbSchemaConfig: {}", targetSchema);
+                throw new IllegalArgumentException("Target schema not found in dbSchemaConfig: " + targetSchema);
             }
 
+            Map<String, Object> dbConfig = (Map<String, Object>) dbSchemaConfig.get(targetSchema);
             Map<String, String> fieldMappings = (Map<String, String>) dbConfig.get("mapping");
-            if (fieldMappings == null) {
-                logger.error("Field mappings are null for target schema: {}", targetSchema);
-                throw new IllegalStateException("Field mappings are null for target schema: " + targetSchema);
-            }
-
             Map<String, Object> responseStructure = (Map<String, Object>) dbConfig.get("responseStructure");
-            if (responseStructure == null) {
-                logger.error("Response structure is null for target schema: {}", targetSchema);
-                throw new IllegalStateException("Response structure is null for target schema: " + targetSchema);
-            }
 
             List<Map<String, Object>> transformedDocs = transformDocs(response, fieldMappings);
             return wrapResponse(transformedDocs, responseStructure);
         } catch (Exception e) {
             logger.error("Error in transformDatabaseResponse: {}", e.getMessage(), e);
-            throw e;
+            throw new RuntimeException("Error during database response transformation", e);
         }
     }
+
 
     private List<Map<String, Object>> transformDocs(List<Map<String, Object>> docs, Map<String, String> fieldMappings) {
         List<Map<String, Object>> transformedDocs = new ArrayList<>();

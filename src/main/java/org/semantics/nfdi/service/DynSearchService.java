@@ -1,5 +1,6 @@
 package org.semantics.nfdi.service;
 
+import org.semantics.nfdi.config.MappingConfig;
 import org.semantics.nfdi.model.DynTransformResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,48 +42,67 @@ public class DynSearchService {
 
     @Value("classpath:config.yaml")
     private Resource dbConfigResource;
-    private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
+
+    @Value("classpath:databaseSchema.yaml")
+    private Resource dbSchemaConfigResource;
     private final RestTemplate restTemplate = new RestTemplate();
     private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
-    private List<OntologyConfig> ontologyConfigs;
+    private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
+    private List<MappingConfig.OntologyConfig> ontologyConfigs; // Use OntologyConfig from MappingConfig
+    private Map<String, Object> dbSchemaConfig;
 
     @Autowired
     private DynDatabaseTransform dynDatabaseTransform;
 
     @PostConstruct
     public void loadDbConfigs() throws IOException {
-        Yaml yaml = new Yaml(new Constructor(DatabaseConfig.class));
+        Yaml yaml = new Yaml(new Constructor(MappingConfig.class));
         try (InputStream in = dbConfigResource.getInputStream()) {
-            DatabaseConfig dbConfig = yaml.loadAs(in, DatabaseConfig.class);
-            this.ontologyConfigs = dbConfig.getDatabases();
+            MappingConfig mappingConfig = yaml.loadAs(in, MappingConfig.class);
+            this.ontologyConfigs = mappingConfig.getDatabases().get("yourDatabaseName").getOntology();
             ontologyConfigs.forEach(config -> logger.info("Loaded config: {}", config));
         }
     }
 
-    private String constructUrl(String query, OntologyConfig config) {
+    private String constructUrl(String query, MappingConfig.OntologyConfig config) {
         String url = config.getUrl();
         String apiKey = config.getApiKey();
         return apiKey.isEmpty() ? String.format(url, query) : String.format(url, query, apiKey);
     }
 
+    @PostConstruct
+    public void loadDbSchemaConfigs() throws IOException {
+        Yaml yaml = new Yaml(new Constructor(MappingConfig.class));
+        try (InputStream in = dbSchemaConfigResource.getInputStream()) {
+            MappingConfig mappingConfig = yaml.loadAs(in, MappingConfig.class);
+
+            Map<String, MappingConfig.DatabaseConfig> databases = mappingConfig.getDatabases();
+            Map<String, Object> responseStructure = (Map<String, Object>) mappingConfig.getResponseStructure();
+        } catch (Exception e) {
+            logger.error("Error loading database schema configuration", e);
+            throw e;
+        }
+    }
+
+
     public List<Map<String, Object>> filterResultsByFacets(List<Map<String, Object>> results, Map<String, String> selectedFacets) {
         return results.stream()
-            .filter(result -> selectedFacets.entrySet().stream()
-                .allMatch(facet -> result.containsKey(facet.getKey()) && result.get(facet.getKey()).equals(facet.getValue())))
-            .collect(Collectors.toList());
+                .filter(result -> selectedFacets.entrySet().stream()
+                        .allMatch(facet -> result.containsKey(facet.getKey()) && result.get(facet.getKey()).equals(facet.getValue())))
+                .collect(Collectors.toList());
     }
 
     @Async
     public CompletableFuture<Object> performDynFederatedSearch(
             String query, String database, String format, boolean transformToDatabaseSchema, String targetSchema) {
 
-        Stream<OntologyConfig> configsStream = ontologyConfigs.stream();
+        Stream<MappingConfig.OntologyConfig> configsStream = ontologyConfigs.stream();
         if (database != null && !database.isEmpty()) {
             configsStream = configsStream.filter(config -> database.equalsIgnoreCase(config.getDatabase()));
         }
 
         List<CompletableFuture<List<Map<String, Object>>>> futures = configsStream
-                .map(config -> search(query, config, format))
+                .map(config -> search(query, config, format)) // Pass MappingConfig.OntologyConfig here
                 .collect(Collectors.toList());
 
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
@@ -92,20 +112,34 @@ public class DynSearchService {
                             .collect(Collectors.toList());
 
                     if (transformToDatabaseSchema && targetSchema != null && !targetSchema.isEmpty()) {
-                        return dynDatabaseTransform.transformDatabaseResponse(targetSchema, combinedResults);
+                        // Check if target schema exists in the dbSchemaConfig
+                        if (dbSchemaConfig.containsKey(targetSchema)) {
+                            // Retrieve the target schema's name from dbSchemaConfig
+                            Map<String, Object> targetSchemaConfig = (Map<String, Object>) dbSchemaConfig.get(targetSchema);
+                            // Use DynDatabaseTransform to transform the response
+                            return dynDatabaseTransform.transformDatabaseResponse(
+                                    targetSchema,
+                                    combinedResults,
+                                    targetSchemaConfig
+                            );
+                        } else {
+                            logger.error("Target schema not found in dbSchemaConfig: {}", targetSchema);
+                            throw new IllegalArgumentException("Target schema not found in dbSchemaConfig: " + targetSchema);
+                        }
                     } else {
                         return combinedResults;
                     }
                 });
     }
 
-    private List<Map<String, Object>> convertToJsonLd(List<Map<String, Object>> response, OntologyConfig config) {
+
+    private List<Map<String, Object>> convertToJsonLd(List<Map<String, Object>> response, MappingConfig.OntologyConfig config) {
         Map<String, Object> context = new HashMap<>();
         context.put("@vocab", "http://base4nfdi.de/ts4nfdi/schema/");
         context.put("ts", "http://base4nfdi.de/ts4nfdi/schema/");
         String type = "ts:Resource";
     
-        ResponseMapping responseMapping = config.getResponseMapping();
+        MappingConfig.ResponseMapping responseMapping = config.getResponseMapping();
 
         //    List<Map<String, Object>> graph = response.stream().map(item -> {
     
@@ -154,7 +188,7 @@ public class DynSearchService {
         return out.toString();
     }
 
-    private CompletableFuture<List<Map<String, Object>>> search(String query, OntologyConfig config, String format) {
+    private CompletableFuture<List<Map<String, Object>>> search(String query, MappingConfig.OntologyConfig config, String format) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 String url = constructUrl(query, config);
