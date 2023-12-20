@@ -1,0 +1,17 @@
+dbSchema:
+  ols:
+    mapping:
+      iri: "iri"
+      label: "label"
+      synonym: "short_form"
+      ontology: "ontology_prefix"
+      description: "description"
+    responseStructure:
+      topLevel: "response.docs"
+     staticFields:
+        response:
+          numFound: "${size}"
+          start: 0
+        responseHeader:
+          QTime: 0
+          status: 0

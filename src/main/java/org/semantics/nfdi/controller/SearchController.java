@@ -31,7 +31,7 @@ public class SearchController {
 
         boolean transformToDatabaseSchema = targetSchema != null && !targetSchema.isEmpty();
 
-        return dynSearchService.performDynFederatedSearch(query, database, format, transformToDatabaseSchema, targetSchema)
+        return dynSearchService.performDynFederatedSearch(query, database, format, transformToDatabaseSchema)
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> {
                     if (e.getCause() instanceof IllegalArgumentException) {
