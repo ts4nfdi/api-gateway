@@ -42,6 +42,33 @@
             "sourceTerminology",
             "internal"
           ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "uri": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "sourceTerminology": {
+              "type": "string"
+            },
+            "internal": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "label",
+            "uri",
+            "description",
+            "sourceTerminology",
+            "internal"
+          ]
         }
       ]
     },

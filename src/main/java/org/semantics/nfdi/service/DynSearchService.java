@@ -1,6 +1,6 @@
 package org.semantics.nfdi.service;
 
-import org.semantics.nfdi.model.DatabaseTransform;
+import org.semantics.nfdi.model.DynDatabaseTransform;
 import org.semantics.nfdi.model.DynTransformResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -12,39 +12,37 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.io.ClassPathResource;
 
-import org.semantics.nfdi.model.DatabaseTransform;
 import com.github.jsonldjava.utils.JsonUtils;
 import org.semantics.nfdi.config.DatabaseConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.semantics.nfdi.config.OntologyConfig;
 import org.semantics.nfdi.config.ResponseMapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class DynSearchService {
 
-    @Value("classpath:config.yaml")
+    @Value("classpath:response-config.yaml")
     private Resource dbConfigResource;
     private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
     private final RestTemplate restTemplate = new RestTemplate();
     private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
     private List<OntologyConfig> ontologyConfigs;
-    private final DatabaseTransform databaseTransform = new DatabaseTransform();
 
     @PostConstruct
     public void loadDbConfigs() throws IOException {
@@ -76,19 +74,23 @@ public class DynSearchService {
             String url = constructUrl(query, config);
             logger.info("Accessing URL: {}", url);
             ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+                logger.info("Raw API Response: {}", response.getBody());
                 List<Map<String, Object>> transformedResponse = dynTransformResponse.dynTransformResponse(response.getBody(), config);
 
                 if ("jsonld".equalsIgnoreCase(format)) {
                     transformedResponse = convertToJsonLd(transformedResponse, config);
                 }
 
+                logger.info("Transformed API Response: {}", transformedResponse);
                 future.complete(transformedResponse);
             } else {
+                logger.error("API Response Error: Status Code - {}", response.getStatusCode());
                 future.complete(List.of());
             }
         } catch (Exception e) {
-            logger.error("An error occurred while processing the request", e);
+            logger.error("An error occurred while processing the request: {}", e.getMessage(), e);
             future.completeExceptionally(e);
         }
         return future;
@@ -102,14 +104,11 @@ public class DynSearchService {
 
         ResponseMapping responseMapping = config.getResponseMapping();
 
-        //    List<Map<String, Object>> graph = response.stream().map(item -> {
-
         return response.stream().map(item -> {
             try {
                 Map<String, Object> jsonLd = new HashMap<>();
                 jsonLd.put("@context", context);
                 jsonLd.put("@type", type);
-                // add key-value pairs to jsonLd
                 for (Map.Entry<String, Object> entry : item.entrySet()) {
                     String key = entry.getKey();
                     Object value = entry.getValue();
@@ -120,7 +119,6 @@ public class DynSearchService {
 
                     jsonLd.put(key, value);
                 }
-                // convert
                 String jsonString = JsonUtils.toString(jsonLd);
                 if (jsonString != null) {
                     String jsonLdString = convertJsonToJsonLd(jsonString);
@@ -131,14 +129,7 @@ public class DynSearchService {
             }
             return null;
         }).collect(Collectors.toList());
-
-        //Map<String, Object> result = new HashMap<>();
-        //result.put("@context", context);
-        //result.put("@graph", graph);
-
-        //return result;
     }
-
 
     public static String convertJsonToJsonLd(String json) {
         Model model = ModelFactory.createDefaultModel();
@@ -150,7 +141,7 @@ public class DynSearchService {
     }
 
     public CompletableFuture<Object> performDynFederatedSearch(
-            String query, String database, String format, boolean transformToDatabaseSchema) {
+            String query, String database, String format, String targetDbSchema) {
         CompletableFuture<Object> future = new CompletableFuture<>();
 
         boolean databaseExists = database != null && !database.isEmpty() &&
@@ -172,16 +163,77 @@ public class DynSearchService {
 
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
                 .thenApply(v -> {
-                    List<Map<String, Object>> combinedResults = futures.stream()
-                            .flatMap(resultFuture -> resultFuture.join().stream())
-                            .collect(Collectors.toList());
+                    try {
+                        List<Map<String, Object>> combinedResults = futures.stream()
+                                .flatMap(resultFuture -> resultFuture.join().stream())
+                                .collect(Collectors.toList());
 
-                    if (transformToDatabaseSchema) {
-                        return databaseTransform.transformDatabaseResponse(combinedResults);
-                    } else {
-                        return combinedResults;
+                        logger.info("Combined results before transformation: {}", combinedResults);
+
+                        if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
+                            Object transformedResults = transformAndStructureResults(combinedResults, targetDbSchema);
+                            logger.info("Transformed results for database schema: {}", transformedResults);
+                            return transformedResults;
+                        } else {
+                            return combinedResults;
+                        }
+                    } catch (Exception e) {
+                        logger.error("Error in transforming results for database schema: {}", e.getMessage(), e);
+                        future.completeExceptionally(e);
+                        return null;
                     }
                 });
     }
 
+    // Method to transform and structure results based on database
+    private Object transformAndStructureResults(List<Map<String, Object>> combinedResults, String targetDbSchema) {
+        OntologyConfig config = ontologyConfigs.stream()
+                .filter(c -> c.getDatabase().equalsIgnoreCase(targetDbSchema))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Database config not found"));
+
+        Map<String, String> fieldMappings = loadFieldMappings(targetDbSchema);
+        Map<String, Object> jsonSchema = loadJsonSchema(targetDbSchema);
+
+        DynDatabaseTransform dynDatabaseTransform = new DynDatabaseTransform(fieldMappings, jsonSchema);
+        return dynDatabaseTransform.transformDatabaseResponse(combinedResults);
+    }
+
+    private Map<String, Object> loadJsonSchema(String targetDbSchema) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            InputStream inputStream = new ClassPathResource(targetDbSchema + ".json").getInputStream();
+            return objectMapper.readValue(inputStream, Map.class);
+        } catch (IOException e) {
+            logger.error("Error reading JSON schema file: " + targetDbSchema, e);
+            return null;
+        }
+    }
+
+    private Map<String, String> loadFieldMappings(String targetDbSchema) {
+        Map<String, String> fieldMappings = new HashMap<>();
+
+        InputStream inputStream = this.getClass()
+                .getClassLoader()
+                .getResourceAsStream("db-schema-config.yaml");
+        if (inputStream == null) {
+            throw new RuntimeException("Failed to load YAML file for field mappings");
+        }
+
+        Yaml yaml = new Yaml();
+        Map<String, Object> yamlConfig = yaml.load(inputStream);
+
+        if (yamlConfig != null && yamlConfig.containsKey("dbSchema")) {
+            Map<String, Object> dbSchema = (Map<String, Object>) yamlConfig.get("dbSchema");
+            if (dbSchema != null && dbSchema.containsKey(targetDbSchema)) {
+                Map<String, Object> schemaConfig = (Map<String, Object>) dbSchema.get(targetDbSchema);
+                if (schemaConfig != null && schemaConfig.containsKey("mapping")) {
+                    Map<String, String> schemaMapping = (Map<String, String>) schemaConfig.get("mapping");
+                    fieldMappings.putAll(schemaMapping);
+                }
+            }
+        }
+
+        return fieldMappings;
+    }
 }

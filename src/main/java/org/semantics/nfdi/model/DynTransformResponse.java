@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.semantics.nfdi.config.Mapping.OntologyConfig;
-import org.semantics.nfdi.config.Mapping.ResponseMapping;
+import org.semantics.nfdi.config.OntologyConfig;
+import org.semantics.nfdi.config.ResponseMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -62,9 +62,9 @@ public class DynTransformResponse {
             logger.error("Item is null");
             return newItem;
         }
-    
-        ResponseMapping responseMapping = config.getResponseMapping(); 
-    
+
+        ResponseMapping responseMapping = config.getResponseMapping();
+
         // Mapping fields based on the YAML configuration
         try {
             if (responseMapping.getIri() != null && item.containsKey(responseMapping.getIri())) {
@@ -86,7 +86,9 @@ public class DynTransformResponse {
         } catch (Exception e) {
             logger.error("Error processing item: {}", e.getMessage(), e);
         }
-    
+
         return newItem;
     }
+
+
 }
