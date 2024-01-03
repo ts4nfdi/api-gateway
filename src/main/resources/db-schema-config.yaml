@@ -2,16 +2,7 @@ dbSchema:
   ols:
     mapping:
       iri: "iri"
-      label: "label"
-      synonym: "short_form"
-      ontology: "ontology_prefix"
+      ontology_prefix: "ontology"
+      short_form: "source"
       description: "description"
-    responseStructure:
-      topLevel: "response.docs"
-     staticFields:
-        response:
-          numFound: "${size}"
-          start: 0
-        responseHeader:
-          QTime: 0
-          status: 0
+      label: "label"

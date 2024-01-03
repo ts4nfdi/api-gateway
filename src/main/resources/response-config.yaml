@@ -1,5 +1,5 @@
 databases:
-  bioportal:
+  - database: "bioportal"
     url: "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s"
     apiKey: "53a72292-cb9e-4855-acac-4676fc9eaa41"
     responseMapping:
@@ -9,14 +9,24 @@ databases:
       synonym: "synonym"
       ontology: "links.ontology"
       description: "definition"
-  ols:
+  - database: "ols"
     url: "https://ebi.ac.uk/ols4/api/search?q=%s"
     apiKey: ""
     responseMapping:
       nestedJson: "response"
-      key: "docs"
+      key: "docs" # hashmap --> key for the array of results
       iri: "iri"
       label: "label"
       synonym: "short_form"
       ontology: "ontology_prefix"
+      description: "description"
+  - database: "gfbio"
+    url: "https://terminologies.gfbio.org/api/terminologies/search?query=%s"
+    apiKey: ""
+    responseMapping:
+      nestedJson: "results"
+      iri: "uri"
+      label: "label"
+      synonym: "synonym"
+      ontology: "internal"
       description: "description"
