@@ -1,0 +1,24 @@
+# Exclude logs
+*.log
+
+# Exclude the actual Dockerfile & .dockerignore
+Dockerfile
+.dockerignore
+
+# Exclude git directory
+.git/
+
+# Exclude any editor directory
+.vscode/
+.idea/
+
+# Exclude OS generated files
+.DS_Store
+*.swp
+*.swo
+
+# Exclude any test and CI files
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
