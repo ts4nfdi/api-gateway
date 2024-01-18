@@ -1,85 +1,49 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
     "request": {
       "type": "object",
       "properties": {
         "query": {
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         },
         "executionTime": {
-          "type": "string"
+          "type": "string",
+          "format": "date-time"
         }
       },
-      "required": [
-        "query",
-        "executionTime"
-      ]
+      "required": ["query", "executionTime"]
     },
     "results": {
       "type": "array",
-      "items": [
-        {
-          "type": "object",
-          "properties": {
-            "label": {
-              "type": "string"
-            },
-            "uri": {
-              "type": "string"
-            },
-            "sourceTerminology": {
-              "type": "string"
-            },
-            "internal": {
-              "type": "string"
-            }
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
           },
-          "required": [
-            "label",
-            "uri",
-            "sourceTerminology",
-            "internal"
-          ]
+          "uri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "sourceTerminology": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "internal": {
+            "type": "boolean"
+          }
         },
-        {
-          "type": "object",
-          "properties": {
-            "label": {
-              "type": "string"
-            },
-            "uri": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            },
-            "sourceTerminology": {
-              "type": "string"
-            },
-            "internal": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "label",
-            "uri",
-            "description",
-            "sourceTerminology",
-            "internal"
-          ]
-        }
-      ]
+        "required": ["label", "uri", "sourceTerminology", "internal"]
+      }
     },
     "diagnostics": {
-      "type": "array",
-      "items": {}
+      "type": "array"
     }
   },
-  "required": [
-    "request",
-    "results",
-    "diagnostics"
-  ]
+  "required": ["request", "results", "diagnostics"]
 }

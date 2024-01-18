@@ -4,10 +4,9 @@ import org.semantics.nfdi.service.DynSearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.hsqldb.HsqlDateTime.e;
@@ -16,18 +15,41 @@ public class DynDatabaseTransform {
     private static final Logger logger = LoggerFactory.getLogger(DynDatabaseTransform.class);
     private Map<String, String> fieldMapping;
     private Map<String, Object> jsonSchema;
+    private Map<String, String> responseMapping;
 
-    public DynDatabaseTransform(Map<String, String> fieldMapping, Map<String, Object> jsonSchema) {
+    public DynDatabaseTransform(Map<String, String> fieldMapping, Map<String, Object> jsonSchema, Map<String, String> responseMapping) {
         this.fieldMapping = fieldMapping;
         this.jsonSchema = jsonSchema;
+        this.responseMapping = responseMapping;
         logger.info("Loaded JSON Schema: {}", jsonSchema);
     }
 
-    public Map<String, Object> transformDatabaseResponse(List<Map<String, Object>> originalResponse) {
+    public Map<String, Object> transformDatabaseResponse(List<Map<String, Object>> originalResponse, String targetDataBase) {
         List<Map<String, Object>> transformedResults = originalResponse.stream()
                 .map(this::transformItem)
                 .collect(Collectors.toList());
 
+        Map<String, Object> response = new HashMap<>();
+
+        switch (targetDataBase) {
+            case "ols":
+                response = transformToOLSFormat(transformedResults);
+                break;
+            case "gfbio":
+                response = transformToGFBioFormat(transformedResults);
+                break;
+            case "bioportal":
+                response = transformToBioPortalFormat(transformedResults);
+                break;
+            default:
+                response.put("error", "No database configuration found");
+                break;
+        }
+
+        return response;
+    }
+
+    private Map<String, Object> transformToOLSFormat(List<Map<String, Object>> transformedResults) {
         Map<String, Object> finalResponse = new HashMap<>();
         finalResponse.put("docs", transformedResults);
         finalResponse.put("numFound", transformedResults.size());
@@ -39,8 +61,37 @@ public class DynDatabaseTransform {
         return response;
     }
 
+    private Map<String, Object> transformToGFBioFormat(List<Map<String, Object>> transformedResults) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        String executionTime = now.format(formatter);
 
+        Map<String, Object> finalResponse = new HashMap<>();
+        Map<String, Object> request = new HashMap<>();
+        request.put("query", "http://terminologies.gfbio.org/api/terminologies/search?query=%");
+        request.put("executionTime", executionTime);
+        finalResponse.put("diagnostics", new ArrayList<>());
+        finalResponse.put("request", request);
+        finalResponse.put("results", transformedResults);
 
+        return finalResponse;
+    }
+
+    private Map<String, Object> transformToBioPortalFormat(List<Map<String, Object>> transformedResults) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("page", 1);
+        response.put("pageCount", 1);
+        response.put("totalCount", transformedResults.size());
+        response.put("prevPage", null);
+        response.put("nextPage", null);
+        Map<String, Object> links = new HashMap<>();
+        links.put("nextPage", null);
+        links.put("prevPage", null);
+        response.put("links", links);
+        response.put("collection", transformedResults);
+        response.put("@context", Collections.singletonMap("@vocab", "http://data.bioontology.org/metadata/"));
+        return response;
+    }
 
     private Map<String, Object> transformItem(Map<String, Object> item) {
         try {
@@ -53,6 +104,15 @@ public class DynDatabaseTransform {
                 }
             }
 
+            for (Map.Entry<String, String> mappingEntry : fieldMapping.entrySet()) {
+                String sourceField = mappingEntry.getKey();
+                String targetField = mappingEntry.getValue();
+                if (sourceField != null && targetField != null && item.containsKey(sourceField)) {
+                    transformedItem.put(targetField, item.get(sourceField));
+                }
+            }
+
+
             logger.info("Transformed Database Item: {}", transformedItem);
             return transformedItem;
         } catch (Exception e) {
@@ -60,6 +120,7 @@ public class DynDatabaseTransform {
             throw e;
         }
     }
+
 
     private Map<String, Object> constructResponseBasedOnSchema(List<Map<String, Object>> transformedResults) {
         Map<String, Object> response = new HashMap<>();

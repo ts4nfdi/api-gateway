@@ -2,6 +2,7 @@ package org.semantics.nfdi.service;
 
 import org.semantics.nfdi.model.DynDatabaseTransform;
 import org.semantics.nfdi.model.DynTransformResponse;
+import org.semantics.nfdi.model.JsonLdTransform;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.yaml.snakeyaml.constructor.Constructor;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,17 +22,11 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.riot.Lang;
-import org.apache.jena.riot.RDFDataMgr;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.ClassPathResource;
 
-import com.github.jsonldjava.utils.JsonUtils;
 import org.semantics.nfdi.config.DatabaseConfig;
 import org.semantics.nfdi.config.OntologyConfig;
-import org.semantics.nfdi.config.ResponseMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,14 +40,30 @@ public class DynSearchService {
     private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
     private List<OntologyConfig> ontologyConfigs;
 
+    private Map<String, Map<String, String>> responseMappings; // Add this field
+
+
     @PostConstruct
     public void loadDbConfigs() throws IOException {
         Yaml yaml = new Yaml(new Constructor(DatabaseConfig.class));
         try (InputStream in = dbConfigResource.getInputStream()) {
             DatabaseConfig dbConfig = yaml.loadAs(in, DatabaseConfig.class);
             this.ontologyConfigs = dbConfig.getDatabases();
+            this.responseMappings = loadResponseMappings(); // Load response mappings
             ontologyConfigs.forEach(config -> logger.info("Loaded config: {}", config));
         }
+    }
+
+    private Map<String, Map<String, String>> loadResponseMappings() throws IOException {
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("response-mappings.yaml");
+        if (inputStream != null) {
+            Yaml yaml = new Yaml();
+            Map<String, Map<String, String>> mappings = yaml.load(inputStream);
+            if (mappings != null) {
+                return mappings;
+            }
+        }
+        return Collections.emptyMap();
     }
 
     private String constructUrl(String query, OntologyConfig config) {
@@ -80,7 +92,7 @@ public class DynSearchService {
                 List<Map<String, Object>> transformedResponse = dynTransformResponse.dynTransformResponse(response.getBody(), config);
 
                 if ("jsonld".equalsIgnoreCase(format)) {
-                    transformedResponse = convertToJsonLd(transformedResponse, config);
+                    transformedResponse = JsonLdTransform.convertToJsonLd(transformedResponse, config);
                 }
 
                 logger.info("Transformed API Response: {}", transformedResponse);
@@ -94,50 +106,6 @@ public class DynSearchService {
             future.completeExceptionally(e);
         }
         return future;
-    }
-
-    private List<Map<String, Object>> convertToJsonLd(List<Map<String, Object>> response, OntologyConfig config) {
-        Map<String, Object> context = new HashMap<>();
-        context.put("@vocab", "http://base4nfdi.de/ts4nfdi/schema/");
-        context.put("ts", "http://base4nfdi.de/ts4nfdi/schema/");
-        String type = "ts:Resource";
-
-        ResponseMapping responseMapping = config.getResponseMapping();
-
-        return response.stream().map(item -> {
-            try {
-                Map<String, Object> jsonLd = new HashMap<>();
-                jsonLd.put("@context", context);
-                jsonLd.put("@type", type);
-                for (Map.Entry<String, Object> entry : item.entrySet()) {
-                    String key = entry.getKey();
-                    Object value = entry.getValue();
-
-                    if (responseMapping.containsKey(key)) {
-                        key = responseMapping.get(key);
-                    }
-
-                    jsonLd.put(key, value);
-                }
-                String jsonString = JsonUtils.toString(jsonLd);
-                if (jsonString != null) {
-                    String jsonLdString = convertJsonToJsonLd(jsonString);
-                    return (Map<String, Object>) JsonUtils.fromString(jsonLdString);
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-            return null;
-        }).collect(Collectors.toList());
-    }
-
-    public static String convertJsonToJsonLd(String json) {
-        Model model = ModelFactory.createDefaultModel();
-        RDFDataMgr.read(model, new StringReader(json), null, Lang.JSONLD);
-
-        StringWriter out = new StringWriter();
-        RDFDataMgr.write(out, model, Lang.JSONLD);
-        return out.toString();
     }
 
     public CompletableFuture<Object> performDynFederatedSearch(
@@ -194,9 +162,10 @@ public class DynSearchService {
 
         Map<String, String> fieldMappings = loadFieldMappings(targetDbSchema);
         Map<String, Object> jsonSchema = loadJsonSchema(targetDbSchema);
+        Map<String, String> responseMapping = responseMappings.get(targetDbSchema); // Get response mapping
 
-        DynDatabaseTransform dynDatabaseTransform = new DynDatabaseTransform(fieldMappings, jsonSchema);
-        return dynDatabaseTransform.transformDatabaseResponse(combinedResults);
+        DynDatabaseTransform dynDatabaseTransform = new DynDatabaseTransform(fieldMappings, jsonSchema, responseMapping);
+        return dynDatabaseTransform.transformDatabaseResponse(combinedResults, targetDbSchema);
     }
 
     private Map<String, Object> loadJsonSchema(String targetDbSchema) {

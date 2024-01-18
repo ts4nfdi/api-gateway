@@ -3,6 +3,20 @@ dbSchema:
     mapping:
       iri: "iri"
       ontology_prefix: "ontology"
-      short_form: "source"
+      short_form: "synonym"
+      description: "description"
+      label: "label"
+  gfbio:
+    mapping:
+      iri: "iri"
+      ontology_prefix: "ontology"
+      short_form: "synonym"
+      description: "description"
+      label: "label"
+  bioportal:
+    mapping:
+      atid: "iri"
+      links.ontology: "ontology"
+      short_form: "synonym"
       description: "description"
       label: "label"
