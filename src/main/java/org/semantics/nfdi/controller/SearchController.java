@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -28,7 +29,7 @@ public class SearchController {
     public CompletableFuture<ResponseEntity<?>> performDynFederatedSearch(@RequestParam String query,
                                                                           @RequestParam(required = false) String database,
                                                                           @RequestParam(required = false) String format,
-                                                                          @RequestParam(required = false) String targetDbSchema) {
+                                                                          @RequestParam(required = false) String targetDbSchema) throws IOException {
         return dynSearchService.performDynFederatedSearch(query, database, format, targetDbSchema)
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> {

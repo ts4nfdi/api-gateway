@@ -1,0 +1,141 @@
+// 20240110141742
+// https://www.ebi.ac.uk/ols4/api/search?q=habitat
+
+{
+  "response": {
+    "docs": [
+      {
+        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
+        "ontology_name": "envo",
+        "ontology_prefix": "ENVO",
+        "short_form": "ENVO_01000739",
+        "description": [
+          "An environmental system which can sustain and allow the growth of an ecological population.",
+          "A habitat's specificity to an ecological population differentiates it from other environment classes."
+        ],
+        "label": "habitat",
+        "obo_id": "ENVO:01000739",
+        "type": "class"
+      },
+      {
+        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
+        "ontology_name": "agro",
+        "ontology_prefix": "AGRO",
+        "short_form": "ENVO_01000739",
+        "description": [
+          "An environmental system which can sustain and allow the growth of an ecological population."
+        ],
+        "label": "habitat",
+        "obo_id": "ENVO:01000739",
+        "type": "class"
+      },
+      {
+        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
+        "ontology_name": "dpo",
+        "ontology_prefix": "FBcv",
+        "short_form": "ENVO_01000739",
+        "description": [
+          "An environmental system which can sustain and allow the growth of an ecological population.",
+          "A habitat's specificity to an ecological population differentiates it from other environment classes."
+        ],
+        "label": "habitat",
+        "obo_id": "ENVO:01000739",
+        "type": "class"
+      },
+      {
+        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
+        "ontology_name": "ecocore",
+        "ontology_prefix": "ECOCORE",
+        "short_form": "ENVO_01000739",
+        "description": [
+          "An environmental system which can sustain and allow the growth of an ecological population.",
+          "A habitat's specificity to an ecological population differentiates it from other environment classes."
+        ],
+        "label": "habitat",
+        "obo_id": "ENVO:01000739",
+        "type": "class"
+      },
+      {
+        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
+        "ontology_name": "ecto",
+        "ontology_prefix": "ECTO",
+        "short_form": "ENVO_01000739",
+        "description": [
+          "An environmental system which can sustain and allow the growth of an ecological population.",
+          "A habitat's specificity to an ecological population differentiates it from other environment classes."
+        ],
+        "label": "habitat",
+        "obo_id": "ENVO:01000739",
+        "type": "class"
+      },
+      {
+        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
+        "ontology_name": "mondo",
+        "ontology_prefix": "MONDO",
+        "short_form": "ENVO_01000739",
+        "description": [
+
+        ],
+        "label": "habitat",
+        "obo_id": "ENVO:01000739",
+        "type": "class"
+      },
+      {
+        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
+        "ontology_name": "ohmi",
+        "ontology_prefix": "OHMI",
+        "short_form": "ENVO_01000739",
+        "description": [
+          "An environmental system which can sustain and allow the growth of an ecological population.",
+          "A habitat's specificity to an ecological population differentiates it from other environment classes."
+        ],
+        "label": "habitat",
+        "obo_id": "ENVO:01000739",
+        "type": "class"
+      },
+      {
+        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
+        "ontology_name": "eupath",
+        "ontology_prefix": "EUPATH",
+        "short_form": "ENVO_01000739",
+        "description": [
+          "An environmental system which can sustain and allow the growth of an ecological population.",
+          "A habitat's specificity to an ecological population differentiates it from other environment classes."
+        ],
+        "label": "habitat",
+        "obo_id": "ENVO:01000739",
+        "type": "class"
+      },
+      {
+        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
+        "ontology_name": "mfmo",
+        "ontology_prefix": "MFMO",
+        "short_form": "ENVO_01000739",
+        "description": [
+          "An environmental system which can sustain and allow the growth of an ecological population.",
+          "A habitat's specificity to an ecological population differentiates it from other environment classes."
+        ],
+        "label": "habitat",
+        "obo_id": "ENVO:01000739",
+        "type": "class"
+      },
+      {
+        "iri": "http://purl.obolibrary.org/obo/ENVO_00002036",
+        "ontology_name": "idomal",
+        "short_form": "ENVO_00002036",
+        "description": [
+          "A spatial region having environmental qualities which may sustain an organism or a community of organisms."
+        ],
+        "label": "habitat",
+        "obo_id": "ENVO:00002036",
+        "type": "class"
+      }
+    ],
+    "numFound": 271,
+    "start": 0
+  },
+  "responseHeader": {
+    "QTime": 5,
+    "status": 0
+  }
+}

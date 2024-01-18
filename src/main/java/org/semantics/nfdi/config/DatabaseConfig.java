@@ -15,6 +15,14 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class DatabaseConfig {
     private List<OntologyConfig> databases;
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DatabaseMapping {
+        private String database;
+        private ResponseMapping responseMapping;
+    }
 }
 
 

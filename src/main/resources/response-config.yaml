@@ -9,6 +9,7 @@ databases:
       synonym: "synonym"
       ontology: "links.ontology"
       description: "definition"
+      source: bioportal
   - database: "ols"
     url: "https://ebi.ac.uk/ols4/api/search?q=%s"
     apiKey: ""
@@ -18,8 +19,9 @@ databases:
       iri: "iri"
       label: "label"
       synonym: "short_form"
-      ontology: "ontology_prefix"
+      ontology: "ontology_name"
       description: "description"
+      source: ols
   - database: "gfbio"
     url: "https://terminologies.gfbio.org/api/terminologies/search?query=%s"
     apiKey: ""
@@ -28,5 +30,17 @@ databases:
       iri: "uri"
       label: "label"
       synonym: "synonym"
-      ontology: "internal"
+      ontology: "sourceTerminology"
       description: "description"
+      source: gfbio
+
+
+# Add mappings for new databases here: e.g
+#  - database: "AGRO"
+#      responseMapping:
+#        iri: "iri"
+#        label: "label"
+#        synonym: "synonym"
+#        description: "description"
+#        source: "source"
+#        ontology: "ontology"
