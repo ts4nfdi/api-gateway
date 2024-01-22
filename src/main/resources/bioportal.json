@@ -2,32 +2,16 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "page": {
-      "type": "integer"
-    },
-    "pageCount": {
-      "type": "integer"
-    },
-    "totalCount": {
-      "type": "integer"
-    },
-    "prevPage": {
-      "type": ["integer", "null"]
-    },
-    "nextPage": {
-      "type": ["integer", "null"]
-    },
+    "page": { "type": "integer" },
+    "pageCount": { "type": "integer" },
+    "totalCount": { "type": "integer" },
+    "prevPage": { "type": ["null", "string"] },
+    "nextPage": { "type": ["null", "string"] },
     "links": {
       "type": "object",
       "properties": {
-        "nextPage": {
-          "type": ["string", "null"],
-          "format": "uri"
-        },
-        "prevPage": {
-          "type": ["string", "null"],
-          "format": "uri"
-        }
+        "nextPage": { "type": ["null", "string"] },
+        "prevPage": { "type": ["null", "string"] }
       }
     },
     "collection": {
@@ -35,88 +19,41 @@
       "items": {
         "type": "object",
         "properties": {
-          "prefLabel": {
-            "type": "string"
-          },
-          "obsolete": {
-            "type": "boolean"
-          },
-          "matchType": {
-            "type": "string"
-          },
-          "ontologyType": {
-            "type": "string"
-          },
-          "provisional": {
-            "type": "boolean"
-          },
-          "@id": {
-            "type": "string",
-            "format": "uri"
-          },
-          "@type": {
-            "type": "string",
-            "format": "uri"
-          },
+          "prefLabel": { "type": "string" },
+          "obsolete": { "type": "boolean" },
+          "matchType": { "type": "string" },
+          "ontologyType": { "type": "string" },
+          "provisional": { "type": "boolean" },
+          "@id": { "type": "string" },
+          "@type": { "type": "string" },
           "links": {
             "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "format": "uri"
+            "properties": {
+              "self": { "type": "string" },
+              "ontology": { "type": "string" },
+              "children": { "type": "string" },
+              "parents": { "type": "string" },
+              "descendants": { "type": "string" },
+              "ancestors": { "type": "string" },
+              "instances": { "type": "string" },
+              "tree": { "type": "string" },
+              "notes": { "type": "string" },
+              "mappings": { "type": "string" },
+              "ui": { "type": "string" }
             }
           },
           "@context": {
             "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "format": "uri"
-            }
-          },
-          "definition": {
-            "type": ["array", "null"],
-            "items": {
-              "type": "string"
-            }
-          },
-          "synonym": {
-            "type": ["array", "null"],
-            "items": {
-              "type": "string"
+            "properties": {
+              "@vocab": { "type": "string" },
+              "prefLabel": { "type": "string" },
+              "obsolete": { "type": "string" },
+              "@language": { "type": "string" }
             }
           }
-        },
-        "required": ["prefLabel", "obsolete", "matchType", "ontologyType", "provisional", "@id", "@type", "links", "@context"]
-      }
-    },
-    "@context": {
-      "type": "object",
-      "properties": {
-        "@vocab": {
-          "type": "string",
-          "format": "uri"
-        },
-        "prefLabel": {
-          "type": "string",
-          "format": "uri"
-        },
-        "obsolete": {
-          "type": "string",
-          "format": "uri"
-        },
-        "@language": {
-          "type": "string"
-        },
-        "definition": {
-          "type": "string",
-          "format": "uri"
-        },
-        "synonym": {
-          "type": "string",
-          "format": "uri"
         }
-      },
-      "additionalProperties": false
+      }
     }
   },
-  "required": ["page", "pageCount", "totalCount", "links", "collection", "@context"]
+  "required": ["page", "pageCount", "totalCount", "prevPage", "nextPage", "links", "collection"]
 }

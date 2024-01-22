@@ -25,21 +25,25 @@ public class DynDatabaseTransform {
     }
 
     public Map<String, Object> transformDatabaseResponse(List<Map<String, Object>> originalResponse, String targetDataBase) {
-        List<Map<String, Object>> transformedResults = originalResponse.stream()
-                .map(this::transformItem)
-                .collect(Collectors.toList());
 
         Map<String, Object> response = new HashMap<>();
-
         switch (targetDataBase) {
             case "ols":
+                List<Map<String, Object>> transformedResults = originalResponse.stream()
+                        .map(this::transformItemOls)
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toList());
+
+
                 response = transformToOLSFormat(transformedResults);
                 break;
-            case "gfbio":
-                response = transformToGFBioFormat(transformedResults);
-                break;
             case "bioportal":
-                response = transformToBioPortalFormat(transformedResults);
+                List<Map<String, Object>> transformedResultsBioportal = originalResponse.stream()
+                        .map(this::transformItemBioportal)
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toList());
+
+                response = transformToBioPortalFormat(transformedResultsBioportal);
                 break;
             default:
                 response.put("error", "No database configuration found");
@@ -47,6 +51,35 @@ public class DynDatabaseTransform {
         }
 
         return response;
+    }
+
+    private Map<String, Object> transformItemOls(Map<String, Object> item) {
+        if (item == null) {
+            return null;
+        }
+
+        Map<String, Object> transformedItem = new HashMap<>();
+
+        // Check for null values before accessing properties
+        if (item.containsKey("iri") && item.get("iri") != null) {
+            transformedItem.put("iri", item.get("iri"));
+        }
+        if (item.containsKey("label") && item.get("label") != null) {
+            transformedItem.put("label", item.get("label"));
+        }
+        if (item.containsKey("synonym") && item.get("synonym") != null) {
+            transformedItem.put("short_form", item.get("synonym"));
+        }
+        if (item.containsKey("ontology") && item.get("ontology") != null) {
+            transformedItem.put("ontology_name", item.get("ontology"));
+        }
+        if (item.containsKey("description") && item.get("description") != null) {
+            transformedItem.put("description", item.get("description"));
+        }
+        if (item.containsKey("source") && item.get("source") != null) {
+            transformedItem.put("source", item.get("source"));
+        }
+        return transformedItem;
     }
 
     private Map<String, Object> transformToOLSFormat(List<Map<String, Object>> transformedResults) {
@@ -61,21 +94,35 @@ public class DynDatabaseTransform {
         return response;
     }
 
-    private Map<String, Object> transformToGFBioFormat(List<Map<String, Object>> transformedResults) {
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-        String executionTime = now.format(formatter);
+    private Map<String, Object> transformItemBioportal(Map<String, Object> item) {
+        if (item == null) {
+            return null;
+        }
 
-        Map<String, Object> finalResponse = new HashMap<>();
-        Map<String, Object> request = new HashMap<>();
-        request.put("query", "http://terminologies.gfbio.org/api/terminologies/search?query=%");
-        request.put("executionTime", executionTime);
-        finalResponse.put("diagnostics", new ArrayList<>());
-        finalResponse.put("request", request);
-        finalResponse.put("results", transformedResults);
+        Map<String, Object> transformedItem = new HashMap<>();
 
-        return finalResponse;
+        // Check for null values before accessing properties
+        if (item.containsKey("@id") && item.get("@id") != null) {
+            transformedItem.put("iri", item.get("@id"));
+        }
+        if (item.containsKey("label") && item.get("label") != null) {
+            transformedItem.put("prefLabel", item.get("label"));
+        }
+        if (item.containsKey("ontology") && item.get("ontology") != null) {
+            transformedItem.put("links", item.get("ontology"));
+        }
+        if (item.containsKey("synonym") && item.get("synonym") != null) {
+            transformedItem.put("@synonym", item.get("synonym"));
+        }
+        if (item.containsKey("description") && item.get("description") != null) {
+            transformedItem.put("@context", item.get("description"));
+        }
+        if (item.containsKey("source") && item.get("source") != null) {
+            transformedItem.put("source", item.get("source"));
+        }
+        return transformedItem;
     }
+
 
     private Map<String, Object> transformToBioPortalFormat(List<Map<String, Object>> transformedResults) {
         Map<String, Object> response = new HashMap<>();
@@ -91,34 +138,6 @@ public class DynDatabaseTransform {
         response.put("collection", transformedResults);
         response.put("@context", Collections.singletonMap("@vocab", "http://data.bioontology.org/metadata/"));
         return response;
-    }
-
-    private Map<String, Object> transformItem(Map<String, Object> item) {
-        try {
-            Map<String, Object> transformedItem = new HashMap<>();
-            for (Map.Entry<String, String> mappingEntry : fieldMapping.entrySet()) {
-                String sourceField = mappingEntry.getKey();
-                String targetField = mappingEntry.getValue();
-                if (item.containsKey(sourceField)) {
-                    transformedItem.put(targetField, item.get(sourceField));
-                }
-            }
-
-            for (Map.Entry<String, String> mappingEntry : fieldMapping.entrySet()) {
-                String sourceField = mappingEntry.getKey();
-                String targetField = mappingEntry.getValue();
-                if (sourceField != null && targetField != null && item.containsKey(sourceField)) {
-                    transformedItem.put(targetField, item.get(sourceField));
-                }
-            }
-
-
-            logger.info("Transformed Database Item: {}", transformedItem);
-            return transformedItem;
-        } catch (Exception e) {
-            logger.error("Error in transforming item: {}", e.getMessage(), e);
-            throw e;
-        }
     }
 
 
