@@ -1,141 +1,98 @@
-// 20240110141742
-// https://www.ebi.ac.uk/ols4/api/search?q=habitat
-
 {
-  "response": {
-    "docs": [
+   "page":1,
+   "pageCount":1,
+   "totalCount":11,
+   "prevPage":null,
+   "nextPage":null,
+   "links":{
+      "nextPage":null,
+      "prevPage":null
+   },
+   "collection":[
       {
-        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
-        "ontology_name": "envo",
-        "ontology_prefix": "ENVO",
-        "short_form": "ENVO_01000739",
-        "description": [
-          "An environmental system which can sustain and allow the growth of an ecological population.",
-          "A habitat's specificity to an ecological population differentiates it from other environment classes."
-        ],
-        "label": "habitat",
-        "obo_id": "ENVO:01000739",
-        "type": "class"
+         "prefLabel":"habitat",
+         "obsolete":false,
+         "matchType":"prefLabel",
+         "ontologyType":"ONTOLOGY",
+         "provisional":false,
+         "@id":"http://sweetontology.net/stateRoleBiological/Habitat",
+         "@type":"http://www.w3.org/2002/07/owl#Class",
+         "links":{
+            "self":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FstateRoleBiological%2FHabitat",
+            "ontology":"https://data.biodivportal.gfbio.dev/ontologies/SWEET",
+            "children":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FstateRoleBiological%2FHabitat/children",
+            "parents":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FstateRoleBiological%2FHabitat/parents",
+            "descendants":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FstateRoleBiological%2FHabitat/descendants",
+            "ancestors":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FstateRoleBiological%2FHabitat/ancestors",
+            "instances":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FstateRoleBiological%2FHabitat/instances",
+            "tree":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FstateRoleBiological%2FHabitat/tree",
+            "notes":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FstateRoleBiological%2FHabitat/notes",
+            "mappings":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FstateRoleBiological%2FHabitat/mappings",
+            "ui":"http://biodivportal.gfbio.dev/ontologies/SWEET?p=classes&conceptid=http%3A%2F%2Fsweetontology.net%2FstateRoleBiological%2FHabitat"
+         },
+         "@context":{
+            "@vocab":"http://data.bioontology.org/metadata/",
+            "prefLabel":"http://www.w3.org/2004/02/skos/core#prefLabel",
+            "obsolete":"http://www.w3.org/2002/07/owl#deprecated",
+            "@language":"en"
+         }
       },
       {
-        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
-        "ontology_name": "agro",
-        "ontology_prefix": "AGRO",
-        "short_form": "ENVO_01000739",
-        "description": [
-          "An environmental system which can sustain and allow the growth of an ecological population."
-        ],
-        "label": "habitat",
-        "obo_id": "ENVO:01000739",
-        "type": "class"
+         "prefLabel":"habitat",
+         "obsolete":false,
+         "matchType":"prefLabel",
+         "ontologyType":"ONTOLOGY",
+         "provisional":false,
+         "@id":"http://sweetontology.net/matrFacility/Habitat",
+         "@type":"http://www.w3.org/2002/07/owl#Class",
+         "links":{
+            "self":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrFacility%2FHabitat",
+            "ontology":"https://data.biodivportal.gfbio.dev/ontologies/SWEET",
+            "children":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrFacility%2FHabitat/children",
+            "parents":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrFacility%2FHabitat/parents",
+            "descendants":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrFacility%2FHabitat/descendants",
+            "ancestors":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrFacility%2FHabitat/ancestors",
+            "instances":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrFacility%2FHabitat/instances",
+            "tree":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrFacility%2FHabitat/tree",
+            "notes":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrFacility%2FHabitat/notes",
+            "mappings":"https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrFacility%2FHabitat/mappings",
+            "ui":"http://biodivportal.gfbio.dev/ontologies/SWEET?p=classes&conceptid=http%3A%2F%2Fsweetontology.net%2FmatrFacility%2FHabitat"
+         },
+         "@context":{
+            "@vocab":"http://data.bioontology.org/metadata/",
+            "prefLabel":"http://www.w3.org/2004/02/skos/core#prefLabel",
+            "obsolete":"http://www.w3.org/2002/07/owl#deprecated",
+            "@language":"en"
+         }
       },
       {
-        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
-        "ontology_name": "dpo",
-        "ontology_prefix": "FBcv",
-        "short_form": "ENVO_01000739",
-        "description": [
-          "An environmental system which can sustain and allow the growth of an ecological population.",
-          "A habitat's specificity to an ecological population differentiates it from other environment classes."
-        ],
-        "label": "habitat",
-        "obo_id": "ENVO:01000739",
-        "type": "class"
-      },
-      {
-        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
-        "ontology_name": "ecocore",
-        "ontology_prefix": "ECOCORE",
-        "short_form": "ENVO_01000739",
-        "description": [
-          "An environmental system which can sustain and allow the growth of an ecological population.",
-          "A habitat's specificity to an ecological population differentiates it from other environment classes."
-        ],
-        "label": "habitat",
-        "obo_id": "ENVO:01000739",
-        "type": "class"
-      },
-      {
-        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
-        "ontology_name": "ecto",
-        "ontology_prefix": "ECTO",
-        "short_form": "ENVO_01000739",
-        "description": [
-          "An environmental system which can sustain and allow the growth of an ecological population.",
-          "A habitat's specificity to an ecological population differentiates it from other environment classes."
-        ],
-        "label": "habitat",
-        "obo_id": "ENVO:01000739",
-        "type": "class"
-      },
-      {
-        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
-        "ontology_name": "mondo",
-        "ontology_prefix": "MONDO",
-        "short_form": "ENVO_01000739",
-        "description": [
-
-        ],
-        "label": "habitat",
-        "obo_id": "ENVO:01000739",
-        "type": "class"
-      },
-      {
-        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
-        "ontology_name": "ohmi",
-        "ontology_prefix": "OHMI",
-        "short_form": "ENVO_01000739",
-        "description": [
-          "An environmental system which can sustain and allow the growth of an ecological population.",
-          "A habitat's specificity to an ecological population differentiates it from other environment classes."
-        ],
-        "label": "habitat",
-        "obo_id": "ENVO:01000739",
-        "type": "class"
-      },
-      {
-        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
-        "ontology_name": "eupath",
-        "ontology_prefix": "EUPATH",
-        "short_form": "ENVO_01000739",
-        "description": [
-          "An environmental system which can sustain and allow the growth of an ecological population.",
-          "A habitat's specificity to an ecological population differentiates it from other environment classes."
-        ],
-        "label": "habitat",
-        "obo_id": "ENVO:01000739",
-        "type": "class"
-      },
-      {
-        "iri": "http://purl.obolibrary.org/obo/ENVO_01000739",
-        "ontology_name": "mfmo",
-        "ontology_prefix": "MFMO",
-        "short_form": "ENVO_01000739",
-        "description": [
-          "An environmental system which can sustain and allow the growth of an ecological population.",
-          "A habitat's specificity to an ecological population differentiates it from other environment classes."
-        ],
-        "label": "habitat",
-        "obo_id": "ENVO:01000739",
-        "type": "class"
-      },
-      {
-        "iri": "http://purl.obolibrary.org/obo/ENVO_00002036",
-        "ontology_name": "idomal",
-        "short_form": "ENVO_00002036",
-        "description": [
-          "A spatial region having environmental qualities which may sustain an organism or a community of organisms."
-        ],
-        "label": "habitat",
-        "obo_id": "ENVO:00002036",
-        "type": "class"
+         "prefLabel":"habitat",
+         "obsolete":false,
+         "matchType":"prefLabel",
+         "ontologyType":"ONTOLOGY",
+         "provisional":false,
+         "@id":"http://purl.obolibrary.org/obo/ENVO_01000739",
+         "@type":"http://www.w3.org/2002/07/owl#Class",
+         "links":{
+            "self":"https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000739",
+            "ontology":"https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+            "children":"https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000739/children",
+            "parents":"https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000739/parents",
+            "descendants":"https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000739/descendants",
+            "ancestors":"https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000739/ancestors",
+            "instances":"https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000739/instances",
+            "tree":"https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000739/tree",
+            "notes":"https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000739/notes",
+            "mappings":"https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000739/mappings",
+            "ui":"http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000739"
+         },
+         "@context":{
+            "@vocab":"http://data.bioontology.org/metadata/",
+            "prefLabel":"http://www.w3.org/2004/02/skos/core#prefLabel",
+            "definition":"http://www.w3.org/2004/02/skos/core#definition",
+            "obsolete":"http://www.w3.org/2002/07/owl#deprecated",
+            "@language":"en"
+         }
       }
-    ],
-    "numFound": 271,
-    "start": 0
-  },
-  "responseHeader": {
-    "QTime": 5,
-    "status": 0
-  }
+   ]
 }

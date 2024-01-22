@@ -4,35 +4,32 @@ databases:
     apiKey: "${BIODIVPORTAL_API_KEY}"
     responseMapping:
       nestedJson: "collection"
-      iri: "@id"
       label: "prefLabel"
+      iri: "@id"
       synonym: "synonym"
-      ontology: "links.ontology"
-      description: "definition"
-      source: bioportal
+      ontology: "links"
+      description: "@context"
   - database: "ols"
     url: "https://ebi.ac.uk/ols4/api/search?q=%s"
     apiKey: ""
     responseMapping:
       nestedJson: "response"
       key: "docs" # hashmap --> key for the array of results
-      iri: "iri"
       label: "label"
-      synonym: "short_form"
+      iri: "iri"
       ontology: "ontology_name"
+      synonym: "short_form"
       description: "description"
-      source: ols
   - database: "gfbio"
     url: "https://terminologies.gfbio.org/api/terminologies/search?query=%s"
     apiKey: ""
     responseMapping:
       nestedJson: "results"
-      iri: "uri"
       label: "label"
+      iri: "uri"
       synonym: "synonym"
       ontology: "sourceTerminology"
       description: "description"
-      source: gfbio
 
 
 # Add mappings for new databases here: e.g

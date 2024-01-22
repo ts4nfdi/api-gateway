@@ -83,10 +83,11 @@ public class DynTransformResponse {
                 newItem.put("ontology", item.get(responseMapping.getOntology()));
             }
             newItem.put("source", config.getDatabase());
+
         } catch (Exception e) {
             logger.error("Error processing item: {}", e.getMessage(), e);
         }
-
+        // logger.info("Transformed item: {}", newItem);
         return newItem;
     }
 

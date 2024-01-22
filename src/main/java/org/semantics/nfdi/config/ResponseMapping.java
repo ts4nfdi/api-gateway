@@ -45,11 +45,34 @@ public class ResponseMapping {
         }
     }
 
+    public String getBackMapping(String field) {
+        switch (field) {
+            case "iri":
+                return (iri != null && !iri.isEmpty()) ? iri : "0";
+            case "label":
+                return (label != null && !label.isEmpty()) ? label : "0";
+            case "source":
+                return (source != null && !source.isEmpty()) ? source : "0";
+            case "synonym":
+                return (synonym != null && !synonym.isEmpty()) ? synonym : "0";
+            case "ontology":
+                return (ontology != null && !ontology.isEmpty()) ? ontology : "0";
+            case "description":
+                return (description != null && !description.isEmpty()) ? description : "0";
+            default:
+                return "0";
+        }
+    }
+
     public boolean containsKey(String key2) {
         return false;
     }
 
     public String get(String key2) {
         return null;
+    }
+
+    public List<String> getFieldListBack() {
+        return Arrays.asList(iri, label, source, synonym, ontology, description);
     }
 }
