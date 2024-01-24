@@ -22,13 +22,13 @@ public class BioportalTransformer implements DatabaseTransformer {
             transformedItem.put("prefLabel", item.get("label"));
         }
         if (item.containsKey("ontology") && item.get("ontology") != null) {
-            transformedItem.put("links", item.get("ontology"));
+            transformedItem.put("@type", item.get("ontology"));
         }
         if (item.containsKey("synonym") && item.get("synonym") != null) {
-            transformedItem.put("@synonym", item.get("synonym"));
+            transformedItem.put("synonym", item.get("synonym"));
         }
         if (item.containsKey("description") && item.get("description") != null) {
-            transformedItem.put("@context", item.get("description"));
+            transformedItem.put("definition", item.get("description"));
         }
         if (item.containsKey("source") && item.get("source") != null) {
             transformedItem.put("source", item.get("source"));
