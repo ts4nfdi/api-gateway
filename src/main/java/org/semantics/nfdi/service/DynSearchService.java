@@ -1,9 +1,15 @@
 package org.semantics.nfdi.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.semantics.nfdi.config.DatabaseConfig;
+import org.semantics.nfdi.config.OntologyConfig;
 import org.semantics.nfdi.model.DynDatabaseTransform;
 import org.semantics.nfdi.model.DynTransformResponse;
 import org.semantics.nfdi.model.JsonLdTransform;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
@@ -13,7 +19,8 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
 import javax.annotation.PostConstruct;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -21,14 +28,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.core.io.ClassPathResource;
-
-import org.semantics.nfdi.config.DatabaseConfig;
-import org.semantics.nfdi.config.OntologyConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Service
 public class DynSearchService {
@@ -39,8 +38,7 @@ public class DynSearchService {
     private final RestTemplate restTemplate = new RestTemplate();
     private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
     private List<OntologyConfig> ontologyConfigs;
-
-    private Map<String, Map<String, String>> responseMappings; // Add this field
+    private Map<String, Map<String, String>> responseMappings;
 
 
     @PostConstruct
@@ -49,7 +47,7 @@ public class DynSearchService {
         try (InputStream in = dbConfigResource.getInputStream()) {
             DatabaseConfig dbConfig = yaml.loadAs(in, DatabaseConfig.class);
             this.ontologyConfigs = dbConfig.getDatabases();
-            this.responseMappings = loadResponseMappings(); // Load response mappings
+            this.responseMappings = loadResponseMappings();
             ontologyConfigs.forEach(config -> logger.info("Loaded config: {}", config));
         }
     }
@@ -162,10 +160,10 @@ public class DynSearchService {
 
         Map<String, String> fieldMappings = loadFieldMappings(targetDbSchema);
         Map<String, Object> jsonSchema = loadJsonSchema(targetDbSchema);
-        Map<String, String> responseMapping = responseMappings.get(targetDbSchema); // Get response mapping
+        Map<String, String> responseMapping = responseMappings.get(targetDbSchema);
 
         DynDatabaseTransform dynDatabaseTransform = new DynDatabaseTransform(fieldMappings, jsonSchema, responseMapping);
-        return dynDatabaseTransform.transformDatabaseResponse(combinedResults, targetDbSchema);
+        return dynDatabaseTransform.transformJsonResponse(combinedResults, targetDbSchema);
     }
 
     private Map<String, Object> loadJsonSchema(String targetDbSchema) {
