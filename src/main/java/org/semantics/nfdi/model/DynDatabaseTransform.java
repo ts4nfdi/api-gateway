@@ -1,223 +1,55 @@
 package org.semantics.nfdi.model;
 
-import org.semantics.nfdi.service.DynSearchService;
+import org.semantics.nfdi.api.BioportalTransformer;
+import org.semantics.nfdi.api.DatabaseTransformer;
+import org.semantics.nfdi.api.OlsTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static org.hsqldb.HsqlDateTime.e;
 
 public class DynDatabaseTransform {
     private static final Logger logger = LoggerFactory.getLogger(DynDatabaseTransform.class);
     private Map<String, String> fieldMapping;
     private Map<String, Object> jsonSchema;
     private Map<String, String> responseMapping;
+    private DatabaseTransformer olsTransformer;
+    private DatabaseTransformer bioportalTransformer;
 
     public DynDatabaseTransform(Map<String, String> fieldMapping, Map<String, Object> jsonSchema, Map<String, String> responseMapping) {
         this.fieldMapping = fieldMapping;
         this.jsonSchema = jsonSchema;
-        this.responseMapping = responseMapping;
+        this.responseMapping = responseMapping != null ? responseMapping : new HashMap<>();
         logger.info("Loaded JSON Schema: {}", jsonSchema);
+        this.olsTransformer = new OlsTransformer();
+        this.bioportalTransformer = new BioportalTransformer();
     }
 
-    public Map<String, Object> transformDatabaseResponse(List<Map<String, Object>> originalResponse, String targetDataBase) {
-
+    public Map<String, Object> transformJsonResponse(List<Map<String, Object>> originalResponse, String targetDataBase) {
         Map<String, Object> response = new HashMap<>();
         switch (targetDataBase) {
             case "ols":
                 List<Map<String, Object>> transformedResults = originalResponse.stream()
-                        .map(this::transformItemOls)
+                        .map(olsTransformer::transformItem)
                         .filter(Objects::nonNull)
                         .collect(Collectors.toList());
 
-
-                response = transformToOLSFormat(transformedResults);
+                response = olsTransformer.constructResponse(transformedResults);
                 break;
             case "bioportal":
                 List<Map<String, Object>> transformedResultsBioportal = originalResponse.stream()
-                        .map(this::transformItemBioportal)
+                        .map(bioportalTransformer::transformItem)
                         .filter(Objects::nonNull)
                         .collect(Collectors.toList());
 
-                response = transformToBioPortalFormat(transformedResultsBioportal);
+                response = bioportalTransformer.constructResponse(transformedResultsBioportal);
                 break;
             default:
                 response.put("error", "No database configuration found");
                 break;
         }
-
         return response;
     }
 
-    private Map<String, Object> transformItemOls(Map<String, Object> item) {
-        if (item == null) {
-            return null;
-        }
-
-        Map<String, Object> transformedItem = new HashMap<>();
-
-        // Check for null values before accessing properties
-        if (item.containsKey("iri") && item.get("iri") != null) {
-            transformedItem.put("iri", item.get("iri"));
-        }
-        if (item.containsKey("label") && item.get("label") != null) {
-            transformedItem.put("label", item.get("label"));
-        }
-        if (item.containsKey("synonym") && item.get("synonym") != null) {
-            transformedItem.put("short_form", item.get("synonym"));
-        }
-        if (item.containsKey("ontology") && item.get("ontology") != null) {
-            transformedItem.put("ontology_name", item.get("ontology"));
-        }
-        if (item.containsKey("description") && item.get("description") != null) {
-            transformedItem.put("description", item.get("description"));
-        }
-        if (item.containsKey("source") && item.get("source") != null) {
-            transformedItem.put("source", item.get("source"));
-        }
-        return transformedItem;
-    }
-
-    private Map<String, Object> transformToOLSFormat(List<Map<String, Object>> transformedResults) {
-        Map<String, Object> finalResponse = new HashMap<>();
-        finalResponse.put("docs", transformedResults);
-        finalResponse.put("numFound", transformedResults.size());
-        finalResponse.put("start", 0);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("response", finalResponse);
-
-        return response;
-    }
-
-    private Map<String, Object> transformItemBioportal(Map<String, Object> item) {
-        if (item == null) {
-            return null;
-        }
-
-        Map<String, Object> transformedItem = new HashMap<>();
-
-        // Check for null values before accessing properties
-        if (item.containsKey("@id") && item.get("@id") != null) {
-            transformedItem.put("iri", item.get("@id"));
-        }
-        if (item.containsKey("label") && item.get("label") != null) {
-            transformedItem.put("prefLabel", item.get("label"));
-        }
-        if (item.containsKey("ontology") && item.get("ontology") != null) {
-            transformedItem.put("links", item.get("ontology"));
-        }
-        if (item.containsKey("synonym") && item.get("synonym") != null) {
-            transformedItem.put("@synonym", item.get("synonym"));
-        }
-        if (item.containsKey("description") && item.get("description") != null) {
-            transformedItem.put("@context", item.get("description"));
-        }
-        if (item.containsKey("source") && item.get("source") != null) {
-            transformedItem.put("source", item.get("source"));
-        }
-        return transformedItem;
-    }
-
-
-    private Map<String, Object> transformToBioPortalFormat(List<Map<String, Object>> transformedResults) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("page", 1);
-        response.put("pageCount", 1);
-        response.put("totalCount", transformedResults.size());
-        response.put("prevPage", null);
-        response.put("nextPage", null);
-        Map<String, Object> links = new HashMap<>();
-        links.put("nextPage", null);
-        links.put("prevPage", null);
-        response.put("links", links);
-        response.put("collection", transformedResults);
-        response.put("@context", Collections.singletonMap("@vocab", "http://data.bioontology.org/metadata/"));
-        return response;
-    }
-
-
-    private Map<String, Object> constructResponseBasedOnSchema(List<Map<String, Object>> transformedResults) {
-        Map<String, Object> response = new HashMap<>();
-        buildResponseStructure(response, jsonSchema, "root", transformedResults);
-        logger.info("Final transformed response: {}", response);
-        return response;
-    }
-
-    private void buildResponseStructure(Map<String, Object> response, Map<String, Object> schema,
-                                        String currentKey, Object data) {
-        try {
-            if (schema.containsKey("type")) {
-                String type = (String) schema.get("type");
-                switch (type) {
-                    case "object":
-                        handleObjectType(response, schema, currentKey, data);
-                        break;
-                    case "array":
-                        handleArrayType(response, schema, currentKey, data);
-                        break;
-                    default:
-                        if (data != null) {
-                            response.put(currentKey, data);
-                        }
-                        break;
-                }
-                logger.info("Building structure for key '{}', data: {}", currentKey, data);
-            }
-        } catch(Exception e){
-            logger.error("Error in building response structure for key '{}': {}", currentKey, e.getMessage());
-        }
-    }
-
-    private void handleObjectType(Map<String, Object> response, Map<String, Object> schema,
-                                  String currentKey, Object data) {
-        if (schema.containsKey("properties") && data instanceof Map<?, ?>) {
-            Map<String, Object> properties = (Map<String, Object>) schema.get("properties");
-            Map<String, Object> nestedResponse = new HashMap<>();
-            for (Map.Entry<String, Object> entry : properties.entrySet()) {
-                String key = entry.getKey();
-                Map<String, Object> nestedSchema = (Map<String, Object>) entry.getValue();
-                Object nestedData = ((Map<?, ?>) data).get(key);
-                buildResponseStructure(nestedResponse, nestedSchema, key, nestedData);
-                logger.info("Handling object type for key '{}', data: {}", currentKey, data);
-            }
-            response.put(currentKey, nestedResponse);
-        }
-    }
-
-    private void handleArrayType(Map<String, Object> response, Map<String, Object> schema,
-                                 String currentKey, Object data) {
-        if (schema.containsKey("items") && data instanceof List<?>) {
-            List<?> dataList = (List<?>) data;
-            List<Object> arrayResponse = new ArrayList<>();
-            Map<String, Object> itemSchema = (Map<String, Object>) schema.get("items");
-            for (Object itemData : dataList) {
-                Map<String, Object> itemResponse = new HashMap<>();
-                buildResponseStructure(itemResponse, itemSchema, "item", itemData);
-                arrayResponse.add(itemResponse.get("item"));
-                logger.info("Handling array type for key '{}', data: {}", currentKey, data);
-            }
-            response.put(currentKey, arrayResponse);
-        }
-    }
-
-    public List<Map<String, Object>> backTransformToDatabaseSchema(List<Map<String, Object>> transformedResponse) {
-        return transformedResponse.stream()
-                .map(this::backTransformItem)
-                .collect(Collectors.toList());
-    }
-
-    private Map<String, Object> backTransformItem(Map<String, Object> transformedItem) {
-        Map<String, Object> originalItem = new HashMap<>();
-        fieldMapping.forEach((originalField, transformedField) -> {
-            if (transformedItem.containsKey(transformedField)) {
-                originalItem.put(originalField, transformedItem.get(transformedField));
-            }
-        });
-        return originalItem;
-    }
+    // Other methods and members
 }
