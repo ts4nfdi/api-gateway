@@ -1,7 +1,7 @@
 databases:
   - database: "bioportal"
     url: "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s"
-    apiKey: "${BIODIVPORTAL_API_KEY}"
+    apiKey: "xxx"
     responseMapping:
       nestedJson: "collection"
       iri: "@id"
