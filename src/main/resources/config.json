@@ -3,7 +3,7 @@
       {
         "database": "bioportal",
         "url": "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s",
-        "apiKey": "53a72292-cb9e-4855-acac-4676fc9eaa41",
+        "apiKey": "xxx",
         "responseMapping": {
           "nestedJson": "collection",
           "iri": "@id",
