@@ -16,6 +16,7 @@ public class DynDatabaseTransform {
     private DatabaseTransformer olsTransformer;
     private DatabaseTransformer bioportalTransformer;
 
+    // Constructor initializes the field mappings, JSON schema, response mappings, and transformers
     public DynDatabaseTransform(Map<String, String> fieldMapping, Map<String, Object> jsonSchema, Map<String, String> responseMapping) {
         this.fieldMapping = fieldMapping;
         this.jsonSchema = jsonSchema;
@@ -25,9 +26,11 @@ public class DynDatabaseTransform {
         this.bioportalTransformer = new BioportalTransformer();
     }
 
+    // Method to transform the JSON response from a database into a specific format
     public Map<String, Object> transformJsonResponse(List<Map<String, Object>> originalResponse, String targetDataBase) {
         Map<String, Object> response = new HashMap<>();
         switch (targetDataBase) {
+            // Case for transforming data from the OLS database
             case "ols":
                 List<Map<String, Object>> transformedResults = originalResponse.stream()
                         .map(olsTransformer::transformItem)
@@ -36,6 +39,7 @@ public class DynDatabaseTransform {
 
                 response = olsTransformer.constructResponse(transformedResults);
                 break;
+            // Case for transforming data from the BioPortal database
             case "bioportal":
                 List<Map<String, Object>> transformedResultsBioportal = originalResponse.stream()
                         .map(bioportalTransformer::transformItem)
@@ -44,12 +48,13 @@ public class DynDatabaseTransform {
 
                 response = bioportalTransformer.constructResponse(transformedResultsBioportal);
                 break;
+
+            // Add more cases here for other databases as needed
+
             default:
                 response.put("error", "No database configuration found");
                 break;
         }
         return response;
     }
-
-    // Other methods and members
 }
