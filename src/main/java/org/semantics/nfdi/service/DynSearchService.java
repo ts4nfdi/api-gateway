@@ -32,6 +32,7 @@ import java.util.stream.Stream;
 @Service
 public class DynSearchService {
 
+    // Resource path to the YAML configuration file for database configurations
     @Value("classpath:response-config.yaml")
     private Resource dbConfigResource;
     private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
@@ -40,7 +41,7 @@ public class DynSearchService {
     private List<OntologyConfig> ontologyConfigs;
     private Map<String, Map<String, String>> responseMappings;
 
-
+    // Method invoked after the bean’s properties have been set, loads database configurations
     @PostConstruct
     public void loadDbConfigs() throws IOException {
         Yaml yaml = new Yaml(new Constructor(DatabaseConfig.class));
@@ -52,6 +53,7 @@ public class DynSearchService {
         }
     }
 
+    // Loads response mappings from a YAML configuration file
     private Map<String, Map<String, String>> loadResponseMappings() throws IOException {
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("response-mappings.yaml");
         if (inputStream != null) {
@@ -64,12 +66,14 @@ public class DynSearchService {
         return Collections.emptyMap();
     }
 
+    // Constructs the URL for the API call based on the query and configuration
     private String constructUrl(String query, OntologyConfig config) {
         String url = config.getUrl();
         String apiKey = config.getApiKey();
         return apiKey.isEmpty() ? String.format(url, query) : String.format(url, query, apiKey);
     }
 
+    // Filters the results based on selected facets (criteria)
     public List<Map<String, Object>> filterResultsByFacets(List<Map<String, Object>> results, Map<String, String> selectedFacets) {
         return results.stream()
                 .filter(result -> selectedFacets.entrySet().stream()
@@ -77,6 +81,8 @@ public class DynSearchService {
                 .collect(Collectors.toList());
     }
 
+
+    // Asynchronously performs a search query against a given ontology configuration
     @Async
     public CompletableFuture<List<Map<String, Object>>> search(String query, OntologyConfig config, String format) {
         CompletableFuture<List<Map<String, Object>>> future = new CompletableFuture<>();
@@ -106,6 +112,7 @@ public class DynSearchService {
         return future;
     }
 
+    // Performs a federated search across multiple databases and optionally transforms the results for a target database schema
     public CompletableFuture<Object> performDynFederatedSearch(
             String query, String database, String format, String targetDbSchema) {
         CompletableFuture<Object> future = new CompletableFuture<>();
@@ -177,6 +184,7 @@ public class DynSearchService {
         }
     }
 
+    // Method to load field mappings from a YAML configuration file
     private Map<String, String> loadFieldMappings(String targetDbSchema) {
         Map<String, String> fieldMappings = new HashMap<>();
 
