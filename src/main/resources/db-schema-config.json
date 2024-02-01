@@ -1,0 +1,22 @@
+{
+  "dbSchema": {
+    "ols": {
+      "mapping": {
+        "label": "label",
+        "iri": "iri",
+        "ontology": "ontology_name",
+        "synonym": "short_form",
+        "description": "description"
+      }
+    },
+    "bioportal": {
+      "mapping": {
+        "label": "prefLabel",
+        "iri": "@id",
+        "synonym": "synonym",
+        "ontology": "@type",
+        "description": "definition"
+      }
+    }
+  }
+}
