@@ -19,16 +19,15 @@ A standout feature of this service is its dynamic nature, governed by a YAML con
 To set up the NFDI Federated Search Service, follow these steps:
 
 1. Clone the repository to your local machine:
-   `git clone https://gitlab.fokus.fraunhofer.de/dan48526/nfdi`
+   `git clone https://github.com/ts4nfdi/api-gateway.git`
 2. Navigate to the project directory:
    `cd nfdi`
-
 3. Build and compile the service:
    `mvn clean install`
 4. Run the service:
    `java -jar target/nfdi.jar`
 
-The service will be accessible at `http://localhost:8080` by default.
+The service will be accessible at `http://localhost:8080/nfdi/swagger-ui/index.html?configUrl=/nfdi/openai/swagger-config#` by default.
 
 ## Extensibility and Customization
 
