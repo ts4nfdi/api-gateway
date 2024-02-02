@@ -14,6 +14,8 @@ A standout feature of this service is its dynamic nature, governed by a Json con
 - **Response Format Flexibility:** Choose between standard JSON and JSON-LD formats for search results, catering to different use cases and requirements.
 - **Schema Transformation:** Convert search responses into specific database schemas, facilitating integration with various database-driven systems.
 
+  ![api gateway diagram](./api-gateway.png)
+
 ## Installation
 
 To set up the NFDI Federated Search Service, follow these steps:
