@@ -13,6 +13,8 @@ A standout feature of this service is its dynamic nature, governed by a YAML con
 - **Dynamic Configuration:** Utilize a YAML file to configure database connections and response mappings, enabling easy addition or modification of data sources.
 - **Response Format Flexibility:** Choose between standard JSON and JSON-LD formats for search results, catering to different use cases and requirements.
 - **Schema Transformation:** Convert search responses into specific database schemas, facilitating integration with various database-driven systems.
+
+  
   ![api gateway diagram](./api-gateway.png)
 
 ## Installation
