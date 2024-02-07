@@ -8,21 +8,26 @@
 		<version>2.5.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>org.semantics.FederatedTerminology</groupId>
-	<artifactId>nfdi</artifactId>
+	<groupId>org.semantics.apigateway.FederatedTerminology</groupId>
+	<artifactId>API-Gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<name>nfdi</name>
-	<description> nfdi Federated Terminology Services </description>
+	<packaging>jar</packaging>
+	<name>API-Gateway</name>
+	<description> API-Gateway Federated Terminology Services </description>
 
 	<properties>
 		<java.version>11</java.version>
 		<jena.version>3.16.0</jena.version>
-		<local-mvn-repo>C:\Users\dan48526\.m2\repository</local-mvn-repo>
-		<project-basedir>C:\users\dan48526\Desktop\nfdi</project-basedir>
 		<log4j2.version>2.17.2</log4j2.version>
 		<slf4j.version>1.7.25</slf4j.version>
 	</properties>
+	<repositories>
+		<repository>
+			<id>BGBM-GFBio</id>
+			<name>BGBM-GFBio-releases</name>
+			<url>http://dev-gfbio.bgbm.org/artifactory/libs-release-local</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -83,12 +88,12 @@
 		</dependency>
 		<!-- Virtuoso & Jena API -->
 		<dependency>
-			<groupId>org.bgbm.dev-gfbio</groupId>
+			<groupId>virt_jena3</groupId>
 			<artifactId>virt_jena3</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.bgbm.dev-gfbio</groupId>
+			<groupId>virtjdbc4</groupId>
 			<artifactId>virtjdbc4</artifactId>
 			<version>2.0.0</version>
 		</dependency>
@@ -236,38 +241,6 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.github.karma</groupId>
-			<artifactId>karma-offline</artifactId>
-			<version>0.0.1</version>
-			<type>jar</type>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.logging.log4j</groupId>
-					<artifactId>log4j-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.logging.log4j</groupId>
-					<artifactId>log4j-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.logging</groupId>
-					<artifactId>log4j-spi</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.json</groupId>
-					<artifactId>json</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.1</version>
@@ -323,6 +296,16 @@
 			<artifactId>jakarta.json-api</artifactId>
 			<version>2.0.1</version>
 		</dependency>
+		<dependency>
+		  <groupId>org.projectlombok</groupId>
+		  <artifactId>lombok</artifactId>
+		  <version>1.18.30</version>
+		</dependency>
+		<dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
 
 	</dependencies>
 
@@ -332,7 +315,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>org.semantics.nfdi.FederatedSearchApplication</mainClass>
+					<mainClass>org.semantics.apigateway.FederatedSearchApplication</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>

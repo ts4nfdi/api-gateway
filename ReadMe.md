@@ -1,4 +1,4 @@
-# NFDI Federated Search Service
+# NFDI Federated Search Service - API-Gateway
 
 ## Overview
 
@@ -19,18 +19,18 @@ A standout feature of this service is its dynamic nature, governed by a YAML con
 
 ## Installation
 
-To set up the NFDI Federated Search Service, follow these steps:
+To set up the API-Gateway, follow these steps:
 
 1. Clone the repository to your local machine:
    `git clone https://github.com/ts4nfdi/api-gateway.git`
 2. Navigate to the project directory:
-   `cd nfdi`
+   `cd api-gateway`
 3. Build and compile the service:
    `mvn clean install`
 4. Run the service:
-   `java -jar target/nfdi.jar`
+   `java -jar target/api-gateway-0.0.1-SNAPSHOT.jar`
 
-The service will be accessible at `http://localhost:8080/nfdi/swagger-ui/index.html?configUrl=/nfdi/openai/swagger-config#` by default.
+The service will be accessible at `http://localhost:8080/api-gateway/swagger-ui/index.html?configUrl=/api-gateway/openapi/swagger-config#` by default.
 
 ## Extensibility and Customization
 
@@ -60,13 +60,13 @@ Remember to test your changes thoroughly to ensure that the mapping accurately r
 
 ### Adding a New Database Schema
 
-To integrate a new database schema into the NFDI Federated Search Service, it's essential to not only update the YAML configuration but also to implement a new interface for handling the schema mapping. This ensures that the service can effectively communicate and translate data between the new database and the existing system.
+To integrate a new database schema into the API-Gateway, it's essential to not only update the YAML configuration but also to implement a new interface for handling the schema mapping. This ensures that the service can effectively communicate and translate data between the new database and the existing system.
 
 #### Steps to Integrate a New Database Schema:
 
 1. **Update YAML Configuration:** First, update the YAML configuration file to include the new database. This involves specifying the database connection details and any specific parameters required for the new data source.
 
-2. **Modify `DatabaseTransformer` Interface:** Implement modifications in the `DatabaseTransformer` interface located in the `org.semantics.nfdi.api` package. This interface is crucial for defining the methods used to transform and construct responses from the database items. 
+2. **Modify `DatabaseTransformer` Interface:** Implement modifications in the `DatabaseTransformer` interface located in the `org.semantics.api-gateway.api` package. This interface is crucial for defining the methods used to transform and construct responses from the database items. 
 
 3. **Create a New Transformer Class:** Develop a new class that implements the `DatabaseTransformer` interface, similar to the existing `OlsTransformer` class. This class should contain the logic specific to the new database schema, handling how data items are transformed and how responses are constructed.
 
