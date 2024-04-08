@@ -25,7 +25,7 @@
 		<repository>
 			<id>BGBM-GFBio</id>
 			<name>BGBM-GFBio-releases</name>
-			<url>http://dev-gfbio.bgbm.org/artifactory/libs-release-local</url>
+			<url>https://dev-gfbio.bgbm.org/artifactory/libs-release-local</url>
 		</repository>
 	</repositories>
 
