@@ -28,7 +28,7 @@ To set up the API-Gateway, follow these steps:
 3. Build and compile the service:
    `mvn clean install`
 4. Run the service:
-   `java -jar target/api-gateway-0.0.1-SNAPSHOT.jar`
+   `java -jar target/API-Gateway-0.0.1-SNAPSHOT.jar`
 
 The service will be accessible at `http://localhost:8080/api-gateway/swagger-ui/index.html?configUrl=/api-gateway/openapi/swagger-config#` by default.
 
