@@ -1,5 +1,5 @@
 databases:
-  - database: "bioportal"
+  - database: "ontoportal"
     url: "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s"
     apiKey: "xxxx" # replace with your own API key
     responseMapping:
@@ -7,10 +7,11 @@ databases:
       label: "prefLabel"
       iri: "@id"
       synonym: "synonym"
-      ontology: "@type"
+      ontology: "links"
       description: "definition"
+      type: "@type"
   - database: "ols"
-    url: "https://ebi.ac.uk/ols4/api/search?q=%s"
+    url: "https://ebi.ac.uk/ols4/api/select?q=%s"
     apiKey: ""
     responseMapping:
       nestedJson: "response"
@@ -18,8 +19,10 @@ databases:
       label: "label"
       iri: "iri"
       ontology: "ontology_name"
-      synonym: "short_form"
+      synonym: "synonym"
+      shortForm: "short_form"
       description: "description"
+      type: "type"
   - database: "gfbio"
     url: "https://terminologies.gfbio.org/api/terminologies/search?query=%s"
     apiKey: ""

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.semantics.apigateway.config.OntologyConfig;
 import org.semantics.apigateway.config.ResponseMapping;
 import org.slf4j.Logger;
@@ -84,14 +85,34 @@ public class DynTransformResponse {
             if (responseMapping.getSynonym() != null && item.containsKey(responseMapping.getSynonym())) {
                 newItem.put("synonym", item.get(responseMapping.getSynonym()));
             }
+            if (responseMapping.getShortForm() != null && item.containsKey(responseMapping.getShortForm())) {
+                newItem.put("short_form", item.get(responseMapping.getShortForm()));
+            }
             if (responseMapping.getDescription() != null && item.containsKey(responseMapping.getDescription())) {
                 newItem.put("description", item.get(responseMapping.getDescription()));
             }
             if (responseMapping.getOntology() != null && item.containsKey(responseMapping.getOntology())) {
-                newItem.put("ontology", item.get(responseMapping.getOntology()));
+                if (responseMapping.getOntology().equals("links")) {
+                    Object keysObject = ((Map<?, ?>) item).get(responseMapping.getOntology());
+                    String ontologyItem = ((Map<?, String>) keysObject).get("ontology");
+                    newItem.put("ontology", ResourceFactory.createResource(ontologyItem).getLocalName().toLowerCase());
+                } else {
+                    newItem.put("ontology", item.get(responseMapping.getOntology()));
+                }
+            }
+            if (responseMapping.getType() != null && item.containsKey(responseMapping.getType())) {
+                newItem.put("type", item.get(responseMapping.getType()));
             }
             // Adding the source database as part of the new item
-            newItem.put("source", config.getDatabase());
+            if (String.valueOf(config.getUrl()).contains("/search?")) {
+                newItem.put("source", String.valueOf(config.getUrl()).substring(0, String.valueOf(config.getUrl()).indexOf("/search?")));
+            } else if (String.valueOf(config.getUrl()).contains("/select?")) {
+                newItem.put("source", String.valueOf(config.getUrl()).substring(0, String.valueOf(config.getUrl()).indexOf("/select?")));
+            } else {
+                newItem.put("source", config.getUrl());
+            }
+            // Adding the backend database type as part of the new item
+            newItem.put("backend_type", config.getDatabase());
 
         } catch (Exception e) {
             logger.error("Error processing item: {}", e.getMessage(), e);
