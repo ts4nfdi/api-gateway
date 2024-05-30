@@ -4,9 +4,10 @@ dbSchema:
       label: "label"
       iri: "iri"
       ontology: "ontology_name"
-      synonym: "short_form"
+      synonym: "synonym"
       description: "description"
-  bioportal:
+      shortForm: "short_form"
+  ontoportal:
     mapping:
       label: "prefLabel"
       iri: "@id"

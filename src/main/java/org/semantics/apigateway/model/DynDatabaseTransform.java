@@ -1,6 +1,6 @@
 package org.semantics.apigateway.model;
 
-import org.semantics.apigateway.api.BioportalTransformer;
+import org.semantics.apigateway.api.OntoPortalTransformer;
 import org.semantics.apigateway.api.DatabaseTransformer;
 import org.semantics.apigateway.api.OlsTransformer;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ public class DynDatabaseTransform {
     private Map<String, Object> jsonSchema;
     private Map<String, String> responseMapping;
     private DatabaseTransformer olsTransformer;
-    private DatabaseTransformer bioportalTransformer;
+    private DatabaseTransformer ontoPortalTransformer;
 
     // Constructor initializes the field mappings, JSON schema, response mappings, and transformers
     public DynDatabaseTransform(Map<String, String> fieldMapping, Map<String, Object> jsonSchema, Map<String, String> responseMapping) {
@@ -23,7 +23,7 @@ public class DynDatabaseTransform {
         this.responseMapping = responseMapping != null ? responseMapping : new HashMap<>();
         logger.info("Loaded JSON Schema: {}", jsonSchema);
         this.olsTransformer = new OlsTransformer();
-        this.bioportalTransformer = new BioportalTransformer();
+        this.ontoPortalTransformer = new OntoPortalTransformer();
     }
 
     // Method to transform the JSON response from a database into a specific format
@@ -39,14 +39,14 @@ public class DynDatabaseTransform {
 
                 response = olsTransformer.constructResponse(transformedResults);
                 break;
-            // Case for transforming data from the BioPortal database
-            case "bioportal":
-                List<Map<String, Object>> transformedResultsBioportal = originalResponse.stream()
-                        .map(bioportalTransformer::transformItem)
+            // Case for transforming data from the OntoPortal database
+            case "ontoportal":
+                List<Map<String, Object>> transformedResultsOntoPortal = originalResponse.stream()
+                        .map(ontoPortalTransformer::transformItem)
                         .filter(Objects::nonNull)
                         .collect(Collectors.toList());
 
-                response = bioportalTransformer.constructResponse(transformedResultsBioportal);
+                response = ontoPortalTransformer.constructResponse(transformedResultsOntoPortal);
                 break;
 
             // Add more cases here for other databases as needed
