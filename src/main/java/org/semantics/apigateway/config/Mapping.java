@@ -43,13 +43,16 @@ public class Mapping {
         private String iri;
         private String label;
         private String source;
+        private String backendType;
+        private String shortForm;
         private String synonym;
         private String ontology;
         private String key;
         private String description;
+        private String type;
 
         public List<String> getFieldList() {
-            return Arrays.asList(iri, label, source, synonym, ontology, description);
+            return Arrays.asList(iri, label, source, backendType, shortForm, synonym, ontology, description, type);
         }
 
         public String getFieldName(String field) {
@@ -60,10 +63,16 @@ public class Mapping {
                     return this.label;
                 case "source":
                     return this.source;
+                case "backend_type":
+                    return this.backendType;
+                case "short_form":
+                    return this.shortForm;
                 case "synonym":
                     return this.synonym;
                 case "ontology":
                     return this.ontology;
+                case "type":
+                    return this.type;
                 default:
                     return field;
             }
