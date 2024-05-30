@@ -1,15 +1,16 @@
-version: '1.0'
+version: '3.8'
 
 services:
-
   api-gateway-backend:
-    image: api-gateway:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: api-gateway
     ports:
-      - 8080:8080
+      - "8080:8080"
     restart: always
     networks:
       - api-gateway
 
 networks:
-  api-gateway:    
+  api-gateway:
