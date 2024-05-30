@@ -1,7 +1,7 @@
 databases:
   - database: "ontoportal"
     url: "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s"
-    apiKey: "47a57aa3-7b54-4f34-b695-dbb5f5b7363e" # replace with your own API key
+    apiKey: "xxx" # replace with your own API key
     responseMapping:
       nestedJson: "collection"
       label: "prefLabel"
