@@ -1,21 +1,18 @@
-HELP.md
+# Java specific
 target/
-!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+*.class
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Maven specific
+mvnw
+mvnw.cmd
+.mvn
+!.mvn/wrapper/maven-wrapper.jar
 
+# IDE specific
 ### IntelliJ IDEA ###
 .idea
-.mvn
 *.iws
 *.iml
 *.ipr
@@ -30,5 +27,17 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
 ### VS Code ###
 .vscode/
+
+# System files
+.DS_Store
