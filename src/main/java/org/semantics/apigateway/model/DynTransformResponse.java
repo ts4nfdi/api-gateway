@@ -74,7 +74,7 @@ public class DynTransformResponse {
 
         ResponseMapping responseMapping = config.getResponseMapping();
 
-        // Mapping fields based on the YAML configuration
+        // Mapping fields based on the JSON configuration
         try {
             if (responseMapping.getIri() != null && item.containsKey(responseMapping.getIri())) {
                 newItem.put("iri", item.get(responseMapping.getIri()));
