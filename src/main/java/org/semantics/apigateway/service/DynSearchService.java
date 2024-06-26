@@ -17,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -186,7 +184,7 @@ public class DynSearchService {
         }
     }
 
-    // Method to load field mappings from a YAML configuration file
+    // Method to load field mappings from a JSON configuration file
     private Map<String, String> loadFieldMappings(String targetDbSchema) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         InputStream inputStream = this.getClass()
