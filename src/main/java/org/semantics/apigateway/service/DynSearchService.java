@@ -1,5 +1,6 @@
 package org.semantics.apigateway.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.semantics.apigateway.config.DatabaseConfig;
@@ -16,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -33,8 +32,8 @@ import java.util.stream.Stream;
 @Service
 public class DynSearchService {
 
-    // Resource path to the YAML configuration file for database configurations
-    @Value("classpath:response-config.yaml")
+    // Resource path to the JSON configuration file for database configurations
+    @Value("classpath:response-config.json")
     private Resource dbConfigResource;
     private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
     private final RestTemplate restTemplate = new RestTemplate();
@@ -45,21 +44,21 @@ public class DynSearchService {
     // Method invoked after the bean’s properties have been set, loads database configurations
     @PostConstruct
     public void loadDbConfigs() throws IOException {
-        Yaml yaml = new Yaml(new Constructor(DatabaseConfig.class));
+     ObjectMapper objectMapper = new ObjectMapper();
         try (InputStream in = dbConfigResource.getInputStream()) {
-            DatabaseConfig dbConfig = yaml.loadAs(in, DatabaseConfig.class);
+            DatabaseConfig dbConfig = objectMapper.readValue(in, DatabaseConfig.class);
             this.ontologyConfigs = dbConfig.getDatabases();
             this.responseMappings = loadResponseMappings();
             ontologyConfigs.forEach(config -> logger.info("Loaded config: {}", config));
         }
     }
 
-    // Loads response mappings from a YAML configuration file
+    // Loads response mappings from a json configuration file
     private Map<String, Map<String, String>> loadResponseMappings() throws IOException {
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("response-mappings.yaml");
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("response-mappings.json");
         if (inputStream != null) {
-            Yaml yaml = new Yaml();
-            Map<String, Map<String, String>> mappings = yaml.load(inputStream);
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map<String, Map<String, String>> mappings = objectMapper.readValue(inputStream, new TypeReference<Map<String, Map<String, String>>>(){});
             if (mappings != null) {
                 return mappings;
             }
@@ -160,7 +159,7 @@ public class DynSearchService {
     }
 
     // Method to transform and structure results based on database
-    private Object transformAndStructureResults(List<Map<String, Object>> combinedResults, String targetDbSchema) {
+    private Object transformAndStructureResults(List<Map<String, Object>> combinedResults, String targetDbSchema) throws IOException {
         OntologyConfig config = ontologyConfigs.stream()
                 .filter(c -> c.getDatabase().equalsIgnoreCase(targetDbSchema))
                 .findFirst()
@@ -185,22 +184,21 @@ public class DynSearchService {
         }
     }
 
-    // Method to load field mappings from a YAML configuration file
-    private Map<String, String> loadFieldMappings(String targetDbSchema) {
-        Map<String, String> fieldMappings = new HashMap<>();
-
+    // Method to load field mappings from a JSON configuration file
+    private Map<String, String> loadFieldMappings(String targetDbSchema) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
         InputStream inputStream = this.getClass()
                 .getClassLoader()
-                .getResourceAsStream("db-schema-config.yaml");
+                .getResourceAsStream("db-schema-config.json");
         if (inputStream == null) {
-            throw new RuntimeException("Failed to load YAML file for field mappings");
+            throw new RuntimeException("Failed to load JSON file for field mappings");
         }
 
-        Yaml yaml = new Yaml();
-        Map<String, Object> yamlConfig = yaml.load(inputStream);
+        Map<String, Object> jsonConfig = objectMapper.readValue(inputStream, new TypeReference<Map<String, Object>>(){});
+        Map<String, String> fieldMappings = new HashMap<>();
 
-        if (yamlConfig != null && yamlConfig.containsKey("dbSchema")) {
-            Map<String, Object> dbSchema = (Map<String, Object>) yamlConfig.get("dbSchema");
+        if (jsonConfig != null && jsonConfig.containsKey("dbSchema")) {
+            Map<String, Object> dbSchema = (Map<String, Object>) jsonConfig.get("dbSchema");
             if (dbSchema != null && dbSchema.containsKey(targetDbSchema)) {
                 Map<String, Object> schemaConfig = (Map<String, Object>) dbSchema.get(targetDbSchema);
                 if (schemaConfig != null && schemaConfig.containsKey("mapping")) {
