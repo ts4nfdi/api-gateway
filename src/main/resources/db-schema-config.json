@@ -9,7 +9,7 @@
         "description": "description"
       }
     },
-    "bioportal": {
+    "ontoportal": {
       "mapping": {
         "label": "prefLabel",
         "iri": "@id",
