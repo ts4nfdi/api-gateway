@@ -25,7 +25,7 @@ To set up the API-Gateway, follow these steps:
    `git clone https://github.com/ts4nfdi/api-gateway.git`
 2. Create an account at [biodivportal.org](https://biodivportal.gfbio.org/>)
 3. Go to your account settings 
-4. Paste the API Key into the apiKey field in the /src/main/resources/response-confic.yaml file
+4. Paste the API Key into the apiKey field in the /src/main/resources/response-config.json file
 2. In your command line navigate to the project directory:
    `cd api-gateway`
 3. Build and compile the service:

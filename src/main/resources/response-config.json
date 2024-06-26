@@ -1,0 +1,48 @@
+{
+  "databases": [
+    {
+      "database": "ontoportal",
+      "url": "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s",
+      "apiKey": "xxx",
+      "responseMapping": {
+        "nestedJson": "collection",
+        "label": "prefLabel",
+        "iri": "@id",
+        "synonym": "synonym",
+        "ontology": "links",
+        "description": "definition",
+        "type": "@type"
+      }
+    },
+    {
+      "database": "ols",
+      "url": "https://ebi.ac.uk/ols4/api/search?q=%s",
+      "apiKey": "",
+      "responseMapping": {
+        "nestedJson": "response",
+        "key": "docs",
+        "label": "label",
+        "iri": "iri",
+        "ontology": "ontology_name",
+        "synonym": "synonym",
+        "shortForm": "short_form",
+        "description": "description",
+        "type": "type"
+      }
+    },
+    {
+      "database": "gfbio",
+      "url": "https://terminologies.gfbio.org/api/terminologies/search?query=%s",
+      "apiKey": "",
+      "responseMapping": {
+        "nestedJson": "results",
+        "iri": "uri",
+        "label": "label",
+        "synonym": "synonym",
+        "ontology": "internal",
+        "description": "description"
+      }
+    }
+  ]
+}
+
