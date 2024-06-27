@@ -42,6 +42,19 @@
         "ontology": "internal",
         "description": "description"
       }
+    },
+    {
+      "database": "agrovoc",
+      "url": "https://api.finto.fi/rest/v1/search?query=%s",
+      "apiKey": "",
+      "responseMapping": {
+        "nestedJson": "results",
+        "iri": "uri",
+        "label": "prefLabel",
+        "synonym": "altLabel",
+        "ontology": "vocab",
+        "type": "type"
+      }
     }
   ]
 }
