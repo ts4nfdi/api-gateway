@@ -44,7 +44,7 @@
       }
     },
     {
-      "database": "agrovoc",
+      "database": "skosmos",
       "url": "https://api.finto.fi/rest/v1/search?query=%s",
       "apiKey": "",
       "responseMapping": {

@@ -3,7 +3,7 @@ package org.semantics.apigateway.model;
 import org.semantics.apigateway.api.OntoPortalTransformer;
 import org.semantics.apigateway.api.DatabaseTransformer;
 import org.semantics.apigateway.api.OlsTransformer;
-import org.semantics.apigateway.api.AgrovocTransformer;
+import org.semantics.apigateway.api.SkosmosTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.*;
@@ -16,7 +16,7 @@ public class DynDatabaseTransform {
     private Map<String, String> responseMapping;
     private DatabaseTransformer olsTransformer;
     private DatabaseTransformer ontoPortalTransformer;
-    private DatabaseTransformer agrovocTransformer;
+    private DatabaseTransformer skosmosTransformer;
 
     // Constructor initializes the field mappings, JSON schema, response mappings, and transformers
     public DynDatabaseTransform(Map<String, String> fieldMapping, Map<String, Object> jsonSchema, Map<String, String> responseMapping) {
@@ -26,7 +26,7 @@ public class DynDatabaseTransform {
         logger.info("Loaded JSON Schema: {}", jsonSchema);
         this.olsTransformer = new OlsTransformer();
         this.ontoPortalTransformer = new OntoPortalTransformer();
-        this.agrovocTransformer = new AgrovocTransformer();
+        this.skosmosTransformer = new SkosmosTransformer();
     }
 
     // Method to transform the JSON response from a database into a specific format
@@ -53,13 +53,12 @@ public class DynDatabaseTransform {
                 break;
 
             // Add more cases here for other databases as needed
-            case "agrovoc":
-                logger.info("agrovoc");
-                List<Map<String, Object>> transformedResultsAgrovoc = originalResponse.stream()
-                        .map(agrovocTransformer::transformItem)
+            case "skosmos":
+                List<Map<String, Object>> transformedResultsSkosmos = originalResponse.stream()
+                        .map(skosmosTransformer::transformItem)
                         .filter(Objects::nonNull)
                         .collect(Collectors.toList());
-                response = agrovocTransformer.constructResponse(transformedResultsAgrovoc);
+                response = skosmosTransformer.constructResponse(transformedResultsSkosmos);
                 break;
 
             default:
