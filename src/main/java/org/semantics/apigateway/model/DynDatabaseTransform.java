@@ -56,10 +56,9 @@ public class DynDatabaseTransform {
             case "agrovoc":
                 logger.info("agrovoc");
                 List<Map<String, Object>> transformedResultsAgrovoc = originalResponse.stream()
-                        .map(AgrovocTransformer::transformItem)
+                        .map(agrovocTransformer::transformItem)
                         .filter(Objects::nonNull)
                         .collect(Collectors.toList());
-                logger.info(Collectors.toList());
                 response = agrovocTransformer.constructResponse(transformedResultsAgrovoc);
                 break;
 
