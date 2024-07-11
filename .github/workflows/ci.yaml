@@ -12,6 +12,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - id: generate-image-tag
+        name: Generate Image Tag
+        env:
+          ref_name: "${{ github.ref_name }}"
+          head_ref: "${{ github.head_ref }}"
+        run: |
+          head_ref="${head_ref/\//-}"
+          ref_name="${head_ref:-${ref_name/main/latest}}"
+          echo "::set-output name=imageTag::${ref_name#v}"
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -36,4 +45,7 @@ jobs:
           context: ./api-gateway
           file: ./api-gateway/Dockerfile
           push: true
-  
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ steps.generate-image-tag.outputs.imageTag }}
+            ghcr.io/${{ github.repository }}:${{ github.event.pull_request.head.sha || github.sha }}
+            
