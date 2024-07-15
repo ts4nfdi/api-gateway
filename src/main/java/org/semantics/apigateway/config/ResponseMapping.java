@@ -24,9 +24,11 @@ public class ResponseMapping {
     private String key;
     private String description;
     private String type;
+    private String language;
+    private String scopeNote;
 
     public List<String> getFieldList(String schemaFieldName) {
-        return Arrays.asList(iri, label, source, backendType, shortForm, synonym, ontology, description, type);
+        return Arrays.asList(iri, label, source, backendType, shortForm, synonym, ontology, description, type, language, scopeNote);
     }
 
     public String getFieldName(String field) {
@@ -74,6 +76,10 @@ public class ResponseMapping {
                 return (description != null && !description.isEmpty()) ? description : "0";
             case "type":
                 return (type != null && !type.isEmpty()) ? type : "0";
+            case "scopeNote":
+                return (scopeNote != null && !scopeNote.isEmpty()) ? scopeNote : "0";
+            case "language":
+                return (language != null && !language.isEmpty()) ? language : "0";
             default:
                 return "0";
         }
@@ -88,6 +94,6 @@ public class ResponseMapping {
     }
 
     public List<String> getFieldListBack() {
-        return Arrays.asList(iri, label, source, backendType, shortForm, synonym, ontology, description, type);
+        return Arrays.asList(iri, label, source, backendType, shortForm, synonym, ontology, description, type, scopeNote,language);
     }
 }
