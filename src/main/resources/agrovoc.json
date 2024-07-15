@@ -13,7 +13,7 @@
       "required": ["query"]
     },
     "@context": {
-      "type": "object",
+      "type": "object", 
       "properties": {
         "skos": { "type": "string", "format": "uri" },
         "isothes": { "type": "string", "format": "uri" },
@@ -23,6 +23,8 @@
         "prefLabel": { "type": "string" },
         "altLabel": { "type": "string" },
         "hiddenLabel": { "type": "string" },
+        "scopeNote": { "type": "string" },
+        "@language": { "type": "string" },
         "results": { "type": "array",
               "items": { 
                 "@id": { "type": "string" },

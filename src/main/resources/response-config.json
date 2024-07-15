@@ -45,7 +45,7 @@
     },
     {
       "database": "skosmos",
-      "url": "https://agrovoc.fao.org/browse/rest/v1/search?query=%s",
+      "url": "https://agrovoc.fao.org/browse/rest/v1/search?query=%s&lang=en&fields=scopeNote",
       "apiKey": "",
       "responseMapping": {
         "nestedJson": "results",
@@ -53,7 +53,9 @@
         "label": "prefLabel",
         "synonym": "altLabel",
         "ontology": "vocab",
-        "type": "type"
+        "type": "type",
+        "scopeNote":"scopeNote",
+        "language": "lang"
       }
     }
   ]
