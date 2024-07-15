@@ -91,12 +91,6 @@ public class DynTransformResponse {
             if (responseMapping.getDescription() != null && item.containsKey(responseMapping.getDescription())) {
                 newItem.put("description", item.get(responseMapping.getDescription()));
             }
-            if (responseMapping.getLanguage() != null && item.containsKey(responseMapping.getLanguage())) {
-                newItem.put("language", item.get(responseMapping.getLanguage()));
-            }
-            if (responseMapping.getScopeNote() != null && item.containsKey(responseMapping.getScopeNote())) {
-                newItem.put("scopeNote", item.get(responseMapping.getScopeNote()));
-            }
             if (responseMapping.getOntology() != null && item.containsKey(responseMapping.getOntology())) {
                 if (responseMapping.getOntology().equals("links")) {
                     Object keysObject = ((Map<?, ?>) item).get(responseMapping.getOntology());

@@ -23,8 +23,6 @@
         "prefLabel": { "type": "string" },
         "altLabel": { "type": "string" },
         "hiddenLabel": { "type": "string" },
-        "scopeNote": { "type": "string" },
-        "@language": { "type": "string" },
         "results": { "type": "array",
               "items": { 
                 "@id": { "type": "string" },
