@@ -33,14 +33,8 @@ public class SkosmosTransformer implements DatabaseTransformer {
         if (item.containsKey("short_form") && item.get("short_form") != null) {
             transformedItem.put("short_form", item.get("short_form"));
         }
-        if (item.containsKey("scopeNote") && item.get("scopeNote") != null) {
-            transformedItem.put("scopeNote", item.get("scopeNote"));
-        }
-        if (item.containsKey("language") && item.get("language") != null) {
-            transformedItem.put("lang", item.get("language"));
-        }
         if (item.containsKey("description") && item.get("description") != null) {
-            transformedItem.put("definition", item.get("description"));
+            transformedItem.put("scopeNote", item.get("description"));
         }
         if (item.containsKey("source") && item.get("source") != null) {
             transformedItem.put("source", item.get("source"));

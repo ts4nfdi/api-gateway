@@ -54,8 +54,7 @@
         "synonym": "altLabel",
         "ontology": "vocab",
         "type": "type",
-        "scopeNote":"scopeNote",
-        "language": "lang"
+        "description":"scopeNote"
       }
     }
   ]

@@ -50,11 +50,9 @@ public class Mapping {
         private String key;
         private String description;
         private String type;
-        private String scopeNote;
-        private String language;
 
         public List<String> getFieldList() {
-            return Arrays.asList(iri, label, source, backendType, shortForm, synonym, ontology, description, type, scopeNote, language );
+            return Arrays.asList(iri, label, source, backendType, shortForm, synonym, ontology, description, type);
         }
 
         public String getFieldName(String field) {
@@ -75,10 +73,6 @@ public class Mapping {
                     return this.ontology;
                 case "type":
                     return this.type;
-                case "language":
-                    return this.language;
-                case "scopeNote":
-                    return this.scopeNote;
                 default:
                     return field;
             }
