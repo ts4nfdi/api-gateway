@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 
 @RestController
-@RequestMapping("/api-gateway")
+@RequestMapping("/")
 public class GatewayController {
 
     private final DynSearchService dynSearchService;
@@ -21,6 +24,13 @@ public class GatewayController {
     public GatewayController(DynSearchService dynSearchService) {
         this.dynSearchService = dynSearchService;
     }
+
+    @CrossOrigin
+    @GetMapping("/")
+    public void home(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect(request.getContextPath() + "/swagger-ui/index.html?configUrl=/api-gateway/openapi/swagger-config");
+    }
+
 
     @CrossOrigin
     @GetMapping("/federatedSearch")
