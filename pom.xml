@@ -86,6 +86,11 @@
 			<artifactId>spring-integration-core</artifactId>
 			<version>5.5.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<!-- Virtuoso & Jena API -->
 		<dependency>
 			<groupId>virt_jena3</groupId>
@@ -306,6 +311,10 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.2</version>
         </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 
 	</dependencies>
 
