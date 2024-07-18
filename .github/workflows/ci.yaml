@@ -1,10 +1,12 @@
 name: Continuous Integration
  
 on:
-  pull_request: { branches: [ "main" ] }
   push:
     branches: [ "main" ]
     tags: [ "*" ]
+env:
+  KUBECONFIG: .kube/config
+  KUBECONFIG_FILE: ${{ secrets.KUBECONFIG }}
 jobs:
   build:
     name: "Build Image"
@@ -48,3 +50,31 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository }}:${{ steps.generate-image-tag.outputs.imageTag }}
             ghcr.io/${{ github.repository }}:${{ github.event.pull_request.head.sha || github.sha }}
+  deploy_main:
+      needs: build
+      if: github.ref == 'refs/heads/main'
+      runs-on: ubuntu-latest
+      steps:
+      - id: generate-image-tag
+        name: Generate Image Tag
+        env:
+          ref_name: "${{ github.ref_name }}"
+          head_ref: "${{ github.head_ref }}"
+        run: |
+          head_ref="${head_ref/\//-}"
+          ref_name="${head_ref:-${ref_name/main/latest}}"
+          echo "::set-output name=imageTag::${ref_name#v}"
+      - uses: actions/checkout@v2
+      - run: |
+          mkdir -p .kube
+          echo "${{ env.KUBECONFIG_FILE }}" > $KUBECONFIG
+      - uses: stefanprodan/kube-tools@v1
+        with:
+          helmv3: 3.12.0
+          command: |
+            kubectl get nodes
+            helmv3 repo add api-gateway-deployment https://ts4nfdi.github.io/api-gateway-deployment/
+            helmv3 repo update
+            helmv3 upgrade ts4nfdi \
+            --install \
+            api-gateway-deployment/api-gateway
