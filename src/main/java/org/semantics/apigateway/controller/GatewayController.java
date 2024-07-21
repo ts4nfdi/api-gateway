@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.apache.http.HttpStatus;
 import org.apache.jena.rdf.model.ResourceFactory;
-import org.semantics.apigateway.service.search.DynSearchService;
+import org.semantics.apigateway.service.search.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +21,11 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/")
 public class GatewayController {
 
-    private final DynSearchService dynSearchService;
+    private final SearchService searchService;
 
     @Autowired
-    public GatewayController(DynSearchService dynSearchService) {
-        this.dynSearchService = dynSearchService;
+    public GatewayController(SearchService searchService) {
+        this.searchService = searchService;
     }
 
     @CrossOrigin
@@ -46,7 +46,7 @@ public class GatewayController {
                                                                           @RequestParam(required = false) String database,
                                                                           @RequestParam(required = false) String format,
                                                                           @RequestParam(required = false) String targetDbSchema) {
-        return dynSearchService.performDynFederatedSearch(query, database, format, targetDbSchema)
+        return searchService.performDynFederatedSearch(query, database, format, targetDbSchema)
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> {
                     if (e.getCause() instanceof IllegalArgumentException) {
@@ -77,7 +77,7 @@ public class GatewayController {
             query = "*";
         }
 
-        return dynSearchService.performDynFederatedSearch(query + "*", allParams.get("database"), allParams.get("format"), "ols")
+        return searchService.performDynFederatedSearch(query + "*", allParams.get("database"), allParams.get("format"), "ols")
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> {
                     if (e.getCause() instanceof IllegalArgumentException) {

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Setter;
-import org.apache.http.HttpStatus;
 import org.semantics.apigateway.config.OntologyConfig;
 import org.semantics.apigateway.model.DynDatabaseTransform;
 import org.semantics.apigateway.model.DynTransformResponse;
@@ -13,7 +12,9 @@ import org.semantics.apigateway.service.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -30,13 +31,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-
-
-
 @Service
-public class DynSearchService {
-
-
+public class SearchService {
 
     @Autowired
     private ConfigurationLoader configurationLoader;
@@ -49,7 +45,7 @@ public class DynSearchService {
     private RestTemplate restTemplate;
 
 
-    private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
 
 
 
@@ -59,7 +55,7 @@ public class DynSearchService {
 
     private Map<String, Map<String, String>> responseMappings;
 
-    public DynSearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer) {
+    public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer) {
         this.configurationLoader = configurationLoader;
         this.ontologyConfigs = configurationLoader.getOntologyConfigs();
         this.responseMappings = configurationLoader.getResponseMappings();
