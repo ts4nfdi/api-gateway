@@ -30,12 +30,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class DynSearchService {
+public class SearchService {
 
     // Resource path to the JSON configuration file for database configurations
     @Value("classpath:response-config.json")
     private Resource dbConfigResource;
-    private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
     private final RestTemplate restTemplate = new RestTemplate();
     private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
     private List<OntologyConfig> ontologyConfigs;
