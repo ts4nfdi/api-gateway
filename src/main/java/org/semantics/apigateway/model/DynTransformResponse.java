@@ -85,9 +85,15 @@ public class DynTransformResponse {
             if (responseMapping.getSynonym() != null && item.containsKey(responseMapping.getSynonym())) {
                 newItem.put("synonym", item.get(responseMapping.getSynonym()));
             }
+
             if (responseMapping.getShortForm() != null && item.containsKey(responseMapping.getShortForm())) {
                 newItem.put("short_form", item.get(responseMapping.getShortForm()));
+            } else if (newItem.containsKey("iri") && newItem.get("iri") != null) {
+                newItem.put("short_form",
+                        ResourceFactory.createResource(String.valueOf(newItem.get("iri"))).getLocalName().toLowerCase());
+
             }
+
             if (responseMapping.getDescription() != null && item.containsKey(responseMapping.getDescription())) {
                 newItem.put("description", item.get(responseMapping.getDescription()));
             }
@@ -109,6 +115,7 @@ public class DynTransformResponse {
                     newItem.put("type", item.get(responseMapping.getType()));
                 }
             }
+
             // Adding the source database as part of the new item
             if (String.valueOf(config.getUrl()).contains("/search?")) {
                 newItem.put("source", String.valueOf(config.getUrl()).substring(0, String.valueOf(config.getUrl()).indexOf("/search?")));
@@ -117,6 +124,7 @@ public class DynTransformResponse {
             } else {
                 newItem.put("source", config.getUrl());
             }
+
             // Adding the backend database type as part of the new item
             newItem.put("backend_type", config.getDatabase());
 
