@@ -30,7 +30,7 @@ public class DynTransformResponse {
         Object nestedData = response.getOrDefault(nestedJsonKey, new ArrayList<>());
         logger.info("Nested JSON key: {}", nestedJsonKey);
         logger.info("Nested data type: {}", nestedData.getClass().getSimpleName());
-        
+
         // Processing the data based on its type (List or Map)
         if (nestedData instanceof List) {
             processList((List<?>) nestedData, result, config);
@@ -101,7 +101,13 @@ public class DynTransformResponse {
                 }
             }
             if (responseMapping.getType() != null && item.containsKey(responseMapping.getType())) {
-                newItem.put("type", item.get(responseMapping.getType()));
+                if (config.getDatabase().equals("ontoportal")) {
+                    newItem.put("type", "class"); // ontoportal do the search only on classes for now
+                } else if (config.getDatabase().equals("skosmos")) {
+                    newItem.put("type", "individual"); // workaround ols type implementation that do not support skos types
+                } else {
+                    newItem.put("type", item.get(responseMapping.getType()));
+                }
             }
             // Adding the source database as part of the new item
             if (String.valueOf(config.getUrl()).contains("/search?")) {
