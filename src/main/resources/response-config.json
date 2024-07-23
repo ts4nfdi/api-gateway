@@ -42,6 +42,20 @@
         "ontology": "internal",
         "description": "description"
       }
+    },
+    {
+      "database": "skosmos",
+      "url": "https://agrovoc.fao.org/browse/rest/v1/search?query=%s&lang=en&fields=scopeNote",
+      "apiKey": "",
+      "responseMapping": {
+        "nestedJson": "results",
+        "iri": "uri",
+        "label": "prefLabel",
+        "synonym": "altLabel",
+        "ontology": "vocab",
+        "type": "type",
+        "description":"scopeNote"
+      }
     }
   ]
 }
