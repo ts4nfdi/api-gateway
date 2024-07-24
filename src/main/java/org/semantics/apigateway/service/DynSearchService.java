@@ -10,17 +10,25 @@ import org.semantics.apigateway.model.DynTransformResponse;
 import org.semantics.apigateway.model.JsonLdTransform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -32,38 +40,19 @@ import java.util.stream.Stream;
 @Service
 public class DynSearchService {
 
-    // Resource path to the JSON configuration file for database configurations
-    @Value("classpath:response-config.json")
-    private Resource dbConfigResource;
+    private ConfigurationLoader configurationLoader;
     private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
     private final RestTemplate restTemplate = new RestTemplate();
     private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
     private List<OntologyConfig> ontologyConfigs;
     private Map<String, Map<String, String>> responseMappings;
 
-    // Method invoked after the bean’s properties have been set, loads database configurations
-    @PostConstruct
-    public void loadDbConfigs() throws IOException {
-     ObjectMapper objectMapper = new ObjectMapper();
-        try (InputStream in = dbConfigResource.getInputStream()) {
-            DatabaseConfig dbConfig = objectMapper.readValue(in, DatabaseConfig.class);
-            this.ontologyConfigs = dbConfig.getDatabases();
-            this.responseMappings = loadResponseMappings();
-            ontologyConfigs.forEach(config -> logger.info("Loaded config: {}", config));
-        }
-    }
 
-    // Loads response mappings from a json configuration file
-    private Map<String, Map<String, String>> loadResponseMappings() throws IOException {
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("response-mappings.json");
-        if (inputStream != null) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            Map<String, Map<String, String>> mappings = objectMapper.readValue(inputStream, new TypeReference<Map<String, Map<String, String>>>(){});
-            if (mappings != null) {
-                return mappings;
-            }
-        }
-        return Collections.emptyMap();
+    @Autowired
+    public DynSearchService(ConfigurationLoader configurationLoader) {
+        this.configurationLoader = configurationLoader;
+        this.ontologyConfigs = configurationLoader.getOntologyConfigs();
+        this.responseMappings = configurationLoader.getResponseMappings();
     }
 
     // Constructs the URL for the API call based on the query and configuration
