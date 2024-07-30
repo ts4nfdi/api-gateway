@@ -1,5 +1,8 @@
 package org.semantics.apigateway.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.apache.http.HttpStatus;
 import org.apache.jena.rdf.model.ResourceFactory;
 import org.semantics.apigateway.service.DynSearchService;
@@ -33,7 +36,12 @@ public class GatewayController {
 
 
     @CrossOrigin
-    @GetMapping("/federatedSearch")
+    @Operation(summary = "Search all of the content in a catalogue.", description = "The returned data should include a description of the type of data that is being returned. For example the returned content could be SKOS Concepts or OWL Classes.", tags = {"Search"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = ""),
+
+            @ApiResponse(responseCode = "404", description = "")})
+    @GetMapping("/search")
     public CompletableFuture<ResponseEntity<?>> performDynFederatedSearch(@RequestParam String query,
                                                                           @RequestParam(required = false) String database,
                                                                           @RequestParam(required = false) String format,
@@ -53,12 +61,13 @@ public class GatewayController {
     }
 
     @CrossOrigin
+    @Operation(summary = "", description = "", tags = {"OLS"})
     @GetMapping("/ols/api/select")
     public CompletableFuture<ResponseEntity<?>>
-    performDynFederatedSearchInOLSTargetDBSchema(@RequestParam Map<String,String> allParams) {
+    performDynFederatedSearchInOLSTargetDBSchema(@RequestParam Map<String, String> allParams) {
 
         String query;
-        if (allParams.containsKey("q") || allParams.containsKey("query")){
+        if (allParams.containsKey("q") || allParams.containsKey("query")) {
             if (allParams.containsKey("q")) {
                 query = allParams.get("q");
             } else {
@@ -83,9 +92,10 @@ public class GatewayController {
     }
 
     @CrossOrigin
+    @Operation(summary = "", description = "", tags = {"OLS"})
     @GetMapping("/ols/api/ontologies/{ontology}/terms")
     public CompletableFuture<ResponseEntity<?>>
-    getTermsInOLSTargetDBSchema(@PathVariable("ontology") String terminologyName, @RequestParam Map<String,String> allParams) {
+    getTermsInOLSTargetDBSchema(@PathVariable("ontology") String terminologyName, @RequestParam Map<String, String> allParams) {
 
         CompletableFuture<Object> future = new CompletableFuture<>();
         Map<String, Object> data = new HashMap<>();
