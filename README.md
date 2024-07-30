@@ -32,11 +32,11 @@ To set up the API-Gateway, follow these steps:
    `mvn clean install`
 4. Run the service:
    `java -jar target/API-Gateway-0.0.1-SNAPSHOT.jar`
-5. Alternative run with Docker (requirment: have [Docker](https://docs.docker.com/get-docker/) installed and running)
+5. Alternative run with Docker (requirement: have [Docker](https://docs.docker.com/get-docker/) installed and running)
    `docker-compose up --build`
 
 
-The service will be accessible at `http://localhost:8080/api-gateway/swagger-ui/index.html?configUrl=/api-gateway/openapi/swagger-config#` by default.
+The service will be accessible at `http://localhost:8080/api-gateway` by default.
 
 ## Extensibility and Customization
 
