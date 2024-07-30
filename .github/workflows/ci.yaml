@@ -78,6 +78,7 @@ jobs:
         run: |
           kubectl create secret generic ontoportal-secret \
             --from-literal=ONTOPORTAL_APIKEY=${{ secrets.ONTOPORTAL_APIKEY }} \
+            --namespace='ts4nfdi' \
             --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Deploy to Kubernetes
