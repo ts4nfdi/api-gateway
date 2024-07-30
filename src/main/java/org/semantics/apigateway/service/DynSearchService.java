@@ -3,7 +3,6 @@ package org.semantics.apigateway.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.OntologyConfig;
 import org.semantics.apigateway.model.DynDatabaseTransform;
 import org.semantics.apigateway.model.DynTransformResponse;
@@ -11,25 +10,15 @@ import org.semantics.apigateway.model.JsonLdTransform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.env.Environment;
-import org.springframework.core.env.MutablePropertySources;
-import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,13 +35,14 @@ public class DynSearchService {
     private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
     private List<OntologyConfig> ontologyConfigs;
     private Map<String, Map<String, String>> responseMappings;
-
+    private SearchLocalIndexerService localIndexer;
 
     @Autowired
-    public DynSearchService(ConfigurationLoader configurationLoader) {
+    public DynSearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer) {
         this.configurationLoader = configurationLoader;
         this.ontologyConfigs = configurationLoader.getOntologyConfigs();
         this.responseMappings = configurationLoader.getResponseMappings();
+        this.localIndexer = localIndexer;
     }
 
     // Constructs the URL for the API call based on the query and configuration
@@ -132,12 +122,14 @@ public class DynSearchService {
 
                         logger.info("Combined results before transformation: {}", combinedResults);
 
+                        List<Map<String, Object>> newResults = this.localIndexer.reIndexResults(query, combinedResults, logger);
+
                         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
-                            Object transformedResults = transformAndStructureResults(combinedResults, targetDbSchema);
+                            Object transformedResults = transformAndStructureResults(newResults, targetDbSchema);
                             logger.info("Transformed results for database schema: {}", transformedResults);
                             return transformedResults;
                         } else {
-                            return combinedResults;
+                            return newResults;
                         }
                     } catch (Exception e) {
                         logger.error("Error in transforming results for database schema: {}", e.getMessage(), e);
