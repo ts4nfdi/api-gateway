@@ -19,68 +19,29 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @NoArgsConstructor
 public class SearchLocalIndexerService {
 
+    public static final String INDEXED_FIELD = "label";
+
 
     public List<Map<String, Object>> reIndexResults(String query, List<Map<String, Object>> combinedResults , Logger logger) throws IOException, ParseException {
-        Directory index = new ByteBuffersDirectory();
+        Directory index = indexResults(combinedResults);
 
-        IndexWriterConfig config = new IndexWriterConfig(new StandardAnalyzer());
+        return localIndexSearch(query, logger, index, INDEXED_FIELD);
+    }
 
-        IndexWriter w = new IndexWriter(index, config);
-
-
-        for (Map<String, Object> result : combinedResults) {
-            Document doc = new Document();
-            doc.add(new StringField("id", result.get("iri").toString() + result.get("ontology").toString(), Field.Store.YES));
-            result.forEach((key, value) -> doc.add(new TextField(key, String.valueOf(value), Field.Store.YES)));
-            w.addDocument(doc);
-        }
-
-        w.close();
-
-        String field = "label";
-
+    private static List<Map<String, Object>> localIndexSearch(String query, Logger logger, Directory index, String field) throws IOException {
         IndexReader reader = DirectoryReader.open(index);
         IndexSearcher searcher = new IndexSearcher(reader);
         BooleanQuery.Builder mainQuery = new BooleanQuery.Builder();
 
         String[] terms = query.toLowerCase().split("\\s+");
 
-        // Match the full query as a phrase prefix
-        PhraseQuery.Builder phraseQuery = new PhraseQuery.Builder();
-        for (int i = 0; i < terms.length; i++) {
-            phraseQuery.add(new Term(field, terms[i]), i);
-        }
-        PhraseQuery fullPhraseQuery = phraseQuery.build();
-        mainQuery.add(new BoostQuery(fullPhraseQuery, 10), BooleanClause.Occur.SHOULD);
-
-        // Match the last term as a prefix at the end of the phrase
-        if (terms.length > 0) {
-            Term lastTerm = new Term(field, terms[terms.length - 1]);
-            PrefixQuery prefixQuery = new PrefixQuery(lastTerm);
-            SpanMultiTermQueryWrapper<PrefixQuery> spanPrefix = new SpanMultiTermQueryWrapper<>(prefixQuery);
-            SpanNearQuery spanNearQuery = new SpanNearQuery(
-                    new SpanQuery[]{new SpanTermQuery(new Term(field, terms[0])), spanPrefix},
-                    terms.length - 1,
-                    true
-            );
-            mainQuery.add(new BoostQuery(spanNearQuery, 5), BooleanClause.Occur.SHOULD);
-        }
-
-        // Match individual terms as prefixes
-        for (String term : terms) {
-            PrefixQuery prefixQuery = new PrefixQuery(new Term(field, term));
-            mainQuery.add(prefixQuery, BooleanClause.Occur.SHOULD);
-        }
-        Query q = mainQuery.build();
+        Query q = queryBuilder(field, terms, mainQuery);
 
 
         TopDocs resultsTopDocs = searcher.search(q, 100);
@@ -94,7 +55,54 @@ public class SearchLocalIndexerService {
             logger.info("Score of: {} is {}", newMap.get("label"), scoreDoc.score);
         }
         reader.close();
-
         return newResults;
+    }
+
+    /*
+        Define the local search result order/rank
+     */
+    private static Query queryBuilder(String field, String[] terms, BooleanQuery.Builder mainQuery) {
+        // Match the full query as a phrase prefix
+        PhraseQuery.Builder phraseQuery = new PhraseQuery.Builder();
+        for (int i = 0; i < terms.length; i++) {
+            phraseQuery.add(new Term(field, terms[i]), i);
+        }
+        PhraseQuery fullPhraseQuery = phraseQuery.build();
+        mainQuery.add(new BoostQuery(fullPhraseQuery, 10), BooleanClause.Occur.SHOULD);
+
+        // Match individual terms as prefixes
+        if (terms.length > 0) {
+            for (int i = 0; i < terms.length; i++) {
+                Term term = new Term(field, terms[i]);
+                PrefixQuery prefixQuery = new PrefixQuery(term);
+                mainQuery.add(new BoostQuery(prefixQuery, Math.max(100-(i*10), 0)), BooleanClause.Occur.SHOULD);
+            }
+        }
+
+        // Match individual terms as prefixes
+        for (String term : terms) {
+            PrefixQuery prefixQuery = new PrefixQuery(new Term(field, term));
+            mainQuery.add(prefixQuery, BooleanClause.Occur.SHOULD);
+        }
+        return mainQuery.build();
+    }
+
+    private static Directory indexResults(List<Map<String, Object>> combinedResults) throws IOException {
+        Directory index = new ByteBuffersDirectory();
+
+        IndexWriterConfig config = new IndexWriterConfig(new StandardAnalyzer());
+
+        IndexWriter w = new IndexWriter(index, config);
+
+
+        for (Map<String, Object> result : combinedResults) {
+            Document doc = new Document();
+            doc.add(new StringField("id", result.get("iri").toString() + "_" + result.get("ontology").toString(), Field.Store.YES));
+            result.forEach((key, value) -> doc.add(new TextField(key, String.valueOf(value), Field.Store.YES)));
+            w.addDocument(doc);
+        }
+
+        w.close();
+        return index;
     }
 }
