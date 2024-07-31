@@ -16,7 +16,7 @@
     },
     {
       "database": "ols",
-      "url": "https://ebi.ac.uk/ols4/api/search?q=%s",
+      "url": "https://www.ebi.ac.uk/ols4/api/search?q=%s",
       "apiKey": "",
       "responseMapping": {
         "nestedJson": "response",
@@ -28,19 +28,6 @@
         "shortForm": "short_form",
         "description": "description",
         "type": "type"
-      }
-    },
-    {
-      "database": "gfbio",
-      "url": "https://terminologies.gfbio.org/api/terminologies/search?query=%s",
-      "apiKey": "",
-      "responseMapping": {
-        "nestedJson": "results",
-        "iri": "uri",
-        "label": "label",
-        "synonym": "synonym",
-        "ontology": "internal",
-        "description": "description"
       }
     },
     {
