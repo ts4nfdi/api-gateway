@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -26,12 +27,23 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+class RestTemplateConfig {
+
+    public RestTemplate createRestTemplate(int connectionTimeout, int readTimeout) {
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout(connectionTimeout * 1000); // Set the connection timeout (milliseconds)
+        factory.setReadTimeout(readTimeout * 1000);         // Set the read timeout (milliseconds)
+
+        return new RestTemplate(factory);
+    }
+}
+
 @Service
 public class DynSearchService {
 
     private ConfigurationLoader configurationLoader;
     private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate = new RestTemplateConfig().createRestTemplate(20, 20);
     private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
     private List<OntologyConfig> ontologyConfigs;
     private Map<String, Map<String, String>> responseMappings;

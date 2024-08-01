@@ -1,0 +1,33 @@
+{
+  "name": "demo-semlookp-widgets",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@elastic/datemath": "^5.0.3",
+    "@elastic/eui": "62.1.0",
+    "@emotion/css": "^11.11.2",
+    "@emotion/react": "11.11.3",
+    "@ts4nfdi/terminology-service-suite": "2.0.0",
+    "axios": "^1.6.2",
+    "moment": "^2.29.4",
+    "next": "14.0.4",
+    "prop-types": "^15.8.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-query": "3.39.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "typescript": "^5"
+  }
+}
