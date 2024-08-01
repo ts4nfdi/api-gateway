@@ -7,24 +7,18 @@ import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.OntologyConfig;
 import org.semantics.apigateway.model.DynDatabaseTransform;
 import org.semantics.apigateway.model.DynTransformResponse;
-import org.semantics.apigateway.model.JsonLdTransform;
+import org.semantics.apigateway.utils.ApiAccessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,7 +30,6 @@ public class SearchService {
     @Value("classpath:response-config.json")
     private Resource dbConfigResource;
     private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
-    private final RestTemplate restTemplate = new RestTemplate();
     private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
     private List<OntologyConfig> ontologyConfigs;
     private Map<String, Map<String, String>> responseMappings;
@@ -53,6 +46,82 @@ public class SearchService {
         }
     }
 
+
+    private boolean databaseExist(String database){
+        return database != null && !database.isEmpty() &&
+                ontologyConfigs.stream().anyMatch(config -> config.getDatabase().equalsIgnoreCase(database));
+    }
+
+    // Performs a federated search across multiple databases and optionally transforms the results for a target database schema
+    public CompletableFuture<List<Map<String, Object>>> performSearch(
+            String query, String database, String format, String targetDbSchema) {
+        CompletableFuture<List<Map<String, Object>>> future = new CompletableFuture<>();
+
+        if(!databaseExist(database)){
+            future.completeExceptionally(new IllegalArgumentException("Database not found: " + database));
+            return future;
+        }
+
+//        Stream<OntologyConfig> configsStream = ontologyConfigs.stream();
+//        if (database != null && !database.isEmpty()) {
+//            configsStream = configsStream.filter(config -> database.equalsIgnoreCase(config.getDatabase()));
+//        }
+
+
+        Map<String, String> apis = ontologyConfigs.stream()
+                .collect(Collectors.toMap(OntologyConfig::getUrl, OntologyConfig::getApiKey));
+
+        ApiAccessor accessor = new ApiAccessor(apis, logger);
+
+        CompletableFuture<Map<String, Map<String, Object>>> originalData = accessor.get(query);
+
+
+        List<List<Map<String, Object>>> transformedData = originalData.thenApply(data ->
+                data.entrySet().stream()
+                        .map(entry -> {
+                            String url = entry.getKey();
+                            Map<String, Object> results = entry.getValue();
+                            OntologyConfig config = ontologyConfigs.stream()
+                                    .filter(c -> c.getUrl().equalsIgnoreCase(url))
+                                    .findFirst()
+                                    .orElseThrow(() -> new RuntimeException("Config not found for URL: " + url));
+                            return dynTransformResponse.dynTransformResponse(results, config);
+                        })
+                        .collect(Collectors.toList())
+        ).join();
+
+        future.complete(transformedData.stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toList()));
+
+
+        return future;
+
+//        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+//                .thenApply(v -> {
+//                    try {
+//                        List<Map<String, Object>> combinedResults = futures.stream()
+//                                .flatMap(resultFuture -> resultFuture.join().stream())
+//                                .collect(Collectors.toList());
+//
+//                        logger.info("Combined results before transformation: {}", combinedResults);
+//
+//                        if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
+//                            Object transformedResults = transformAndStructureResults(combinedResults, targetDbSchema);
+//                            logger.info("Transformed results for database schema: {}", transformedResults);
+//                            return transformedResults;
+//                        } else {
+//                            return combinedResults;
+//                        }
+//                    } catch (Exception e) {
+//                        logger.error("Error in transforming results for database schema: {}", e.getMessage(), e);
+//                        future.completeExceptionally(e);
+//                        return null;
+//                    }
+//                });
+    }
+
+
     // Loads response mappings from a json configuration file
     private Map<String, Map<String, String>> loadResponseMappings() throws IOException {
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("response-mappings.json");
@@ -64,98 +133,6 @@ public class SearchService {
             }
         }
         return Collections.emptyMap();
-    }
-
-    // Constructs the URL for the API call based on the query and configuration
-    private String constructUrl(String query, OntologyConfig config) {
-        String url = config.getUrl();
-        String apiKey = config.getApiKey();
-        return apiKey.isEmpty() ? String.format(url, query) : String.format(url, query, apiKey);
-    }
-
-    // Filters the results based on selected facets (criteria)
-    public List<Map<String, Object>> filterResultsByFacets(List<Map<String, Object>> results, Map<String, String> selectedFacets) {
-        return results.stream()
-                .filter(result -> selectedFacets.entrySet().stream()
-                        .allMatch(facet -> result.containsKey(facet.getKey()) && result.get(facet.getKey()).equals(facet.getValue())))
-                .collect(Collectors.toList());
-    }
-
-
-    // Asynchronously performs a search query against a given ontology configuration
-    @Async
-    public CompletableFuture<List<Map<String, Object>>> search(String query, OntologyConfig config, String format) {
-        CompletableFuture<List<Map<String, Object>>> future = new CompletableFuture<>();
-        try {
-            String url = constructUrl(query, config);
-            logger.info("Accessing URL: {}", url);
-            ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
-
-            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-                logger.info("Raw API Response: {}", response.getBody());
-                List<Map<String, Object>> transformedResponse = dynTransformResponse.dynTransformResponse(response.getBody(), config);
-
-                if ("jsonld".equalsIgnoreCase(format)) {
-                    transformedResponse = JsonLdTransform.convertToJsonLd(transformedResponse, config);
-                }
-
-                logger.info("Transformed API Response: {}", transformedResponse);
-                future.complete(transformedResponse);
-            } else {
-                logger.error("API Response Error: Status Code - {}", response.getStatusCode());
-                future.complete(List.of());
-            }
-        } catch (Exception e) {
-            logger.error("An error occurred while processing the request: {}", e.getMessage(), e);
-            future.completeExceptionally(e);
-        }
-        return future;
-    }
-
-    // Performs a federated search across multiple databases and optionally transforms the results for a target database schema
-    public CompletableFuture<Object> performDynFederatedSearch(
-            String query, String database, String format, String targetDbSchema) {
-        CompletableFuture<Object> future = new CompletableFuture<>();
-
-        boolean databaseExists = database != null && !database.isEmpty() &&
-                ontologyConfigs.stream().anyMatch(config -> config.getDatabase().equalsIgnoreCase(database));
-
-        if (!databaseExists && database != null && !database.isEmpty()) {
-            future.completeExceptionally(new IllegalArgumentException("Database not found: " + database));
-            return future;
-        }
-
-        Stream<OntologyConfig> configsStream = ontologyConfigs.stream();
-        if (database != null && !database.isEmpty()) {
-            configsStream = configsStream.filter(config -> database.equalsIgnoreCase(config.getDatabase()));
-        }
-
-        List<CompletableFuture<List<Map<String, Object>>>> futures = configsStream
-                .map(config -> search(query, config, format))
-                .collect(Collectors.toList());
-
-        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
-                .thenApply(v -> {
-                    try {
-                        List<Map<String, Object>> combinedResults = futures.stream()
-                                .flatMap(resultFuture -> resultFuture.join().stream())
-                                .collect(Collectors.toList());
-
-                        logger.info("Combined results before transformation: {}", combinedResults);
-
-                        if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
-                            Object transformedResults = transformAndStructureResults(combinedResults, targetDbSchema);
-                            logger.info("Transformed results for database schema: {}", transformedResults);
-                            return transformedResults;
-                        } else {
-                            return combinedResults;
-                        }
-                    } catch (Exception e) {
-                        logger.error("Error in transforming results for database schema: {}", e.getMessage(), e);
-                        future.completeExceptionally(e);
-                        return null;
-                    }
-                });
     }
 
     // Method to transform and structure results based on database

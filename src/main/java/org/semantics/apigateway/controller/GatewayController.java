@@ -1,5 +1,8 @@
 package org.semantics.apigateway.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.apache.http.HttpStatus;
 import org.apache.jena.rdf.model.ResourceFactory;
 import org.semantics.apigateway.service.SearchService;
@@ -12,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 
 
 @RestController
-@RequestMapping("/api-gateway")
+@RequestMapping("/")
 public class GatewayController {
 
     private final SearchService searchService;
@@ -22,27 +25,11 @@ public class GatewayController {
         this.searchService = searchService;
     }
 
-    @CrossOrigin
-    @GetMapping("/federatedSearch")
-    public CompletableFuture<ResponseEntity<?>> performDynFederatedSearch(@RequestParam String query,
-                                                                          @RequestParam(required = false) String database,
-                                                                          @RequestParam(required = false) String format,
-                                                                          @RequestParam(required = false) String targetDbSchema) {
-        return searchService.performDynFederatedSearch(query, database, format, targetDbSchema)
-                .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
-                .exceptionally(e -> {
-                    if (e.getCause() instanceof IllegalArgumentException) {
-                        return ResponseEntity
-                                .status(HttpStatus.SC_BAD_REQUEST)
-                                .body("Error: " + e.getCause().getMessage());
-                    }
-                    return ResponseEntity
-                            .status(HttpStatus.SC_INTERNAL_SERVER_ERROR)
-                            .body("Error: An internal server error occurred");
-                });
-    }
+
+
 
     @CrossOrigin
+    @Operation(summary = "", description = "", tags={ "OLS" })
     @GetMapping("/ols/api/select")
     public CompletableFuture<ResponseEntity<?>>
     performDynFederatedSearchInOLSTargetDBSchema(@RequestParam Map<String,String> allParams) {
@@ -58,7 +45,7 @@ public class GatewayController {
             query = "*";
         }
 
-        return searchService.performDynFederatedSearch(query + "*", allParams.get("database"), allParams.get("format"), "ols")
+        return searchService.performSearch(query + "*", allParams.get("database"), allParams.get("format"), "ols")
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> {
                     if (e.getCause() instanceof IllegalArgumentException) {
@@ -73,6 +60,7 @@ public class GatewayController {
     }
 
     @CrossOrigin
+    @Operation(summary = "", description = "", tags={ "OLS" })
     @GetMapping("/ols/api/ontologies/{ontology}/terms")
     public CompletableFuture<ResponseEntity<?>>
     getTermsInOLSTargetDBSchema(@PathVariable("ontology") String terminologyName, @RequestParam Map<String,String> allParams) {

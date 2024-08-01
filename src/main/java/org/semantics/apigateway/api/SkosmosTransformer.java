@@ -36,6 +36,7 @@ public class SkosmosTransformer implements DatabaseTransformer {
         if (item.containsKey("description") && item.get("description") != null) {
             transformedItem.put("scopeNote", item.get("description"));
         }
+
         if (item.containsKey("source") && item.get("source") != null) {
             transformedItem.put("source", item.get("source"));
         }

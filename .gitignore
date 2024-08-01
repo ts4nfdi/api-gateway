@@ -41,3 +41,7 @@ build/
 
 # System files
 .DS_Store
+
+node_modules/
+
+src/frontend/.next/

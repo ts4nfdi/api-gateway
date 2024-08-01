@@ -3,7 +3,7 @@
     {
       "database": "ontoportal",
       "url": "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s",
-      "apiKey": "xxx",
+      "apiKey": "47a57aa3-7b54-4f34-b695-dbb5f5b7363e",
       "responseMapping": {
         "nestedJson": "collection",
         "label": "prefLabel",
