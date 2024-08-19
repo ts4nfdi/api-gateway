@@ -48,13 +48,7 @@ public class OlsTransformer implements DatabaseTransformer {
             transformedItem.put("backend_type", item.get("backend_type"));
         }
         if (item.containsKey("type") && item.get("type") != null) {
-            // the value of the key @type in OntoPortal is saved as an IRI
-            if (item.containsKey("backend_type") && String.valueOf(item.get("backend_type")).equals("ontoportal")) {
-                transformedItem.put("type",
-                        ResourceFactory.createResource(String.valueOf(item.get("type"))).getLocalName().toLowerCase());
-            } else {
-                transformedItem.put("type", item.get("type"));
-            }
+            transformedItem.put("type", item.get("type"));
         }
         return transformedItem;
     }
