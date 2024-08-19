@@ -41,3 +41,5 @@ build/
 
 # System files
 .DS_Store
+
+/src/frontend/
