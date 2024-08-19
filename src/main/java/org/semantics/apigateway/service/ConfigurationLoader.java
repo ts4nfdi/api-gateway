@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.OntologyConfig;
-import org.semantics.apigateway.model.DynTransformResponse;
 import org.semantics.apigateway.service.search.SearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;

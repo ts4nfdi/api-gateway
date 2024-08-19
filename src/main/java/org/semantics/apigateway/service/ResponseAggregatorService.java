@@ -1,4 +1,4 @@
-package org.semantics.apigateway.model;
+package org.semantics.apigateway.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DynTransformResponse {
+public class ResponseAggregatorService {
 
-    private static final Logger logger = LoggerFactory.getLogger(DynTransformResponse.class);
+    private static final Logger logger = LoggerFactory.getLogger(ResponseAggregatorService.class);
 
     // Method to dynamically transform a response based on the provided OntologyConfig
     public List<Map<String, Object>> dynTransformResponse(Map<String, Object> response, OntologyConfig config) {

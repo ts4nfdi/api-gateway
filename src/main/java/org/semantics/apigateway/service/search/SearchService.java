@@ -3,7 +3,7 @@ package org.semantics.apigateway.service.search;
 import lombok.Getter;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.semantics.apigateway.config.OntologyConfig;
-import org.semantics.apigateway.model.DynTransformResponse;
+import org.semantics.apigateway.service.ResponseAggregatorService;
 import org.semantics.apigateway.service.ConfigurationLoader;
 import org.semantics.apigateway.service.JsonLdTransform;
 import org.semantics.apigateway.service.ResponseTransformerService;
@@ -11,7 +11,6 @@ import org.semantics.apigateway.service.ApiAccessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -44,7 +43,7 @@ public class SearchService {
     private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
 
 
-    private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
+    private final ResponseAggregatorService dynTransformResponse = new ResponseAggregatorService();
 
     private List<OntologyConfig> ontologyConfigs;
 
