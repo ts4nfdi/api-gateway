@@ -1,0 +1,2801 @@
+
+{
+
+  "page": 1,
+  "pageCount": 21,
+  "totalCount": 1004,
+  "prevPage": null,
+  "nextPage": 2,
+
+  "links": {
+
+    "nextPage": "https://data.biodivportal.gfbio.dev/search?q=plant&apikey=47a57aa3-7b54-4f34-b695-dbb5f5b7363e&page=2",
+    "prevPage": null
+
+  },
+  "collection": [
+
+    {
+
+      "prefLabel": "plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://sweetontology.net/matrPlant/Plant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrPlant%2FPlant",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/SWEET",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrPlant%2FPlant/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrPlant%2FPlant/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrPlant%2FPlant/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrPlant%2FPlant/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrPlant%2FPlant/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrPlant%2FPlant/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrPlant%2FPlant/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/SWEET/classes/http%3A%2F%2Fsweetontology.net%2FmatrPlant%2FPlant/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/SWEET?p=classes&conceptid=http%3A%2F%2Fsweetontology.net%2FmatrPlant%2FPlant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "whole plant evergreen (plant)",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/FLOPO_0005767",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/FLOPO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant height",
+
+      "synonym": [
+
+        "PTHT (related)",
+        "shoot height (related)",
+        "Ht (related)"
+
+      ],
+      "definition": [
+
+        "A whole plant morphology trait (TO:0000398) which is the height of a whole plant (PO:0000003)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/TO_0000207",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000207",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/PTO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000207/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000207/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000207/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000207/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000207/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000207/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000207/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000207/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/PTO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000207",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant aspect",
+
+      "definition": [
+
+        "A whole plant morphology trait (TO:0000398) that is a qualitative score of the visual appeal (ideotype) of the whole plant (PO:0000003)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/TO_0000737",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000737",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/PTO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000737/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000737/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000737/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000737/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000737/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000737/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000737/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000737/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/PTO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000737",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant hormone",
+
+      "definition": [
+
+        "A plant growth regulator that modulates the formation of stems, leaves and flowers, as well as the development and ripening of fruit. The term includes endogenous and non-endogenous compounds (e.g. active compounds produced by bacteria on the leaf surface) as well as semi-synthetic and fully synthetic compounds."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/CHEBI_37848",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/OBA",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/OBA?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant metabolite",
+
+      "definition": [
+
+        "Any eukaryotic metabolite produced during a metabolic reaction in plants, the kingdom that include flowering plants, conifers and other gymnosperms."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/CHEBI_76924",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/OBA",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/OBA?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "whole plant",
+
+      "definition": [
+
+        "Examples include plant embryo (PO:0009009), megagametophyte (PO:0025279) and microgametophyte (PO:0025280)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0000003",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/OBA",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/OBA?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant activator",
+
+      "definition": [
+
+        "Any compound that protects plants by activating their defence mechanisms."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/CHEBI_73182",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/OBA",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/OBA?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant axis",
+
+      "definition": [
+
+        "Includes roots and shoots."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0025004",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/OBA",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/OBA?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant organ",
+
+      "definition": [
+
+        "Examples include stem (PO:0009047), leaf (PO:0025034), and root (PO:0009005). May include individual plant cells (PO:0009002) that are not part of a portion of plant tissue (e.g., idioblasts, PO:0000283). A plant organ may have one or more different plant organs as parts, such as a sporophyll (PO:0009026) that may have as part a sporangium (PO:0025094) or a carpel (PO:0009030) that may have as part a plant ovule (PO:0020003)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0009008",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/OBA",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/OBA?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant embryo",
+
+      "definition": [
+
+        "A plant embryo is generally formed after the first division of a plant zygote (PO:0000423), but in the case of a nucellar (adventitious) plant embryo (PO:0004537), somatic plant embryo (PO:0025302), microspore-derived cultured plant embryo (PO:0025305), and other embryos that arise through apogamy, it begins after the division of a single cell that is not a zygote. The end of the embryo stage varies among taxa; the beginning of a seed germination stage (PO:0007057) in seed plants, formation of the first vascular leaf (PO:0009025) in pteridophytes, the beginning of development of a sporangium (PO:0025094) in bryophytes, or the beginning of the formation of a plant organ (PO:0009008) such as a root (PO:0009005), shoot axis (PO:0025029), or vascular leaf (PO:0009025) in a cultured plant embryo (PO:0000010)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0009009",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009009",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/OBA",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009009/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009009/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009009/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009009/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009009/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009009/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009009/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009009/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/OBA?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009009",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant ovule",
+
+      "definition": [
+
+        "A seed (PO:0009010) develops from a plant ovule. In angiosperms, a plant ovule is part of a plant ovary (PO:0009072). In conifers, a plant ovule is part of an ovuliferous scale (add term). If you are annotating to this structure for Zea mays or other grasses, please also add an annotation to the corresponding floret type. Choose the most specific term possible from: spikelet floret (PO:0009082), ear floret (PO:0006354), upper floret of pedicellate spikelet of ear (PO:0006350), upper floret of sessile spikelet of ear (PO:0006352)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0020003",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0020003",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/OBA",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0020003/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0020003/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0020003/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0020003/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0020003/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0020003/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0020003/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0020003/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/OBA?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0020003",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant cell",
+
+      "definition": [
+
+        "Applies to cells that are living or dead at maturity (e.g., fiber cell or tracheid) and includes any external encapsulating structures (if present) such as the plasma membrane and the plant-type cell wall. Definition of cell GO:0005623: \"The basic structural and functional unit of all organisms. Includes the plasma membrane and any external encapsulating structures such as the cell wall and cell envelope\". GO:0009505. Definition of plant-type cell wall (GO:0009505): A more or less rigid structure lying outside the cell membrane of a cell and composed of cellulose and pectin and other organic and inorganic substances, synonym; exact: cellulose and pectin-containing cell wall."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0009002",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/OBA",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/OBA?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant structure",
+
+      "definition": [
+
+        "'Part' includes both proper parts and the whole plant. CARO:0000003 'connected anatomical structure' is defined as: Material anatomical entity that is a single connected structure with inherent 3D shape, generated by coordinated expression of the organism's own genome."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0009011",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/OBA",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/OBA?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant volume",
+
+      "synonym": [
+
+        "SP (related)",
+        "space (related)"
+
+      ],
+      "definition": [
+
+        "Space occupied by the plant."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/TO_0000559",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000559",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/PTO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000559/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000559/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000559/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000559/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000559/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000559/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000559/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000559/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/PTO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000559",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant width",
+
+      "definition": [
+
+        "The average width of a plant measured across an axis such as the main stem/stalk."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/TO_0006062",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0006062",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/PTO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0006062/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0006062/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0006062/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0006062/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0006062/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0006062/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0006062/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0006062/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/PTO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0006062",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant trait",
+
+      "synonym": [
+
+        "plant quality (related)",
+        "plant phenotype (related)"
+
+      ],
+      "definition": [
+
+        "A measurable or observable characteristic of a cellular component (GO:0005575), biological process (GO:0008150) or molecular function (GO:0003674) that is part of, or has participant a plant anatomical entity (PO:0025131) and/or a plant structure development stage (PO:0009012)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/TO_0000387",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000387",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/PTO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000387/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000387/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000387/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000387/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000387/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000387/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000387/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000387/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/PTO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000387",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant color",
+
+      "definition": [
+
+        "A whole plant morphology trait (TO:0000398) which is the color of a whole plant (PO:0000003)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/TO_0000708",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000708",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/PTO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000708/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000708/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000708/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000708/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000708/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000708/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000708/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/PTO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000708/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/PTO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FTO_0000708",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant activator",
+
+      "synonym": [
+
+        "plant activators"
+
+      ],
+      "definition": [
+
+        "Any compound that protects plants by activating their defence mechanisms."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/CHEBI_73182",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/CHEBI?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_73182",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant metabolite",
+
+      "synonym": [
+
+        "plant secondary metabolites",
+        "plant metabolites"
+
+      ],
+      "definition": [
+
+        "Any eukaryotic metabolite produced during a metabolic reaction in plants, the kingdom that include flowering plants, conifers and other gymnosperms."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/CHEBI_76924",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/CHEBI?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "deciduous (plant)",
+
+      "definition": [
+
+        "A quality inhering in a plant by virtue of the bearer's disposition to shed foliage."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PATO_0001731",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/PATO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/PATO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant metabolite",
+
+      "synonym": [
+
+        "plant metabolites",
+        "plant secondary metabolites"
+
+      ],
+      "definition": [
+
+        "Any eukaryotic metabolite produced during a metabolic reaction in plants, the kingdom that include flowering plants, conifers and other gymnosperms."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/CHEBI_76924",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/PATO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/PATO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_76924",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "evergreen (plant)",
+
+      "definition": [
+
+        "A quality inhering in a plant by virtue of the bearer's disposition to retain foliage."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PATO_0001733",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/PATO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/PATO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/PATO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant hormone",
+
+      "synonym": [
+
+        "plant growth hormones",
+        "plant growth hormone",
+        "plant hormones",
+        "plant growth factors",
+        "plant growth factor",
+        "phytohormone",
+        "phytohormones"
+
+      ],
+      "definition": [
+
+        "A plant growth regulator that modulates the formation of stems, leaves and flowers, as well as the development and ripening of fruit. The term includes endogenous and non-endogenous compounds (e.g. active compounds produced by bacteria on the leaf surface) as well as semi-synthetic and fully synthetic compounds."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/CHEBI_37848",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/CHEBI/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/CHEBI?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_37848",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant ovary",
+
+      "definition": [
+
+        "If you are annotating to this structure for Zea mays or other grasses, please also add an annotation to the corresponding floret type. Choose the most specific term possible from: spikelet floret (PO:0009082), ear floret (PO:0006354), upper floret of pedicellate spikelet of ear (PO:0006350), upper floret of sessile spikelet of ear (PO:0006352)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0009072",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009072",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/OBA",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009072/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009072/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009072/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009072/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009072/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009072/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009072/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/OBA/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009072/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/OBA?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009072",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "old plant",
+
+      "definition": [
+
+        "A whole plant which is relatively old"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/ENVO_01000413",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000413",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000413/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000413/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000413/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000413/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000413/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000413/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000413/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000413/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000413",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "konjac plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/FOODON_03412637",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_03412637",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_03412637/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_03412637/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_03412637/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_03412637/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_03412637/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_03412637/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_03412637/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_03412637/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_03412637",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant cuticle",
+
+      "synonym": [
+
+        "cuticle (broad)"
+
+      ],
+      "definition": [
+
+        "A portion of plant substance (PO:0025161) composed of cutin (PO:0025385), a polyester matrix of hydroxy- and hydroxy epoxy fatty acids C16 and C18 chains, embedded and overlayed with cuticular wax (PO:0025386) and forming a layer on the surface of a plant epidermis (PO:0005679)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0000022",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000022",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000022/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000022/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000022/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000022/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000022/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000022/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000022/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000022/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000022",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "power plant",
+
+      "synonym": [
+
+        "power station",
+        "generating station",
+        "generating plant",
+        "powerhouse"
+
+      ],
+      "definition": [
+
+        "A power plant is a building which contains one or more generators which convert mechanical energy into electrical energy through the relative motion between a magnetic field and a conductor. The energy source harnessed to turn the generator varies widely."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/ENVO_00002214",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00002214",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00002214/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00002214/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00002214/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00002214/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00002214/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00002214/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00002214/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00002214/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00002214",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "evergreen (plant)",
+
+      "definition": [
+
+        "A quality inhering in a plant by virtue of the bearer's disposition to retain foliage."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PATO_0001733",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant sap",
+
+      "synonym": [
+
+        "植物液 (Japanese, exact)",
+        "savia de la planta (Spanish, exact)"
+
+      ],
+      "definition": [
+
+        "A portion of plant substance (PO:0025161) that is an aqueous solution that can be transported through the apoplast (GO:0048046) or symplast (GO:0055044)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0025538",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025538",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025538/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025538/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025538/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025538/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025538/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025538/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025538/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025538/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025538",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "young plant",
+
+      "definition": [
+
+        "A whole plant which is relatively young."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/ENVO_01000414",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000414",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000414/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000414/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000414/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000414/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000414/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000414/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000414/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000414/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000414",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "sewage plant",
+
+      "synonym": [
+
+        "sewage treatment plant"
+
+      ],
+      "definition": [
+
+        "A waste treatment plant which equipped to treat sewage such that its potential for environmental contamination is reduced."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/ENVO_00003043",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00003043",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00003043/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00003043/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00003043/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00003043/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00003043/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00003043/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00003043/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00003043/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_00003043",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "deciduous (plant)",
+
+      "definition": [
+
+        "A quality inhering in a plant by virtue of the bearer's disposition to shed foliage."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PATO_0001731",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001731",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant feed",
+
+      "definition": [
+
+        "Food material which can be used to meet nutritional requirements of plants."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/ENVO_02000055",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_02000055",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_02000055/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_02000055/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_02000055/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_02000055/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_02000055/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_02000055/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_02000055/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_02000055/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_02000055",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "processing plant",
+
+      "synonym": [
+
+        "processing factory"
+
+      ],
+      "definition": [
+
+        "A factory where raw materials are treated or prepared for final processing."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/ENVO_03501295",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501295",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501295/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501295/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501295/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501295/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501295/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501295/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501295/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501295/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501295",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant cell",
+
+      "synonym": [
+
+        "cell (broad)"
+
+      ],
+      "definition": [
+
+        "A cell which is a plant structure (PO:0009011)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0009002",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009002",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "preprocessing plant",
+
+      "synonym": [
+
+        "preprocessing factory"
+
+      ],
+      "definition": [
+
+        "A factory where raw or preprocessed materials are transformed into finished parts or products."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/ENVO_03501294",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501294",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501294/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501294/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501294/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501294/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501294/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501294/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501294/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501294/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03501294",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant structure",
+
+      "synonym": [
+
+        "estructura vegetal (Spanish, exact)",
+        "植物 構造 (Japanese, exact)"
+
+      ],
+      "definition": [
+
+        "A plant anatomical entity (PO:0025131) that is, or was, part of a plant, or was derived from a part of a plant."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0009011",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009011",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant sweetener",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/FOODON_00002157",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_00002157",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_00002157/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_00002157/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_00002157/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_00002157/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_00002157/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_00002157/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_00002157/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_00002157/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFOODON_00002157",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant resin",
+
+      "synonym": [
+
+        "pitch  (exact)"
+
+      ],
+      "definition": [
+
+        "A portion of plant substance (PO:0025161) that consists of a complex mixture of organic aromatic compounds such as mono-, sesqui-, and diterpenoids."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0025603",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025603",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025603/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025603/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025603/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025603/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025603/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025603/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025603/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025603/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025603",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant organ",
+
+      "synonym": [
+
+        "organ (broad)"
+
+      ],
+      "definition": [
+
+        "A multi-tissue plant structure (PO:0025496) that is a functional unit, is a proper part of a whole plant (PO:0000003), and includes portions of plant tissue (PO:0009007) of at least two different types that derive from a common developmental path."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0009008",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0009008",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant pot",
+
+      "definition": [
+
+        "A manufactured product which is designed to function as a container for growing plants."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/ENVO_03600045",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03600045",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03600045/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03600045/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03600045/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03600045/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03600045/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03600045/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03600045/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03600045/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_03600045",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "whole plant",
+
+      "synonym": [
+
+        "ramet (broad)",
+        "genet (broad)"
+
+      ],
+      "definition": [
+
+        "A plant structure (PO:0005679) which is a whole organism."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0000003",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000003",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant litter",
+
+      "synonym": [
+
+        "leaf litter",
+        "tree litter",
+        "soil litter",
+        "duff",
+        "litterfall"
+
+      ],
+      "definition": [
+
+        "Leaf litter is dead plant material, such as leaves, bark, needles, and twigs, that has fallen to the ground."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/ENVO_01000628",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000628",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000628/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000628/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000628/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000628/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000628/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000628/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000628/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000628/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01000628",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant axis",
+
+      "synonym": [
+
+        "植物軸（軸柱） (Japanese, exact)",
+        "eje de la planta (Spanish, exact)",
+        "plant axes (exact, plural)"
+
+      ],
+      "definition": [
+
+        "An axial plant organ (PO:0009008)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0025004",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0025004",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant matter",
+
+      "definition": [
+
+        "Organic material which is primarily composed of plant structures, living or dead."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/ENVO_01001121",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01001121",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/ENVO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01001121/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01001121/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01001121/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01001121/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01001121/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01001121/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01001121/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/ENVO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01001121/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/ENVO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FENVO_01001121",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant callus",
+
+      "synonym": [
+
+        "callus"
+
+      ],
+      "definition": [
+
+        "A portion of plant tissue (PO:0009007) that consists of mass of undifferentiated plant cells (PO:0009002)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0005052",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0005052",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0005052/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0005052/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0005052/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0005052/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0005052/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0005052/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0005052/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0005052/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/FLOPO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0005052",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "evergreen (plant)",
+
+      "definition": [
+
+        "A quality inhering in a plant by virtue of the bearer's disposition to retain foliage."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PATO_0001733",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/FLOPO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPATO_0001733",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant zygote",
+
+      "synonym": [
+
+        "zygote"
+
+      ],
+      "definition": [
+
+        "A native plant cell (PO:0025606) which is a whole plant (PO:0000003) in the plant zygote stage (PO:0001097)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/PO_0000423",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000423",
+        "ontology": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO",
+        "children": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000423/children",
+        "parents": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000423/parents",
+        "descendants": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000423/descendants",
+        "ancestors": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000423/ancestors",
+        "instances": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000423/instances",
+        "tree": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000423/tree",
+        "notes": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000423/notes",
+        "mappings": "https://data.biodivportal.gfbio.dev/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000423/mappings",
+        "ui": "http://biodivportal.gfbio.dev/ontologies/FLOPO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FPO_0000423",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+    }
+  ]
+
+}

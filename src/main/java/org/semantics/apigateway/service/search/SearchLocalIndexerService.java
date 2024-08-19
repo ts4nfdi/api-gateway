@@ -1,5 +1,7 @@
-package org.semantics.apigateway.service;
+package org.semantics.apigateway.service.search;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import lombok.NoArgsConstructor;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -7,10 +9,6 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.*;
-import org.apache.lucene.queries.spans.SpanMultiTermQueryWrapper;
-import org.apache.lucene.queries.spans.SpanNearQuery;
-import org.apache.lucene.queries.spans.SpanQuery;
-import org.apache.lucene.queries.spans.SpanTermQuery;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.ByteBuffersDirectory;
@@ -19,7 +17,9 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @NoArgsConstructor
@@ -31,7 +31,10 @@ public class SearchLocalIndexerService {
     public List<Map<String, Object>> reIndexResults(String query, List<Map<String, Object>> combinedResults , Logger logger) throws IOException, ParseException {
         Directory index = indexResults(combinedResults);
 
-        return localIndexSearch(query, logger, index, INDEXED_FIELD);
+        List<Map<String, Object>> localIndexedResult =  localIndexSearch(query, logger, index, INDEXED_FIELD);
+
+        return localIndexedResult.stream().map(x -> combinedResults.stream().filter(y -> y.get("iri").equals(x.get("iri")) && y.get("backend_type").equals(x.get("backend_type")))
+                .findFirst().orElse(null)).collect(Collectors.toList());
     }
 
     private static List<Map<String, Object>> localIndexSearch(String query, Logger logger, Directory index, String field) throws IOException {

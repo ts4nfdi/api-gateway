@@ -1,0 +1,1007 @@
+{
+  "@context": {
+    "skos": "http:\/\/www.w3.org\/2004\/02\/skos\/core#",
+    "isothes": "http:\/\/purl.org\/iso25964\/skos-thes#",
+    "onki": "http:\/\/schema.onki.fi\/onki#",
+    "uri": "@id",
+    "type": "@type",
+    "results": {
+      "@id": "onki:results",
+      "@container": "@list"
+    },
+    "prefLabel": "skos:prefLabel",
+    "altLabel": "skos:altLabel",
+    "hiddenLabel": "skos:hiddenLabel",
+    "@language": "en"
+  },
+  "uri": "",
+  "results": [
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_7788",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "tissue analysis",
+      "lang": "en",
+      "altLabel": "plant analysis",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5954",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant anatomy",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_32513",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant animal relations",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_531214d1",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant available boron",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_05f1777f",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant available nitrogen",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_eb7b4957",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant available phosphorus",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_31e02b4d",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant available water",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_1023",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "botany",
+      "lang": "en",
+      "altLabel": "plant biology",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_27590",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant biotechnology",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5955",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant breeders",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5956",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant breeding",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_24932",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant certification",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5954",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant anatomy",
+      "lang": "en",
+      "altLabel": "plant characteristic",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5957",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant collections",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_32514",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant communities",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_35264",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant competition",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_25398",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant health",
+      "lang": "en",
+      "altLabel": "plant condition",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5958",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant containers",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_25409",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant cover",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_2018",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "cultivation",
+      "lang": "en",
+      "altLabel": "plant cultivation",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_27982",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant cuticle",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_2048",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "cuttings",
+      "lang": "en",
+      "altLabel": "plant cuttings",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_49898",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant damage",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_36991",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant defence reactions",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5975",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant population",
+      "lang": "en",
+      "altLabel": "plant density",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5959",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant developmental stages",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5960",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant disease control",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5962",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant diseases",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_33112",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant disorders",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_36518",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant domestication",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5963",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant ecology",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5964",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant emasculation",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_2543",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant embryos",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5965",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant establishment",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_13336",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "phytooestrogens",
+      "lang": "en",
+      "altLabel": "plant estrogens",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_13428",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant exploration",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_8166",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant extracts",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_330819",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant exudates",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_8167",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant fats",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5966",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant fibres",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_25398",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant health",
+      "lang": "en",
+      "altLabel": "plant fitness",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_24498",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant flowering substances",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_8176",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "vegetation",
+      "lang": "en",
+      "altLabel": "plant formations",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_ec319441",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "vegetal fossils",
+      "lang": "en",
+      "altLabel": "plant fossils",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_3193",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "garden frames",
+      "lang": "en",
+      "altLabel": "plant frames",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5967",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant galls",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_37419",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant genetic resources",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_49985",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant genetics",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_9fe1c74e",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "phytogeography",
+      "lang": "en",
+      "altLabel": "plant geography",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_7272",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "spacing",
+      "lang": "en",
+      "altLabel": "plant geometry",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_27983",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant glands",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_08842b17",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant growth",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_330667",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant growth forms",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5968",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant growth substances",
+      "lang": "en",
+      "altLabel": "plant growth hormones",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_3397",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "growth inhibitors",
+      "lang": "en",
+      "altLabel": "plant growth inhibitors",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5968",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant growth substances",
+      "lang": "en",
+      "altLabel": "plant growth regulators",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_11377",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "growth retardants",
+      "lang": "en",
+      "altLabel": "plant growth retardants",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_27096",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant growth stimulants",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5968",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant growth substances",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_71c0a347",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant growth-promoting microorganisms",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_25068",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "Rhizobacteria",
+      "lang": "en",
+      "altLabel": "Plant growth-promoting rhizobacteria",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5969",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant habit",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5970",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant hairs",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_25398",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant health",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_61f3cae5",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant height",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_27984",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant histology",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_30742",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "Fulgoroidea",
+      "lang": "en",
+      "altLabel": "Plant hoppers",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5968",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant growth substances",
+      "lang": "en",
+      "altLabel": "plant hormones",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_32596",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant injuries",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_1021",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "botanical insecticides",
+      "lang": "en",
+      "altLabel": "plant insecticides",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5971",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant introduction",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_32886",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "land varieties",
+      "lang": "en",
+      "altLabel": "plant landraces",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_525",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "Aphididae",
+      "lang": "en",
+      "altLabel": "plant lice",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_24064",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant litter",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_330862",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "primary nutrients",
+      "lang": "en",
+      "altLabel": "plant macronutrients",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_c62bd37d",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant metabolism",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_36583",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant models",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_13434",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant morphology",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5977",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant propagation",
+      "lang": "en",
+      "altLabel": "plant multiplication",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5972",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant nematodes",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5973",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant nurseries",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_16379",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant nutrition",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_13336",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "phytooestrogens",
+      "lang": "en",
+      "altLabel": "plant oestrogens",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_16575",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant offspring",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_8170",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant oils",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_27985",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant ovaries",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_33572",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant ovary culture",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5972",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant nematodes",
+      "lang": "en",
+      "altLabel": "plant parasitic nematodes",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_330912",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant parts",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_13436",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant pathologists",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5974",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant pathology",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_35199",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "crop performance",
+      "lang": "en",
+      "altLabel": "plant performance",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_16196",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant pests",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_331548",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant physiological processes",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_25189",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant physiology",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5975",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant population",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5958",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant containers",
+      "lang": "en",
+      "altLabel": "plant pots",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5976",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "crop production",
+      "lang": "en",
+      "altLabel": "plant production",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_8171",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant products",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5977",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant propagation",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_5978",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant protection",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_25760",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant protection equipment",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_8172",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant protein",
+      "lang": "en",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_25398",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant health",
+      "lang": "en",
+      "altLabel": "plant quality",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_13811",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "replanting",
+      "lang": "en",
+      "altLabel": "plant replacement",
+      "vocab": "agrovoc"
+    },
+    {
+      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_27986",
+      "type": [
+        "skos:Concept"
+      ],
+      "prefLabel": "plant reproductive organs",
+      "lang": "en",
+      "vocab": "agrovoc"
+    }
+  ]
+}

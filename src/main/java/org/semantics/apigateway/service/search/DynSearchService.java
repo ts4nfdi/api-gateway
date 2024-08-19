@@ -1,24 +1,27 @@
-package org.semantics.apigateway.service;
+package org.semantics.apigateway.service.search;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.Setter;
+import org.apache.http.HttpStatus;
 import org.semantics.apigateway.config.OntologyConfig;
 import org.semantics.apigateway.model.DynDatabaseTransform;
 import org.semantics.apigateway.model.DynTransformResponse;
 import org.semantics.apigateway.model.JsonLdTransform;
+import org.semantics.apigateway.service.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,23 +29,45 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
+
+
+
 @Service
 public class DynSearchService {
 
-    private ConfigurationLoader configurationLoader;
-    private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
-    private List<OntologyConfig> ontologyConfigs;
-    private Map<String, Map<String, String>> responseMappings;
-    private SearchLocalIndexerService localIndexer;
+
 
     @Autowired
+    private ConfigurationLoader configurationLoader;
+
+    @Autowired
+    private SearchLocalIndexerService localIndexer;
+
+
+    @Setter
+    private RestTemplate restTemplate;
+
+
+    private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
+
+
+
+    private final DynTransformResponse dynTransformResponse = new DynTransformResponse();
+
+    private List<OntologyConfig> ontologyConfigs;
+
+    private Map<String, Map<String, String>> responseMappings;
+
     public DynSearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer) {
         this.configurationLoader = configurationLoader;
         this.ontologyConfigs = configurationLoader.getOntologyConfigs();
         this.responseMappings = configurationLoader.getResponseMappings();
         this.localIndexer = localIndexer;
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout(5000);
+        factory.setReadTimeout(5000);
+        this.restTemplate = new RestTemplate(factory);
     }
 
     // Constructs the URL for the API call based on the query and configuration
@@ -68,7 +93,12 @@ public class DynSearchService {
         try {
             String url = constructUrl(query, config);
             logger.info("Accessing URL: {}", url);
-            ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+            ResponseEntity<Map> response;
+            try {
+                response = restTemplate.getForEntity(url, Map.class);
+            }catch (Exception e) {
+                response = ResponseEntity.status(404).body(new HashMap<>());
+            }
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 logger.info("Raw API Response: {}", response.getBody());
@@ -122,7 +152,7 @@ public class DynSearchService {
 
                         logger.info("Combined results before transformation: {}", combinedResults);
 
-                        List<Map<String, Object>> newResults = this.localIndexer.reIndexResults(query, combinedResults, logger);
+                        List<Map<String, Object>> newResults = this.localIndexer.reIndexResults(query.replace("*",""), combinedResults, logger);
 
                         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
                             Object transformedResults = transformAndStructureResults(newResults, targetDbSchema);
