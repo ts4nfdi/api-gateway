@@ -6,7 +6,7 @@ import lombok.Getter;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.OntologyConfig;
 import org.semantics.apigateway.model.DynTransformResponse;
-import org.semantics.apigateway.service.search.DynSearchService;
+import org.semantics.apigateway.service.search.SearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class ConfigurationLoader {
     @Autowired
     private ResourceLoader resourceLoader;
 
-    private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
     private List<OntologyConfig> ontologyConfigs;
     private Map<String, Map<String, String>> responseMappings;
 

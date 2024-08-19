@@ -1,4 +1,4 @@
-package org.semantics.apigateway.model;
+package org.semantics.apigateway.service;
 
 import com.github.jsonldjava.utils.JsonUtils;
 import org.apache.jena.rdf.model.Model;
@@ -7,6 +7,7 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.semantics.apigateway.config.OntologyConfig;
 import org.semantics.apigateway.config.ResponseMapping;
+import org.springframework.stereotype.Service;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -15,9 +16,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Service
 public class JsonLdTransform {
 
-    public static List<Map<String, Object>> convertToJsonLd(List<Map<String, Object>> response, OntologyConfig config) {
+    public  List<Map<String, Object>> convertToJsonLd(List<Map<String, Object>> response, OntologyConfig config) {
         Map<String, Object> context = new HashMap<>();
         context.put("@vocab", "http://base4nfdi.de/ts4nfdi/schema/");
         context.put("ts", "http://base4nfdi.de/ts4nfdi/schema/");
