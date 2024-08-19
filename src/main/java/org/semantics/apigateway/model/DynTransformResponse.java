@@ -95,7 +95,8 @@ public class DynTransformResponse {
             }
 
             if (responseMapping.getDescription() != null && item.containsKey(responseMapping.getDescription())) {
-                newItem.put("description", item.get(responseMapping.getDescription()));
+                List<String> list = (List<String>) item.get(responseMapping.getDescription());
+                newItem.put("description", list);
             }
             if (responseMapping.getOntology() != null && item.containsKey(responseMapping.getOntology())) {
                 if (responseMapping.getOntology().equals("links")) {
