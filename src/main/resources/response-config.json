@@ -16,7 +16,7 @@
     },
     {
       "database": "ols",
-      "url": "https://www.ebi.ac.uk/ols4/api/search?q=%s",
+      "url": "https://ebi.ac.uk/ols4/api/search?q=%s",
       "apiKey": "",
       "responseMapping": {
         "nestedJson": "response",
