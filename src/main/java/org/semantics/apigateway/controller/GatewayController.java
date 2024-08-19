@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.apache.http.HttpStatus;
 import org.apache.jena.rdf.model.ResourceFactory;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.semantics.apigateway.service.search.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,38 +34,13 @@ public class GatewayController {
     public void home(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.sendRedirect(request.getContextPath() + "/swagger-ui/index.html?configUrl=/api-gateway/openapi/swagger-config");
     }
-
-
-    @CrossOrigin
-    @Operation(summary = "Search all of the content in a catalogue.", description = "The returned data should include a description of the type of data that is being returned. For example the returned content could be SKOS Concepts or OWL Classes.", tags = {"Search"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = ""),
-
-            @ApiResponse(responseCode = "404", description = "")})
-    @GetMapping("/search")
-    public CompletableFuture<ResponseEntity<?>> performDynFederatedSearch(@RequestParam String query,
-                                                                          @RequestParam(required = false) String database,
-                                                                          @RequestParam(required = false) String format,
-                                                                          @RequestParam(required = false) String targetDbSchema) {
-        return searchService.performDynFederatedSearch(query, database, format, targetDbSchema)
-                .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
-                .exceptionally(e -> {
-                    if (e.getCause() instanceof IllegalArgumentException) {
-                        return ResponseEntity
-                                .status(HttpStatus.SC_BAD_REQUEST)
-                                .body("Error: " + e.getCause().getMessage());
-                    }
-                    return ResponseEntity
-                            .status(HttpStatus.SC_INTERNAL_SERVER_ERROR)
-                            .body("Error: An internal server error occurred");
-                });
-    }
+    
 
     @CrossOrigin
     @Operation(summary = "", description = "", tags = {"OLS"})
     @GetMapping("/ols/api/select")
     public CompletableFuture<ResponseEntity<?>>
-    performDynFederatedSearchInOLSTargetDBSchema(@RequestParam Map<String, String> allParams) {
+    performDynFederatedSearchInOLSTargetDBSchema(@RequestParam Map<String, String> allParams) throws IOException, ParseException {
 
         String query;
         if (allParams.containsKey("q") || allParams.containsKey("query")) {
@@ -77,7 +53,7 @@ public class GatewayController {
             query = "*";
         }
 
-        return searchService.performDynFederatedSearch(query + "*", allParams.get("database"), allParams.get("format"), "ols")
+        return searchService.performSearch(query + "*", allParams.get("database"), allParams.get("format"), "ols")
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> {
                     if (e.getCause() instanceof IllegalArgumentException) {
