@@ -34,7 +34,7 @@ public class GatewayController {
     public void home(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.sendRedirect(request.getContextPath() + "/swagger-ui/index.html?configUrl=/api-gateway/openapi/swagger-config");
     }
-    
+
 
     @CrossOrigin
     @Operation(summary = "", description = "", tags = {"OLS"})
