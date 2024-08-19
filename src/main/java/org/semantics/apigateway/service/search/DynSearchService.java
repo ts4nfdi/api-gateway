@@ -152,7 +152,7 @@ public class DynSearchService {
 
                         logger.info("Combined results before transformation: {}", combinedResults);
 
-                        List<Map<String, Object>> newResults = this.localIndexer.reIndexResults(query, combinedResults, logger);
+                        List<Map<String, Object>> newResults = this.localIndexer.reIndexResults(query.replace("*",""), combinedResults, logger);
 
                         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
                             Object transformedResults = transformAndStructureResults(newResults, targetDbSchema);
