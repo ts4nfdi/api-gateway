@@ -19,6 +19,10 @@ import java.util.stream.Collectors;
 @Service
 public class JsonLdTransform {
 
+    public boolean isJsonLdFormat(String format) {
+        return "jsonld".equalsIgnoreCase(format);
+    }
+
     public  List<Map<String, Object>> convertToJsonLd(List<Map<String, Object>> response, OntologyConfig config) {
         Map<String, Object> context = new HashMap<>();
         context.put("@vocab", "http://base4nfdi.de/ts4nfdi/schema/");
