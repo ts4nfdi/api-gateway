@@ -1,8 +1,9 @@
 package org.semantics.apigateway.model;
 
-public enum ResponseFormat {
-    JSON,
-    JSONLD;
+public enum TargetDbSchema {
+    ONTOPORTAL,
+    OLS,
+    SKOSMOS;
 
     @Override
     public String toString() {
