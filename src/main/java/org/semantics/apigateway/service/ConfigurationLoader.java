@@ -5,8 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.OntologyConfig;
-import org.semantics.apigateway.model.DynTransformResponse;
-import org.semantics.apigateway.service.search.DynSearchService;
+import org.semantics.apigateway.service.search.SearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -35,7 +33,7 @@ public class ConfigurationLoader {
     @Autowired
     private ResourceLoader resourceLoader;
 
-    private static final Logger logger = LoggerFactory.getLogger(DynSearchService.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
     private List<OntologyConfig> ontologyConfigs;
     private Map<String, Map<String, String>> responseMappings;
 
@@ -70,6 +68,18 @@ public class ConfigurationLoader {
             }
         }
         return Collections.emptyMap();
+    }
+
+    public boolean databaseExist(String database) {
+        return database == null || database.isEmpty() ||
+                ontologyConfigs.stream().anyMatch(config -> config.getDatabase().equalsIgnoreCase(database));
+    }
+
+    public OntologyConfig getConfigByUrl(String url) {
+        return ontologyConfigs.stream()
+                .filter(c -> c.getUrl().equalsIgnoreCase(url))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Config not found for URL: " + url));
     }
 
 }

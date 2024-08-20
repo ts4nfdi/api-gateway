@@ -1,18 +1,24 @@
 package org.semantics.apigateway;
 
+import com.github.jsonldjava.utils.Obj;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.hibernate.validator.internal.constraintvalidators.bv.AssertTrueValidator;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.semantics.apigateway.config.OntologyConfig;
 import org.semantics.apigateway.service.ConfigurationLoader;
-import org.semantics.apigateway.service.search.DynSearchService;
+import org.semantics.apigateway.service.search.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.nio.file.Files;
@@ -34,7 +40,7 @@ import static org.mockito.Mockito.when;
 public class SearchServiceTest {
 
     @Autowired
-    private DynSearchService searchService;
+    private SearchService searchService;
 
     @Mock
     private RestTemplate restTemplate; // Mock RestTemplate
@@ -43,13 +49,9 @@ public class SearchServiceTest {
     private ConfigurationLoader configurationLoader; // Autowire the real ConfigurationLoader
 
 
-
-
-    @Test
-    public void testSearchAllDatabases() {
-
-        searchService.setRestTemplate(restTemplate);
-
+    @BeforeEach
+    public  void setup() {
+        searchService.getAccessor().setRestTemplate(restTemplate);
         List<OntologyConfig> configs = configurationLoader.getOntologyConfigs();
 
         when(restTemplate.getForEntity(
@@ -79,10 +81,11 @@ public class SearchServiceTest {
                     }
                     return response;
                 });
+    }
 
-
-        // Perform the search
-        CompletableFuture<Object> r = searchService.performDynFederatedSearch("plant", "", "", "");
+    @Test
+    public void testSearchAllDatabases() throws IOException, ParseException {
+        CompletableFuture<Object> r = searchService.performSearch("plant", "", "", "");
 
         List<Map<String, Object>> responseList = (List<Map<String, Object>>) r.join();
 
@@ -110,6 +113,22 @@ public class SearchServiceTest {
 
 
         assertThat(responseList.stream().map(x -> x.get("backend_type")).distinct().sorted().collect(Collectors.toList()))
-                .isEqualTo(configs.stream().map(OntologyConfig::getDatabase).sorted().collect(Collectors.toList()));
+                .isEqualTo(configurationLoader.getOntologyConfigs().stream().map(OntologyConfig::getDatabase).sorted().collect(Collectors.toList()));
+    }
+
+    @Test
+    public void testSearchOlsSchema() throws IOException, ParseException {
+        CompletableFuture<Object> r = searchService.performSearch("plant", "", "", "ols");
+
+        Map<String, Object> response = (Map<String, Object>) r.join();
+
+        assertThat(response.containsKey("response")).isTrue();
+        assertThat(response.containsKey("responseHeader")).isTrue();
+
+
+        List<Map<String, Object>> responseList = (List<Map<String, Object>>) ((Map<String, Object>) response.get("response")).get("docs");
+
+        assertThat(responseList).hasSize(100);
+
     }
 }
