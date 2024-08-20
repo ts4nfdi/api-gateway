@@ -1,4 +1,4 @@
-package org.semantics.apigateway.model;
+package org.semantics.apigateway.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DynTransformResponse {
+public class ResponseAggregatorService {
 
-    private static final Logger logger = LoggerFactory.getLogger(DynTransformResponse.class);
+    private static final Logger logger = LoggerFactory.getLogger(ResponseAggregatorService.class);
 
     // Method to dynamically transform a response based on the provided OntologyConfig
     public List<Map<String, Object>> dynTransformResponse(Map<String, Object> response, OntologyConfig config) {
@@ -28,8 +28,8 @@ public class DynTransformResponse {
         // Extracting the nested JSON key from the response based on the configuration
         String nestedJsonKey = config.getResponseMapping().getNestedJson();
         Object nestedData = response.getOrDefault(nestedJsonKey, new ArrayList<>());
-        logger.info("Nested JSON key: {}", nestedJsonKey);
-        logger.info("Nested data type: {}", nestedData.getClass().getSimpleName());
+        logger.debug("Nested JSON key: {}", nestedJsonKey);
+        logger.debug("Nested data type: {}", nestedData.getClass().getSimpleName());
 
         // Processing the data based on its type (List or Map)
         if (nestedData instanceof List) {
@@ -47,7 +47,7 @@ public class DynTransformResponse {
             logger.error("Expected List or Map for nested JSON key: {}, but found: {}", nestedJsonKey, nestedData.getClass().getSimpleName());
         }
 
-        logger.info("Transformed response: {}", result);
+        logger.debug("Transformed response: {}", result);
         return result;
     }
 
