@@ -70,4 +70,16 @@ public class ConfigurationLoader {
         return Collections.emptyMap();
     }
 
+    public boolean databaseExist(String database) {
+        return database == null || database.isEmpty() ||
+                ontologyConfigs.stream().anyMatch(config -> config.getDatabase().equalsIgnoreCase(database));
+    }
+
+    public OntologyConfig getConfigByUrl(String url) {
+        return ontologyConfigs.stream()
+                .filter(c -> c.getUrl().equalsIgnoreCase(url))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Config not found for URL: " + url));
+    }
+
 }
