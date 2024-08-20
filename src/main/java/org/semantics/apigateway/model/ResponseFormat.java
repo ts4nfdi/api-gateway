@@ -1,10 +1,11 @@
 package org.semantics.apigateway.model;
 
 public enum ResponseFormat {
-    JSON;
+    JSON,
+    JSONLD;
 
     @Override
     public String toString() {
-        return name().toLowerCase();
+        return  this.name().toLowerCase();
     }
 }

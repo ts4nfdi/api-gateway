@@ -1,10 +1,14 @@
 package org.semantics.apigateway.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.apache.http.HttpStatus;
 import org.apache.lucene.queryparser.classic.ParseException;
+import org.semantics.apigateway.model.Database;
+import org.semantics.apigateway.model.ResponseFormat;
+import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.service.search.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,18 +29,22 @@ public class SearchController {
     }
 
 
-    @Operation(summary = "Search all of the content in a catalogue.", description = "The returned data should include a description of the type of data that is being returned. For example the returned content could be SKOS Concepts or OWL Classes.", tags={ "Search" })
+    @Operation(summary = "Search all of the content in a catalogue.", description = "The returned data should include a description of the type of data that is being returned. For example the returned content could be SKOS Concepts or OWL Classes.", tags = {"Search"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = ""),
 
-            @ApiResponse(responseCode = "404", description = "") })
+            @ApiResponse(responseCode = "404", description = "")})
     @CrossOrigin
     @GetMapping("/search")
-    public CompletableFuture<ResponseEntity<?>> performDynFederatedSearch(@RequestParam String query,
-                                                                          @RequestParam(required = false) String database,
-                                                                          @RequestParam(required = false) String format,
-                                                                          @RequestParam(required = false) String targetDbSchema) throws IOException, ParseException {
-        return searchService.performSearch(query, database, format, targetDbSchema)
+    public CompletableFuture<ResponseEntity<?>> performDynFederatedSearch(
+            @Parameter(description = "The text to search", example = "plant")
+            @RequestParam String query,
+            @Parameter(description = "Source to run search against")
+            @RequestParam(required = false) Database database,
+            @RequestParam(required = false) ResponseFormat format,
+            @Parameter(description = "Transform the response result to a specific schema")
+            @RequestParam(required = false) TargetDbSchema targetDbSchema) {
+        return searchService.performSearch(query, database.toString(), format.toString(), targetDbSchema.toString())
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> {
                     if (e.getCause() instanceof IllegalArgumentException) {
