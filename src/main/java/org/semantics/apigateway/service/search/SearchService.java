@@ -6,6 +6,9 @@ import org.semantics.apigateway.config.OntologyConfig;
 import org.semantics.apigateway.model.Database;
 import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
+import org.semantics.apigateway.model.responses.AggregatedApiResponse;
+import org.semantics.apigateway.model.responses.ApiResponse;
+import org.semantics.apigateway.model.responses.TransformedApiResponse;
 import org.semantics.apigateway.service.ResponseAggregatorService;
 import org.semantics.apigateway.service.ConfigurationLoader;
 import org.semantics.apigateway.service.JsonLdTransform;
@@ -14,7 +17,6 @@ import org.semantics.apigateway.service.ApiAccessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -58,27 +60,29 @@ public class SearchService {
     }
 
 
-    public  CompletableFuture<Object> performSearch(
-            String query, Database database, ResponseFormat format, TargetDbSchema targetDbSchema){
+    public CompletableFuture<Object> performSearch(
+            String query, Database database, ResponseFormat format,
+            TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
 
         String db = "", formatStr = "", target = "";
 
-        if(database != null){
+        if (database != null) {
             db = database.toString();
         }
-        if(format != null){
+        if (format != null) {
             formatStr = format.toString();
         }
-        if(targetDbSchema != null){
+        if (targetDbSchema != null) {
             target = targetDbSchema.toString();
         }
 
-        return performSearch(query, db, formatStr, target);
+        return performSearch(query, db, formatStr, target, showResponseConfiguration);
     }
 
     // Performs a federated search across multiple databases and optionally transforms the results for a target database schema]
     public CompletableFuture<Object> performSearch(
-            String query, String database, String format, String targetDbSchema){
+            String query, String database, String format,
+            String targetDbSchema, boolean showResponseConfiguration) {
 
         CompletableFuture<Object> future = new CompletableFuture<>();
 
@@ -94,54 +98,72 @@ public class SearchService {
         accessor.setLogger(logger);
 
         return accessor.get(query)
-                .thenApply(data -> transformApiResponses(data, format))
-                .thenApply(this::flattenResponseList)
+                .thenApply(originalData -> transformApiResponses(originalData, format))
+                .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration))
                 .thenApply(data -> reIndexResults(query, data))
                 .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema));
     }
 
 
-    private List<List<Map<String, Object>>> transformApiResponses(Map<String, Map<String, Object>> apiData, String format) {
+    private List<TransformedApiResponse> transformApiResponses(Map<String, ApiResponse> apiData, String format) {
         return apiData.entrySet().stream()
-                .map( data  -> transformSingleApiResponse(data, format))
+                .map(data -> transformSingleApiResponse(data, format))
                 .collect(Collectors.toList());
     }
 
-    private List<Map<String, Object>> transformSingleApiResponse(Map.Entry<String, Map<String, Object>> entry, String format) {
+    private TransformedApiResponse transformSingleApiResponse(Map.Entry<String, ApiResponse> entry, String format) {
         String url = entry.getKey();
-        Map<String, Object> results = entry.getValue();
+        ApiResponse results = entry.getValue();
 
         OntologyConfig config = this.configurationLoader.getConfigByUrl(url);
 
-        List<Map<String, Object>> transformedResponse = dynTransformResponse.dynTransformResponse(results, config);
+        TransformedApiResponse transformedResponse = dynTransformResponse.dynTransformResponse(results, config);
 
         if (jsonLdTransform.isJsonLdFormat(format)) {
             transformedResponse = jsonLdTransform.convertToJsonLd(transformedResponse, config);
         }
+
 
         logger.debug("Transformed API Response: {}", transformedResponse);
         return transformedResponse;
     }
 
 
-    private List<Map<String, Object>> flattenResponseList(List<List<Map<String, Object>>> data) {
-        return data.stream()
+    private AggregatedApiResponse flattenResponseList(List<TransformedApiResponse> data, boolean showResponseConfiguration) {
+
+        AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
+
+        aggregatedApiResponse.setShowConfig(showResponseConfiguration);
+
+        List<Map<String,Object>> aggregatedCollections = data.stream().map(TransformedApiResponse::getCollection)
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
+
+        aggregatedApiResponse.setCollection(aggregatedCollections);
+
+        aggregatedApiResponse.setOriginalResponses(
+                data.stream().map(TransformedApiResponse::getOriginalResponse)
+                        .collect(Collectors.toList())
+        );
+
+        return aggregatedApiResponse;
     }
 
-    private List<Map<String, Object>> reIndexResults(String query, List<Map<String, Object>> data) {
+    private AggregatedApiResponse reIndexResults(String query, AggregatedApiResponse data) {
+        List<Map<String, Object>> collection = data.getCollection();
         try {
-            return this.localIndexer.reIndexResults(query.replace("*", ""), data, logger);
+             collection = this.localIndexer.reIndexResults(query.replace("*", ""), collection, logger);
         } catch (IOException | ParseException e) {
             throw new RuntimeException("Error during re-indexing results", e);
         }
+        data.setCollection(collection);
+        return data;
     }
 
-    private Object transformForTargetDbSchema(List<Map<String, Object>> data, String targetDbSchema) {
+    private Object transformForTargetDbSchema(AggregatedApiResponse data, String targetDbSchema) {
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
             try {
-                Object transformedResults = responseTransformerService.transformAndStructureResults(data, targetDbSchema);
+                Object transformedResults = responseTransformerService.transformAndStructureResults(data.getCollection(), targetDbSchema);
                 logger.debug("Transformed results for database schema: {}", transformedResults);
                 return transformedResults;
             } catch (IOException e) {

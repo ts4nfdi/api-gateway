@@ -1,8 +1,6 @@
 package org.semantics.apigateway.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.apache.http.HttpStatus;
 import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.lucene.queryparser.classic.ParseException;
@@ -53,7 +51,7 @@ public class GatewayController {
             query = "*";
         }
 
-        return searchService.performSearch(query + "*", allParams.get("database"), allParams.get("format"), "ols")
+        return searchService.performSearch(query + "*", allParams.get("database"), allParams.get("format"), "ols", false)
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> {
                     if (e.getCause() instanceof IllegalArgumentException) {
