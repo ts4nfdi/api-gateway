@@ -7,6 +7,8 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.semantics.apigateway.config.OntologyConfig;
 import org.semantics.apigateway.config.ResponseMapping;
+import org.semantics.apigateway.model.responses.TransformedApiResponse;
+import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 import org.springframework.stereotype.Service;
 
 import java.io.StringReader;
@@ -23,7 +25,9 @@ public class JsonLdTransform {
         return "jsonld".equalsIgnoreCase(format);
     }
 
-    public  List<Map<String, Object>> convertToJsonLd(List<Map<String, Object>> response, OntologyConfig config) {
+    public TransformedApiResponse convertToJsonLd(TransformedApiResponse response, OntologyConfig config) {
+        List<AggregatedResourceBody> out;
+
         Map<String, Object> context = new HashMap<>();
         context.put("@vocab", "http://base4nfdi.de/ts4nfdi/schema/");
         context.put("ts", "http://base4nfdi.de/ts4nfdi/schema/");
@@ -31,11 +35,14 @@ public class JsonLdTransform {
 
         ResponseMapping responseMapping = config.getResponseMapping();
 
-        return response.stream().map(item -> {
+        List<Map<String,Object>> nestedData = response.getCollection();
+
+        out = nestedData.stream().map(item -> {
             try {
                 Map<String, Object> jsonLd = new HashMap<>();
                 jsonLd.put("@context", context);
                 jsonLd.put("@type", type);
+
                 for (Map.Entry<String, Object> entry : item.entrySet()) {
                     String key = entry.getKey();
                     Object value = entry.getValue();
@@ -46,16 +53,21 @@ public class JsonLdTransform {
 
                     jsonLd.put(key, value);
                 }
+
                 String jsonString = JsonUtils.toString(jsonLd);
                 if (jsonString != null) {
                     String jsonLdString = convertJsonToJsonLd(jsonString);
-                    return (Map<String, Object>) JsonUtils.fromString(jsonLdString);
+                    return AggregatedResourceBody.fromMap((Map<String, Object>) JsonUtils.fromString(jsonLdString), config);
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
             return null;
         }).collect(Collectors.toList());
+
+        response.setCollection(out);
+
+        return response;
     }
 
     public static String convertJsonToJsonLd(String json) {
