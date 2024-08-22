@@ -7,6 +7,8 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.semantics.apigateway.config.OntologyConfig;
 import org.semantics.apigateway.config.ResponseMapping;
+import org.semantics.apigateway.model.responses.TransformedApiResponse;
+import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 import org.springframework.stereotype.Service;
 
 import java.io.StringReader;
@@ -23,29 +25,26 @@ public class JsonLdTransform {
         return "jsonld".equalsIgnoreCase(format);
     }
 
-    public  List<Map<String, Object>> convertToJsonLd(List<Map<String, Object>> response, OntologyConfig config) {
+    public List<Map<String, Object>> convertToJsonLd(List<Map<String, Object>> response) {
         Map<String, Object> context = new HashMap<>();
         context.put("@vocab", "http://base4nfdi.de/ts4nfdi/schema/");
         context.put("ts", "http://base4nfdi.de/ts4nfdi/schema/");
         String type = "ts:Resource";
 
-        ResponseMapping responseMapping = config.getResponseMapping();
+        List<Map<String,Object>> nestedData = response;
 
-        return response.stream().map(item -> {
+        nestedData = nestedData.stream().map(item -> {
             try {
                 Map<String, Object> jsonLd = new HashMap<>();
                 jsonLd.put("@context", context);
                 jsonLd.put("@type", type);
+
                 for (Map.Entry<String, Object> entry : item.entrySet()) {
                     String key = entry.getKey();
                     Object value = entry.getValue();
-
-                    if (responseMapping.containsKey(key)) {
-                        key = responseMapping.get(key);
-                    }
-
                     jsonLd.put(key, value);
                 }
+
                 String jsonString = JsonUtils.toString(jsonLd);
                 if (jsonString != null) {
                     String jsonLdString = convertJsonToJsonLd(jsonString);
@@ -56,6 +55,8 @@ public class JsonLdTransform {
             }
             return null;
         }).collect(Collectors.toList());
+
+        return nestedData;
     }
 
     public static String convertJsonToJsonLd(String json) {

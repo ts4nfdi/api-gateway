@@ -100,7 +100,7 @@ public class SearchLocalIndexerService {
 
         for (Map<String, Object> result : combinedResults) {
             Document doc = new Document();
-            doc.add(new StringField("id", result.get("iri").toString() + "_" + result.get("ontology").toString(), Field.Store.YES));
+            doc.add(new StringField("id", result.get("iri").toString() + "_" + result.getOrDefault("ontology", "").toString(), Field.Store.YES));
             result.forEach((key, value) -> doc.add(new TextField(key, String.valueOf(value), Field.Store.YES)));
             w.addDocument(doc);
         }

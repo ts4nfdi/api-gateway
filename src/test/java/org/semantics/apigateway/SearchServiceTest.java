@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.semantics.apigateway.config.OntologyConfig;
+import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.service.ConfigurationLoader;
 import org.semantics.apigateway.service.search.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class SearchServiceTest {
 
 
     @BeforeEach
-    public  void setup() {
+    public void setup() {
         searchService.getAccessor().setRestTemplate(restTemplate);
         List<OntologyConfig> configs = configurationLoader.getOntologyConfigs();
 
@@ -84,11 +85,13 @@ public class SearchServiceTest {
     }
 
     @Test
-    public void testSearchAllDatabases() throws IOException, ParseException {
-        CompletableFuture<Object> r = searchService.performSearch("plant", "", "", "");
+    public void testSearchAllDatabases() {
+        CompletableFuture<Object> r = searchService.performSearch("plant", "", "", "", false);
 
-        List<Map<String, Object>> responseList = (List<Map<String, Object>>) r.join();
+        AggregatedApiResponse response = (AggregatedApiResponse) r.join();
 
+        List<Map<String, Object>> responseList = response.getCollection();
+        
         assertThat(responseList).hasSize(100);
 
         Map<String, Object> firstPlant = responseList.get(0);
@@ -118,7 +121,7 @@ public class SearchServiceTest {
 
     @Test
     public void testSearchOlsSchema() throws IOException, ParseException {
-        CompletableFuture<Object> r = searchService.performSearch("plant", "", "", "ols");
+        CompletableFuture<Object> r = searchService.performSearch("plant", "", "", "ols", false);
 
         Map<String, Object> response = (Map<String, Object>) r.join();
 
@@ -130,5 +133,16 @@ public class SearchServiceTest {
 
         assertThat(responseList).hasSize(100);
 
+    }
+
+    @Test
+    public void testSearchJsonLdFormat() {
+        CompletableFuture<Object> r = searchService.performSearch("plant", "", "jsonld", "", false);
+
+        List<Map<String, Object>> response = (List<Map<String, Object>>) r.join();
+
+        Map<String, Object> firstPlant = response.get(0);
+        assertThat(firstPlant.containsKey("@type")).isTrue();
+        assertThat(firstPlant.containsKey("@context")).isTrue();
     }
 }

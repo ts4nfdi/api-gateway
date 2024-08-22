@@ -43,10 +43,13 @@ public class SearchController {
             @RequestParam(required = false) Database database,
             @RequestParam(required = false) ResponseFormat format,
             @Parameter(description = "Transform the response result to a specific schema")
-            @RequestParam(required = false) TargetDbSchema targetDbSchema) {
+            @RequestParam(required = false) TargetDbSchema targetDbSchema,
+            @Parameter(description = "Display more details about the request results")
+            @RequestParam(required = false, defaultValue = "false") boolean showResponseConfiguration
+    ) {
 
 
-        return searchService.performSearch(query, database, format, targetDbSchema)
+        return searchService.performSearch(query, database, format, targetDbSchema, showResponseConfiguration)
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> {
                     if (e.getCause() instanceof IllegalArgumentException) {
