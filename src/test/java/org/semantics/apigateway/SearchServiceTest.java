@@ -134,4 +134,15 @@ public class SearchServiceTest {
         assertThat(responseList).hasSize(100);
 
     }
+
+    @Test
+    public void testSearchJsonLdFormat() {
+        CompletableFuture<Object> r = searchService.performSearch("plant", "", "jsonld", "", false);
+
+        List<Map<String, Object>> response = (List<Map<String, Object>>) r.join();
+
+        Map<String, Object> firstPlant = response.get(0);
+        assertThat(firstPlant.containsKey("@type")).isTrue();
+        assertThat(firstPlant.containsKey("@context")).isTrue();
+    }
 }
