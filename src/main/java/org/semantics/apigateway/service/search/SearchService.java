@@ -1,5 +1,6 @@
 package org.semantics.apigateway.service.search;
 
+import com.github.jsonldjava.utils.Obj;
 import lombok.Getter;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.semantics.apigateway.config.OntologyConfig;
@@ -98,20 +99,29 @@ public class SearchService {
         accessor.setLogger(logger);
 
         return accessor.get(query)
-                .thenApply(originalData -> transformApiResponses(originalData, format))
+                .thenApply(this::transformApiResponses)
                 .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration))
                 .thenApply(data -> reIndexResults(query, data))
+                .thenApply(data -> transformJsonLd(data, format))
                 .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema));
     }
 
 
-    private List<TransformedApiResponse> transformApiResponses(Map<String, ApiResponse> apiData, String format) {
+    private Object transformJsonLd(AggregatedApiResponse transformedResponse, String format) {
+        if (jsonLdTransform.isJsonLdFormat(format)) {
+            return  jsonLdTransform.convertToJsonLd(transformedResponse.getCollection());
+        } else {
+            return transformedResponse;
+        }
+    }
+
+    private List<TransformedApiResponse> transformApiResponses(Map<String, ApiResponse> apiData) {
         return apiData.entrySet().stream()
-                .map(data -> transformSingleApiResponse(data, format))
+                .map(this::transformSingleApiResponse)
                 .collect(Collectors.toList());
     }
 
-    private TransformedApiResponse transformSingleApiResponse(Map.Entry<String, ApiResponse> entry, String format) {
+    private TransformedApiResponse transformSingleApiResponse(Map.Entry<String, ApiResponse> entry) {
         String url = entry.getKey();
         ApiResponse results = entry.getValue();
 
@@ -119,18 +129,14 @@ public class SearchService {
 
         TransformedApiResponse transformedResponse = dynTransformResponse.dynTransformResponse(results, config);
 
-        if (jsonLdTransform.isJsonLdFormat(format)) {
-            transformedResponse = jsonLdTransform.convertToJsonLd(transformedResponse, config);
-        }
-
-
-        logger.debug("Transformed API Response: {}", transformedResponse);
+        logger.info("Transformed API Response: {}", transformedResponse);
         return transformedResponse;
     }
 
 
     private AggregatedApiResponse flattenResponseList(List<TransformedApiResponse> data, boolean showResponseConfiguration) {
 
+        System.out.println("flatten list");
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
 
         aggregatedApiResponse.setShowConfig(showResponseConfiguration);
@@ -152,7 +158,7 @@ public class SearchService {
     private AggregatedApiResponse reIndexResults(String query, AggregatedApiResponse data) {
         List<Map<String, Object>> collection = data.getCollection();
         try {
-             collection = this.localIndexer.reIndexResults(query.replace("*", ""), collection, logger);
+            collection = this.localIndexer.reIndexResults(query.replace("*", ""), collection, logger);
         } catch (IOException | ParseException e) {
             throw new RuntimeException("Error during re-indexing results", e);
         }
@@ -160,10 +166,16 @@ public class SearchService {
         return data;
     }
 
-    private Object transformForTargetDbSchema(AggregatedApiResponse data, String targetDbSchema) {
+    private Object transformForTargetDbSchema(Object data, String targetDbSchema) {
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
             try {
-                Object transformedResults = responseTransformerService.transformAndStructureResults(data.getCollection(), targetDbSchema);
+                List<Map<String,Object>> collections;
+                if (data instanceof AggregatedApiResponse) {
+                    collections = ((AggregatedApiResponse) data).getCollection();
+                } else {
+                    collections = (List<Map<String, Object>>) data;
+                }
+                Object transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema);
                 logger.debug("Transformed results for database schema: {}", transformedResults);
                 return transformedResults;
             } catch (IOException e) {

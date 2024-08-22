@@ -25,19 +25,15 @@ public class JsonLdTransform {
         return "jsonld".equalsIgnoreCase(format);
     }
 
-    public TransformedApiResponse convertToJsonLd(TransformedApiResponse response, OntologyConfig config) {
-        List<AggregatedResourceBody> out;
-
+    public List<Map<String, Object>> convertToJsonLd(List<Map<String, Object>> response) {
         Map<String, Object> context = new HashMap<>();
         context.put("@vocab", "http://base4nfdi.de/ts4nfdi/schema/");
         context.put("ts", "http://base4nfdi.de/ts4nfdi/schema/");
         String type = "ts:Resource";
 
-        ResponseMapping responseMapping = config.getResponseMapping();
+        List<Map<String,Object>> nestedData = response;
 
-        List<Map<String,Object>> nestedData = response.getCollection();
-
-        out = nestedData.stream().map(item -> {
+        nestedData = nestedData.stream().map(item -> {
             try {
                 Map<String, Object> jsonLd = new HashMap<>();
                 jsonLd.put("@context", context);
@@ -46,18 +42,13 @@ public class JsonLdTransform {
                 for (Map.Entry<String, Object> entry : item.entrySet()) {
                     String key = entry.getKey();
                     Object value = entry.getValue();
-
-                    if (responseMapping.containsKey(key)) {
-                        key = responseMapping.get(key);
-                    }
-
                     jsonLd.put(key, value);
                 }
 
                 String jsonString = JsonUtils.toString(jsonLd);
                 if (jsonString != null) {
                     String jsonLdString = convertJsonToJsonLd(jsonString);
-                    return AggregatedResourceBody.fromMap((Map<String, Object>) JsonUtils.fromString(jsonLdString), config);
+                    return (Map<String, Object>) JsonUtils.fromString(jsonLdString);
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -65,9 +56,7 @@ public class JsonLdTransform {
             return null;
         }).collect(Collectors.toList());
 
-        response.setCollection(out);
-
-        return response;
+        return nestedData;
     }
 
     public static String convertJsonToJsonLd(String json) {
