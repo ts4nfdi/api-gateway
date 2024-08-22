@@ -2,13 +2,13 @@ package org.semantics.apigateway.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import org.semantics.apigateway.model.responses.ApiResponse;
 import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ForkJoinPool;
@@ -32,10 +32,11 @@ public class ApiAccessor {
         this.urls = new HashMap<>();
     }
 
-    public CompletableFuture<Map<String, Map<String, Object>>> get(String query) {
+    @Async
+    public CompletableFuture<Map<String, ApiResponse>> get(String query) {
         ForkJoinPool customThreadPool = new ForkJoinPool(10);
 
-        List<CompletableFuture<Map.Entry<String, Map<String, Object>>>> futures = this.urls.entrySet().stream()
+        List<CompletableFuture<Map.Entry<String, ApiResponse>>> futures = this.urls.entrySet().stream()
                 .map(config -> CompletableFuture.supplyAsync(() -> call(query, config.getKey(), config.getValue()), customThreadPool)
                         .thenApply(response -> Map.entry(config.getKey(), response))
                 )
@@ -50,28 +51,41 @@ public class ApiAccessor {
                 )
                 .exceptionally(e -> {
                     logger.error("Error processing results: {}", e.getMessage(), e);
-                    return Collections.emptyMap();  // Return an empty map on error
+                    return Collections.emptyMap();
                 });
     }
 
-    @Async
-    protected Map<String, Object> call(String query, String url, String apikey) {
+
+    protected ApiResponse call(String query, String url, String apikey) {
+        ApiResponse result = new ApiResponse();
+        result.setUrl(url);
+
         try {
             String fullUrl = constructUrl(query, url, apikey);
             logger.info("Accessing URL: {}", fullUrl);
 
+            long startTime = System.currentTimeMillis();
+
             ResponseEntity<Map> response = restTemplate.getForEntity(fullUrl, Map.class);
+
+            long endTime = System.currentTimeMillis();
+            long responseTime = endTime - startTime;
+
+            result.setResponseTime(responseTime);
+
+            result.setStatusCode(response.getStatusCodeValue());
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 logger.debug("Raw API Response: {}", response.getBody());
-                return response.getBody();
+                result.setResponseBody(response.getBody());
+                return result;
             } else {
                 logger.error("API Response Error: Status Code - {}", response.getStatusCode());
-                return Collections.emptyMap();
+                return result;
             }
         } catch (Exception e) {
             logger.error("An error occurred while processing the request: {}", e.getMessage(), e);
-            return Collections.emptyMap();
+            return result;
         }
     }
 
