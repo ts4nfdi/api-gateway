@@ -1,0 +1,33 @@
+{
+  "databases": [
+    {
+      "type": "ontoportal",
+      "name": "biodivportal",
+      "url": "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s",
+      "apiKey": "${BIODIVPORTAL_API_KEY}"
+    },
+    {
+      "type": "ontoportal",
+      "name": "agroportal",
+      "url": "https://data.agroportal.lirmm.fr/search?q=%s&apikey=%s",
+      "apiKey": "${AGROPORTAL_API_KEY}"
+    },
+    {
+      "type": "ontoportal",
+      "name": "ecoportal",
+      "url": "https://data.ecoportal.lifewatch.eu/search?q=%s&apikey=%s",
+      "apiKey": "${ECOPORTAL_API_KEY}"
+    },
+    {
+      "type": "ols",
+      "name": "ols-ebi",
+      "url": "https://ebi.ac.uk/ols4/api/search?q=%s"
+    },
+    {
+      "type": "skosmos",
+      "name": "agrovoc",
+      "url": "https://agrovoc.fao.org/browse/rest/v1/search?query=%s&lang=en&fields=scopeNote"
+    }
+  ]
+}
+

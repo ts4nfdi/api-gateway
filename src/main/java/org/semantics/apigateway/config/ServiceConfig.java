@@ -1,11 +1,10 @@
 package org.semantics.apigateway.config;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.core.tools.picocli.CommandLine;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -15,10 +14,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-public class OntologyConfig {
-    private String Database;
-    private String url;
-    private String apiKey;
-    private Map<String, String> fieldMappings;
+public class ServiceConfig {
+    private String name;
     private ResponseMapping responseMapping;
 }

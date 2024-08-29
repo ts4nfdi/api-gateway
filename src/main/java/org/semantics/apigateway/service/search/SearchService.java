@@ -1,9 +1,8 @@
 package org.semantics.apigateway.service.search;
 
-import com.github.jsonldjava.utils.Obj;
 import lombok.Getter;
 import org.apache.lucene.queryparser.classic.ParseException;
-import org.semantics.apigateway.config.OntologyConfig;
+import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.Database;
 import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
@@ -52,11 +51,11 @@ public class SearchService {
 
     private final ResponseAggregatorService dynTransformResponse = new ResponseAggregatorService();
 
-    private List<OntologyConfig> ontologyConfigs;
+    private List<DatabaseConfig> ontologyConfigs;
 
 
     public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer) {
-        this.ontologyConfigs = configurationLoader.getOntologyConfigs();
+        this.ontologyConfigs = configurationLoader.getDatabaseConfigs();
         this.localIndexer = localIndexer;
     }
 
@@ -93,7 +92,7 @@ public class SearchService {
         }
 
         Map<String, String> apiUrls = ontologyConfigs.stream()
-                .collect(Collectors.toMap(OntologyConfig::getUrl, OntologyConfig::getApiKey));
+                .collect(Collectors.toMap(DatabaseConfig::getUrl, DatabaseConfig::getApiKey));
 
         accessor.setUrls(apiUrls);
         accessor.setLogger(logger);
@@ -125,7 +124,7 @@ public class SearchService {
         String url = entry.getKey();
         ApiResponse results = entry.getValue();
 
-        OntologyConfig config = this.configurationLoader.getConfigByUrl(url);
+        DatabaseConfig config = this.configurationLoader.getConfigByUrl(url);
 
         TransformedApiResponse transformedResponse = dynTransformResponse.dynTransformResponse(results, config);
 
@@ -135,8 +134,6 @@ public class SearchService {
 
 
     private AggregatedApiResponse flattenResponseList(List<TransformedApiResponse> data, boolean showResponseConfiguration) {
-
-        System.out.println("flatten list");
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
 
         aggregatedApiResponse.setShowConfig(showResponseConfiguration);
