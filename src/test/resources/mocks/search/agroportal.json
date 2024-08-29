@@ -1,0 +1,2539 @@
+
+{
+
+  "page": 1,
+  "pageCount": 103,
+  "totalCount": 5136,
+  "prevPage": null,
+  "nextPage": 2,
+
+  "links": {
+
+    "nextPage": "https://data.agroportal.lirmm.fr/search?q=plant&apikey=1de0a270-29c5-4dda-b043-7c3580628cd5&page=2",
+    "prevPage": null
+
+  },
+  "collection": [
+
+    {
+
+      "prefLabel": "plant",
+
+      "synonym": [
+
+        "plante"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://opendata.inrae.fr/thesaurusINRAE/c_8844",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_8844",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_8844/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_8844/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_8844/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_8844/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_8844/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_8844/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_8844/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_8844/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/INRAETHES?p=classes&conceptid=http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_8844",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "nursery plant",
+
+      "synonym": [
+
+        "planting stock",
+        "nursery stock"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://opendata.inrae.fr/thesaurusINRAE/c_2729",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_2729",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_2729/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_2729/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_2729/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_2729/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_2729/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_2729/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_2729/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_2729/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/INRAETHES?p=classes&conceptid=http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_2729",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_367:0000102",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000102",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_367",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000102/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000102/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000102/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000102/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000102/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000102/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000102/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000102/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_367?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000102",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://www.agroxml.de/rdf/vocabulary/machine#Plant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/AGRORDF/classes/http%3A%2F%2Fwww.agroxml.de%2Frdf%2Fvocabulary%2Fmachine%23Plant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/AGRORDF",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/AGRORDF/classes/http%3A%2F%2Fwww.agroxml.de%2Frdf%2Fvocabulary%2Fmachine%23Plant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/AGRORDF/classes/http%3A%2F%2Fwww.agroxml.de%2Frdf%2Fvocabulary%2Fmachine%23Plant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/AGRORDF/classes/http%3A%2F%2Fwww.agroxml.de%2Frdf%2Fvocabulary%2Fmachine%23Plant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/AGRORDF/classes/http%3A%2F%2Fwww.agroxml.de%2Frdf%2Fvocabulary%2Fmachine%23Plant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/AGRORDF/classes/http%3A%2F%2Fwww.agroxml.de%2Frdf%2Fvocabulary%2Fmachine%23Plant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/AGRORDF/classes/http%3A%2F%2Fwww.agroxml.de%2Frdf%2Fvocabulary%2Fmachine%23Plant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/AGRORDF/classes/http%3A%2F%2Fwww.agroxml.de%2Frdf%2Fvocabulary%2Fmachine%23Plant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/AGRORDF/classes/http%3A%2F%2Fwww.agroxml.de%2Frdf%2Fvocabulary%2Fmachine%23Plant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/AGRORDF?p=classes&conceptid=http%3A%2F%2Fwww.agroxml.de%2Frdf%2Fvocabulary%2Fmachine%23Plant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant",
+
+      "definition": [
+
+        "Any of a kingdom (Plantae) of living beings typically lacking locomotive movement or obvious sensory organs, generally making its own food, possessing cell walls, and unlimited growth.",
+        "Conventionally the term plant implies a taxon with characteristics of multicellularity, cell structure with walls containing cellulose, and organisms capable of photosynthesis. \n\nSource: Ecyclopedia of life (www.eol.org/info/449)"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://www.fao.org/aims/aos/cwr.owl#Plant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23Plant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CCON",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23Plant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23Plant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23Plant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23Plant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23Plant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23Plant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23Plant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23Plant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CCON?p=classes&conceptid=http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23Plant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant",
+
+      "definition": [
+
+        "the continuous organism originating from a single seed, callus, rhizome or any other propagation mean"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://www.opensilex.org/vocabulary/oeso#Plant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/EBO/classes/http%3A%2F%2Fwww.opensilex.org%2Fvocabulary%2Foeso%23Plant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/EBO",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/EBO/classes/http%3A%2F%2Fwww.opensilex.org%2Fvocabulary%2Foeso%23Plant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/EBO/classes/http%3A%2F%2Fwww.opensilex.org%2Fvocabulary%2Foeso%23Plant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/EBO/classes/http%3A%2F%2Fwww.opensilex.org%2Fvocabulary%2Foeso%23Plant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/EBO/classes/http%3A%2F%2Fwww.opensilex.org%2Fvocabulary%2Foeso%23Plant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/EBO/classes/http%3A%2F%2Fwww.opensilex.org%2Fvocabulary%2Foeso%23Plant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/EBO/classes/http%3A%2F%2Fwww.opensilex.org%2Fvocabulary%2Foeso%23Plant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/EBO/classes/http%3A%2F%2Fwww.opensilex.org%2Fvocabulary%2Foeso%23Plant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/EBO/classes/http%3A%2F%2Fwww.opensilex.org%2Fvocabulary%2Foeso%23Plant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/EBO?p=classes&conceptid=http%3A%2F%2Fwww.opensilex.org%2Fvocabulary%2Foeso%23Plant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_337:0000217",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_337/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_337%3A0000217",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_337",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_337/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_337%3A0000217/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_337/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_337%3A0000217/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_337/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_337%3A0000217/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_337/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_337%3A0000217/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_337/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_337%3A0000217/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_337/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_337%3A0000217/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_337/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_337%3A0000217/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_337/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_337%3A0000217/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_337?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_337%3A0000217",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant",
+
+      "definition": [
+
+        "Any living organism that typically synthesizes its food from inorganic substances, possesses cellulose cell walls, responds slowly and often permanently to a stimulus, lacks specialized sense organs and nervous system, and has no powers of locomotion. (Source: CED)",
+        "http://opendata.inra.fr/anaeeThes/i_def_24509784-142a-4d0d-9deb-2c7c5869ebde"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://opendata.inra.fr/anaeeThes/c2_225",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/ANAEETHES/classes/http%3A%2F%2Fopendata.inra.fr%2FanaeeThes%2Fc2_225",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/ANAEETHES",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/ANAEETHES/classes/http%3A%2F%2Fopendata.inra.fr%2FanaeeThes%2Fc2_225/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/ANAEETHES/classes/http%3A%2F%2Fopendata.inra.fr%2FanaeeThes%2Fc2_225/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/ANAEETHES/classes/http%3A%2F%2Fopendata.inra.fr%2FanaeeThes%2Fc2_225/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/ANAEETHES/classes/http%3A%2F%2Fopendata.inra.fr%2FanaeeThes%2Fc2_225/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/ANAEETHES/classes/http%3A%2F%2Fopendata.inra.fr%2FanaeeThes%2Fc2_225/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/ANAEETHES/classes/http%3A%2F%2Fopendata.inra.fr%2FanaeeThes%2Fc2_225/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/ANAEETHES/classes/http%3A%2F%2Fopendata.inra.fr%2FanaeeThes%2Fc2_225/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/ANAEETHES/classes/http%3A%2F%2Fopendata.inra.fr%2FanaeeThes%2Fc2_225/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/ANAEETHES?p=classes&conceptid=http%3A%2F%2Fopendata.inra.fr%2FanaeeThes%2Fc2_225",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant",
+
+      "synonym": [
+
+        "green plant"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/OBT_000393",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/ONTOBIOTOPE/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FOBT_000393",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/ONTOBIOTOPE",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/ONTOBIOTOPE/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FOBT_000393/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/ONTOBIOTOPE/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FOBT_000393/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/ONTOBIOTOPE/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FOBT_000393/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/ONTOBIOTOPE/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FOBT_000393/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/ONTOBIOTOPE/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FOBT_000393/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/ONTOBIOTOPE/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FOBT_000393/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/ONTOBIOTOPE/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FOBT_000393/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/ONTOBIOTOPE/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FOBT_000393/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/ONTOBIOTOPE?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FOBT_000393",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_325:0100017",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_325/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_325%3A0100017",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_325",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_325/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_325%3A0100017/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_325/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_325%3A0100017/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_325/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_325%3A0100017/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_325/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_325%3A0100017/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_325/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_325%3A0100017/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_325/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_325%3A0100017/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_325/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_325%3A0100017/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_325/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_325%3A0100017/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_325?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_325%3A0100017",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant",
+
+      "synonym": [
+
+        "biomass production",
+        "plante",
+        "vegetal species"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://opendata.inra.fr/Triphase/TP_0000039",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/TRIPHASE/classes/http%3A%2F%2Fopendata.inra.fr%2FTriphase%2FTP_0000039",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/TRIPHASE",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/TRIPHASE/classes/http%3A%2F%2Fopendata.inra.fr%2FTriphase%2FTP_0000039/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/TRIPHASE/classes/http%3A%2F%2Fopendata.inra.fr%2FTriphase%2FTP_0000039/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/TRIPHASE/classes/http%3A%2F%2Fopendata.inra.fr%2FTriphase%2FTP_0000039/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/TRIPHASE/classes/http%3A%2F%2Fopendata.inra.fr%2FTriphase%2FTP_0000039/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/TRIPHASE/classes/http%3A%2F%2Fopendata.inra.fr%2FTriphase%2FTP_0000039/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/TRIPHASE/classes/http%3A%2F%2Fopendata.inra.fr%2FTriphase%2FTP_0000039/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/TRIPHASE/classes/http%3A%2F%2Fopendata.inra.fr%2FTriphase%2FTP_0000039/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/TRIPHASE/classes/http%3A%2F%2Fopendata.inra.fr%2FTriphase%2FTP_0000039/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/TRIPHASE?p=classes&conceptid=http%3A%2F%2Fopendata.inra.fr%2FTriphase%2FTP_0000039",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant",
+
+      "definition": [
+
+        "A plant is a living organism characterized by plant cells. A plant is described by the taxon kingdom \"Plantae\". For example, this taxon has the identifier 187079 in TAXREF."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://opendata.inrae.fr/bag-def#Plant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/BAGO/classes/https%3A%2F%2Fopendata.inrae.fr%2Fbag-def%23Plant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/BAGO",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/BAGO/classes/https%3A%2F%2Fopendata.inrae.fr%2Fbag-def%23Plant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/BAGO/classes/https%3A%2F%2Fopendata.inrae.fr%2Fbag-def%23Plant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/BAGO/classes/https%3A%2F%2Fopendata.inrae.fr%2Fbag-def%23Plant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/BAGO/classes/https%3A%2F%2Fopendata.inrae.fr%2Fbag-def%23Plant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/BAGO/classes/https%3A%2F%2Fopendata.inrae.fr%2Fbag-def%23Plant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/BAGO/classes/https%3A%2F%2Fopendata.inrae.fr%2Fbag-def%23Plant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/BAGO/classes/https%3A%2F%2Fopendata.inrae.fr%2Fbag-def%23Plant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/BAGO/classes/https%3A%2F%2Fopendata.inrae.fr%2Fbag-def%23Plant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/BAGO?p=classes&conceptid=https%3A%2F%2Fopendata.inrae.fr%2Fbag-def%23Plant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "planting stock",
+
+      "synonym": [
+
+        "nursery stock",
+        "nursery plants"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://aims.fao.org/aos/agrovoc/c_16111",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_16111",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_16111/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_16111/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_16111/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_16111/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_16111/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_16111/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_16111/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_16111/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/AGROVOC?p=classes&conceptid=http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_16111",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "whole plant evergreen (plant)",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.obolibrary.org/obo/FLOPO_0005767",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/FLOPO",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/FLOPO/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/FLOPO?p=classes&conceptid=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFLOPO_0005767",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.bioontology.org/ontology/STY/T002",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/STY/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/STY",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/STY/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/STY/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/STY/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/STY/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/STY/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/STY/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/STY/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/STY/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/STY?p=classes&conceptid=http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://www.mistea.supagro.inra.fr/ontologies/2016/v4/ontofp#Plant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/OFPE/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/OFPE",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/OFPE/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/OFPE/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/OFPE/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/OFPE/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/OFPE/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/OFPE/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/OFPE/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/OFPE/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/OFPE?p=classes&conceptid=http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+
+      "definition": [
+
+        "the continuous organism originating from a single seed, callus, rhizome or any other propagation mean"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://www.phenome-fppn.fr/vocabulary/2018/oepo#Plant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23Plant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/OEPO",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23Plant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23Plant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23Plant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23Plant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23Plant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23Plant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23Plant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23Plant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/OEPO?p=classes&conceptid=http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23Plant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://www.mistea.supagro.inra.fr/ontologies/2015/aeo#Plant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/AEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/AEO",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/AEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/AEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/AEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/AEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/AEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/AEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/AEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/AEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/AEO?p=classes&conceptid=http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_327:0000041",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000041",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_327",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000041/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000041/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000041/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000041/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000041/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000041/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000041/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000041/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_327?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000041",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_327:0000044",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000044",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_327",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000044/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000044/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000044/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000044/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000044/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000044/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000044/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000044/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_327?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000044",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://www.mistea.supagro.inra.fr/ontologies/2015/aeo#Plant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/AFEO",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/AFEO?p=classes&conceptid=http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2015%2Faeo%23Plant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://www.mistea.supagro.inra.fr/ontologies/2016/v4/ontofp#Plant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/AFEO",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/AFEO/classes/http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/AFEO?p=classes&conceptid=http%3A%2F%2Fwww.mistea.supagro.inra.fr%2Fontologies%2F2016%2Fv4%2Fontofp%23Plant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_336:0000035",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_336/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_336%3A0000035",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_336",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_336/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_336%3A0000035/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_336/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_336%3A0000035/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_336/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_336%3A0000035/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_336/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_336%3A0000035/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_336/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_336%3A0000035/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_336/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_336%3A0000035/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_336/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_336%3A0000035/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_336/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_336%3A0000035/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_336?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_336%3A0000035",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_334:0100490",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_334/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_334%3A0100490",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_334",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_334/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_334%3A0100490/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_334/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_334%3A0100490/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_334/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_334%3A0100490/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_334/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_334%3A0100490/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_334/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_334%3A0100490/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_334/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_334%3A0100490/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_334/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_334%3A0100490/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_334/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_334%3A0100490/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_334?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_334%3A0100490",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://kmi.open.ac.uk/projects/smartproducts/ontologies/food.owl#Plant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/SPO-FTM/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/SPO-FTM",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/SPO-FTM/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/SPO-FTM/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/SPO-FTM/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/SPO-FTM/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/SPO-FTM/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/SPO-FTM/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/SPO-FTM/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/SPO-FTM/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/SPO-FTM?p=classes&conceptid=http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://kmi.open.ac.uk/projects/smartproducts/ontologies/food.owl#Plant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/SPO-FND/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/SPO-FND",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/SPO-FND/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/SPO-FND/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/SPO-FND/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/SPO-FND/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/SPO-FND/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/SPO-FND/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/SPO-FND/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/SPO-FND/classes/http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/SPO-FND?p=classes&conceptid=http%3A%2F%2Fkmi.open.ac.uk%2Fprojects%2Fsmartproducts%2Fontologies%2Ffood.owl%23Plant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+
+      "definition": [
+
+        "A plant, multiple plants, or plant parts can be crops.",
+        "Plants are mainly multicellular, predominantly photosynthetic eukaryotes of the kingdom Plantae. Historically, plants were treated as one of two kingdoms including all living things that were not animals, and all algae and fungi were treated as plants. However, all current definitions of Plantae exclude the fungi and some algae, as well as the prokaryotes (the archaea and bacteria). By one definition, plants form the clade Viridiplantae (Latin name for \"green plants\"), a group that includes the flowering plants, conifers and other gymnosperms, ferns and their allies, hornworts, liverworts, mosses and the green algae, but excludes the red and brown algae."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://www.tno.nl/agrifood/ontology/common-greenhouse-ontology#Plant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CGO/classes/https%3A%2F%2Fwww.tno.nl%2Fagrifood%2Fontology%2Fcommon-greenhouse-ontology%23Plant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CGO",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CGO/classes/https%3A%2F%2Fwww.tno.nl%2Fagrifood%2Fontology%2Fcommon-greenhouse-ontology%23Plant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CGO/classes/https%3A%2F%2Fwww.tno.nl%2Fagrifood%2Fontology%2Fcommon-greenhouse-ontology%23Plant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CGO/classes/https%3A%2F%2Fwww.tno.nl%2Fagrifood%2Fontology%2Fcommon-greenhouse-ontology%23Plant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CGO/classes/https%3A%2F%2Fwww.tno.nl%2Fagrifood%2Fontology%2Fcommon-greenhouse-ontology%23Plant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CGO/classes/https%3A%2F%2Fwww.tno.nl%2Fagrifood%2Fontology%2Fcommon-greenhouse-ontology%23Plant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CGO/classes/https%3A%2F%2Fwww.tno.nl%2Fagrifood%2Fontology%2Fcommon-greenhouse-ontology%23Plant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CGO/classes/https%3A%2F%2Fwww.tno.nl%2Fagrifood%2Fontology%2Fcommon-greenhouse-ontology%23Plant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CGO/classes/https%3A%2F%2Fwww.tno.nl%2Fagrifood%2Fontology%2Fcommon-greenhouse-ontology%23Plant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CGO?p=classes&conceptid=https%3A%2F%2Fwww.tno.nl%2Fagrifood%2Fontology%2Fcommon-greenhouse-ontology%23Plant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://purl.bioontology.org/ontology/STY/T002",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/NCBITAXON/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/NCBITAXON",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/NCBITAXON/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/NCBITAXON/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/NCBITAXON/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/NCBITAXON/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/NCBITAXON/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/NCBITAXON/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/NCBITAXON/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/NCBITAXON/classes/http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/NCBITAXON?p=classes&conceptid=http%3A%2F%2Fpurl.bioontology.org%2Fontology%2FSTY%2FT002",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "potted plant",
+
+      "synonym": [
+
+        "potted seedling",
+        "pot plant"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://opendata.inrae.fr/thesaurusINRAE/c_1856",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_1856",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_1856/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_1856/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_1856/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_1856/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_1856/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_1856/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_1856/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_1856/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/INRAETHES?p=classes&conceptid=http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fc_1856",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Stems per plant computation per plant",
+
+      "synonym": [
+
+        "stnp"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_343:0000227",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_343/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_343%3A0000227",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_343",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_343/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_343%3A0000227/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_343/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_343%3A0000227/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_343/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_343%3A0000227/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_343/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_343%3A0000227/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_343/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_343%3A0000227/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_343/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_343%3A0000227/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_343/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_343%3A0000227/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_343/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_343%3A0000227/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_343?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_343%3A0000227",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Stuck plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://www.phenome-fppn.fr/vocabulary/2018/oeev#StuckPlant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/OEEV/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foeev%23StuckPlant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/OEEV",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/OEEV/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foeev%23StuckPlant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/OEEV/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foeev%23StuckPlant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/OEEV/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foeev%23StuckPlant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/OEEV/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foeev%23StuckPlant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/OEEV/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foeev%23StuckPlant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/OEEV/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foeev%23StuckPlant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/OEEV/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foeev%23StuckPlant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/OEEV/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foeev%23StuckPlant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/OEEV?p=classes&conceptid=http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foeev%23StuckPlant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant biotechnology",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://data.ifpri.org/lod/at/resource/Plant_biotechnology",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/ANT/classes/http%3A%2F%2Fdata.ifpri.org%2Flod%2Fat%2Fresource%2FPlant_biotechnology",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/ANT",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/ANT/classes/http%3A%2F%2Fdata.ifpri.org%2Flod%2Fat%2Fresource%2FPlant_biotechnology/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/ANT/classes/http%3A%2F%2Fdata.ifpri.org%2Flod%2Fat%2Fresource%2FPlant_biotechnology/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/ANT/classes/http%3A%2F%2Fdata.ifpri.org%2Flod%2Fat%2Fresource%2FPlant_biotechnology/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/ANT/classes/http%3A%2F%2Fdata.ifpri.org%2Flod%2Fat%2Fresource%2FPlant_biotechnology/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/ANT/classes/http%3A%2F%2Fdata.ifpri.org%2Flod%2Fat%2Fresource%2FPlant_biotechnology/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/ANT/classes/http%3A%2F%2Fdata.ifpri.org%2Flod%2Fat%2Fresource%2FPlant_biotechnology/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/ANT/classes/http%3A%2F%2Fdata.ifpri.org%2Flod%2Fat%2Fresource%2FPlant_biotechnology/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/ANT/classes/http%3A%2F%2Fdata.ifpri.org%2Flod%2Fat%2Fresource%2FPlant_biotechnology/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/ANT?p=classes&conceptid=http%3A%2F%2Fdata.ifpri.org%2Flod%2Fat%2Fresource%2FPlant_biotechnology",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant group",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://www.phenome-fppn.fr/vocabulary/2018/oepo#PlantGroup",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23PlantGroup",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/OEPO",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23PlantGroup/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23PlantGroup/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23PlantGroup/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23PlantGroup/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23PlantGroup/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23PlantGroup/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23PlantGroup/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/OEPO/classes/http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23PlantGroup/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/OEPO?p=classes&conceptid=http%3A%2F%2Fwww.phenome-fppn.fr%2Fvocabulary%2F2018%2Foepo%23PlantGroup",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant height",
+
+      "definition": [
+
+        "Length of the main stalk from the base of the stalk to the tip of the panicle"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_327:0000057",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000057",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_327",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000057/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000057/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000057/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000057/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000057/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000057/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000057/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_327/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000057/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_327?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_327%3A0000057",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant branchiness",
+
+      "definition": [
+
+        "Score for the overall amount of side branches of representative plants in a plot, ignoring very small and spindly branches, ranging from 1 = no branches to 7 = bushy plant with many major lateral branches"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_367:0000010",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000010",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_367",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000010/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000010/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000010/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000010/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000010/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000010/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000010/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000010/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_367?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000010",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant height",
+
+      "definition": [
+
+        "Height of the most representative plants of the plot, usually from the middle of the plot, measured with a long measuring stick from soil to the tip of the panicle. If more than one distinct phenotype is present, more than one plant may be recorded in a new row of the spreadsheet, with all phenotypes that are differing recorded separately"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_367:0000038",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000038",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_367",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000038/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000038/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000038/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000038/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000038/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000038/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000038/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_367/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000038/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_367?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_367%3A0000038",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "herbaceous plant",
+
+      "definition": [
+
+        "A herbaceous plant is a plant that has leaves and stems that die down at the end of the growing season to the soil level. They have no persistent woody stem above ground. Herbaceous plants may be annuals, biennials or perennials.\nSource: wikipedia.org"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://cerrado.linkeddata.es/ecology/ccon#HerbaceousPlant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fcerrado.linkeddata.es%2Fecology%2Fccon%23HerbaceousPlant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CCON",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fcerrado.linkeddata.es%2Fecology%2Fccon%23HerbaceousPlant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fcerrado.linkeddata.es%2Fecology%2Fccon%23HerbaceousPlant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fcerrado.linkeddata.es%2Fecology%2Fccon%23HerbaceousPlant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fcerrado.linkeddata.es%2Fecology%2Fccon%23HerbaceousPlant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fcerrado.linkeddata.es%2Fecology%2Fccon%23HerbaceousPlant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fcerrado.linkeddata.es%2Fecology%2Fccon%23HerbaceousPlant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fcerrado.linkeddata.es%2Fecology%2Fccon%23HerbaceousPlant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fcerrado.linkeddata.es%2Fecology%2Fccon%23HerbaceousPlant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CCON?p=classes&conceptid=http%3A%2F%2Fcerrado.linkeddata.es%2Fecology%2Fccon%23HerbaceousPlant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "vascular plant",
+
+      "definition": [
+
+        "A general name for any plant that has xylem and phloem."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://www.fao.org/aims/aos/cwr.owl#VascularPlant",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23VascularPlant",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CCON",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23VascularPlant/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23VascularPlant/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23VascularPlant/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23VascularPlant/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23VascularPlant/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23VascularPlant/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23VascularPlant/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23VascularPlant/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CCON?p=classes&conceptid=http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23VascularPlant",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "plant community",
+
+      "definition": [
+
+        "An assemblage of individuals of one or more species that influence one another and modify their environment (after Mueller-Dombois and Ellenberg, 1974)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "http://www.fao.org/aims/aos/cwr.owl#PlantCommunity",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23PlantCommunity",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CCON",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23PlantCommunity/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23PlantCommunity/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23PlantCommunity/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23PlantCommunity/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23PlantCommunity/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23PlantCommunity/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23PlantCommunity/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CCON/classes/http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23PlantCommunity/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CCON?p=classes&conceptid=http%3A%2F%2Fwww.fao.org%2Faims%2Faos%2Fcwr.owl%23PlantCommunity",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant aspect",
+
+      "definition": [
+
+        "Plant aspect."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_345:0000031",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000031",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_345",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000031/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000031/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000031/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000031/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000031/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000031/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000031/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000031/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_345?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000031",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant groundcover",
+
+      "definition": [
+
+        "Projected area of the plant on the ground."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_345:0000035",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000035",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_345",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000035/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000035/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000035/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000035/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000035/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000035/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000035/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000035/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_345?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000035",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "cm/plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_345:0000136",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000136",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_345",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000136/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000136/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000136/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000136/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000136/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000136/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000136/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000136/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_345?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000136",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "cm2/plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_345:0000137",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000137",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_345",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000137/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000137/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000137/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000137/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000137/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000137/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000137/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000137/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_345?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000137",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "g/plant",
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_345:0000141",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000141",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_345",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000141/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000141/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000141/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000141/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000141/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000141/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000141/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000141/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_345?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000141",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant height",
+
+      "definition": [
+
+        "Height of the plant from the base to the top of the canopy (excluding inflorescences)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_345:0000037",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000037",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_345",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000037/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000037/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000037/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000037/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000037/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000037/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000037/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000037/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_345?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000037",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant biomass",
+
+      "definition": [
+
+        "Amount of aboveground plant biomass (leaves and stems)."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_345:0000032",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000032",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_345",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000032/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000032/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000032/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000032/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000032/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000032/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000032/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000032/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_345?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000032",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant chlorosis",
+
+      "definition": [
+
+        "An assessment of chlorosis symptoms."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_345:0000033",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000033",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_345",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000033/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000033/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000033/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000033/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000033/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000033/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000033/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000033/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_345?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000033",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant diameter",
+
+      "definition": [
+
+        "The plant diameter."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_345:0000034",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000034",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_345",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000034/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000034/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000034/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000034/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000034/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000034/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000034/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000034/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_345?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000034",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant leafiness",
+
+      "definition": [
+
+        "Relative leafiness of a plant defined as how leafy a plant is."
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_345:0000038",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000038",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_345",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000038/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000038/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000038/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000038/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000038/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000038/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000038/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_345/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000038/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_345?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_345%3A0000038",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+
+    },
+    {
+
+      "prefLabel": "Plant vigour",
+
+      "definition": [
+
+        "Plant vigour"
+
+      ],
+      "obsolete": false,
+      "matchType": "prefLabel",
+      "ontologyType": "ONTOLOGY",
+      "@id": "https://cropontology.org/rdf/CO_341:0000132",
+      "@type": "http://www.w3.org/2002/07/owl#Class",
+      "links": {
+
+        "self": "https://data.agroportal.lirmm.fr/ontologies/CO_341/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_341%3A0000132",
+        "ontology": "https://data.agroportal.lirmm.fr/ontologies/CO_341",
+        "children": "https://data.agroportal.lirmm.fr/ontologies/CO_341/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_341%3A0000132/children",
+        "parents": "https://data.agroportal.lirmm.fr/ontologies/CO_341/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_341%3A0000132/parents",
+        "descendants": "https://data.agroportal.lirmm.fr/ontologies/CO_341/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_341%3A0000132/descendants",
+        "ancestors": "https://data.agroportal.lirmm.fr/ontologies/CO_341/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_341%3A0000132/ancestors",
+        "instances": "https://data.agroportal.lirmm.fr/ontologies/CO_341/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_341%3A0000132/instances",
+        "tree": "https://data.agroportal.lirmm.fr/ontologies/CO_341/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_341%3A0000132/tree",
+        "notes": "https://data.agroportal.lirmm.fr/ontologies/CO_341/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_341%3A0000132/notes",
+        "mappings": "https://data.agroportal.lirmm.fr/ontologies/CO_341/classes/https%3A%2F%2Fcropontology.org%2Frdf%2FCO_341%3A0000132/mappings",
+        "ui": "http://agroportal.lirmm.fr/ontologies/CO_341?p=classes&conceptid=https%3A%2F%2Fcropontology.org%2Frdf%2FCO_341%3A0000132",
+
+        "@context": {
+          "self": "http://www.w3.org/2002/07/owl#Class",
+          "ontology": "http://data.bioontology.org/metadata/Ontology",
+          "children": "http://www.w3.org/2002/07/owl#Class",
+          "parents": "http://www.w3.org/2002/07/owl#Class",
+          "descendants": "http://www.w3.org/2002/07/owl#Class",
+          "ancestors": "http://www.w3.org/2002/07/owl#Class",
+          "instances": "http://data.bioontology.org/metadata/Instance",
+          "tree": "http://www.w3.org/2002/07/owl#Class",
+          "notes": "http://data.bioontology.org/metadata/Note",
+          "mappings": "http://data.bioontology.org/metadata/Mapping",
+          "ui": "http://www.w3.org/2002/07/owl#Class"
+        }
+
+      },
+
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definition": "http://www.w3.org/2004/02/skos/core#definition",
+        "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+        "@language": "en"
+      }
+    }
+  ]
+
+}
