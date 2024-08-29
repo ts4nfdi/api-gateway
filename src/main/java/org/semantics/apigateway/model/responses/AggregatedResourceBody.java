@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.jena.rdf.model.ResourceFactory;
-import org.semantics.apigateway.config.OntologyConfig;
+import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.ResponseMapping;
 
 import java.util.HashMap;
@@ -25,6 +25,8 @@ public class AggregatedResourceBody {
     private String ontology;
     private String type;
     private String source;
+    @JsonProperty("source_name")
+    private String sourceName;
     @JsonProperty("backend_type")
     private String backendType;
 
@@ -33,7 +35,7 @@ public class AggregatedResourceBody {
     @JsonProperty("@type")
     private String typeURI;
 
-    public static AggregatedResourceBody fromMap(Map<String, Object> item, OntologyConfig config) throws RuntimeException {
+    public static AggregatedResourceBody fromMap(Map<String, Object> item, DatabaseConfig config) throws RuntimeException {
         AggregatedResourceBody newItem = new AggregatedResourceBody();
         ResponseMapping responseMapping = config.getResponseMapping();
 
@@ -110,6 +112,8 @@ public class AggregatedResourceBody {
             // Adding the backend database type as part of the new item
             newItem.setBackendType(config.getDatabase());
 
+            newItem.setSourceName(config.getName());
+
         } catch (RuntimeException e) {
             throw e;
         }
@@ -127,6 +131,7 @@ public class AggregatedResourceBody {
         putIfNotEmpty(map, "short_form", this.shortForm);
         putIfNotEmpty(map, "type", this.type);
         putIfNotEmpty(map, "source", this.source);
+        putIfNotEmpty(map, "source_name", this.sourceName);
         putIfNotEmpty(map, "backend_type", this.backendType);
         putIfNotEmpty(map, "ontology", this.ontology);
 
