@@ -3,7 +3,7 @@ package org.semantics.apigateway.service.search;
 import lombok.Getter;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.semantics.apigateway.config.DatabaseConfig;
-import org.semantics.apigateway.model.Database;
+import org.semantics.apigateway.model.BackendType;
 import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
@@ -20,8 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -61,7 +60,7 @@ public class SearchService {
 
 
     public CompletableFuture<Object> performSearch(
-            String query, Database database, ResponseFormat format,
+            String query, String database, ResponseFormat format,
             TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
 
         String db = "", formatStr = "", target = "";
@@ -76,6 +75,7 @@ public class SearchService {
             target = targetDbSchema.toString();
         }
 
+
         return performSearch(query, db, formatStr, target, showResponseConfiguration);
     }
 
@@ -85,14 +85,14 @@ public class SearchService {
             String targetDbSchema, boolean showResponseConfiguration) {
 
         CompletableFuture<Object> future = new CompletableFuture<>();
+        Map<String, String> apiUrls;
 
-        if (!this.configurationLoader.databaseExist(database)) {
-            future.completeExceptionally(new IllegalArgumentException("Database not found: " + database));
+        try {
+             apiUrls = filterDatabases(database);
+        }catch (Exception e) {
+            future.completeExceptionally(e);
             return future;
         }
-
-        Map<String, String> apiUrls = ontologyConfigs.stream()
-                .collect(Collectors.toMap(DatabaseConfig::getUrl, DatabaseConfig::getApiKey));
 
         accessor.setUrls(apiUrls);
         accessor.setLogger(logger);
@@ -106,9 +106,33 @@ public class SearchService {
     }
 
 
+    private Map<String, String> filterDatabases(String database) {
+        Map<String, String> apiUrls;
+        String[] databases = database.split(",");
+
+        if (database.isEmpty()) {
+            apiUrls = ontologyConfigs.stream().collect(Collectors.toMap(DatabaseConfig::getUrl, DatabaseConfig::getApiKey));
+        } else {
+            try {
+                apiUrls = Arrays.stream(databases)
+                        .map(x -> ontologyConfigs.stream().filter(db -> db.getName().equals(x.toLowerCase())).findFirst()
+                                .orElseThrow(() -> {
+                                    String possibleValues = ontologyConfigs.stream().map(DatabaseConfig::getName).collect(Collectors.joining(","));
+                                    return new IllegalArgumentException("Database not found: " + x + " . Possible values are: " + possibleValues);
+                                }))
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toMap(DatabaseConfig::getUrl, DatabaseConfig::getApiKey));
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return apiUrls;
+    }
+    
     private Object transformJsonLd(AggregatedApiResponse transformedResponse, String format) {
         if (jsonLdTransform.isJsonLdFormat(format)) {
-            return  jsonLdTransform.convertToJsonLd(transformedResponse.getCollection());
+            return jsonLdTransform.convertToJsonLd(transformedResponse.getCollection());
         } else {
             return transformedResponse;
         }
@@ -138,7 +162,7 @@ public class SearchService {
 
         aggregatedApiResponse.setShowConfig(showResponseConfiguration);
 
-        List<Map<String,Object>> aggregatedCollections = data.stream().map(TransformedApiResponse::getCollection)
+        List<Map<String, Object>> aggregatedCollections = data.stream().map(TransformedApiResponse::getCollection)
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
 
@@ -166,7 +190,7 @@ public class SearchService {
     private Object transformForTargetDbSchema(Object data, String targetDbSchema) {
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
             try {
-                List<Map<String,Object>> collections;
+                List<Map<String, Object>> collections;
                 if (data instanceof AggregatedApiResponse) {
                     collections = ((AggregatedApiResponse) data).getCollection();
                 } else {
