@@ -2,11 +2,12 @@ package org.semantics.apigateway.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.apache.http.HttpStatus;
 import org.apache.lucene.queryparser.classic.ParseException;
-import org.semantics.apigateway.model.Database;
+import org.semantics.apigateway.model.BackendType;
 import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.service.search.SearchService;
@@ -39,8 +40,12 @@ public class SearchController {
     public CompletableFuture<ResponseEntity<?>> performDynFederatedSearch(
             @Parameter(description = "The text to search", example = "plant")
             @RequestParam String query,
-            @Parameter(description = "Source to run search against")
-            @RequestParam(required = false) Database database,
+            @Parameter(
+                    description = "Choose on which databases of backend type to run the search",
+                    schema = @Schema(type = "array",
+                            example = "biodivportal,agroportal,agrovoc,ebi")
+            )
+            @RequestParam(required = false) String database,
             @RequestParam(required = false) ResponseFormat format,
             @Parameter(description = "Transform the response result to a specific schema")
             @RequestParam(required = false) TargetDbSchema targetDbSchema,

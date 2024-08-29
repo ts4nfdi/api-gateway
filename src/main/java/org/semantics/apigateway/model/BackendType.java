@@ -1,6 +1,6 @@
 package org.semantics.apigateway.model;
 
-public enum Database {
+public enum BackendType {
     ontoportal,
     ols,
     skosmos;
