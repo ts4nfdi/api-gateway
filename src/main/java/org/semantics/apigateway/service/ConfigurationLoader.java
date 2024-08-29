@@ -88,7 +88,7 @@ public class ConfigurationLoader {
 
     public boolean databaseExist(String database) {
         return database == null || database.isEmpty() ||
-                databaseConfigs.stream().anyMatch(config -> config.getDatabase().equalsIgnoreCase(database));
+                databaseConfigs.stream().anyMatch(config -> config.getName().equalsIgnoreCase(database));
     }
 
     public DatabaseConfig getConfigByUrl(String url) {
