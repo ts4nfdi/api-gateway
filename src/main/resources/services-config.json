@@ -1,9 +1,7 @@
 {
-  "databases": [
+  "services": [
     {
-      "database": "ontoportal",
-      "url": "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s",
-      "apiKey": "${ONTOPORTAL_APIKEY}",
+      "name": "ontoportal",
       "responseMapping": {
         "nestedJson": "collection",
         "label": "prefLabel",
@@ -15,9 +13,7 @@
       }
     },
     {
-      "database": "ols",
-      "url": "https://ebi.ac.uk/ols4/api/search?q=%s",
-      "apiKey": "",
+      "name": "ols",
       "responseMapping": {
         "nestedJson": "response",
         "key": "docs",
@@ -31,9 +27,7 @@
       }
     },
     {
-      "database": "skosmos",
-      "url": "https://agrovoc.fao.org/browse/rest/v1/search?query=%s&lang=en&fields=scopeNote",
-      "apiKey": "",
+      "name": "skosmos",
       "responseMapping": {
         "nestedJson": "results",
         "iri": "uri",
@@ -41,7 +35,7 @@
         "synonym": "altLabel",
         "ontology": "vocab",
         "type": "type",
-        "description":"scopeNote"
+        "description": "scopeNote"
       }
     }
   ]
