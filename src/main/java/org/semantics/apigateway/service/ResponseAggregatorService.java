@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.semantics.apigateway.config.OntologyConfig;
+import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.responses.ApiResponse;
 import org.semantics.apigateway.model.responses.TransformedApiResponse;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
@@ -18,7 +18,7 @@ public class ResponseAggregatorService {
     private static final Logger logger = LoggerFactory.getLogger(ResponseAggregatorService.class);
 
     // Method to dynamically transform a response based on the provided OntologyConfig
-    public TransformedApiResponse dynTransformResponse(ApiResponse response, OntologyConfig config) {
+    public TransformedApiResponse dynTransformResponse(ApiResponse response, DatabaseConfig config) {
         TransformedApiResponse newResponse = new TransformedApiResponse();
         List<AggregatedResourceBody> result = new ArrayList<>();
 
@@ -60,7 +60,7 @@ public class ResponseAggregatorService {
     }
 
     // Helper method to process a list of data items
-    private void processList(List<?> dataList, List<AggregatedResourceBody> result, OntologyConfig config) {
+    private void processList(List<?> dataList, List<AggregatedResourceBody> result, DatabaseConfig config) {
         for (Object item : dataList) {
             if (item instanceof Map) {
                 // Processing each item in the list
@@ -73,7 +73,7 @@ public class ResponseAggregatorService {
     }
 
     // Method to process individual items in the response
-    private AggregatedResourceBody processItem(Map<String, Object> item, OntologyConfig config) {
+    private AggregatedResourceBody processItem(Map<String, Object> item, DatabaseConfig config) {
         try {
             return AggregatedResourceBody.fromMap(item, config);
         } catch (Exception e) {
