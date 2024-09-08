@@ -26,7 +26,7 @@
     {
       "type": "skosmos",
       "name": "agrovoc",
-      "url": "https://agrovoc.fao.org/browse/rest/v1/search?query=%s&lang=en&fields=scopeNote"
+      "url": "https://agrovoc.fao.org/browse/rest/v1/search?query=%s*&lang=en&fields=scopeNote"
     }
   ]
 }
