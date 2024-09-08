@@ -4,8 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import org.semantics.apigateway.config.DatabaseConfig;
-import org.semantics.apigateway.config.OntologyConfig;
-import org.semantics.apigateway.service.search.SearchService;
+import org.semantics.apigateway.config.DatabasesConfig;
+import org.semantics.apigateway.config.ServiceConfig;
+import org.semantics.apigateway.config.ServicesConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,27 +34,42 @@ public class ConfigurationLoader {
     @Autowired
     private ResourceLoader resourceLoader;
 
-    private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
-    private List<OntologyConfig> ontologyConfigs;
+    private static final Logger logger = LoggerFactory.getLogger(ConfigurationLoader.class);
+    private List<DatabaseConfig> databaseConfigs;
+    private List<ServiceConfig> serviceConfigs;
     private Map<String, Map<String, String>> responseMappings;
 
     // Method invoked after on server start, loads database configurations and replace environment variables
     @PostConstruct
     public void loadDbConfigs() throws IOException {
-        Resource resource = resourceLoader.getResource("classpath:response-config.json");
-        String jsonContent = StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
+        Resource servicesConfigResource = resourceLoader.getResource("classpath:services-config.json");
+        Resource dataBasesConfigResource = resourceLoader.getResource("classpath:databases.json");
+
+
+        String servicesConfigJson = StreamUtils.copyToString(servicesConfigResource.getInputStream(), StandardCharsets.UTF_8);
+
+        String databaseConfigJson = StreamUtils.copyToString(dataBasesConfigResource.getInputStream(), StandardCharsets.UTF_8);
 
         for (Map.Entry<String, Object> property : environment.getSystemEnvironment().entrySet()) {
             String key = property.getKey();
             String value = (String) property.getValue();
-            jsonContent = jsonContent.replace("${" + key + "}", value);
+            databaseConfigJson = databaseConfigJson.replace("${" + key + "}", value);
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
-        DatabaseConfig dbConfig = objectMapper.readValue(jsonContent, DatabaseConfig.class);
-        this.ontologyConfigs = dbConfig.getDatabases();
+        DatabasesConfig dbConfig = objectMapper.readValue(databaseConfigJson, DatabasesConfig.class);
+        ServicesConfig servicesConfig = objectMapper.readValue(servicesConfigJson, ServicesConfig.class);
+
+
+        this.databaseConfigs = dbConfig.getDatabases();
+
+        this.databaseConfigs.stream().forEach( x -> {
+            x.setServiceConfig(servicesConfig.getService(x.getType()));
+        });
+
+        this.serviceConfigs = servicesConfig.getServices();
         this.responseMappings = loadResponseMappings();
-        ontologyConfigs.forEach(config -> logger.info("Loaded config: {}", config));
+        databaseConfigs.forEach(config -> logger.info("Loaded config: {}", config));
     }
 
     // Loads response mappings from a json configuration file
@@ -72,11 +88,11 @@ public class ConfigurationLoader {
 
     public boolean databaseExist(String database) {
         return database == null || database.isEmpty() ||
-                ontologyConfigs.stream().anyMatch(config -> config.getDatabase().equalsIgnoreCase(database));
+                databaseConfigs.stream().anyMatch(config -> config.getName().equalsIgnoreCase(database));
     }
 
-    public OntologyConfig getConfigByUrl(String url) {
-        return ontologyConfigs.stream()
+    public DatabaseConfig getConfigByUrl(String url) {
+        return databaseConfigs.stream()
                 .filter(c -> c.getUrl().equalsIgnoreCase(url))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Config not found for URL: " + url));

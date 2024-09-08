@@ -5,10 +5,6 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
-import org.semantics.apigateway.config.OntologyConfig;
-import org.semantics.apigateway.config.ResponseMapping;
-import org.semantics.apigateway.model.responses.TransformedApiResponse;
-import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 import org.springframework.stereotype.Service;
 
 import java.io.StringReader;
