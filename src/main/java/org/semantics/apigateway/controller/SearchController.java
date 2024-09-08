@@ -56,15 +56,6 @@ public class SearchController {
 
         return searchService.performSearch(query, database, format, targetDbSchema, showResponseConfiguration)
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
-                .exceptionally(e -> {
-                    if (e.getCause() instanceof IllegalArgumentException) {
-                        return ResponseEntity
-                                .status(HttpStatus.SC_BAD_REQUEST)
-                                .body("Error: " + e.getCause().getMessage());
-                    }
-                    return ResponseEntity
-                            .status(HttpStatus.SC_INTERNAL_SERVER_ERROR)
-                            .body("Error: An internal server error occurred");
-                });
+                .exceptionally(e -> ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body("Error: " + e.getCause().getMessage()));
     }
 }

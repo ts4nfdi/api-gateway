@@ -113,23 +113,19 @@ public class SearchService {
         if (database.isEmpty()) {
             apiUrls = ontologyConfigs.stream().collect(Collectors.toMap(DatabaseConfig::getUrl, DatabaseConfig::getApiKey));
         } else {
-            try {
+
                 apiUrls = Arrays.stream(databases)
-                        .map(x -> ontologyConfigs.stream().filter(db -> db.getName().equals(x.toLowerCase())).findFirst()
-                                .orElseThrow(() -> {
-                                    String possibleValues = ontologyConfigs.stream().map(DatabaseConfig::getName).collect(Collectors.joining(","));
-                                    return new IllegalArgumentException("Database not found: " + x + " . Possible values are: " + possibleValues);
-                                }))
-                        .filter(Objects::nonNull)
+                        .flatMap(x -> ontologyConfigs.stream().filter(db -> db.getName().equals(x.toLowerCase()) || db.getType().equals(x.toLowerCase())))
                         .collect(Collectors.toMap(DatabaseConfig::getUrl, DatabaseConfig::getApiKey));
 
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+                if (apiUrls.isEmpty()){
+                        String possibleValues = ontologyConfigs.stream().map(DatabaseConfig::getName).collect(Collectors.joining(","));
+                    throw new IllegalArgumentException("Database not found: " + database + " . Possible values are: " + possibleValues);
+                }
         }
         return apiUrls;
     }
-    
+
     private Object transformJsonLd(AggregatedApiResponse transformedResponse, String format) {
         if (jsonLdTransform.isJsonLdFormat(format)) {
             return jsonLdTransform.convertToJsonLd(transformedResponse.getCollection());
