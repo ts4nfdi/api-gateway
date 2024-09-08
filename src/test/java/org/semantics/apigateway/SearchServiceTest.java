@@ -1,15 +1,12 @@
 package org.semantics.apigateway;
 
-import com.github.jsonldjava.utils.Obj;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.lucene.queryparser.classic.ParseException;
-import org.hibernate.validator.internal.constraintvalidators.bv.AssertTrueValidator;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.semantics.apigateway.config.OntologyConfig;
+import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.service.ConfigurationLoader;
 import org.semantics.apigateway.service.search.SearchService;
@@ -53,7 +50,7 @@ public class SearchServiceTest {
     @BeforeEach
     public void setup() {
         searchService.getAccessor().setRestTemplate(restTemplate);
-        List<OntologyConfig> configs = configurationLoader.getOntologyConfigs();
+        List<DatabaseConfig> configs = configurationLoader.getDatabaseConfigs();
 
         when(restTemplate.getForEntity(
                 anyString(),
@@ -61,10 +58,14 @@ public class SearchServiceTest {
                 .thenAnswer(invocation -> {
                     String url = invocation.getArgument(0, String.class);
                     ResponseEntity<Map<String, Object>> response = ResponseEntity.status(404).body(new HashMap<>());
-
-                    for (OntologyConfig config : configs) {
-                        String serviceName = String.format("src/test/resources/mocks/search/%s.json", config.getDatabase());
-                        String jsonResponse = new String(Files.readAllBytes(Paths.get(serviceName)));
+                    for (DatabaseConfig config : configs) {
+                        String serviceName = String.format("src/test/resources/mocks/search/%s.json", config.getName());
+                        String jsonResponse = "";
+                        try {
+                           jsonResponse = new String(Files.readAllBytes(Paths.get(serviceName)));
+                        } catch (Exception e){
+                            System.out.println(e.getMessage());
+                        }
 
                         String configHost = new URL(config.getUrl()).getHost();
                         String currentURLHost = new URL(url).getHost();
@@ -99,7 +100,7 @@ public class SearchServiceTest {
         assertThat(firstPlant.get("backend_type")).isEqualTo("ontoportal");
         assertThat(firstPlant.get("short_form")).isEqualTo("plant");
         assertThat(firstPlant.get("label")).isEqualTo("plant");
-        assertThat(firstPlant.get("source")).isEqualTo("https://data.biodivportal.gfbio.dev");
+        assertThat(firstPlant.get("source")).isEqualTo("https://data.biodivportal.gfbio.org");
         assertThat(firstPlant.get("type")).isEqualTo("class");
         assertThat(firstPlant.get("ontology")).isEqualTo("sweet");
 
@@ -116,11 +117,13 @@ public class SearchServiceTest {
 
 
         assertThat(responseList.stream().map(x -> x.get("backend_type")).distinct().sorted().collect(Collectors.toList()))
-                .isEqualTo(configurationLoader.getOntologyConfigs().stream().map(OntologyConfig::getDatabase).sorted().collect(Collectors.toList()));
+                .isEqualTo(configurationLoader.getDatabaseConfigs().stream().map(DatabaseConfig::getDatabase).sorted().distinct().collect(Collectors.toList()));
+        assertThat(responseList.stream().map(x -> x.get("source_name")).distinct().sorted().toArray())
+                .isEqualTo(new String[] {"agroportal", "agrovoc", "biodivportal", "ols-ebi"});
     }
 
     @Test
-    public void testSearchOlsSchema() throws IOException, ParseException {
+    public void testSearchOlsSchema() {
         CompletableFuture<Object> r = searchService.performSearch("plant", "", "", "ols", false);
 
         Map<String, Object> response = (Map<String, Object>) r.join();
