@@ -8,6 +8,7 @@ import org.apache.jena.rdf.model.ResourceFactory;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.ResponseMapping;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,11 @@ public class AggregatedResourceBody {
                 newItem.setIri((String) item.get(responseMapping.getIri()));
             }
             if (responseMapping.getLabel() != null && item.containsKey(responseMapping.getLabel())) {
-                newItem.setLabel((String) item.get(responseMapping.getLabel()));
+                if (item.get(responseMapping.getLabel()) instanceof ArrayList){
+                    newItem.setLabel((String) ((ArrayList<?>) item.get(responseMapping.getLabel())).get(0));
+                } else {
+                    newItem.setLabel(item.get(responseMapping.getLabel()).toString());
+                }
             }
             if (responseMapping.getSynonym() != null && item.containsKey(responseMapping.getSynonym())) {
                 Object label = item.get(responseMapping.getSynonym());

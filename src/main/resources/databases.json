@@ -14,9 +14,9 @@
     },
     {
       "type": "ontoportal",
-      "name": "ecoportal",
-      "url": "https://data.ecoportal.lifewatch.eu/search?q=%s&apikey=%s",
-      "apiKey": "43a437ba-a437-4bf0-affd-ab520e584719"
+      "name": "earthportal",
+      "url": "https://data.earthportal.eu/search?q=%s&apikey=%s",
+      "apiKey": "c9147279-954f-41bd-b068-da9b0c441288"
     },
     {
       "type": "ols",
