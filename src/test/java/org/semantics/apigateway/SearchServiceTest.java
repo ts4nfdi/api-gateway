@@ -100,7 +100,7 @@ public class SearchServiceTest {
         assertThat(firstPlant.get("backend_type")).isEqualTo("ontoportal");
         assertThat(firstPlant.get("short_form")).isEqualTo("plant");
         assertThat(firstPlant.get("label")).isEqualTo("plant");
-        assertThat(firstPlant.get("source")).isEqualTo("https://data.biodivportal.gfbio.dev");
+        assertThat(firstPlant.get("source")).isEqualTo("https://data.biodivportal.gfbio.org");
         assertThat(firstPlant.get("type")).isEqualTo("class");
         assertThat(firstPlant.get("ontology")).isEqualTo("sweet");
 

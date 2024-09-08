@@ -2,12 +2,6 @@
   "databases": [
     {
       "type": "ontoportal",
-      "name": "biodivportal",
-      "url": "https://data.biodivportal.gfbio.dev/search?q=%s&apikey=%s",
-      "apiKey": "47a57aa3-7b54-4f34-b695-dbb5f5b7363e"
-    },
-    {
-      "type": "ontoportal",
       "name": "agroportal",
       "url": "https://data.agroportal.lirmm.fr/search?q=%s&apikey=%s",
       "apiKey": "1de0a270-29c5-4dda-b043-7c3580628cd5"
@@ -19,9 +13,25 @@
       "apiKey": "c9147279-954f-41bd-b068-da9b0c441288"
     },
     {
+      "type": "ontoportal",
+      "name": "biodivportal",
+      "url": "https://data.biodivportal.gfbio.org/search?q=%s&apikey=%s",
+      "apiKey": "47a57aa3-7b54-4f34-b695-dbb5f5b7363e"
+    },
+    {
       "type": "ols",
       "name": "ols-ebi",
       "url": "https://ebi.ac.uk/ols4/api/search?q=%s"
+    },
+    {
+      "type": "ols",
+      "name": "tib",
+      "url": "https://service.tib.eu/ts4tib/api/search?q=%s"
+    },
+    {
+      "type": "ols",
+      "name": "zbmed",
+      "url": "https://semanticlookup.zbmed.de/api/search?q=%s"
     },
     {
       "type": "skosmos",
