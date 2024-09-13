@@ -3,40 +3,40 @@
     {
       "type": "ontoportal",
       "name": "agroportal",
-      "url": "https://data.agroportal.lirmm.fr/search?q=%s&apikey=%s",
+      "url": "https://data.agroportal.lirmm.fr",
       "apiKey": "1de0a270-29c5-4dda-b043-7c3580628cd5"
     },
     {
       "type": "ontoportal",
       "name": "earthportal",
-      "url": "https://data.earthportal.eu/search?q=%s&apikey=%s",
+      "url": "https://data.earthportal.eu",
       "apiKey": "c9147279-954f-41bd-b068-da9b0c441288"
     },
     {
       "type": "ontoportal",
       "name": "biodivportal",
-      "url": "https://data.biodivportal.gfbio.org/search?q=%s&apikey=%s",
+      "url": "https://data.biodivportal.gfbio.org",
       "apiKey": "47a57aa3-7b54-4f34-b695-dbb5f5b7363e"
     },
     {
       "type": "ols",
       "name": "ols-ebi",
-      "url": "https://ebi.ac.uk/ols4/api/search?q=%s"
+      "url": "https://ebi.ac.uk/ols4/api"
     },
     {
       "type": "ols",
       "name": "tib",
-      "url": "https://service.tib.eu/ts4tib/api/search?q=%s"
+      "url": "https://service.tib.eu/ts4tib/api"
     },
     {
       "type": "ols",
       "name": "zbmed",
-      "url": "https://semanticlookup.zbmed.de/api/search?q=%s"
+      "url": "https://semanticlookup.zbmed.de/api"
     },
     {
       "type": "skosmos",
       "name": "agrovoc",
-      "url": "https://agrovoc.fao.org/browse/rest/v1/search?query=%s*&lang=en&fields=scopeNote"
+      "url": "https://agrovoc.fao.org/browse/rest/v1"
     }
   ]
 }
