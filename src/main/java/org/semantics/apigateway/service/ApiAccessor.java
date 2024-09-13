@@ -33,6 +33,11 @@ public class ApiAccessor {
     }
 
     @Async
+    public CompletableFuture<Map<String, ApiResponse>> get() {
+        return get("");
+    }
+
+    @Async
     public CompletableFuture<Map<String, ApiResponse>> get(String query) {
         ForkJoinPool customThreadPool = new ForkJoinPool(10);
 
@@ -66,7 +71,8 @@ public class ApiAccessor {
 
             long startTime = System.currentTimeMillis();
 
-            ResponseEntity<Map> response = restTemplate.getForEntity(fullUrl, Map.class);
+            ResponseEntity<?> response;
+            response = restTemplate.getForEntity(fullUrl, Object.class);
 
             long endTime = System.currentTimeMillis();
             long responseTime = endTime - startTime;
@@ -77,19 +83,29 @@ public class ApiAccessor {
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 logger.debug("Raw API Response: {}", response.getBody());
-                result.setResponseBody(response.getBody());
+                if (response.getBody() instanceof List) {
+                    Map<String, Object> out = new HashMap<>();
+                    out.put("collection", response.getBody());
+                    result.setResponseBody(out);
+                } else {
+                    result.setResponseBody((Map<String, Object>) response.getBody());
+                }
                 return result;
             } else {
-                logger.error("API Response Error: Status Code - {}", response.getStatusCode());
+                logger.error("API {} Response Error: Status Code - {}", url,response.getStatusCode());
                 return result;
             }
         } catch (Exception e) {
-            logger.error("An error occurred while processing the request: {}", e.getMessage(), e);
+            logger.error("An error occurred while processing the request {}: {}", url, e.getMessage(), e);
             return result;
         }
     }
 
     private String constructUrl(String query, String url, String apikey) {
-        return apikey.isEmpty() ? String.format(url, query) : String.format(url, query, apikey);
+        if (query.isEmpty()) {
+            return apikey.isEmpty() ? url : String.format(url, apikey);
+        } else {
+            return apikey.isEmpty() ? String.format(url, query) : String.format(url, query, apikey);
+        }
     }
 }
