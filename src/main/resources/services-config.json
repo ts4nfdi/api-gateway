@@ -2,40 +2,90 @@
   "services": [
     {
       "name": "ontoportal",
-      "responseMapping": {
-        "nestedJson": "collection",
-        "label": "prefLabel",
-        "iri": "@id",
-        "synonym": "synonym",
-        "ontology": "links",
-        "description": "definition",
-        "type": "@type"
+      "endpoints": {
+        "search": {
+          "path": "/search?q=%s&apikey=%s",
+          "responseMapping": {
+            "nestedJson": "collection",
+            "label": "prefLabel",
+            "iri": "@id",
+            "synonym": "synonym",
+            "ontology": "links",
+            "description": "definition",
+            "type": "@type"
+          }
+        },
+        "resources": {
+          "path": "/ontologies?apikey=%s",
+          "responseMapping": {
+            "nestedJson": "collection",
+            "label": "acronym",
+            "iri": "@id",
+            "type": "@type",
+            "ontology": "links",
+            "description": "name"
+          }
+        }
       }
     },
     {
       "name": "ols",
-      "responseMapping": {
-        "nestedJson": "response",
-        "key": "docs",
-        "label": "label",
-        "iri": "iri",
-        "ontology": "ontology_name",
-        "synonym": "synonym",
-        "shortForm": "short_form",
-        "description": "description",
-        "type": "type"
+      "endpoints": {
+        "search": {
+          "path": "search?q=%s",
+          "responseMapping": {
+            "nestedJson": "response",
+            "key": "docs",
+            "label": "ontologyId",
+            "iri": "iri",
+            "ontology": "ontology_name",
+            "synonym": "synonym",
+            "shortForm": "short_form",
+            "description": "description",
+            "type": "type"
+          }
+        },
+        "resources": {
+          "path": "ontologies",
+          "responseMapping": {
+            "nestedJson": "_embedded",
+            "key": "ontologies",
+            "label": "ontologyId",
+            "iri": "iri",
+            "ontology": "ontology_name",
+            "synonym": "synonym",
+            "shortForm": "short_form",
+            "description": "description",
+            "type": "type"
+          }
+        }
       }
     },
     {
       "name": "skosmos",
-      "responseMapping": {
-        "nestedJson": "results",
-        "iri": "uri",
-        "label": "prefLabel",
-        "synonym": "altLabel",
-        "ontology": "vocab",
-        "type": "type",
-        "description": "scopeNote"
+      "endpoints": {
+        "search": {
+          "path": "/search?query=%s*&lang=en&fields=scopeNote",
+          "responseMapping": {
+            "nestedJson": "results",
+            "iri": "uri",
+            "label": "prefLabel",
+            "synonym": "altLabel",
+            "ontology": "vocab",
+            "type": "type",
+            "description": "scopeNote"
+          }
+        },
+        "resources": {
+          "path": "/agrovoc",
+          "responseMapping": {
+            "label": "id",
+            "iri": "uri",
+            "type": "type",
+            "ontology": "links",
+            "description": "title"
+          }
+        }
       }
     }
   ]
