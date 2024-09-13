@@ -22,7 +22,7 @@
             "label": "acronym",
             "iri": "@id",
             "type": "@type",
-            "ontology": "links",
+            "ontology": "acronym",
             "description": "name"
           }
         }
@@ -52,7 +52,7 @@
             "key": "ontologies",
             "label": "ontologyId",
             "iri": "iri",
-            "ontology": "ontology_name",
+            "ontology": "ontologyId",
             "synonym": "synonym",
             "shortForm": "short_form",
             "description": "description",
@@ -82,7 +82,7 @@
             "label": "id",
             "iri": "uri",
             "type": "type",
-            "ontology": "links",
+            "ontology": "id",
             "description": "title"
           }
         }

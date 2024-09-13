@@ -36,9 +36,9 @@ public class AggregatedResourceBody {
     @JsonProperty("@type")
     private String typeURI;
 
-    public static AggregatedResourceBody fromMap(Map<String, Object> item, DatabaseConfig config) throws RuntimeException {
+    public static AggregatedResourceBody fromMap(Map<String, Object> item, DatabaseConfig config, String endpoint) throws RuntimeException {
         AggregatedResourceBody newItem = new AggregatedResourceBody();
-        ResponseMapping responseMapping = config.getResponseMapping();
+        ResponseMapping responseMapping = config.getResponseMapping(endpoint);
 
         // Mapping fields based on the JSON configuration
         try {
@@ -80,7 +80,9 @@ public class AggregatedResourceBody {
                 if (responseMapping.getOntology().equals("links")) {
                     Object keysObject = ((Map<?, ?>) item).get(responseMapping.getOntology());
                     String ontologyItem = ((Map<?, String>) keysObject).get("ontology");
-                    newItem.setOntology(ResourceFactory.createResource(ontologyItem).getLocalName().toLowerCase());
+                    if(ontologyItem != null) {
+                        newItem.setOntology(ResourceFactory.createResource(ontologyItem).getLocalName().toLowerCase());
+                    }
                 } else {
                     newItem.setOntology((String) item.get(responseMapping.getOntology()));
                 }
