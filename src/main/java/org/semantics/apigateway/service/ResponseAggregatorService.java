@@ -17,70 +17,108 @@ public class ResponseAggregatorService {
 
     private static final Logger logger = LoggerFactory.getLogger(ResponseAggregatorService.class);
 
-    // Method to dynamically transform a response based on the provided OntologyConfig
-    public TransformedApiResponse dynTransformResponse(ApiResponse response, DatabaseConfig config) {
+    // Main method to dynamically transform a response based on the provided config and endpoint
+    public TransformedApiResponse dynTransformResponse(ApiResponse response, DatabaseConfig config, String endpoint) {
         TransformedApiResponse newResponse = new TransformedApiResponse();
-        List<AggregatedResourceBody> result = new ArrayList<>();
-
+        newResponse.setOriginalResponse(response);
 
         if (response == null) {
             logger.error("Response is null");
             return newResponse;
         }
 
-        newResponse.setOriginalResponse(response);
+        String nestedJsonKey = getNestedJsonKey(config, endpoint);
+        Object nestedData = extractNestedData(response, nestedJsonKey);
 
-        // Extracting the nested JSON key from the response based on the configuration
-        String nestedJsonKey = config.getResponseMapping().getNestedJson();
-        Object nestedData = response.getResponseBody().getOrDefault(nestedJsonKey, new ArrayList<>());
-        logger.debug("Nested JSON key: {}", nestedJsonKey);
-        logger.debug("Nested data type: {}", nestedData.getClass().getSimpleName());
-
-        // Processing the data based on its type (List or Map)
-        if (nestedData instanceof List) {
-            processList((List<?>) nestedData, result, config);
-        } else if (nestedData instanceof Map) {
-            // Extracting the documents from the nested data
-            String docsKey = config.getResponseMapping().getKey();
-            Object docs = ((Map<?, ?>) nestedData).get(docsKey);
-            if (docs instanceof List) {
-                processList((List<?>) docs, result, config);
-            } else {
-                logger.error("Expected List for key '{}', but found: {}", docsKey, docs.getClass().getSimpleName());
-            }
-        } else {
-            logger.error("Expected List or Map for nested JSON key: {}, but found: {}", nestedJsonKey, nestedData.getClass().getSimpleName());
+        if (nestedData == null) {
+            logger.error("Expected List or Map for nested JSON key: {}, but found null", nestedJsonKey);
+            return newResponse;
         }
 
-        logger.debug("Transformed response: {}", result);
-
+        List<AggregatedResourceBody> result = transformData(nestedData, config, endpoint);
         newResponse.setCollection(result);
 
+        logger.debug("Transformed response: {}", result);
         return newResponse;
     }
 
-    // Helper method to process a list of data items
-    private void processList(List<?> dataList, List<AggregatedResourceBody> result, DatabaseConfig config) {
+    // Extract nested data from response body based on the key
+    private Object extractNestedData(ApiResponse response, String nestedJsonKey) {
+        Map<String, Object> responseBody = response.getResponseBody();
+
+        if (nestedJsonKey != null) {
+            return responseBody.getOrDefault(nestedJsonKey, new ArrayList<>());
+        }
+        return responseBody;
+    }
+
+    // Transform nested data into a list of AggregatedResourceBody
+    private List<AggregatedResourceBody> transformData(Object nestedData, DatabaseConfig config, String endpoint) {
+        List<AggregatedResourceBody> result = new ArrayList<>();
+
+        if (nestedData instanceof List) {
+            processList((List<?>) nestedData, result, config, endpoint);
+        } else if (nestedData instanceof Map) {
+            Object docs = extractDocsFromMap((Map<?, ?>) nestedData, config, endpoint);
+            processDocs(docs, result, config, endpoint);
+        } else {
+            logger.error("Unexpected data type: {}. Expected List or Map.", nestedData.getClass().getSimpleName());
+        }
+
+        return result;
+    }
+
+    // Extract docs key from a Map based on configuration
+    private Object extractDocsFromMap(Map<?, ?> nestedData, DatabaseConfig config, String endpoint) {
+        String docsKey = getDocsKey(config, endpoint);
+        return docsKey != null ? nestedData.get(docsKey) : nestedData;
+    }
+
+    // Process the documents whether they are a List or single item
+    private void processDocs(Object docs, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint) {
+        if (docs instanceof List) {
+            processList((List<?>) docs, result, config, endpoint);
+        } else if (docs instanceof Map) {
+            AggregatedResourceBody newItem = processItem((Map<String, Object>) docs, config, endpoint);
+            if (newItem != null) {
+                result.add(newItem);
+            }
+        } else {
+            logger.error("Unexpected document type: {}. Expected List or Map.", docs.getClass().getSimpleName());
+        }
+    }
+
+    // Process list of items and add valid processed items to the result list
+    private void processList(List<?> dataList, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint) {
         for (Object item : dataList) {
             if (item instanceof Map) {
-                // Processing each item in the list
-                AggregatedResourceBody newItem = processItem((Map<String, Object>) item, config);
+                AggregatedResourceBody newItem = processItem((Map<String, Object>) item, config, endpoint);
                 if (newItem != null) {
                     result.add(newItem);
                 }
+            } else {
+                logger.warn("Skipping non-Map item: {}", item);
             }
         }
     }
 
-    // Method to process individual items in the response
-    private AggregatedResourceBody processItem(Map<String, Object> item, DatabaseConfig config) {
+    // Process individual map items into AggregatedResourceBody
+    private AggregatedResourceBody processItem(Map<String, Object> item, DatabaseConfig config, String endpoint) {
         try {
-            return AggregatedResourceBody.fromMap(item, config);
+            return AggregatedResourceBody.fromMap(item, config, endpoint);
         } catch (Exception e) {
             logger.error("Error processing item: {}", e.getMessage(), e);
             return null;
         }
     }
 
+    // Helper to get the nested JSON key from config
+    private String getNestedJsonKey(DatabaseConfig config, String endpoint) {
+        return config.getResponseMapping(endpoint).getNestedJson();
+    }
 
+    // Helper to get the documents key from config
+    private String getDocsKey(DatabaseConfig config, String endpoint) {
+        return config.getResponseMapping(endpoint).getKey();
+    }
 }

@@ -22,8 +22,9 @@ public class DatabaseConfig {
 
     private ServiceConfig serviceConfig;
 
-    public ResponseMapping getResponseMapping(){
-        return serviceConfig.getResponseMapping();
+
+    public ResponseMapping getResponseMapping(String endpoint){
+        return serviceConfig.getEndpoints().getOrDefault(endpoint, new EndpointConfig()).getResponseMapping();
     }
 
     public String getDatabase(){
@@ -32,5 +33,19 @@ public class DatabaseConfig {
 
     public String getApiKey() {
         return apiKey == null ? "" : apiKey;
+    }
+
+    public String getUrl(String endpoint) {
+        String path = serviceConfig.getEndpoints().getOrDefault(endpoint, new EndpointConfig()).getPath();
+
+        return this.url + "/" + path;
+    }
+
+    public String getSearchUrl() {
+        return getUrl("search");
+    }
+
+    public String getArtefactsUrl() {
+        return getUrl("resources");
     }
 }
