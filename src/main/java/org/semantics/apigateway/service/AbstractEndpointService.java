@@ -2,8 +2,6 @@ package org.semantics.apigateway.service;
 
 import lombok.Getter;
 import org.semantics.apigateway.config.DatabaseConfig;
-import org.semantics.apigateway.model.ResponseFormat;
-import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.responses.ApiResponse;
 import org.semantics.apigateway.model.responses.TransformedApiResponse;
@@ -16,7 +14,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 
@@ -112,7 +109,7 @@ public abstract class AbstractEndpointService {
 
         TransformedApiResponse transformedResponse = dynTransformResponse.dynTransformResponse(results, config, endpoint);
 
-        logger.info("Transformed API Response: {}", transformedResponse);
+        logger.info("Transformed API {} Response: {}", url, transformedResponse.getCollection());
         return transformedResponse;
     }
 
