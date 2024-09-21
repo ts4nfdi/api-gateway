@@ -31,7 +31,7 @@
     {
       "type": "ols",
       "name": "zbmed",
-      "url": "https://semanticlookup.zbmed.de/api"
+      "url": "https://semanticlookup.zbmed.de/ols/api"
     },
     {
       "type": "skosmos",

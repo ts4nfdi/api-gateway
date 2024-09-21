@@ -15,10 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
 
@@ -91,6 +95,35 @@ public class ArtefactsService  extends  AbstractEndpointService {
                 .thenApply(data -> this.transformApiResponses(data, "resource_details"))
                 .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration))
                 .thenApply(data -> filterArtefactsById(data, id))
+                .thenApply(data -> transformJsonLd(data, formatStr))
+                .thenApply(data -> transformForTargetDbSchema(data, target));
+    }
+
+
+    public  CompletableFuture<Object> getArtefactTerm(String id, String uri, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
+        Map<String, String> apiUrls = filterDatabases("", "concept_details");
+        String formatStr, target;
+
+        if (format != null) {
+            formatStr = format.toString();
+        } else {
+            formatStr = "";
+        }
+
+        if (targetDbSchema != null) {
+            target = targetDbSchema.toString();
+        } else {
+            target = "";
+        }
+
+        getAccessor().setUrls(apiUrls);
+        getAccessor().setLogger(logger);
+
+        String encodedUrl = URLEncoder.encode(uri, StandardCharsets.UTF_8);
+
+        return getAccessor().get(id, encodedUrl)
+                .thenApply(data -> this.transformApiResponses(data, "concept_details"))
+                .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration))
                 .thenApply(data -> transformJsonLd(data, formatStr))
                 .thenApply(data -> transformForTargetDbSchema(data, target));
     }
