@@ -9,6 +9,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import java.net.URI;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ForkJoinPool;
@@ -38,11 +39,11 @@ public class ApiAccessor {
     }
 
     @Async
-    public CompletableFuture<Map<String, ApiResponse>> get(String query) {
+    public CompletableFuture<Map<String, ApiResponse>> get(String... query) {
         ForkJoinPool customThreadPool = new ForkJoinPool(10);
 
         List<CompletableFuture<Map.Entry<String, ApiResponse>>> futures = this.urls.entrySet().stream()
-                .map(config -> CompletableFuture.supplyAsync(() -> call(query, config.getKey(), config.getValue()), customThreadPool)
+                .map(config -> CompletableFuture.supplyAsync(() -> call(config.getKey(), config.getValue(), query), customThreadPool)
                         .thenApply(response -> Map.entry(config.getKey(), response))
                 )
                 .collect(Collectors.toList());
@@ -61,18 +62,21 @@ public class ApiAccessor {
     }
 
 
-    protected ApiResponse call(String query, String url, String apikey) {
+    protected ApiResponse call(String url, String apikey, String... query) {
         ApiResponse result = new ApiResponse();
         result.setUrl(url);
+        String fullUrl = url;
 
         try {
-            String fullUrl = constructUrl(query, url, apikey);
+            fullUrl = constructUrl(url, apikey, query);
             logger.info("Accessing URL: {}", fullUrl);
 
             long startTime = System.currentTimeMillis();
 
             ResponseEntity<?> response;
-            response = restTemplate.getForEntity(fullUrl, Object.class);
+            URI uri = new URI(fullUrl);
+
+            response = restTemplate.getForEntity(uri, Object.class);
 
             long endTime = System.currentTimeMillis();
             long responseTime = endTime - startTime;
@@ -92,20 +96,27 @@ public class ApiAccessor {
                 }
                 return result;
             } else {
-                logger.error("API {} Response Error: Status Code - {}", url,response.getStatusCode());
+                logger.error("API {} Response Error: Status Code - {}", fullUrl, response.getStatusCode());
                 return result;
             }
         } catch (Exception e) {
-            logger.error("An error occurred while processing the request {}: {}", url, e.getMessage(), e);
+            logger.error("An error occurred while processing the request {}: {}", fullUrl, e.getMessage());
             return result;
         }
     }
 
-    private String constructUrl(String query, String url, String apikey) {
-        if (query.isEmpty()) {
-            return apikey.isEmpty() ? url : String.format(url, apikey);
-        } else {
-            return apikey.isEmpty() ? String.format(url, query) : String.format(url, query, apikey);
+    private String constructUrl(String url, String apikey, String... query) {
+        List<String> queries = new ArrayList<>(List.of(query));
+
+        if (!apikey.isEmpty()) {
+            queries.add(apikey);
         }
+
+        if (queries.isEmpty()){
+            return url;
+        }else {
+            return String.format(url, queries.toArray());
+        }
+
     }
 }
