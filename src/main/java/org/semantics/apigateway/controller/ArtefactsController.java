@@ -44,4 +44,20 @@ public class ArtefactsController {
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body("Error: " + e.getCause().getMessage()));
     }
+
+    @CrossOrigin
+    @GetMapping("/artefacts/{id}")
+    public CompletableFuture<ResponseEntity<?>> getArtefact(
+            @PathVariable("id") String id,
+            @RequestParam(required = false) String database,
+            @RequestParam(required = false) ResponseFormat format,
+            @Parameter(description = "Transform the response result to a specific schema")
+            @RequestParam(required = false) TargetDbSchema targetDbSchema,
+            @Parameter(description = "Display more details about the request results")
+            @RequestParam(required = false, defaultValue = "false") boolean showResponseConfiguration
+    ) {
+        return this.artefactsService.getArtefact(id, format, targetDbSchema, showResponseConfiguration)
+                .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
+                .exceptionally(e -> ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body("Error: " + e.getCause().getMessage()));
+    }
 }

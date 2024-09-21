@@ -3,6 +3,7 @@ package org.semantics.apigateway.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.responses.ApiResponse;
@@ -38,7 +39,7 @@ public class ResponseAggregatorService {
         List<AggregatedResourceBody> result = transformData(nestedData, config, endpoint);
         newResponse.setCollection(result);
 
-        logger.debug("Transformed response: {}", result);
+        logger.debug("Transformed response: {}", result.stream().map(AggregatedResourceBody::toString).collect(Collectors.joining()));
         return newResponse;
     }
 
@@ -46,7 +47,7 @@ public class ResponseAggregatorService {
     private Object extractNestedData(ApiResponse response, String nestedJsonKey) {
         Map<String, Object> responseBody = response.getResponseBody();
 
-        if (nestedJsonKey != null) {
+        if (nestedJsonKey != null && !nestedJsonKey.isEmpty()) {
             return responseBody.getOrDefault(nestedJsonKey, new ArrayList<>());
         }
         return responseBody;
@@ -55,14 +56,13 @@ public class ResponseAggregatorService {
     // Transform nested data into a list of AggregatedResourceBody
     private List<AggregatedResourceBody> transformData(Object nestedData, DatabaseConfig config, String endpoint) {
         List<AggregatedResourceBody> result = new ArrayList<>();
-
-        if (nestedData instanceof List) {
+        if (nestedData instanceof List && !((List) nestedData).isEmpty()) {
             processList((List<?>) nestedData, result, config, endpoint);
-        } else if (nestedData instanceof Map) {
+        } else if (nestedData instanceof Map && !((Map) nestedData).isEmpty()) {
             Object docs = extractDocsFromMap((Map<?, ?>) nestedData, config, endpoint);
-            processDocs(docs, result, config, endpoint);
-        } else {
-            logger.error("Unexpected data type: {}. Expected List or Map.", nestedData.getClass().getSimpleName());
+            if(docs != null){
+                processDocs(docs, result, config, endpoint);
+            }
         }
 
         return result;
@@ -71,7 +71,7 @@ public class ResponseAggregatorService {
     // Extract docs key from a Map based on configuration
     private Object extractDocsFromMap(Map<?, ?> nestedData, DatabaseConfig config, String endpoint) {
         String docsKey = getDocsKey(config, endpoint);
-        return docsKey != null ? nestedData.get(docsKey) : nestedData;
+        return (docsKey != null && !docsKey.isEmpty()) ? nestedData.get(docsKey) : nestedData;
     }
 
     // Process the documents whether they are a List or single item
