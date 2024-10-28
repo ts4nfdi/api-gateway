@@ -5,7 +5,9 @@ import lombok.Setter;
 import org.semantics.apigateway.model.responses.ApiResponse;
 import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -60,7 +62,24 @@ public class ApiAccessor {
                     return Collections.emptyMap();
                 });
     }
+    public static RestTemplate cloneRestTemplate(RestTemplate original) {
+        RestTemplate clonedRestTemplate = new RestTemplate();
 
+        // Clone message converters
+        List<HttpMessageConverter<?>> messageConverters = original.getMessageConverters();
+        clonedRestTemplate.setMessageConverters(messageConverters);
+
+        // Clone error handler
+        clonedRestTemplate.setErrorHandler(original.getErrorHandler());
+
+        // Clone request interceptors
+        List<ClientHttpRequestInterceptor> interceptors = original.getInterceptors();
+        clonedRestTemplate.setInterceptors(interceptors);
+
+        // Optionally, clone other properties if needed
+
+        return clonedRestTemplate;
+    }
 
     protected ApiResponse call(String url, String apikey, String... query) {
         ApiResponse result = new ApiResponse();
@@ -76,14 +95,16 @@ public class ApiAccessor {
             ResponseEntity<?> response;
             URL uri = new URL(fullUrl);
 
-            response = restTemplate.getForEntity(uri.toString(), Object.class);
+            RestTemplate restTemplate1 = cloneRestTemplate(restTemplate);
+            restTemplate1.setInterceptors(Collections.singletonList(new UriDecodingInterceptor()));
+            response = restTemplate1.getForEntity(uri.toString(), Object.class);
 
             long endTime = System.currentTimeMillis();
             long responseTime = endTime - startTime;
             logger.info("URL accessed {} in {}s", fullUrl, responseTime);
             result.setResponseTime(responseTime);
 
-            result.setStatusCode(response != null ? response.getStatusCodeValue() : 400);
+            result.setStatusCode(response.getStatusCodeValue());
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 logger.debug("Raw API Response: {}", response.getBody());
