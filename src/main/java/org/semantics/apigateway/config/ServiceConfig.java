@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -16,5 +18,5 @@ import java.util.Map;
 @Component
 public class ServiceConfig {
     private String name;
-    private ResponseMapping responseMapping;
+    private Map<String, EndpointConfig> endpoints;
 }

@@ -1,6 +1,7 @@
 package org.semantics.apigateway.model.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.jsonldjava.utils.Obj;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,6 +29,8 @@ public class AggregatedResourceBody {
     private String source;
     @JsonProperty("source_name")
     private String sourceName;
+    @JsonProperty("source_url")
+    private String sourceUrl;
     @JsonProperty("backend_type")
     private String backendType;
 
@@ -36,9 +39,9 @@ public class AggregatedResourceBody {
     @JsonProperty("@type")
     private String typeURI;
 
-    public static AggregatedResourceBody fromMap(Map<String, Object> item, DatabaseConfig config) throws RuntimeException {
+    public static AggregatedResourceBody fromMap(Map<String, Object> item, DatabaseConfig config, String endpoint) throws RuntimeException {
         AggregatedResourceBody newItem = new AggregatedResourceBody();
-        ResponseMapping responseMapping = config.getResponseMapping();
+        ResponseMapping responseMapping = config.getResponseMapping(endpoint);
 
         // Mapping fields based on the JSON configuration
         try {
@@ -46,7 +49,7 @@ public class AggregatedResourceBody {
                 newItem.setIri((String) item.get(responseMapping.getIri()));
             }
             if (responseMapping.getLabel() != null && item.containsKey(responseMapping.getLabel())) {
-                if (item.get(responseMapping.getLabel()) instanceof ArrayList){
+                if (item.get(responseMapping.getLabel()) instanceof ArrayList) {
                     newItem.setLabel((String) ((ArrayList<?>) item.get(responseMapping.getLabel())).get(0));
                 } else {
                     newItem.setLabel(item.get(responseMapping.getLabel()).toString());
@@ -68,11 +71,11 @@ public class AggregatedResourceBody {
                         ResourceFactory.createResource(newItem.getIri()).getLocalName().toLowerCase());
             }
 
-            if (responseMapping.getDescription() != null && item.containsKey(responseMapping.getDescription())) {
-                Object label = item.get(responseMapping.getDescription());
+            if (responseMapping.getDescription() != null) {
+                Object label = itemValueGetter(item, responseMapping.getDescription());
                 if (label instanceof List) {
                     newItem.setDescription((List<String>) label);
-                } else {
+                } else if (label != null) {
                     newItem.setDescription(List.of(label.toString()));
                 }
             }
@@ -80,7 +83,9 @@ public class AggregatedResourceBody {
                 if (responseMapping.getOntology().equals("links")) {
                     Object keysObject = ((Map<?, ?>) item).get(responseMapping.getOntology());
                     String ontologyItem = ((Map<?, String>) keysObject).get("ontology");
-                    newItem.setOntology(ResourceFactory.createResource(ontologyItem).getLocalName().toLowerCase());
+                    if (ontologyItem != null) {
+                        newItem.setOntology(ResourceFactory.createResource(ontologyItem).getLocalName().toLowerCase());
+                    }
                 } else {
                     newItem.setOntology((String) item.get(responseMapping.getOntology()));
                 }
@@ -94,6 +99,13 @@ public class AggregatedResourceBody {
                     // workaround ols type implementation that do not support skos types
                 } else {
                     newItem.setType((String) item.get(responseMapping.getType()));
+                }
+            }
+
+            if (responseMapping.getSourceUrl() != null) {
+                Object value = itemValueGetter(item, responseMapping.getSourceUrl());
+                if (value != null) {
+                    newItem.setSourceUrl(value.toString());
                 }
             }
 
@@ -137,6 +149,7 @@ public class AggregatedResourceBody {
         putIfNotEmpty(map, "type", this.type);
         putIfNotEmpty(map, "source", this.source);
         putIfNotEmpty(map, "source_name", this.sourceName);
+        putIfNotEmpty(map, "source_url", this.sourceUrl);
         putIfNotEmpty(map, "backend_type", this.backendType);
         putIfNotEmpty(map, "ontology", this.ontology);
 
@@ -148,5 +161,28 @@ public class AggregatedResourceBody {
         if (value != null && !(value instanceof String && value.toString().isEmpty())) {
             map.put(key, value);
         }
+    }
+
+    private static Object itemValueGetter(Map<String, Object> item, String key) {
+
+        if (key.contains("->")) {
+            String[] keys = key.split("->");
+            Object value = item;
+            for (String s : keys) {
+
+                if(value == null) {
+                    break;
+                }
+
+                if(value instanceof Map){
+                    value = ((Map<?, ?>) value).get(s);
+                }
+            }
+
+            return value;
+        } else if (item.containsKey(key)) {
+            return item.get(key);
+        }
+        return null;
     }
 }
