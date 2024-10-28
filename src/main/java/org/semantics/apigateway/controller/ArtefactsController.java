@@ -102,7 +102,7 @@ public class ArtefactsController {
             @ApiResponse(responseCode = "404", description = "Artefact not found",
                     content = @Content(mediaType = "application/json"))
     })
-    public CompletableFuture<ResponseEntity<?>> getArtefact(
+    public CompletableFuture<ResponseEntity<?>> getArtefactTerms(
             @PathVariable String id,
             @RequestParam String uri,
             @RequestParam(required = false) String database,

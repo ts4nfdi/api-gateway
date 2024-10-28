@@ -119,9 +119,7 @@ public class ArtefactsService  extends  AbstractEndpointService {
         getAccessor().setUrls(apiUrls);
         getAccessor().setLogger(logger);
 
-        String encodedUrl = URLEncoder.encode(uri, StandardCharsets.UTF_8);
-
-        return getAccessor().get(id, encodedUrl)
+        return getAccessor().get(id, uri)
                 .thenApply(data -> this.transformApiResponses(data, "concept_details"))
                 .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration))
                 .thenApply(data -> transformJsonLd(data, formatStr))
