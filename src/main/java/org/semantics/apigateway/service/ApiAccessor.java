@@ -9,8 +9,6 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.net.URI;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
