@@ -2,11 +2,13 @@ package org.semantics.apigateway.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.apache.http.HttpStatus;
 import org.semantics.apigateway.model.ResponseFormat;
+import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.service.ArtefactsService;
 import org.semantics.apigateway.service.search.SearchService;
@@ -30,6 +32,18 @@ public class ArtefactsController {
 
     @CrossOrigin
     @GetMapping("/artefacts")
+    @Operation(
+            summary = "Get information about all semantic artefacts.",
+            description = "Retrieves a collection of all semantic artefacts.",
+            operationId = "getArtefacts",
+            tags = {"Artefacts"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful retrieval of artefacts",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = SemanticArtefact.class))),
+            @ApiResponse(responseCode = "404", description =  "Artefacts not found",
+                    content = @Content(mediaType = "application/json"))
+    })
     public CompletableFuture<ResponseEntity<?>> getArtefacts(
             @RequestParam(required = false) String database,
             @RequestParam(required = false) ResponseFormat format,
