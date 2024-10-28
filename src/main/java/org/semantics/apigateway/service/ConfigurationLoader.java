@@ -91,9 +91,9 @@ public class ConfigurationLoader {
                 databaseConfigs.stream().anyMatch(config -> config.getName().equalsIgnoreCase(database));
     }
 
-    public DatabaseConfig getConfigByUrl(String url) {
+    public DatabaseConfig getConfigByUrl(String url, String endpoint) {
         return databaseConfigs.stream()
-                .filter(c -> c.getUrl().equalsIgnoreCase(url))
+                .filter(c -> c.getUrl(endpoint).equalsIgnoreCase(url))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Config not found for URL: " + url));
     }
