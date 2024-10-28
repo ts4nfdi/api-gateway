@@ -25,8 +25,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @AutoConfigureMockMvc
@@ -50,7 +49,7 @@ public class ArtefactsServiceTest {
 
         when(restTemplate.getForEntity(
                 anyString(),
-                any(Class.class)))
+                eq(Object.class)))
                 .thenAnswer(invocation -> {
                     String url = invocation.getArgument(0, String.class);
                     ResponseEntity<Map<String, Object>> response = ResponseEntity.status(404).body(new HashMap<>());
@@ -130,7 +129,7 @@ public class ArtefactsServiceTest {
 
         assertThat(olsItem.get("backend_type")).isEqualTo("ols");
         assertThat(olsItem.get("label")).isEqualTo("bto");
-        assertThat(olsItem.get("source")).isEqualTo("https://ebi.ac.uk/ols4/api");
+        assertThat(olsItem.get("source")).isEqualTo("https://www.ebi.ac.uk/ols4/api");
         assertThat(olsItem.get("source_name")).isEqualTo("ols-ebi");
 
 
