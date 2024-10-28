@@ -5,12 +5,14 @@ import lombok.Setter;
 import org.semantics.apigateway.model.responses.ApiResponse;
 import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.DefaultResponseErrorHandler;
+import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
-
-import java.net.URI;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -63,6 +65,40 @@ public class ApiAccessor {
                 });
     }
 
+    public static RestTemplate cloneRestTemplate(RestTemplate original) {
+        RestTemplate clonedRestTemplate = new RestTemplate();
+
+        // Clone message converters
+        List<HttpMessageConverter<?>> messageConverters = original.getMessageConverters();
+        if (messageConverters.isEmpty()) {
+            // If no converters are set, add the default ones
+            clonedRestTemplate.setMessageConverters(createDefaultMessageConverters());
+        } else {
+            clonedRestTemplate.setMessageConverters(messageConverters);
+        }
+        // Clone error handler (ResponseErrorHandler)
+        ResponseErrorHandler errorHandler = original.getErrorHandler();
+        if (errorHandler != null) {
+            clonedRestTemplate.setErrorHandler(errorHandler);
+        } else {
+            // Set a default error handler if none is defined
+            clonedRestTemplate.setErrorHandler(new DefaultResponseErrorHandler());
+        }
+
+        // Clone request interceptors
+        List<ClientHttpRequestInterceptor> interceptors = original.getInterceptors();
+        if (interceptors != null) {
+            clonedRestTemplate.setInterceptors(interceptors);
+        }
+
+        return clonedRestTemplate;
+    }
+
+    private static List<HttpMessageConverter<?>> createDefaultMessageConverters() {
+        // Create and return a list of default message converters
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getMessageConverters();
+    }
 
     protected ApiResponse call(String url, String apikey, String... query) {
         ApiResponse result = new ApiResponse();
@@ -77,7 +113,7 @@ public class ApiAccessor {
 
             ResponseEntity<?> response;
             URL uri = new URL(fullUrl);
-
+            restTemplate.setInterceptors(Collections.singletonList(new UriDecodingInterceptor()));
             response = restTemplate.getForEntity(uri.toString(), Object.class);
 
             long endTime = System.currentTimeMillis();
@@ -85,7 +121,7 @@ public class ApiAccessor {
             logger.info("URL accessed {} in {}s", fullUrl, responseTime);
             result.setResponseTime(responseTime);
 
-            result.setStatusCode(response != null ? response.getStatusCodeValue() : 400);
+            result.setStatusCode(response.getStatusCodeValue());
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 logger.debug("Raw API Response: {}", response.getBody());

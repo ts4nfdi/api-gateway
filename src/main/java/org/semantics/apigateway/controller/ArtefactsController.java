@@ -59,4 +59,61 @@ public class ArtefactsController {
                 .exceptionally(e -> ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body("Error: " + e.getCause().getMessage()));
     }
 
+    @CrossOrigin
+    @GetMapping("/artefacts/{id}")
+    @Operation(
+            summary = "Get information about a semantic artefact.",
+            description = "Retrieves information about a specific semantic artefact.",
+            operationId = "getArtefact",
+            tags = {"Artefacts"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful retrieval of the artefact",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = SemanticArtefact.class))),
+            @ApiResponse(responseCode = "404", description = "Artefact not found",
+                    content = @Content(mediaType = "application/json"))
+    })
+    public CompletableFuture<ResponseEntity<?>> getArtefact(
+            @PathVariable("id") String id,
+            @RequestParam(required = false) String database,
+            @RequestParam(required = false) ResponseFormat format,
+            @Parameter(description = "Transform the response result to a specific schema")
+            @RequestParam(required = false) TargetDbSchema targetDbSchema,
+            @Parameter(description = "Display more details about the request results")
+            @RequestParam(required = false, defaultValue = "false") boolean showResponseConfiguration
+    ) {
+        return this.artefactsService.getArtefact(id, format, targetDbSchema, showResponseConfiguration)
+                .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
+                .exceptionally(e -> ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body("Error: " + e.getCause().getMessage()));
+    }
+
+
+    @CrossOrigin
+    @GetMapping("/artefacts/{id}/terms")
+    @Operation(
+            summary = "Get a list of all owl:Classes or skos:Concepts within an artefact.",
+            description = "Retrieves a list of all the owl:Classes within a specific artefact.",
+            operationId = "getArtefactClasses",
+            tags = {"Artefacts"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful retrieval of all owl:Class or skos:Concept terms",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = SemanticArtefact.class))),
+            @ApiResponse(responseCode = "404", description = "Artefact not found",
+                    content = @Content(mediaType = "application/json"))
+    })
+    public CompletableFuture<ResponseEntity<?>> getArtefactTerms(
+            @PathVariable String id,
+            @RequestParam String uri,
+            @RequestParam(required = false) String database,
+            @RequestParam(required = false) ResponseFormat format,
+            @Parameter(description = "Transform the response result to a specific schema")
+            @RequestParam(required = false) TargetDbSchema targetDbSchema,
+            @Parameter(description = "Display more details about the request results")
+            @RequestParam(required = false, defaultValue = "false") boolean showResponseConfiguration
+    ) {
+        return this.artefactsService.getArtefactTerm(id, uri, format, targetDbSchema, showResponseConfiguration)
+                .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
+                .exceptionally(e -> ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body("Error: " + e.getCause().getMessage()));
+    }
 }

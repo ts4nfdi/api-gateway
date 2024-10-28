@@ -35,7 +35,7 @@ public class GatewayController {
 
 
     @CrossOrigin
-    @Operation(summary = "", description = "", tags = {"OLS"})
+    @Operation(summary = "", description = "", tags = {"ols"})
     @GetMapping("/ols/api/select")
     public CompletableFuture<ResponseEntity<?>>
     performDynFederatedSearchInOLSTargetDBSchema(@RequestParam Map<String, String> allParams) throws IOException, ParseException {
@@ -66,7 +66,7 @@ public class GatewayController {
     }
 
     @CrossOrigin
-    @Operation(summary = "", description = "", tags = {"OLS"})
+    @Operation(summary = "", description = "", tags = {"ols"})
     @GetMapping("/ols/api/ontologies/{ontology}/terms")
     public CompletableFuture<ResponseEntity<?>>
     getTermsInOLSTargetDBSchema(@PathVariable("ontology") String terminologyName, @RequestParam Map<String, String> allParams) {
