@@ -68,9 +68,6 @@ public class UriDecodingInterceptor implements ClientHttpRequestInterceptor {
 
         @Override
         public ClientHttpResponse execute() throws IOException {
-            // Here you would execute the request using a RestTemplate or any HTTP client
-            // This method should typically delegate to the actual request execution logic.
-            // For demonstration, we can throw an exception to show it's not implemented.
             throw new UnsupportedOperationException("Execute method not implemented");
         }
 
