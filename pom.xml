@@ -349,7 +349,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>org.semantics.apigateway.FederatedSearchApplication</mainClass>
+                    <mainClass>org.semantics.apigateway.APIGatewayApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>

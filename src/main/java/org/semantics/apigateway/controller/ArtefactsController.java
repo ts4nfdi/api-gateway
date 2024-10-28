@@ -61,6 +61,18 @@ public class ArtefactsController {
 
     @CrossOrigin
     @GetMapping("/artefacts/{id}")
+    @Operation(
+            summary = "Get information about a semantic artefact.",
+            description = "Retrieves information about a specific semantic artefact.",
+            operationId = "getArtefact",
+            tags = {"Artefacts"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful retrieval of the artefact",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = SemanticArtefact.class))),
+            @ApiResponse(responseCode = "404", description = "Artefact not found",
+                    content = @Content(mediaType = "application/json"))
+    })
     public CompletableFuture<ResponseEntity<?>> getArtefact(
             @PathVariable("id") String id,
             @RequestParam(required = false) String database,
@@ -78,6 +90,18 @@ public class ArtefactsController {
 
     @CrossOrigin
     @GetMapping("/artefacts/{id}/terms")
+    @Operation(
+            summary = "Get a list of all owl:Classes or skos:Concepts within an artefact.",
+            description = "Retrieves a list of all the owl:Classes within a specific artefact.",
+            operationId = "getArtefactClasses",
+            tags = {"Artefacts"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful retrieval of all owl:Class or skos:Concept terms",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = SemanticArtefact.class))),
+            @ApiResponse(responseCode = "404", description = "Artefact not found",
+                    content = @Content(mediaType = "application/json"))
+    })
     public CompletableFuture<ResponseEntity<?>> getArtefact(
             @PathVariable String id,
             @RequestParam String uri,
