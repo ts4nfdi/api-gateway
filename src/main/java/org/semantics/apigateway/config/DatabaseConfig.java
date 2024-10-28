@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
 
 @Getter
@@ -23,11 +25,11 @@ public class DatabaseConfig {
     private ServiceConfig serviceConfig;
 
 
-    public ResponseMapping getResponseMapping(String endpoint){
+    public ResponseMapping getResponseMapping(String endpoint) {
         return serviceConfig.getEndpoints().getOrDefault(endpoint, new EndpointConfig()).getResponseMapping();
     }
 
-    public String getDatabase(){
+    public String getDatabase() {
         return type;
     }
 
@@ -37,8 +39,17 @@ public class DatabaseConfig {
 
     public String getUrl(String endpoint) {
         String path = serviceConfig.getEndpoints().getOrDefault(endpoint, new EndpointConfig()).getPath();
+        String url = this.url;
 
-        return this.url + "/" + path;
+        if (url != null && url.endsWith("/")) {
+            return url.substring(0, url.length() - 1);
+        }
+
+        if (path != null && path.startsWith("/")) {
+            path = path.substring(1);
+        }
+
+        return this.url + '/' + path;
     }
 
     public String getSearchUrl() {

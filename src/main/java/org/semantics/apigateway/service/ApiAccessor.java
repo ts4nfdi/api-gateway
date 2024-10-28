@@ -9,6 +9,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
 import java.net.URI;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -27,8 +28,8 @@ public class ApiAccessor {
 
     public ApiAccessor() {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        factory.setConnectTimeout(5000);
-        factory.setReadTimeout(5000);
+        factory.setConnectTimeout(60000);
+        factory.setReadTimeout(60000);
         this.restTemplate = new RestTemplate(factory);
         this.urls = new HashMap<>();
     }
@@ -40,7 +41,7 @@ public class ApiAccessor {
 
     @Async
     public CompletableFuture<Map<String, ApiResponse>> get(String... query) {
-        ForkJoinPool customThreadPool = new ForkJoinPool(10);
+        ForkJoinPool customThreadPool = new ForkJoinPool(Math.max(this.urls.size(), 1));
 
         List<CompletableFuture<Map.Entry<String, ApiResponse>>> futures = this.urls.entrySet().stream()
                 .map(config -> CompletableFuture.supplyAsync(() -> call(config.getKey(), config.getValue(), query), customThreadPool)
@@ -80,7 +81,7 @@ public class ApiAccessor {
 
             long endTime = System.currentTimeMillis();
             long responseTime = endTime - startTime;
-
+            logger.info("URL accessed {} in {}s", fullUrl, responseTime);
             result.setResponseTime(responseTime);
 
             result.setStatusCode(response.getStatusCodeValue());
@@ -107,6 +108,8 @@ public class ApiAccessor {
 
     private String constructUrl(String url, String apikey, String... query) {
         List<String> queries = new ArrayList<>(List.of(query));
+
+        queries = queries.stream().filter(x -> !x.isEmpty()).collect(Collectors.toList());
 
         if (!apikey.isEmpty()) {
             queries.add(apikey);

@@ -109,7 +109,8 @@ public abstract class AbstractEndpointService {
 
         TransformedApiResponse transformedResponse = dynTransformResponse.dynTransformResponse(results, config, endpoint);
 
-        logger.info("Transformed API {} Response: {}", url, transformedResponse.getCollection());
+        logger.debug(
+                "Transformed API {} Response: {}", url, transformedResponse.getCollection());
         return transformedResponse;
     }
 
