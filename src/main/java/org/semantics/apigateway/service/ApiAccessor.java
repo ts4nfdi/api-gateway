@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.net.URL;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ForkJoinPool;
@@ -75,16 +76,16 @@ public class ApiAccessor {
             long startTime = System.currentTimeMillis();
 
             ResponseEntity<?> response;
-            URI uri = new URI(fullUrl);
+            URL uri = new URL(fullUrl);
 
-            response = restTemplate.getForEntity(uri, Object.class);
+            response = restTemplate.getForEntity(uri.toString(), Object.class);
 
             long endTime = System.currentTimeMillis();
             long responseTime = endTime - startTime;
             logger.info("URL accessed {} in {}s", fullUrl, responseTime);
             result.setResponseTime(responseTime);
 
-            result.setStatusCode(response.getStatusCodeValue());
+            result.setStatusCode(response != null ? response.getStatusCodeValue() : 400);
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 logger.debug("Raw API Response: {}", response.getBody());

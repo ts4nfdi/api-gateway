@@ -59,7 +59,7 @@
           "responseMapping": {
             "nestedJson": "response",
             "key": "docs",
-            "label": "ontologyId",
+            "label": "label",
             "iri": "iri",
             "ontology": "ontology_name",
             "synonym": "synonym",
@@ -159,4 +159,3 @@
     }
   ]
 }
-
