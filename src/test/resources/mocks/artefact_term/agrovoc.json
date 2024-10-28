@@ -1,0 +1,13 @@
+{
+  "@context": {
+    "skos": "http:\/\/www.w3.org\/2004\/02\/skos\/core#",
+    "uri": "@id",
+    "type": "@type",
+    "prefLabel": "skos:prefLabel",
+    "altLabel": "skos:altLabel",
+    "hiddenLabel": "skos:hiddenLabel",
+    "@language": "en"
+  },
+  "uri": "http:\/\/aims.fao.org\/aos\/agrovoc\/c_330834",
+  "prefLabel": "activities"
+}

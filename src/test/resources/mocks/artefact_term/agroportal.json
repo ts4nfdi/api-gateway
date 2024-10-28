@@ -1,0 +1,60 @@
+{
+  "prefLabel": "activities",
+  "synonym": [],
+  "definition": [
+    "http://aims.fao.org/aos/agrovoc/xDef_d8a81e42",
+    "http://aims.fao.org/aos/agrovoc/xDef_47a14ae7"
+  ],
+  "cui": [],
+  "semanticType": [],
+  "obsolete": false,
+  "created": "2008-09-25T00:00:00+00:00",
+  "modified": "2024-09-13T14:08:17+00:00",
+  "memberOf": [
+    "http://aims.fao.org/aos/agrovoc/skosCollection_47b33e75"
+  ],
+  "inScheme": [
+    "http://aims.fao.org/aos/agrovoc"
+  ],
+  "@id": "http://aims.fao.org/aos/agrovoc/c_330834",
+  "@type": "http://www.w3.org/2004/02/skos/core#Concept",
+  "links": {
+    "self": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834",
+    "ontology": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC",
+    "children": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834/children",
+    "parents": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834/parents",
+    "descendants": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834/descendants",
+    "ancestors": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834/ancestors",
+    "instances": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834/instances",
+    "tree": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834/tree",
+    "notes": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834/notes",
+    "mappings": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834/mappings",
+    "ui": "http://agroportal.lirmm.fr/ontologies/AGROVOC?p=classes&conceptid=http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834",
+    "@context": {
+      "self": "http://www.w3.org/2002/07/owl#Class",
+      "ontology": "http://data.bioontology.org/metadata/Ontology",
+      "children": "http://www.w3.org/2002/07/owl#Class",
+      "parents": "http://www.w3.org/2002/07/owl#Class",
+      "descendants": "http://www.w3.org/2002/07/owl#Class",
+      "ancestors": "http://www.w3.org/2002/07/owl#Class",
+      "instances": "http://data.bioontology.org/metadata/Instance",
+      "tree": "http://www.w3.org/2002/07/owl#Class",
+      "notes": "http://data.bioontology.org/metadata/Note",
+      "mappings": "http://data.bioontology.org/metadata/Mapping",
+      "ui": "http://www.w3.org/2002/07/owl#Class"
+    }
+  },
+  "@context": {
+    "@vocab": "http://data.bioontology.org/metadata/",
+    "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+    "synonym": "http://www.w3.org/2004/02/skos/core#altLabel",
+    "definition": "http://www.w3.org/2004/02/skos/core#definition",
+    "obsolete": "http://www.w3.org/2002/07/owl#deprecated",
+    "semanticType": "http://bioportal.bioontology.org/ontologies/umls/hasSTY",
+    "cui": "http://bioportal.bioontology.org/ontologies/umls/cui",
+    "inScheme": "http://www.w3.org/2004/02/skos/core#inScheme",
+    "created": "http://purl.org/dc/terms/created",
+    "modified": "http://purl.org/dc/terms/modified",
+    "@language": "en"
+  }
+}
