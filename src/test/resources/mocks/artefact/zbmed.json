@@ -1,0 +1,73 @@
+{
+  "ontologyId": "agrovoc",
+  "loaded": "2022-11-18T23:28:13.332+0000",
+  "updated": "2022-11-18T23:28:13.332+0000",
+  "status": "LOADED",
+  "message": "",
+  "version": null,
+  "numberOfTerms": 8,
+  "numberOfProperties": 231,
+  "numberOfIndividuals": 1046498,
+  "config": {
+    "id": "http://aims.fao.org/aos/agrovoc/",
+    "versionIri": null,
+    "title": "AGROVOC Multilingual Thesaurus",
+    "namespace": "agrovoc",
+    "preferredPrefix": "AGROVOC",
+    "description": "AGROVOC is a multilingual and controlled vocabulary designed to cover concepts and terminology under FAO's areas of interest. It is the largest Linked Open Data set about agriculture available for public use and its greatest impact is through providing the access and visibility of data across domains and languages.\nIt offers a structured collection of agricultural concepts, terms, definitions and relationships which are used to unambiguously identify resources, allowing standardized indexing processes and making searches more efficient. The thesaurus is hierarchically organized under 25 top concepts.\nAGROVOC uses semantic web technologies, linking to other multilingual knowledge organization systems and building bridges between datasets. AGROVOC is edited using VocBench 3, a web-based vocabulary management tool.\nFor more information, please consult http://www.fao.org/agrovoc/.\nThe designations employed and the presentation of material in this information product do not imply the expression of any opinion whatsoever on the part of the Food and Agriculture Organization of the United Nations (FAO) concerning the legal or development status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries.",
+    "homepage": "https://www.fao.org/agrovoc/",
+    "version": null,
+    "mailingList": null,
+    "creators": [],
+    "annotations": {
+      "modified": [
+        "2022-02-28T11:40:42Z"
+      ],
+      "classNumber": [
+        "3"
+      ],
+      "dataset": [
+        "biotechglossary",
+        "agrovoc"
+      ],
+      "propertyNumber": [
+        "168"
+      ]
+    },
+    "fileLocation": "https://agrovoc.fao.org/browse/rest/v1/agrovoc/data?format=application/rdf%2Bxml",
+    "reasonerType": "NONE",
+    "oboSlims": false,
+    "labelProperty": "http://www.w3.org/2004/02/skos/core#prefLabel",
+    "definitionProperties": [
+      "http://www.w3.org/2004/02/skos/core#definition"
+    ],
+    "synonymProperties": [
+      "http://www.w3.org/2004/02/skos/core#altLabel"
+    ],
+    "hierarchicalProperties": [
+      "http://www.w3.org/2004/02/skos/core#broader"
+    ],
+    "baseUris": [
+      "http://aims.fao.org/aos/agrovoc/void.ttl#"
+    ],
+    "hiddenProperties": [],
+    "preferredRootTerms": [],
+    "allowDownload": false,
+    "internalMetadataProperties": [],
+    "skos": false
+  },
+  "_links": {
+    "self": {
+      "href": "http://semanticlookup.zbmed.de/ols/api/ontologies/agrovoc"
+    },
+    "terms": {
+      "href": "http://semanticlookup.zbmed.de/ols/api/ontologies/agrovoc/terms"
+    },
+    "properties": {
+      "href": "http://semanticlookup.zbmed.de/ols/api/ontologies/agrovoc/properties"
+    },
+    "individuals": {
+      "href": "http://semanticlookup.zbmed.de/ols/api/ontologies/agrovoc/individuals"
+    }
+  }
+}
