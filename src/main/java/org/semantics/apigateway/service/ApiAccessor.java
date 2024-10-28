@@ -10,6 +10,8 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.DefaultResponseErrorHandler;
+import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 import java.net.URL;
 import java.util.*;
@@ -62,23 +64,40 @@ public class ApiAccessor {
                     return Collections.emptyMap();
                 });
     }
+
     public static RestTemplate cloneRestTemplate(RestTemplate original) {
         RestTemplate clonedRestTemplate = new RestTemplate();
 
         // Clone message converters
         List<HttpMessageConverter<?>> messageConverters = original.getMessageConverters();
-        clonedRestTemplate.setMessageConverters(messageConverters);
-
-        // Clone error handler
-        clonedRestTemplate.setErrorHandler(original.getErrorHandler());
+        if (messageConverters.isEmpty()) {
+            // If no converters are set, add the default ones
+            clonedRestTemplate.setMessageConverters(createDefaultMessageConverters());
+        } else {
+            clonedRestTemplate.setMessageConverters(messageConverters);
+        }
+        // Clone error handler (ResponseErrorHandler)
+        ResponseErrorHandler errorHandler = original.getErrorHandler();
+        if (errorHandler != null) {
+            clonedRestTemplate.setErrorHandler(errorHandler);
+        } else {
+            // Set a default error handler if none is defined
+            clonedRestTemplate.setErrorHandler(new DefaultResponseErrorHandler());
+        }
 
         // Clone request interceptors
         List<ClientHttpRequestInterceptor> interceptors = original.getInterceptors();
-        clonedRestTemplate.setInterceptors(interceptors);
-
-        // Optionally, clone other properties if needed
+        if (interceptors != null) {
+            clonedRestTemplate.setInterceptors(interceptors);
+        }
 
         return clonedRestTemplate;
+    }
+
+    private static List<HttpMessageConverter<?>> createDefaultMessageConverters() {
+        // Create and return a list of default message converters
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getMessageConverters();
     }
 
     protected ApiResponse call(String url, String apikey, String... query) {
@@ -94,10 +113,8 @@ public class ApiAccessor {
 
             ResponseEntity<?> response;
             URL uri = new URL(fullUrl);
-
-            RestTemplate restTemplate1 = cloneRestTemplate(restTemplate);
-            restTemplate1.setInterceptors(Collections.singletonList(new UriDecodingInterceptor()));
-            response = restTemplate1.getForEntity(uri.toString(), Object.class);
+            restTemplate.setInterceptors(Collections.singletonList(new UriDecodingInterceptor()));
+            response = restTemplate.getForEntity(uri.toString(), Object.class);
 
             long endTime = System.currentTimeMillis();
             long responseTime = endTime - startTime;
