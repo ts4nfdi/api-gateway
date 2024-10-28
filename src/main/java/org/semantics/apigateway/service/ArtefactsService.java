@@ -70,4 +70,39 @@ public class ArtefactsService  extends  AbstractEndpointService {
                 .thenApply(data -> transformJsonLd(data, formatStr))
                 .thenApply(data -> transformForTargetDbSchema(data, target));
     }
+
+    public CompletableFuture<Object> getArtefact(String id, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
+
+        Map<String, String> apiUrls = filterDatabases("", "resource_details");
+        String formatStr, target;
+
+        if (format != null) {
+            formatStr = format.toString();
+        } else {
+            formatStr = "";
+        }
+
+        if (targetDbSchema != null) {
+            target = targetDbSchema.toString();
+        } else {
+            target = "";
+        }
+
+        getAccessor().setUrls(apiUrls);
+        getAccessor().setLogger(logger);
+
+        return getAccessor().get(id)
+                .thenApply(data -> this.transformApiResponses(data, "resource_details"))
+                .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration))
+                .thenApply(data -> filterArtefactsById(data, id))
+                .thenApply(data -> transformJsonLd(data, formatStr))
+                .thenApply(data -> transformForTargetDbSchema(data, target));
+    }
+
+
+    private AggregatedApiResponse filterArtefactsById(AggregatedApiResponse transformedResponse, String id) {
+        List<Map<String, Object>> filtredList = transformedResponse.getCollection().stream().filter(x -> x.getOrDefault("label", "").toString().equalsIgnoreCase(id)).collect(Collectors.toList());
+        transformedResponse.setCollection(filtredList);
+        return transformedResponse;
+    }
 }
