@@ -16,14 +16,15 @@
           }
         },
         "resources": {
-          "path": "/ontologies?apikey=%s",
+          "path": "/ontologies?apikey=%s&display_links=true&display_context=false&display=acronym,name",
           "responseMapping": {
             "nestedJson": "collection",
             "label": "acronym",
             "iri": "@id",
             "type": "@type",
             "ontology": "acronym",
-            "description": "name"
+            "description": "name",
+            "sourceUrl": "links->ui"
           }
         },
         "concept_details": {
@@ -68,7 +69,7 @@
           }
         },
         "resources": {
-          "path": "ontologies",
+          "path": "ontologies?size=10000",
           "responseMapping": {
             "nestedJson": "_embedded",
             "key": "ontologies",
@@ -77,8 +78,9 @@
             "ontology": "ontologyId",
             "synonym": "synonym",
             "shortForm": "short_form",
-            "description": "description",
-            "type": "type"
+            "description": "config->title",
+            "type": "type",
+            "sourceUrl": "_links->self->href"
           }
         },
         "concept_details": {

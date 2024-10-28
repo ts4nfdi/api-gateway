@@ -19,9 +19,15 @@
       "apiKey": "${BIODIVPORTAL_API_KEY}"
     },
     {
+      "type": "ontoportal",
+      "name": "bioportal",
+      "url": "https://data.bioontology.org",
+      "apiKey": "${BIOPORTAL_API_KEY}"
+    },
+    {
       "type": "ols",
       "name": "ols-ebi",
-      "url": "https://ebi.ac.uk/ols4/api"
+      "url": "https://www.ebi.ac.uk/ols4/api"
     },
     {
       "type": "ols",
