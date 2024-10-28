@@ -27,8 +27,19 @@
             "sourceUrl": "links->ui"
           }
         },
+        "concept_details": {
+          "path": "ontologies/%s/classes/%s?apikey=%s",
+          "responseMapping": {
+            "label": "prefLabel",
+            "iri": "@id",
+            "synonym": "synonym",
+            "ontology": "links",
+            "description": "definition",
+            "type": "@type"
+          }
+        },
         "resource_details": {
-          "path": "/ontologies/%s?apikey=%s",
+          "path": "ontologies/%s?apikey=%s",
           "responseMapping": {
             "nestedJson": "",
             "label": "acronym",
@@ -72,6 +83,18 @@
             "sourceUrl": "_links->self->href"
           }
         },
+        "concept_details": {
+          "path": "ontologies/%s/terms/%s",
+          "responseMapping": {
+            "label": "ontologyId",
+            "iri": "iri",
+            "ontology": "ontology_name",
+            "synonym": "synonym",
+            "shortForm": "short_form",
+            "description": "description",
+            "type": "type"
+          }
+        },
         "resource_details": {
           "path": "ontologies/%s",
           "responseMapping": {
@@ -111,6 +134,15 @@
             "type": "type",
             "ontology": "id",
             "description": "title"
+          }
+        },
+        "concept_details": {
+          "path": "/agrovoc/label?acronym=%s&uri=%s",
+          "responseMapping": {
+            "label": "prefLabel",
+            "iri": "uri",
+            "type": "type",
+            "synonym": "synonym"
           }
         },
         "resource_details": {
