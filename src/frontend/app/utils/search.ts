@@ -11,14 +11,14 @@ function debounce(this: any, func: { (query: any): void; apply?: any; }, wait: n
 
 export function useSearch(props: { apiUrl: string }) {
     const [isLoading, setIsLoading] = useState(false);
-        const [errorMessage, setError] = useState(null);
+    const [errorMessage, setError] = useState(null);
     const [suggestions, setSuggestions] = useState([]);
     const [inputValue, setInputValue] = useState("");
+    const [totalResults, setTotalResults] = useState(0)
     const [responseTime, setResponseTime] = useState("");
     const latestRequestRef = useRef(0); // Ref to track the latest request
-
-    const fetchSuggestions = async (query: string | any[], requestId: number, apiUrl: string) => {
-        if (query.length < 2) return setSuggestions([]) ;
+    const fetchSuggestions = async (query: string | any[], requestId: number, apiUrl: string, pageSize = 20) => {
+        if (query.length < 2) return setSuggestions([]);
 
         // Set loading state to true
         setIsLoading(true);
@@ -35,8 +35,9 @@ export function useSearch(props: { apiUrl: string }) {
             const endTime = performance.now(); // End timing
 
             if (requestId === latestRequestRef.current) {
-                setResponseTime(((endTime - startTime)/1000).toFixed(2)); // Calculate response time
-                setSuggestions(data ? data : []);
+                setResponseTime(((endTime - startTime) / 1000).toFixed(2)); // Calculate response time
+                setTotalResults(data ? data.length : 0)
+                setSuggestions(data ? data.slice(0, pageSize) : []);
             }
         } catch (error: any) {
             console.error("Error fetching suggestions:", error);
@@ -59,15 +60,9 @@ export function useSearch(props: { apiUrl: string }) {
         debouncedFetchSuggestions(value);
     };
 
-    const handleItemClick = (item: any) => {
-        const url = item.html_url; // Assuming each suggestion has an 'html_url' property
-        if (url) {
-            window.open(url, '_blank'); // Open URL in a new tab
-        }
-    };
 
     const handleApiUrlChange = (event: { target: { value: SetStateAction<string>; }; }) => {
         setSuggestions([]);
     };
-    return {suggestions, inputValue, responseTime, isLoading, errorMessage, handleInputChange, handleItemClick, handleApiUrlChange};
+    return {suggestions,totalResults, inputValue, responseTime, isLoading, errorMessage, handleInputChange, handleApiUrlChange};
 }

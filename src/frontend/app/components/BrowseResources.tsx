@@ -43,7 +43,7 @@ const ArtefactsTable = (props: {apiUrl: string}) => {
     const [sortField, setSortField] = useState('label');
     const [sortDirection, setSortDirection] = useState("asc" as "asc" | "desc");
     const [pageIndex, setPageIndex] = useState(0);
-    const [pageSize, setPageSize] = useState(50);
+    const [pageSize, setPageSize] = useState(10);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedSources, setSelectedSources] = useState([]);
     const [sourceOptions, setSourceOptions] = useState([]);

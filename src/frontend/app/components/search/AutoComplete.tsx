@@ -1,32 +1,43 @@
 // Custom debounce function
 import {
-    EuiBadge,
     EuiFieldSearch,
     EuiFlexGroup,
     EuiFlexItem,
     EuiListGroup,
     EuiListGroupItem,
-    EuiSpacer
+    EuiSpacer, EuiFormRow
 } from "@elastic/eui";
 import {useSearch} from "@/app/utils/search";
-import {AutoCompleteResult} from "@/app/components/AutoCompleteResult";
 import {EuiFieldText} from "@elastic/eui";
 import {EuiLoadingChart} from "@elastic/eui";
 import {EuiStat} from "@elastic/eui";
-import {EuiFormRow} from "@elastic/eui";
+import {AutoCompleteResult} from "@/app/components/search/AutoCompleteResult";
+import ArtefactModal from "@/app/components/Modal";
+import React, {useRef, useState} from "react";
 
 
 export default function Autocomplete(props: { apiUrl: string }) {
     const {
         suggestions,
+        totalResults,
         inputValue,
         responseTime,
         isLoading,
         errorMessage,
         handleInputChange,
-        handleItemClick,
         handleApiUrlChange
     } = useSearch(props);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedArtefact, setSelectedArtefact] = useState(null);
+
+    const openModal = (item: any) => {
+        setSelectedArtefact(item);
+        setIsModalOpen(true);
+    };
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedArtefact(null);
+    };
 
 
     return (
@@ -54,7 +65,7 @@ export default function Autocomplete(props: { apiUrl: string }) {
                             <EuiStat title={responseTime + 's'} description="Response Time:" titleSize={'xxs'}/>
                         </EuiFlexItem>
                         <EuiFlexItem>
-                            <EuiStat title={suggestions.length} description="Resutls count" titleSize={'xxs'}
+                            <EuiStat title={totalResults} description="Resutls count" titleSize={'xxs'}
                                      titleColor="success"/>
                         </EuiFlexItem>
                     </EuiFlexGroup>
@@ -81,13 +92,10 @@ export default function Autocomplete(props: { apiUrl: string }) {
 
                 {suggestions.length > 0 && !isLoading && !errorMessage && (
                     <>
-                        <EuiFlexItem grow={true}>
-                            <EuiListGroup style={{width: '100%'}} showToolTips maxWidth={'none'} size={'s'}
-                                          flush={false}
-                                          bordered={true}>
+                        <EuiFlexItem style={{width: '100%'}}>
+                            <EuiListGroup flush={true} showToolTips bordered={true} maxWidth={"none"}>
                                 {suggestions.map((suggestion: any, index) => (
-                                    <EuiListGroupItem onClick={() => handleItemClick(suggestion)} key={index}
-                                                      style={{width: '100%'}}
+                                    <EuiListGroupItem key={index} onClick={(e) => openModal(suggestion)}
                                                       label={<AutoCompleteResult suggestion={suggestion}/>}/>
                                 ))}
 
@@ -95,7 +103,9 @@ export default function Autocomplete(props: { apiUrl: string }) {
                         </EuiFlexItem>
                     </>
                 )}
-
+                {isModalOpen && (
+                    <ArtefactModal artefact={selectedArtefact} onClose={closeModal}/>
+                )}
             </EuiFlexGroup>
         </>
     );
