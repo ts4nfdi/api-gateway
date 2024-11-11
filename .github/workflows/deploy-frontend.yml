@@ -53,10 +53,13 @@ jobs:
       - name: Build with Next.js
         run: npm run build
 
+      - name: ls
+        run: ls -l
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: /home/runner/work/api-gateway/api-gateway/src/frontend/out
 
   deploy:
     environment:
