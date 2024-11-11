@@ -30,8 +30,10 @@ public class ApiAccessor {
     private RestTemplate restTemplate;
     private Map<String, String> urls;
     private Logger logger;
+    private boolean unDecodeUrl;
     private CacheService cacheService;
 
+ 
     @Autowired
     public ApiAccessor(CacheManager cacheManager) {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
@@ -40,6 +42,7 @@ public class ApiAccessor {
         factory.setReadTimeout(60000);
         this.restTemplate = new RestTemplate(factory);
         this.urls = new HashMap<>();
+        this.unDecodeUrl = false;
     }
 
     @Async
@@ -83,8 +86,8 @@ public class ApiAccessor {
 
 
         ApiResponse result = new ApiResponse();
-        result.setUrl(url);
         String fullUrl = url;
+        result.setUrl(url);
 
         try {
             fullUrl = constructUrl(url, apikey, query);
@@ -100,7 +103,9 @@ public class ApiAccessor {
 
             ResponseEntity<?> response;
             URL uri = new URL(fullUrl);
-            restTemplate.setInterceptors(Collections.singletonList(new UriDecodingInterceptor()));
+            if(unDecodeUrl){
+                restTemplate.setInterceptors(Collections.singletonList(new UriDecodingInterceptor()));
+            }
             response = restTemplate.getForEntity(uri.toString(), Object.class);
 
             long endTime = System.currentTimeMillis();
