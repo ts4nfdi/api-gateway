@@ -1,3 +1,7 @@
 .main-panel{
     width: 70%;
 }
+.euiListGroupItem__label{
+    display: block;
+    width: 100%;
+}
