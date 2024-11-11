@@ -10,7 +10,7 @@ export default function Home() {
     return (
         <EuiProvider>
             <QueryClientProvider client={queryClient}>
-                <MainPage/>
+                <MainPage apiUrl={`${process.env.API_GATEWAY_URL}/api-gateway`}/>
             </QueryClientProvider>
         </EuiProvider>
     )
