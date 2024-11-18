@@ -77,7 +77,7 @@ public abstract class AbstractEndpointService {
 
             apiUrls = Arrays.stream(databases)
                     .flatMap(x -> ontologyConfigs.stream().filter(db -> db.getName().equals(x.toLowerCase()) || db.getType().equals(x.toLowerCase())))
-                    .collect(Collectors.toMap(DatabaseConfig::getArtefactsUrl, DatabaseConfig::getApiKey));
+                    .collect(Collectors.toMap(dbConfig -> dbConfig.getUrl(endpoint), DatabaseConfig::getApiKey));
 
             if (apiUrls.isEmpty()) {
                 String possibleValues = ontologyConfigs.stream().map(DatabaseConfig::getName).collect(Collectors.joining(","));
