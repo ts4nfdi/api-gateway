@@ -17,8 +17,12 @@ import java.util.stream.Collectors;
 @Getter
 public class ResponseTransformerService {
 
-    @Autowired
-    private final ConfigurationLoader configurationLoader = new ConfigurationLoader();
+    private final ConfigurationLoader configurationLoader;
+
+    public ResponseTransformerService(ConfigurationLoader configurationLoader) {
+        this.configurationLoader = configurationLoader;
+    }
+
 
     // Method to transform and structure results based on database
     public Map<String, Object> transformAndStructureResults(List<Map<String, Object>> combinedResults, String

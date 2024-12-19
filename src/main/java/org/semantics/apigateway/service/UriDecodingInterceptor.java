@@ -9,12 +9,15 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.support.HttpRequestWrapper;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.Map;
 
 public class UriDecodingInterceptor implements ClientHttpRequestInterceptor {
     @Override
@@ -39,21 +42,32 @@ public class UriDecodingInterceptor implements ClientHttpRequestInterceptor {
         private final URI uri;
         private final HttpMethod method;
         private final HttpHeaders headers;
+        private final ByteArrayOutputStream body;
 
         public CustomHttpRequest(URI uri, HttpMethod method, HttpHeaders headers) {
             this.uri = uri;
             this.method = method;
-            this.headers = headers;
+            this.headers = headers != null ? headers : new HttpHeaders();
+            this.body = new ByteArrayOutputStream();
+        }
+
+        @Override
+        public ClientHttpResponse execute() throws IOException {
+            throw new UnsupportedOperationException("CustomHttpRequest does not support execute.");
+        }
+
+        @Override
+        public OutputStream getBody() throws IOException {
+            return body;
+        }
+
+        public String getMethodValue() {
+            return method.name();
         }
 
         @Override
         public HttpMethod getMethod() {
             return method;
-        }
-
-        @Override
-        public String getMethodValue() {
-            return "";
         }
 
         @Override
@@ -66,14 +80,8 @@ public class UriDecodingInterceptor implements ClientHttpRequestInterceptor {
             return headers;
         }
 
-        @Override
-        public ClientHttpResponse execute() throws IOException {
-            throw new UnsupportedOperationException("Execute method not implemented");
-        }
-
-        @Override
-        public OutputStream getBody() throws IOException {
-            return null;
+        public Map<String, Object> getAttributes() {
+            return Collections.emptyMap(); // Provide default empty attributes
         }
     }
 }

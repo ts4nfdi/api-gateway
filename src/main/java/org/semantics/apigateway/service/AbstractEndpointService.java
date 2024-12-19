@@ -20,31 +20,28 @@ import java.util.stream.Collectors;
 @Service
 public abstract class AbstractEndpointService {
 
-    @Autowired
-    private ConfigurationLoader configurationLoader;
-
-    @Autowired
+    private final ConfigurationLoader configurationLoader;
     private ResponseTransformerService responseTransformerService;
-
     @Getter
-    @Autowired
     private ApiAccessor accessor;
-
-    @Autowired
-    private JsonLdTransform jsonLdTransform;
-
-
+    private final JsonLdTransform jsonLdTransform;
     protected static final Logger logger = LoggerFactory.getLogger(AbstractEndpointService.class);
 
 
     private final ResponseAggregatorService dynTransformResponse = new ResponseAggregatorService();
 
-    private List<DatabaseConfig> ontologyConfigs;
+    private final List<DatabaseConfig> ontologyConfigs;
 
 
-    public AbstractEndpointService(ConfigurationLoader configurationLoader) {
+    public AbstractEndpointService(ConfigurationLoader configurationLoader, ApiAccessor accessor, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService) {
+        this.configurationLoader = configurationLoader;
         this.ontologyConfigs = configurationLoader.getDatabaseConfigs();
+        this.accessor = accessor;
+        this.jsonLdTransform = jsonLdTransform;
+        this.responseTransformerService = responseTransformerService;
     }
+
+
 
 
     protected Object transformForTargetDbSchema(Object data, String targetDbSchema) {
