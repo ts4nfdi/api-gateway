@@ -24,7 +24,6 @@ import java.util.concurrent.CompletableFuture;
 public class ArtefactsController {
     private final ArtefactsService artefactsService;
 
-    @Autowired
     public ArtefactsController(ArtefactsService artefactsService) {
         this.artefactsService = artefactsService;
     }

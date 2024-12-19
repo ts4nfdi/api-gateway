@@ -25,13 +25,12 @@ import java.util.stream.Collectors;
 public class SearchService extends AbstractEndpointService {
 
 
-    @Autowired
-    private SearchLocalIndexerService localIndexer;
+    private final SearchLocalIndexerService localIndexer;
 
     private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
 
-    public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer) {
-        super(configurationLoader);
+    public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer, ApiAccessor apiAccessor, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService) {
+        super(configurationLoader, apiAccessor, jsonLdTransform, responseTransformerService);
         this.localIndexer = localIndexer;
     }
 
