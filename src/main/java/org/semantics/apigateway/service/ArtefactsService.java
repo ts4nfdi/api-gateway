@@ -29,8 +29,8 @@ import java.util.stream.Collectors;
 @Service
 public class ArtefactsService extends AbstractEndpointService {
 
-    public ArtefactsService(ConfigurationLoader configurationLoader) {
-        super(configurationLoader);
+    public ArtefactsService(ConfigurationLoader configurationLoader, ApiAccessor apiAccessor, JsonLdTransform transform, ResponseTransformerService responseTransformerService) {
+        super(configurationLoader, apiAccessor, transform, responseTransformerService);
     }
 
     public CompletableFuture<Object> getArtefacts(String database, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
