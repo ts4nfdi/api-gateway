@@ -64,5 +64,15 @@ export function useSearch(props: { apiUrl: string }) {
     const handleApiUrlChange = (event: { target: { value: SetStateAction<string>; }; }) => {
         setSuggestions([]);
     };
-    return {suggestions,totalResults, inputValue, responseTime, isLoading, errorMessage, handleInputChange, handleApiUrlChange};
+
+    return {
+        suggestions,
+        totalResults,
+        inputValue,
+        responseTime,
+        isLoading,
+        errorMessage,
+        handleInputChange,
+        handleApiUrlChange
+    };
 }
