@@ -3,15 +3,17 @@ import {
     EuiBadge,
     EuiBasicTable,
     EuiComboBox,
-    EuiFieldSearch, EuiFlexGroup, EuiFlexItem,
+    EuiFieldSearch,
+    EuiFlexGroup,
+    EuiFlexItem,
     EuiFormRow,
     EuiLoadingChart,
     EuiSpacer,
     EuiText,
 } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_light.css';
-import ArtefactModal from './Modal';
-import {any, number} from "prop-types";
+import {number} from "prop-types";
+import ModalContainer, {useModal} from "@/app/utils/modal";
 
 function prettyMilliseconds(ms: number) {
     const seconds = Math.floor(ms / 1000);
@@ -32,7 +34,7 @@ function prettyMilliseconds(ms: number) {
     return result.trim();
 }
 
-const ArtefactsTable = (props: {apiUrl: string}) => {
+const ArtefactsTable = (props: { apiUrl: string }) => {
     const [items, setItems] = useState([]);
     const [responseConfig, setResponseConfig] = useState({
         databases: Array<any>,
@@ -47,9 +49,9 @@ const ArtefactsTable = (props: {apiUrl: string}) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedSources, setSelectedSources] = useState([]);
     const [sourceOptions, setSourceOptions] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedArtefact, setSelectedArtefact] = useState(null);
     const isInitialMount = useRef(true);
+
+    const {isModalOpen, selectedObject, openModal, closeModal} = useModal();
 
     const fetchArtefacts = async (apiUrl: string) => {
         try {
@@ -81,6 +83,7 @@ const ArtefactsTable = (props: {apiUrl: string}) => {
         }
     }, [props.apiUrl]);
 
+
     // Define the columns for the table
     const columns: any = [
         {
@@ -88,7 +91,7 @@ const ArtefactsTable = (props: {apiUrl: string}) => {
             name: 'Label',
             sortable: true,
             render: (item: any) => (
-                <span style={{cursor: 'pointer'}} onClick={() => openModal(item)}>
+                <span>
                     <EuiText> {item.description} ({item.label.toString().toUpperCase()})</EuiText>
                 </span>
             )
@@ -160,15 +163,6 @@ const ArtefactsTable = (props: {apiUrl: string}) => {
 
     let groupedBySourceName = {}
 
-    const openModal = (artefact: any) => {
-        setSelectedArtefact(artefact);
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-        setSelectedArtefact(null);
-    };
 
     groupedBySourceName = filteredItems.reduce((acc, item) => {
         // @ts-ignore
@@ -204,6 +198,11 @@ const ArtefactsTable = (props: {apiUrl: string}) => {
         totalItemCount: filteredItems.length,
         pageSizeOptions: [5, 10, 20],
     };
+
+    const rowProps = (item: any) => ({
+        onClick: () => openModal(item),
+        style: {cursor: "pointer;"}
+    });
 
     // @ts-ignore
     // @ts-ignore
@@ -276,13 +275,14 @@ const ArtefactsTable = (props: {apiUrl: string}) => {
                         items={paginatedItems}
                         columns={columns}
                         loading={loading}
+                        rowProps={rowProps}
                         sorting={{sort: {field: sortField, direction: sortDirection}}}
                         onChange={onTableChange}
                         pagination={pagination}
                     />
-                    {isModalOpen && (
-                        <ArtefactModal artefact={selectedArtefact} onClose={closeModal}/>
-                    )}
+                    <ModalContainer isOpen={isModalOpen} artefact={selectedObject}
+                                    onClose={closeModal}></ModalContainer>
+
                 </>
             )}
 
