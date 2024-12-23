@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import org.semantics.apigateway.model.responses.ApiResponse;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -27,14 +30,19 @@ public class ApiAccessor {
     private RestTemplate restTemplate;
     private Map<String, String> urls;
     private Logger logger;
+    private boolean unDecodeUrl;
+    private CacheService cacheService;
 
-
-    public ApiAccessor() {
+ 
+    @Autowired
+    public ApiAccessor(CacheManager cacheManager) {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        this.cacheService = new CacheService(cacheManager);
         factory.setConnectTimeout(60000);
         factory.setReadTimeout(60000);
         this.restTemplate = new RestTemplate(factory);
         this.urls = new HashMap<>();
+        this.unDecodeUrl = false;
     }
 
     @Async
@@ -65,34 +73,7 @@ public class ApiAccessor {
                 });
     }
 
-    public static RestTemplate cloneRestTemplate(RestTemplate original) {
-        RestTemplate clonedRestTemplate = new RestTemplate();
 
-        // Clone message converters
-        List<HttpMessageConverter<?>> messageConverters = original.getMessageConverters();
-        if (messageConverters.isEmpty()) {
-            // If no converters are set, add the default ones
-            clonedRestTemplate.setMessageConverters(createDefaultMessageConverters());
-        } else {
-            clonedRestTemplate.setMessageConverters(messageConverters);
-        }
-        // Clone error handler (ResponseErrorHandler)
-        ResponseErrorHandler errorHandler = original.getErrorHandler();
-        if (errorHandler != null) {
-            clonedRestTemplate.setErrorHandler(errorHandler);
-        } else {
-            // Set a default error handler if none is defined
-            clonedRestTemplate.setErrorHandler(new DefaultResponseErrorHandler());
-        }
-
-        // Clone request interceptors
-        List<ClientHttpRequestInterceptor> interceptors = original.getInterceptors();
-        if (interceptors != null) {
-            clonedRestTemplate.setInterceptors(interceptors);
-        }
-
-        return clonedRestTemplate;
-    }
 
     private static List<HttpMessageConverter<?>> createDefaultMessageConverters() {
         // Create and return a list of default message converters
@@ -100,20 +81,31 @@ public class ApiAccessor {
         return restTemplate.getMessageConverters();
     }
 
-    protected ApiResponse call(String url, String apikey, String... query) {
+    public ApiResponse call(String url, String apikey, String... query) {
+
+
+
         ApiResponse result = new ApiResponse();
-        result.setUrl(url);
         String fullUrl = url;
+        result.setUrl(url);
 
         try {
             fullUrl = constructUrl(url, apikey, query);
+
+            if (cacheService.exists(fullUrl)) {
+                logger.info("Cached result for request URL: {} and query parameters: {}", url, query);
+                return (ApiResponse) cacheService.read(fullUrl);
+            }
+
             logger.info("Accessing URL: {}", fullUrl);
 
             long startTime = System.currentTimeMillis();
 
             ResponseEntity<?> response;
             URL uri = new URL(fullUrl);
-            restTemplate.setInterceptors(Collections.singletonList(new UriDecodingInterceptor()));
+            if(unDecodeUrl){
+                restTemplate.setInterceptors(Collections.singletonList(new UriDecodingInterceptor()));
+            }
             response = restTemplate.getForEntity(uri.toString(), Object.class);
 
             long endTime = System.currentTimeMillis();
@@ -132,6 +124,8 @@ public class ApiAccessor {
                 } else {
                     result.setResponseBody((Map<String, Object>) response.getBody());
                 }
+                logger.info("Write cache for request URL: {} and query parameters: {}", url, query);
+                cacheService.write(fullUrl, result);
                 return result;
             } else {
                 logger.error("API {} Response Error: Status Code - {}", fullUrl, response.getStatusCode());

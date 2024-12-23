@@ -27,10 +27,10 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class ArtefactsService  extends  AbstractEndpointService {
+public class ArtefactsService extends AbstractEndpointService {
 
-    public ArtefactsService(ConfigurationLoader configurationLoader) {
-        super(configurationLoader);
+    public ArtefactsService(ConfigurationLoader configurationLoader, ApiAccessor apiAccessor, JsonLdTransform transform, ResponseTransformerService responseTransformerService) {
+        super(configurationLoader, apiAccessor, transform, responseTransformerService);
     }
 
     public CompletableFuture<Object> getArtefacts(String database, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
@@ -90,6 +90,7 @@ public class ArtefactsService  extends  AbstractEndpointService {
 
         getAccessor().setUrls(apiUrls);
         getAccessor().setLogger(logger);
+        getAccessor().setUnDecodeUrl(true);
 
         return getAccessor().get(id.toUpperCase())
                 .thenApply(data -> this.transformApiResponses(data, "resource_details"))
@@ -100,7 +101,7 @@ public class ArtefactsService  extends  AbstractEndpointService {
     }
 
 
-    public  CompletableFuture<Object> getArtefactTerm(String id, String uri, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
+    public CompletableFuture<Object> getArtefactTerm(String id, String uri, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
         Map<String, String> apiUrls = filterDatabases("", "concept_details");
         String formatStr, target;
 
