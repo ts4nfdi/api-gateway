@@ -1,6 +1,6 @@
 package org.semantics.apigateway.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.semantics.apigateway.model.responses.SuccessResponse;
@@ -22,6 +22,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Users - Authentification")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -38,7 +39,6 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    @Operation(tags = {"Users"})
     @ResponseStatus(HttpStatus.CREATED)
     public SuccessResponse registerUser(@Valid @RequestBody RegisterRequest user) {
         User newUser = new User();
@@ -53,12 +53,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    @Operation(tags = {"Users"})
     public AuthResponse loginUser(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         String token = jwtUtil.generateToken(authentication.getName());
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
 
         Date expiration = jwtUtil.extractExpiration(token);
         GrantedAuthority role = userDetails.getAuthorities().stream().findFirst().orElse(null);
@@ -67,7 +67,6 @@ public class AuthController {
     }
 
     @GetMapping("/logout")
-    @Operation(tags = {"Users"})
     public SuccessResponse logout(HttpServletRequest request) {
         SecurityContextHolder.clearContext();
         return new SuccessResponse("Logged out successfully.", "success");
