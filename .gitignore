@@ -47,3 +47,5 @@ src/frontend/.next/
 _next/
 
 src/frontend/.env
+
+node_modules/
