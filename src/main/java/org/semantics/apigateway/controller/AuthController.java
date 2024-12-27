@@ -3,8 +3,10 @@ package org.semantics.apigateway.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.semantics.apigateway.model.responses.SuccessResponse;
 import org.semantics.apigateway.model.user.*;
+import org.semantics.apigateway.service.auth.AuthService;
 import org.semantics.apigateway.service.auth.JwtUtil;
 import org.semantics.apigateway.service.auth.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -23,20 +25,15 @@ import java.util.Date;
 @RestController
 @RequestMapping("/auth")
 @Tag(name = "Users - Authentification")
+@AllArgsConstructor
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthService authService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil,
-                          UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.authenticationManager = authenticationManager;
-        this.jwtUtil = jwtUtil;
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
@@ -70,5 +67,10 @@ public class AuthController {
     public SuccessResponse logout(HttpServletRequest request) {
         SecurityContextHolder.clearContext();
         return new SuccessResponse("Logged out successfully.", "success");
+    }
+
+    @GetMapping("/me")
+    public User getCurrentUser() {
+        return this.authService.getCurrentUser();
     }
 }

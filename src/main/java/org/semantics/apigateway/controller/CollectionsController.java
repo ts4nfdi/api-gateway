@@ -3,6 +3,7 @@ package org.semantics.apigateway.controller;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.semantics.apigateway.model.user.TerminologyCollection;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.semantics.apigateway.service.auth.CollectionRepository;
@@ -16,15 +17,12 @@ import java.util.UUID;
 @RequestMapping("/users/collections")
 @Tag(name = "Users - Collections")
 @SecurityScheme(type = SecuritySchemeType.APIKEY)
+@AllArgsConstructor
 public class CollectionsController {
 
     private final CollectionRepository collectionRepository;
     private final AuthService authService;
 
-    public CollectionsController(CollectionRepository collectionRepository, AuthService authService) {
-        this.collectionRepository = collectionRepository;
-        this.authService = authService;
-    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
