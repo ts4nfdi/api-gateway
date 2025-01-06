@@ -29,7 +29,7 @@ export function Selector({placeholder, label, values}: {
                 <SelectGroup>
                     <SelectLabel>{label}</SelectLabel>
                     {values.map((value, index) => (
-                        <SelectItem value={value.value}>{value.value}</SelectItem>
+                        <SelectItem key={index} value={value.value}>{value.value}</SelectItem>
                     ))}
                 </SelectGroup>
             </SelectContent>
