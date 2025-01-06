@@ -1,15 +1,5 @@
-import React, {useState} from 'react';
-import {
-    EuiButton,
-    EuiModal,
-    EuiModalBody,
-    EuiModalFooter,
-    EuiModalHeader,
-    EuiModalHeaderTitle,
-    EuiCodeBlock,
-    EuiSpacer,
-    useGeneratedHtmlId,
-} from '@elastic/eui';
+import React from 'react';
+import {EuiButton, EuiModal, EuiModalBody, EuiModalFooter, EuiModalHeader, EuiModalHeaderTitle,} from '@elastic/eui';
 
 // @ts-ignore
 export default function ArtefactModal({artefact, onClose}) {

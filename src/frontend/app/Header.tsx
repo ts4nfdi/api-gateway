@@ -2,6 +2,7 @@ import React from 'react';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {ExternalLinkIcon} from "lucide-react";
+import Link from "next/link";
 
 const PageHeader = () => {
     const isLoggedIn = false; //TODO Replace with your auth logic
@@ -20,7 +21,7 @@ const PageHeader = () => {
                             My Profile
                         </a>
                     ) : (
-                        <Button className="bg-blue-600">Login</Button>
+                        <Button className="bg-blue-600"><Link href={'/auth/login'}>Login</Link></Button>
                     )}
                 </div>
             </header>

@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from "react";
-import ArtefactModal from "@/app/components/Modal";
+import ArtefactModal from "@/components/Modal";
 
 export function useModal() {
     const [isModalOpen, setIsModalOpen] = useState(false);

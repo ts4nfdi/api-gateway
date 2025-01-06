@@ -1,4 +1,3 @@
-// Custom debounce function
 import {
     EuiFieldSearch,
     EuiFieldText,
@@ -7,14 +6,14 @@ import {
     EuiFormRow,
     EuiListGroup,
     EuiListGroupItem,
-    EuiLoadingChart,
     EuiSpacer,
     EuiStat
 } from "@elastic/eui";
-import {useSearch} from "@/app/utils/search";
-import {AutoCompleteResult} from "@/app/components/AutoCompleteResult";
 import React from "react";
-import ModalContainer, {useModal} from "@/app/utils/modal";
+import {useSearch} from "@/lib/search";
+import ModalContainer, {useModal} from "@/lib/modal";
+import {AutoCompleteResult} from "@/app/home/search/AutoCompleteResult";
+import {Loader} from "@/components/Loading";
 
 
 export default function Autocomplete(props: { apiUrl: string }) {
@@ -29,7 +28,6 @@ export default function Autocomplete(props: { apiUrl: string }) {
     } = useSearch(props);
 
     const {isModalOpen, selectedObject, openModal, closeModal} = useModal();
-
 
     return (
         <>
@@ -68,9 +66,7 @@ export default function Autocomplete(props: { apiUrl: string }) {
             <EuiFlexGroup justifyContent={'center'} style={{width: '100%'}}>
 
                 {isLoading && (
-                    <EuiFlexItem grow={false}>
-                        <EuiLoadingChart size="xl"/>
-                    </EuiFlexItem>
+                    <Loader/>
                 )}
 
 
