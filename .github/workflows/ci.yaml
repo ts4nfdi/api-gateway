@@ -14,7 +14,7 @@ env:
 jobs:
   build:
     name: "Build Image"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -81,6 +81,13 @@ jobs:
         run: |
           kubectl create secret generic ontoportal-secret \
             --from-literal=ONTOPORTAL_APIKEY=${{ secrets.ONTOPORTAL_APIKEY }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create Kubernetes secret for DB password
+        run: |
+          kubectl create secret generic db-secret \
+            --from-literal=DB_PASSWORD=${{ secrets.DB_SECRET }} \
             --namespace='ts4nfdi' \
             --dry-run=client -o yaml | kubectl apply -f -
 
