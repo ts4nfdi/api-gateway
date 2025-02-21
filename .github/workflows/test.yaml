@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -17,7 +17,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew clean build --no-daemon  --refresh-dependencies
 
       - name: Run tests
         run: ./gradlew test
