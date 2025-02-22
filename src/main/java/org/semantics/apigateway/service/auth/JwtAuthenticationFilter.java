@@ -48,7 +48,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        String username = jwtUtil.extractUsername(jwtToken);
+        String username = null;
+        try {
+            username = jwtUtil.extractUsername(jwtToken);
+        } catch (Exception e) {
+            this.exceptionResolver.resolveException(request, response, null, new InvalidJwtException("Invalid JWT token"));
+            return;
+        }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);

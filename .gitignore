@@ -43,3 +43,9 @@ bin/
 src/frontend/node_modules/
 
 src/frontend/.next/
+
+_next/
+
+src/frontend/.env
+
+node_modules/

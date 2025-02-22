@@ -35,9 +35,9 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8081:8080
+      - "8081:8080"
     networks:
-    - network
+      - network
 networks:
   network:
     driver: bridge
