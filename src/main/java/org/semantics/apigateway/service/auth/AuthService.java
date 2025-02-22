@@ -46,6 +46,6 @@ public class AuthService implements UserDetailsService {
     }
 
     public User getCurrentUser() {
-        return this.userRepository.findByUsername(getCurrentUsername()).orElseThrow();
+        return this.userRepository.findByUsername(getCurrentUsername()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }
