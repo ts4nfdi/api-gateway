@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: api-gateway
     ports:
-      - "8080:8080"
+      - "${WEBPORT:-8080}:8080"
     restart: always
     profiles:
       - all
