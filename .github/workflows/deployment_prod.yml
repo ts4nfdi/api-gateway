@@ -1,0 +1,39 @@
+name: Deployment to production
+concurrency: production
+on:
+   workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Do you really want to update the production instance'
+        required: false
+        type: boolean
+      image_sha:
+        description: 'Image SHA ID, Optional '
+        type: string
+        required: false
+env:
+  KUBECONFIG: .kube/config
+  KUBECONFIG_FILE: ${{ secrets.KUBECONFIG_PROD }}
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          mkdir -p .kube
+          echo "${{ env.KUBECONFIG_FILE }}" > $KUBECONFIG
+      - uses: stefanprodan/kube-tools@v1
+        with:
+          helmv3: 3.12.0
+          command: |
+            kubectl get nodes
+            helmv3 repo add api-gateway-deployment https://ts4nfdi.github.io/api-gateway-deployment/
+            helmv3 repo update
+            helmv3 upgrade ts4nfdi \
+              --install \
+              --namespace='ts4nfdi' \
+              --set-json='ingress.dns="ts4nfdi-api-gateway.prod.km.k8s.zbmed.de"'  \
+              --set-json='images.frontend="ghcr.io/${{ github.repository }}:${{ github.event.pull_request.head.sha || github.sha }}"'  \
+              --set-json='ingress.enableSSL="true"'  \
+              --set-json='ingress.certIssuer="letsencrypt-prod"'  \
+              api-gateway-deployment/api-gateway
