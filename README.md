@@ -33,8 +33,8 @@ To set up the API-Gateway, follow these steps:
 4. Run the service:
    `java -jar ./build/libs/api-gateway-1.0-SNAPSHOT.jar`
 5. Alternative run with Docker (requirement: have [Docker](https://docs.docker.com/get-docker/) installed and running)
-   `docker-compose up --build`
-
+   `docker-compose --profile all up --build`. This can be configured with environment variables:
+   - `WEBPORT` where the service will be available at (8080 by default)
 
 The service will be accessible at `http://localhost:8080/api-gateway` by default.
 
