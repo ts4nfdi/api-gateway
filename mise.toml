@@ -1,2 +1,3 @@
 [tools]
 java = "17"
+node = "20"
