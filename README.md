@@ -29,12 +29,12 @@ To set up the API-Gateway, follow these steps:
 2. In your command line navigate to the project directory:
    `cd api-gateway`
 3. Build and compile the service:
-   `mvn clean install`
+   `./gradlew clean build`
 4. Run the service:
-   `java -jar target/API-Gateway-0.0.1-SNAPSHOT.jar`
+   `java -jar ./build/libs/api-gateway-1.0-SNAPSHOT.jar`
 5. Alternative run with Docker (requirement: have [Docker](https://docs.docker.com/get-docker/) installed and running)
-   `docker-compose up --build`
-
+   `docker-compose --profile all up --build`. This can be configured with environment variables:
+   - `WEBPORT` where the service will be available at (8080 by default)
 
 The service will be accessible at `http://localhost:8080/api-gateway` by default.
 
@@ -55,10 +55,10 @@ The mapping from the JSON response to a TS output format is hardcoded in the `Dy
 4. Save your changes.
 
 5. Rebuild and compile the service using the following commands:
-   `mvn clean install`
+   `./gradlew clean build`
 
 6. Restart the service:
-   `java -jar target/.jar`
+   `java -jar ./build/libs/api-gateway-1.0-SNAPSHOT.jar`
 
 Your custom TS schema mapping will now be applied to the search responses.
 
