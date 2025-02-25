@@ -27,16 +27,16 @@ export class CollectionRestClient extends RestApplicationClient {
         return this.httpClient.request({method: 'GET', url: '/users/collections/'})
     }
 
-    deleteCollection() {
-
+    deleteCollection(id: string): RestResponse<any> {
+        return this.httpClient.request({method: "DELETE", url: 'users/collections/' + id});
     }
 
     createCollection(request: CreateCollectionRequest): RestResponse<CollectionResponse> {
-        return this.httpClient.request({method: "POST", url: uriEncoding('api/users'), data: request});
+        return this.httpClient.request({method: "POST", url: 'users/collections/', data: request});
     }
 
     updateCollection(id: string, request: UpdateCollectionRequest): RestResponse<CollectionResponse> {
-        return this.httpClient.request({method: "PUT", url: uriEncoding('api/users'), data: request});
+        return this.httpClient.request({method: "PUT", url: 'users/collections/' + id, data: request});
     }
 
 }
