@@ -18,6 +18,7 @@ import java.util.UUID;
 @Tag(name = "Users - Collections")
 @SecurityScheme(type = SecuritySchemeType.APIKEY)
 @AllArgsConstructor
+@CrossOrigin
 public class CollectionsController {
 
     private final CollectionRepository collectionRepository;

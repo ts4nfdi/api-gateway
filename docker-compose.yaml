@@ -6,18 +6,17 @@ services:
       dockerfile: Dockerfile
     container_name: api-gateway
     ports:
-      - "8080:8080"
-    restart: always
+      - "${WEBPORT:-8080}:8080"
     profiles:
       - all
     depends_on:
       - postgres
     environment:
       ONTOPORTAL_APIKEY: "put here APIKEY"
-      SPRING_DATASOURCE_URL: jdbc:postgresql://0.0.0.0:5432/db
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: backend
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/db
+      SPRING_DATASOURCE_USERNAME: developer
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
 
   postgres:
     image: postgres
@@ -28,16 +27,9 @@ services:
       - POSTGRES_USER=developer
     ports:
       - "5432:5432"
-    networks:
-      - network
 
   adminer:
     image: adminer
     restart: always
     ports:
       - "8081:8080"
-    networks:
-      - network
-networks:
-  network:
-    driver: bridge
