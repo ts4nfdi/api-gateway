@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.Date;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/auth")
 @Tag(name = "Users - Authentification")

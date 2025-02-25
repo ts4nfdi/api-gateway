@@ -5,7 +5,6 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/compo
 import {ExternalLinkIcon} from "lucide-react";
 import Link from "next/link";
 import {useAuth} from "@/lib/authGuard";
-import {ReactComponentLike} from "prop-types";
 
 export const Banner = () => {
 

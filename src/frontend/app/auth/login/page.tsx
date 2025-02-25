@@ -76,7 +76,7 @@ export default function LoginPage() {
                     </form>
                 </CardContent>
                 <CardFooter className="text-sm space-x-1 text-gray-500">
-                    <span>Don't have an account? </span>
+                    <span>Don&#39;t have an account? </span>
                     <Link href="/auth/register" className="text-blue-600">Sign up</Link>
                     <span> or go back to </span>
                     <Link href="/" className="text-blue-600">Homepage</Link>
