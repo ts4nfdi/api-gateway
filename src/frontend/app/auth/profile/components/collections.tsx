@@ -27,33 +27,37 @@ export default function CollectionsTable() {
         fetchCollections();
     }, []);
 
-    const handleAddOrEdit = () => {
-        /*setCollections((prev) =>
-            formData.id
+    const handleAddOrEdit = (collection: CollectionResponse, addition: boolean) => {
+        setCollections((prev) =>
+            !addition
                 ? prev.map((col) =>
-                    col.id === formData.id
-                        ? {...col, ...formData, tags: formData.tags.split(",")}
+                    col.id === collection.id
+                        ? {...col, ...collection, terminologies: collection.terminologies}
                         : col
                 )
-                : [...prev, {...formData, tags: formData.tags.split(",")}]
-        );*/
-        resetForm();
+                : [{...collection}, ...prev]
+        )
     };
 
-    const handleDelete = (id: string) => {
-        setCollections((prev) => prev.filter((col) => col.id !== id));
+
+    const handleDelete = async (id: string) => {
+        const res = await collectionRestClient.deleteCollection(id);
+        if (res.status === 204) {
+            console.log("Collection deleted successfully");
+            setCollections((prev) => prev.filter((col) => col.id !== id));
+        } else {
+            console.error("Failed to delete collection");
+        }
     };
 
     const openDialog = (collection: any) => {
+        if (collection === null)
+            collection = {id: "", label: "", description: "", terminologies: []};
+
         setFormData(collection);
         setDialogOpen(true);
-
     };
 
-    const resetForm = () => {
-        setFormData({id: "", label: "", description: "", terminologies: []});
-        setDialogOpen(false);
-    };
 
     return (
         <>
@@ -112,7 +116,7 @@ export default function CollectionsTable() {
                     </Table>
                 </CardContent>
             </Card>
-            <CollectionDialog isOpen={dialogOpen} setIsOpen={setDialogOpen} value={formData}></CollectionDialog>
+            <CollectionDialog isOpen={dialogOpen} setIsOpen={setDialogOpen} value={formData} onSubmit={handleAddOrEdit}></CollectionDialog>
         </>)
         ;
 }

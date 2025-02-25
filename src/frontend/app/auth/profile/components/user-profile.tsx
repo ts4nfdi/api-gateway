@@ -1,16 +1,24 @@
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import {useAuth} from "@/lib/authGuard";
+import {router} from "next/client";
+import {useRouter} from "next/navigation";
 
 export default function UserProfile() {
     const {user, logout} = useAuth()
+    const router = useRouter()
     return (
         <Card className="w-1/2">
             <CardHeader className="flex-row justify-between items-center">
                 <CardTitle>Profile Information</CardTitle>
-                <Button variant="destructive" onClick={logout}>
-                    Logout
-                </Button>
+                <div className={"flex space-x-4"}>
+                    <Button onClick={() => router.push('/')} >
+                        Home
+                    </Button>
+                    <Button variant="destructive" onClick={logout}>
+                        Logout
+                    </Button>
+                </div>
             </CardHeader>
             <CardContent>
                 <div className="space-y-6">

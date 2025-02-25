@@ -3,8 +3,9 @@ import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle,} from "@
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
+import {collectionRestClient} from "@/app/auth/lib/CollectionsRestClient";
 
-export default function CollectionDialog({isOpen, setIsOpen, value}: { value: any, isOpen: boolean, setIsOpen: any }) {
+export default function CollectionDialog({isOpen, setIsOpen, value, onSubmit}: { value: any, isOpen: boolean, setIsOpen: any, onSubmit: any }) {
     const [collection, setCollection] = useState(value || {
         id: "",
         label: "",
@@ -18,17 +19,34 @@ export default function CollectionDialog({isOpen, setIsOpen, value}: { value: an
     }, [value]);
 
     const handleChange = (e: any) => {
-        /*const {name, value} = e.target;
+        const {name, value} = e.target;
         setCollection({
             ...collection,
             [name]: value,
-        });*/
+        });
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         console.log("Saved collection:", collection);
-        setIsOpen(false); // Close the dialog after saving
-        // Add logic to handle saving the collection
+        if(!(collection.terminologies instanceof Array))
+            collection.terminologies = collection.terminologies.split(",")
+        let res: any
+        if (collection.id === ""){
+            delete collection.id;
+            res = await collectionRestClient.createCollection(collection);
+        } else {
+            res = await collectionRestClient.updateCollection(collection.id, collection);
+        }
+
+
+        if(res.status === 201 || res.status === 200){
+            console.log("Collection saved/updated successfully");
+            onSubmit(res.data, value.id === "");
+            setIsOpen(false); // Close the dialog after saving
+        } else {
+            console.error("Failed to save/collection collection");
+            //TODO add notification
+        }
     };
 
     return (
