@@ -26,8 +26,8 @@ export function AutoCompleteResult({suggestion}: any) {
 
             </div>
             <div className="flex flex-wrap gap-2">
-                <Badge className={getBadgeVariant('primary')}>
-                    {suggestion.backend_type}
+                <Badge className={getBadgeVariant('primary')} title={`${suggestion.backend_type}(${suggestion.source})`}>
+                    {suggestion.source_name.toUpperCase()}
                 </Badge>
 
                 <ChevronRight className="mx-1 h-4 w-4 text-gray-400"/>

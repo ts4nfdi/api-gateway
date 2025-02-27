@@ -1,4 +1,5 @@
 import {SetStateAction, useCallback, useRef, useState} from "react";
+import httpClient from "@/lib/httpClient";
 
 
 function debounce(this: any, func: { (query: any): void; apply?: any; }, wait: number) {
@@ -17,21 +18,33 @@ export function useSearch(props: { apiUrl: string }) {
     const [totalResults, setTotalResults] = useState(0)
     const [responseTime, setResponseTime] = useState("");
     const latestRequestRef = useRef(0); // Ref to track the latest request
-    const fetchSuggestions = async (query: string | any[], requestId: number, apiUrl: string, pageSize = 20) => {
+    const [apiUrl, setApiUrl] = useState(props.apiUrl);
+
+    const fetchSuggestions = async (query: string,  requestId: number, apiUrl: string, pageSize = 20) => {
         if (query.length < 2) return setSuggestions([]);
 
         // Set loading state to true
         setIsLoading(true);
         setError(null); // Clear any previous errors
 
-        const startTime = performance.now(); // Start timing
+        const startTime = performance.now();
+
+        let url = new URL(apiUrl);
+        url.searchParams.set("query", query);
+        url.searchParams.entries().forEach(([key, value]) => {
+            value = value.toString().trim();
+            if (value === null || value === undefined || value == "") {
+                url.searchParams.delete(key);
+            }
+        })
+
+        if(url.searchParams.has("collectionId") && url.searchParams.get("collectionId") === "") {
+            url.searchParams.delete("collectionId");
+        }
 
         try {
-            const response = await fetch(`${apiUrl}${query}`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const data = await response.json();
+            const response = await httpClient.get(url.toString());
+            const data = response.data;
             const endTime = performance.now(); // End timing
 
             if (requestId === latestRequestRef.current) {
@@ -40,7 +53,6 @@ export function useSearch(props: { apiUrl: string }) {
                 setSuggestions(data ? data.slice(0, pageSize) : []);
             }
         } catch (error: any) {
-            console.error("Error fetching suggestions:", error);
             setError(error.message); // Set error message
         } finally {
             // Set loading state to false
@@ -51,21 +63,23 @@ export function useSearch(props: { apiUrl: string }) {
     // Debounced version of fetchSuggestions
     const debouncedFetchSuggestions = useCallback(debounce((query) => {
         const requestId = ++latestRequestRef.current; // Increment request ID
-        fetchSuggestions(query, requestId, props.apiUrl).then(r => r);
-    }, 100), [props.apiUrl]);
+        fetchSuggestions(query, requestId, apiUrl)
+    }, 100), [apiUrl]);
 
     const handleInputChange = (event: { target: { value: any; }; }) => {
         const value = event.target.value;
         setInputValue(value);
-        debouncedFetchSuggestions(value);
+        // debouncedFetchSuggestions(value);
     };
 
 
     const handleApiUrlChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+        setApiUrl(event.target.value);
         setSuggestions([]);
     };
 
     return {
+        apiUrl,
         suggestions,
         totalResults,
         inputValue,
@@ -73,6 +87,8 @@ export function useSearch(props: { apiUrl: string }) {
         isLoading,
         errorMessage,
         handleInputChange,
-        handleApiUrlChange
+        handleApiUrlChange,
+        setApiUrl,
+        debouncedFetchSuggestions,
     };
 }

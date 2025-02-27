@@ -1,16 +1,17 @@
 'use client';
 
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useSearch} from "@/lib/search";
 import ModalContainer, {useModal} from "@/lib/modal";
 import {AutoCompleteResult} from "@/app/home/search/AutoCompleteResult";
 import {Input} from "@/components/ui/input";
-import {Loader2, X} from "lucide-react";
 import {Label} from "@/components/ui/label";
 import {Card, CardContent} from "@/components/ui/card";
 import TextInput from "@/components/TextInput";
 import JsonViewerModal from "@/components/JsonVieweModal";
-
+import DatabaseSelector from "@/components/DatabaseSelector";
+import {Loading} from "@/components/Loading";
+import CollectionSelector from "@/components/CollectionsSelector";
 
 
 const StatCard = ({title, description, titleColor}: any) => {
@@ -41,12 +42,6 @@ const StatCard = ({title, description, titleColor}: any) => {
 };
 
 
-const Loader = () => (
-    <div className="flex justify-center w-full py-4">
-        <Loader2 className="h-8 w-8 animate-spin text-gray-500"/>
-    </div>
-);
-
 const ListItem = ({onClick, children}: any) => {
     return (
         <button
@@ -58,7 +53,7 @@ const ListItem = ({onClick, children}: any) => {
     );
 };
 
-const SearchResultsCard = ({ suggestions, isLoading, errorMessage, responseTime, openModal }: any) => {
+const SearchResultsCard = ({suggestions, isLoading, errorMessage, responseTime, openModal}: any) => {
     return (
         <div className="w-full">
             {/* Conditionally render content */}
@@ -68,7 +63,7 @@ const SearchResultsCard = ({ suggestions, isLoading, errorMessage, responseTime,
                     {isLoading && (
                         <Card className=''>
                             <CardContent className="p-4">
-                                <Loader />
+                                <Loading/>
                             </CardContent>
                         </Card>
                     )}
@@ -112,7 +107,7 @@ const SearchResultsCard = ({ suggestions, isLoading, errorMessage, responseTime,
                                             key={index}
                                             onClick={() => openModal(suggestion)}
                                         >
-                                            <AutoCompleteResult suggestion={suggestion} />
+                                            <AutoCompleteResult suggestion={suggestion}/>
                                         </ListItem>
                                     ))}
                                 </div>
@@ -127,16 +122,30 @@ const SearchResultsCard = ({ suggestions, isLoading, errorMessage, responseTime,
 
 export default function Autocomplete(props: { apiUrl: string }) {
     const {
+        apiUrl,
         suggestions,
         inputValue,
         responseTime,
         isLoading,
         errorMessage,
         handleInputChange,
-        handleApiUrlChange
+        handleApiUrlChange,
+        setApiUrl,
+        debouncedFetchSuggestions
     } = useSearch(props);
 
+    const [selectedSources, setSelectedSources] = useState<string[]>([]);
+    const [selectedCollection, setSelectedCollection] = useState<string[]>([]);
     const {isModalOpen, selectedObject, openModal, closeModal} = useModal();
+
+
+    useEffect(() => {
+        setApiUrl(`${props.apiUrl}${inputValue}&database=${selectedSources.join(',')}&collectionId=${selectedCollection.join(',')}`);
+    }, [selectedSources, inputValue, props.apiUrl, selectedCollection, setApiUrl]);
+
+    useEffect(() => {
+        debouncedFetchSuggestions(inputValue);
+    }, [apiUrl, debouncedFetchSuggestions]);
 
     return (
         <>
@@ -144,12 +153,12 @@ export default function Autocomplete(props: { apiUrl: string }) {
                 <div className="space-y-2">
                     <div className="flex space-x-1 items-center">
                         <Label htmlFor="apiUrl">Gateway search endpoint</Label>
-                        <JsonViewerModal url={`${props.apiUrl}${inputValue}`} />
+                        <JsonViewerModal url={apiUrl}/>
                     </div>
 
                     <Input
                         id="apiUrl"
-                        value={props.apiUrl}
+                        value={apiUrl}
                         onChange={handleApiUrlChange}
                         placeholder="Enter API URL"
                         className="w-full"
@@ -166,7 +175,17 @@ export default function Autocomplete(props: { apiUrl: string }) {
                         onChange={handleInputChange}
                     />
                 </div>
-                <SearchResultsCard openModal={openModal} suggestions={suggestions} isLoading={isLoading} errorMessage={errorMessage} responseTime={responseTime} />
+                <div className="flex items-center space-x-1">
+                    <div className="w-1/2">
+                        <DatabaseSelector onChange={setSelectedSources}/>
+                    </div>
+                    <div className="w-1/2">
+                        <CollectionSelector onChange={setSelectedCollection}/>
+                    </div>
+                </div>
+
+                <SearchResultsCard openModal={openModal} suggestions={suggestions} isLoading={isLoading}
+                                   errorMessage={errorMessage} responseTime={responseTime}/>
             </div>
             <ModalContainer onClose={closeModal} artefact={selectedObject} isOpen={isModalOpen}></ModalContainer>
         </>

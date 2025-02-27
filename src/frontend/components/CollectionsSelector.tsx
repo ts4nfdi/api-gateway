@@ -1,17 +1,18 @@
 import MultipleSelector, {SelectorOption} from "@/components/MultipleSelector";
 import React, {useEffect, useState} from "react";
 import {configurationRestClient} from "@/lib/ConfigurationRestClient";
+import {collectionRestClient} from "@/app/auth/lib/CollectionsRestClient";
 
-export default function DatabaseSelector({selected, onChange}: any) {
+export default function CollectionSelector({selected, onChange}: any) {
     const [sourceOptions, setSourceOptions] = useState<SelectorOption[]>([]);
     const [selectedSources, setSelectedSources] = useState<string[]>(selected || []);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        configurationRestClient.getAllDatabases().then((x: any) => {
+        collectionRestClient.getAllCollections().then((x: any) => {
             const options = x.data.map((db: any) => ({
-                label: db.name,
-                value: db.name
+                label: db.label,
+                value: db.id
             }));
             setSourceOptions(options);
             setIsLoading(false);
@@ -40,21 +41,22 @@ export default function DatabaseSelector({selected, onChange}: any) {
 
     if (isLoading) {
         return <MultipleSelector
-                placeholder={"Loading databases..."}
-                emptyIndicator={
-                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
-                       Loading options...
-                    </p>
-                }
-            />
+            placeholder={"Loading databases..."}
+            emptyIndicator={
+                <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                    Loading options...
+                </p>
+            }
+        />
     }
     return (
         <div className="relative">
             <MultipleSelector
                 defaultOptions={sourceOptions}
-                placeholder={"Select a source..."}
+                placeholder={"Select a collection..."}
                 onChange={handleChanges}
                 value={selectedOptions}
+                maxSelected={1}
                 emptyIndicator={
                     <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
                         No results found.
