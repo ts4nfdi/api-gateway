@@ -15,6 +15,8 @@ export default function ArtefactModal({artefact, onClose}) {
                     <p><strong>Backend Type:</strong> {artefact.backend_type}</p>
                     <p><strong>Source:</strong> <a href={artefact.source} target="_blank"
                                                    rel="noopener noreferrer">{artefact.source}</a></p>
+
+                    <p><strong>Description:</strong> {artefact.description} </p>
                     <p><strong>Source Name:</strong> {artefact.source_name}</p>
                     <p><strong>Source URL:</strong> <a href={artefact.source_url} target="_blank"
                                                        rel="noopener noreferrer">{artefact.source_url}</a></p>
