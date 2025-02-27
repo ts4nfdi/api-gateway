@@ -9,7 +9,12 @@ import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.responses.ApiResponse;
 import org.semantics.apigateway.model.responses.TransformedApiResponse;
+import org.semantics.apigateway.model.user.InvalidJwtException;
+import org.semantics.apigateway.model.user.TerminologyCollection;
+import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.*;
+import org.semantics.apigateway.service.auth.CollectionRepository;
+import org.semantics.apigateway.service.auth.CollectionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +33,25 @@ public class SearchService extends AbstractEndpointService {
     private final SearchLocalIndexerService localIndexer;
 
     private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
+    private final CollectionService collectionService;
 
-    public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer, ApiAccessor apiAccessor, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService) {
+    public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer, ApiAccessor apiAccessor, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService, CollectionService collectionService) {
         super(configurationLoader, apiAccessor, jsonLdTransform, responseTransformerService);
         this.localIndexer = localIndexer;
+        this.collectionService = collectionService;
     }
 
+    public CompletableFuture<Object> performSearch(String query, String database, String format, String targetDbSchema, boolean showResponseConfiguration) {
+        return performSearch(query, database, ResponseFormat.valueOf(format), TargetDbSchema.valueOf(targetDbSchema), showResponseConfiguration, null, null, null);
+    }
 
     public CompletableFuture<Object> performSearch(
-            String query, String database, ResponseFormat format,
-            TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
+            String query, String database,
+            ResponseFormat format,
+            TargetDbSchema targetDbSchema, boolean showResponseConfiguration,
+            String[] terminologies,
+            String collectionId,
+            User user) {
 
         String db = "", formatStr = "", target = "";
 
@@ -52,20 +66,23 @@ public class SearchService extends AbstractEndpointService {
         }
 
 
-        return performSearch(query, db, formatStr, target, showResponseConfiguration);
+        return performSearch(query, db, formatStr, target, showResponseConfiguration, terminologies, collectionId, user);
     }
 
     // Performs a federated search across multiple databases and optionally transforms the results for a target database schema]
     public CompletableFuture<Object> performSearch(
             String query, String database, String format,
-            String targetDbSchema, boolean showResponseConfiguration) {
+            String targetDbSchema, boolean showResponseConfiguration,
+            String[] terminologies,
+            String collectionId,
+            User currentUser) {
 
         CompletableFuture<Object> future = new CompletableFuture<>();
         Map<String, String> apiUrls;
 
         try {
-             apiUrls = filterDatabases(database, "search");
-        }catch (Exception e) {
+            apiUrls = filterDatabases(database, "search");
+        } catch (Exception e) {
             future.completeExceptionally(e);
             return future;
         }
@@ -73,12 +90,41 @@ public class SearchService extends AbstractEndpointService {
         getAccessor().setUrls(apiUrls);
         getAccessor().setLogger(logger);
 
+        TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
+
         return getAccessor().get(query)
                 .thenApply(data -> this.transformApiResponses(data, "search"))
-                .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration))
+                .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration, collection))
+                .thenApply(data -> filterOutByTerminologies(terminologies, collection , data))
                 .thenApply(data -> reIndexResults(query, data))
                 .thenApply(data -> transformJsonLd(data, format))
                 .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema));
+    }
+
+
+    private AggregatedApiResponse filterOutByTerminologies(String[] terminologies, TerminologyCollection terminologiesCollection, AggregatedApiResponse data) {
+        String[] finalTerminologies;
+
+        if (terminologiesCollection != null) {
+            finalTerminologies = terminologiesCollection.getTerminologies().toArray(new String[0]);
+        } else {
+            finalTerminologies = terminologies;
+        }
+
+        if (finalTerminologies == null || finalTerminologies.length == 0) {
+            return data;
+        }
+
+        List<Map<String, Object>> collection = data.getCollection();
+        collection = collection.stream()
+                .filter(map -> {
+                    String terminology = (String) map.get("ontology");
+                    return Arrays.stream(finalTerminologies).map(String::toLowerCase).toList().contains(terminology.toLowerCase());
+                })
+                .collect(Collectors.toList());
+        data.setCollection(collection);
+
+        return data;
     }
 
 
