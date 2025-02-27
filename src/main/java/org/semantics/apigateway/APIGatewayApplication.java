@@ -1,8 +1,11 @@
 package org.semantics.apigateway;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.models.OpenAPI;
 import org.semantics.apigateway.model.user.Role;
 import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.auth.UserRepository;
@@ -34,6 +37,12 @@ import java.util.concurrent.Executor;
                 @Tag(name = "Search"),
                 @Tag(name = "Artefacts"),
         }
+)
+@SecurityScheme(
+        name = "BearerAuth",
+        type = SecuritySchemeType.HTTP,
+        scheme = "bearer",
+        bearerFormat = "JWT"
 )
 public class APIGatewayApplication implements CommandLineRunner {
 
