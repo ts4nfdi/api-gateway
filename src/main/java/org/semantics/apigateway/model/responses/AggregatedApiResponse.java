@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.semantics.apigateway.model.user.TerminologyCollection;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,11 +26,13 @@ public class AggregatedApiResponse {
     @JsonIgnore
     private List<ApiResponse> originalResponses;
     private boolean showConfig = false;
+    private TerminologyCollection terminologyCollection = null;
 
     @JsonGetter
     public Map<String, Object> responseConfig() {
         Map<String, Object> config = new HashMap<>();
         config.put("totalResponseTime", totalResponseTime());
+        config.put("totalResults", collection.size());
 
         config.put("databases", originalResponses.stream().map(x -> {
             Map<String, Object> response = new HashMap<>();
@@ -37,6 +41,11 @@ public class AggregatedApiResponse {
             response.put("responseTime", x.getResponseTime());
             return response;
         }));
+
+        if(terminologyCollection != null) {
+            config.put("collection", terminologyCollection);
+        }
+
         return config;
     }
 
