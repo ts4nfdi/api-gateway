@@ -1,16 +1,17 @@
 package org.semantics.apigateway.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import org.semantics.apigateway.api.OlsTransformer;
 import org.semantics.apigateway.api.OntoPortalTransformer;
 import org.semantics.apigateway.api.SkosmosTransformer;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.springframework.stereotype.Service;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
