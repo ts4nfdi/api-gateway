@@ -1,4 +1,4 @@
-package org.semantics.apigateway.controller;
+package org.semantics.apigateway.controller.local;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
