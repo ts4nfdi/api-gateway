@@ -1,0 +1,37 @@
+name: skosmos
+endpoints:
+  search:
+    path: /search?query=%s*&lang=en&fields=scopeNote
+    responseMapping:
+      nestedJson: results
+      iri: uri
+      label: prefLabel
+      synonym: altLabel
+      ontology: vocab
+      type: type
+      description: scopeNote
+  resources:
+    path: /vocabularies?lang=en
+    responseMapping:
+      nestedJson: vocabularies
+      label: id
+      iri: uri
+      type: type
+      ontology: id
+      shortForm: id
+      description: title
+  concept_details:
+    path: /agrovoc/label?acronym=%s&uri=%s
+    responseMapping:
+      label: prefLabel
+      iri: uri
+      type: type
+      synonym: synonym
+  resource_details:
+    path: /agrovoc
+    responseMapping:
+      label: id
+      iri: uri
+      type: type
+      ontology: id
+      description: title

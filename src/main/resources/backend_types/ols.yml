@@ -1,0 +1,54 @@
+name: ols
+endpoints:
+  search:
+    path: search?q=%s
+    responseMapping:
+      nestedJson: response
+      key: docs
+      label: label
+      iri: iri
+      ontology: ontology_name
+      synonym: synonym
+      shortForm: short_form
+      description: description
+      type: type
+  resources:
+    path: ontologies?size=10000
+    responseMapping:
+      nestedJson: _embedded
+      key: ontologies
+      label: config->title|ontologyId
+      iri: config->id
+      ontology: ontologyId
+      synonym: synonym
+      shortForm: ontologyId
+      description: config->description
+      type: type
+      sourceUrl: _links->self->href
+      version: config->version
+  concept_details:
+    path: ontologies/%s/terms/%s
+    responseMapping:
+      label: label
+      iri: iri
+      ontology: ontology_name
+      synonym: synonyms
+      shortForm: short_form
+      description: description
+      sourceUrl: _links->self->href
+      type: type
+      obsolete: is_obsolete
+      ontologyIri: ontology_iri
+  resource_details:
+    path: ontologies/%s
+    responseMapping:
+      nestedJson: ""
+      key: ""
+      label: ontologyId
+      iri: iri
+      ontology: ontologyId
+      synonym: synonym
+      shortForm: short_form
+      description: description
+      sourceUrl: _links->self->href
+      type: type
