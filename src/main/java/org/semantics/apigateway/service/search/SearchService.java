@@ -39,37 +39,15 @@ public class SearchService extends AbstractEndpointService {
     }
 
     public CompletableFuture<Object> performSearch(String query, String database, String format, String targetDbSchema, boolean showResponseConfiguration) {
-        return performSearch(query, database, ResponseFormat.valueOf(format), TargetDbSchema.valueOf(targetDbSchema), showResponseConfiguration, null, null, null);
-    }
-
-    public CompletableFuture<Object> performSearch(
-            String query, String database,
-            ResponseFormat format,
-            TargetDbSchema targetDbSchema, boolean showResponseConfiguration,
-            String[] terminologies,
-            String collectionId,
-            User user) {
-
-        String db = "", formatStr = "", target = "";
-
-        if (database != null) {
-            db = database.toString();
-        }
-        if (format != null) {
-            formatStr = format.toString();
-        }
-        if (targetDbSchema != null) {
-            target = targetDbSchema.toString();
-        }
-
-
-        return performSearch(query, db, formatStr, target, showResponseConfiguration, terminologies, collectionId, user);
+        ResponseFormat responseFormat = format == null ? ResponseFormat.json : ResponseFormat.valueOf(format);
+        TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
+        return performSearch(query, database, responseFormat, targetDbSchemaEnum, showResponseConfiguration, null, null, null);
     }
 
     // Performs a federated search across multiple databases and optionally transforms the results for a target database schema]
     public CompletableFuture<Object> performSearch(
-            String query, String database, String format,
-            String targetDbSchema, boolean showResponseConfiguration,
+            String query, String database, ResponseFormat format,
+            TargetDbSchema targetDbSchema, boolean showResponseConfiguration,
             String[] terminologies,
             String collectionId,
             User currentUser) {
@@ -94,36 +72,11 @@ public class SearchService extends AbstractEndpointService {
         return accessor.get(query)
                 .thenApply(data -> this.transformApiResponses(data, "search"))
                 .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration, collection))
-                .thenApply(data -> filterOutByTerminologies(terminologies, collection , data))
+                .thenApply(data -> filterOutByTerminologies(terminologies, data))
+                .thenApply(data -> filterOutByCollection(collection , data))
                 .thenApply(data -> reIndexResults(query, data))
                 .thenApply(data -> transformJsonLd(data, format))
                 .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema));
-    }
-
-
-    private AggregatedApiResponse filterOutByTerminologies(String[] terminologies, TerminologyCollection terminologiesCollection, AggregatedApiResponse data) {
-        String[] finalTerminologies;
-
-        if (terminologiesCollection != null) {
-            finalTerminologies = terminologiesCollection.getTerminologies().toArray(new String[0]);
-        } else {
-            finalTerminologies = terminologies;
-        }
-
-        if (finalTerminologies == null || finalTerminologies.length == 0) {
-            return data;
-        }
-
-        List<Map<String, Object>> collection = data.getCollection();
-        collection = collection.stream()
-                .filter(map -> {
-                    String terminology = (String) map.get("ontology");
-                    return Arrays.stream(finalTerminologies).map(String::toLowerCase).toList().contains(terminology.toLowerCase());
-                })
-                .collect(Collectors.toList());
-        data.setCollection(collection);
-
-        return data;
     }
 
 
