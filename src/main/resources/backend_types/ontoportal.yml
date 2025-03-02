@@ -1,0 +1,52 @@
+name: ontoportal
+endpoints:
+  search:
+    path: /search?q=%s&apikey=%s
+    responseMapping:
+      nestedJson: collection
+      label: prefLabel
+      iri: "@id"
+      synonym: synonym
+      ontology: links->ontology
+      sourceUrl: links->ui
+      description: definition
+      type: "@type"
+  resources:
+    path: /submissions?apikey=%s&display_links=true&display_context=false&display=ontology,description,URI,released,modificationDate,alternative,version
+    responseMapping:
+      nestedJson: collection
+      label: ontology->name
+      iri: URI|uri
+      type: "@type"
+      ontology: ontology->acronym
+      ontologyIri: URI|uri
+      description: description
+      sourceUrl: ontology->links->ui
+      created: released
+      modified: modificationDate
+      synonym: alternative
+      version: version
+      shortForm: ontology->acronym
+  concept_details:
+    path: ontologies/%s/classes/%s?apikey=%s
+    responseMapping:
+      label: prefLabel
+      iri: "@id"
+      synonym: synonym
+      ontology: links->ontology
+      description: definition
+      sourceUrl: links->ui
+      type: "@type"
+      obsolete: obsolete
+      created: created
+      modified: modified
+  resource_details:
+    path: ontologies/%s?apikey=%s
+    responseMapping:
+      nestedJson: ""
+      label: acronym
+      iri: "@id"
+      type: "@type"
+      ontology: acronym
+      sourceUrl: links->ui
+      description: name
