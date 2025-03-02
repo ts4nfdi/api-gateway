@@ -1,4 +1,4 @@
-package org.semantics.apigateway.controller;
+package org.semantics.apigateway.controller.local;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
