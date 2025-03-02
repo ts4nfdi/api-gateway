@@ -25,7 +25,7 @@ public class AuthService implements UserDetailsService {
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .roles(user.getRoles().stream().map(x -> x.toString()).toArray(String[]::new))
+                .roles(user.getRoles().stream().map(Enum::toString).toArray(String[]::new))
                 .build();
     }
 
@@ -47,5 +47,13 @@ public class AuthService implements UserDetailsService {
 
     public User getCurrentUser() {
         return this.userRepository.findByUsername(getCurrentUsername()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    public User tryGetCurrentUser() {
+        try {
+            return getCurrentUser();
+        } catch (UsernameNotFoundException e) {
+            return null;
+        }
     }
 }

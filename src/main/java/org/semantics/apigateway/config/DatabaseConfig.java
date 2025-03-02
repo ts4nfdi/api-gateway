@@ -1,6 +1,8 @@
 package org.semantics.apigateway.config;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -20,8 +22,9 @@ public class DatabaseConfig {
     private String type;
     private String name;
     private String url;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String apiKey;
-
+    @JsonIgnore
     private ServiceConfig serviceConfig;
 
 
@@ -29,6 +32,7 @@ public class DatabaseConfig {
         return serviceConfig.getEndpoints().getOrDefault(endpoint, new EndpointConfig()).getResponseMapping();
     }
 
+    @JsonIgnore
     public String getDatabase() {
         return type;
     }
@@ -59,4 +63,5 @@ public class DatabaseConfig {
     public String getArtefactsUrl() {
         return getUrl("resources");
     }
+
 }
