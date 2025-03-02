@@ -1,0 +1,19 @@
+data:
+  "NCIT_C2984 term (OLS)": "/artefacts/ncit/terms?uri=http://purl.obolibrary.org/obo/NCIT_C2984&showResponseConfiguration=true"
+  "AGROVOC/c_330834 term (OntoPortal, SKOSMOS)": "/artefacts/AGROVOC/terms?uri=http://aims.fao.org/aos/agrovoc/c_330834&showResponseConfiguration=true"
+  "NCBITaxon_131567 term from BCO (OntoPortal, ols, ols2)": "/artefacts/bco/terms?uri=http://purl.obolibrary.org/obo/NCBITaxon_131567&showResponseConfiguration=true"
+  "NCBITaxon_2 term from NCBITaxon (OntoPortal, ols2)": "/artefacts/ncbitaxon/terms?uri=http://purl.obolibrary.org/obo/NCBITaxon_2&showResponseConfiguration=true"
+
+metadata:
+  "Artefacts from OLS v1": "/artefacts?database=OLS&showResponseConfiguration=true"
+  "Artefacts from OntoPortal": "/artefacts?database=ontoportal&showResponseConfiguration=true"
+  "Artefacts from EBI (ols v2)": "/artefacts?database=ebi&showResponseConfiguration=true"
+  "Artefacts from SKOSMOS (AGROVOC)": "/artefacts?database=skosmos&showResponseConfiguration=true"
+  "Artefacts from all": "/artefacts?showResponseConfiguration=true"
+
+search:
+  "Search \"concept\" in all": "/search?query=concept&showResponseConfiguration=true"
+  "Search \"plant\" in OntoPortal": "/search?query=plant&database=ontoportal&showResponseConfiguration=true"
+  "Search \"cancer\" in EBI (ols v2)": "/search?query=cancer&database=ols2&showResponseConfiguration=true"
+  "Search \"cancer\" in Ols v1": "/search?query=cancer&database=OLS&showResponseConfiguration=true"
+  "Search \"honey\" in BiodivPortal": "/search?query=honey&database=biodivportal&showResponseConfiguration=true"
