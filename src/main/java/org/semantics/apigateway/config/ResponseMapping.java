@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Arrays;
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,11 +15,15 @@ public class ResponseMapping {
     private String label;
     private String source;
     private String sourceUrl;
-    private String backendType;
     private String shortForm;
     private String synonym;
     private String ontology;
     private String key;
     private String description;
     private String type;
+    private String obsolete;
+    private String OntologyIri;
+    private String created;
+    private String modified;
+    private String version;
 }
