@@ -34,7 +34,7 @@ public class CollectionService  {
 
     public TerminologyCollection getCurrentUserCollection(String collectionId, User user) {
 
-        if (collectionId == null) {
+        if (collectionId == null || collectionId.isEmpty()) {
             return null;
         }
 

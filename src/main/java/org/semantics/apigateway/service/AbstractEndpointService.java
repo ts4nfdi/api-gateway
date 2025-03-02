@@ -156,4 +156,33 @@ public abstract class AbstractEndpointService {
 
         return aggregatedApiResponse;
     }
+
+    protected AggregatedApiResponse filterOutByTerminologies(String[] terminologies, AggregatedApiResponse data) {
+        String[] finalTerminologies = terminologies;
+
+
+        if (finalTerminologies == null || finalTerminologies.length == 0) {
+            return data;
+        }
+
+        List<Map<String, Object>> collection = data.getCollection();
+        collection = collection.stream()
+                .filter(map -> {
+                    String terminology = (String) map.get("ontology");
+                    return Arrays.stream(finalTerminologies).map(String::toLowerCase).toList().contains(terminology.toLowerCase());
+                })
+                .collect(Collectors.toList());
+        data.setCollection(collection);
+
+        return data;
+    }
+
+
+    protected AggregatedApiResponse filterOutByCollection(TerminologyCollection terminologiesCollection, AggregatedApiResponse data) {
+        if (terminologiesCollection == null) {
+            return data;
+        }
+
+        return filterOutByTerminologies(terminologiesCollection.getTerminologies().toArray(new String[0]), data);
+    }
 }
