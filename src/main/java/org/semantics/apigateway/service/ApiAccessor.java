@@ -6,16 +6,12 @@ import org.semantics.apigateway.model.responses.ApiResponse;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.DefaultResponseErrorHandler;
-import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
+
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -32,6 +28,7 @@ public class ApiAccessor {
     private Logger logger;
     private boolean unDecodeUrl;
     private CacheService cacheService;
+    private boolean cacheEnabled;
 
  
     @Autowired
@@ -43,6 +40,7 @@ public class ApiAccessor {
         this.restTemplate = new RestTemplate(factory);
         this.urls = new HashMap<>();
         this.unDecodeUrl = false;
+        this.cacheEnabled = true;
     }
 
     @Async
@@ -75,12 +73,6 @@ public class ApiAccessor {
 
 
 
-    private static List<HttpMessageConverter<?>> createDefaultMessageConverters() {
-        // Create and return a list of default message converters
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getMessageConverters();
-    }
-
     public ApiResponse call(String url, String apikey, String... query) {
 
 
@@ -92,10 +84,13 @@ public class ApiAccessor {
         try {
             fullUrl = constructUrl(url, apikey, query);
 
-            if (cacheService.exists(fullUrl)) {
+            if (cacheService.exists(fullUrl) && cacheEnabled) {
                 logger.info("Cached result for request URL: {} and query parameters: {}", url, query);
                 return (ApiResponse) cacheService.read(fullUrl);
             }
+
+            if(!cacheEnabled)
+                logger.info("Cache is disabled");
 
             logger.info("Accessing URL: {}", fullUrl);
 
