@@ -1,75 +1,22 @@
 {
   "@context": {
     "rdfs": "http:\/\/www.w3.org\/2000\/01\/rdf-schema#",
-    "skos": "http:\/\/www.w3.org\/2004\/02\/skos\/core#",
     "onki": "http:\/\/schema.onki.fi\/onki#",
-    "dct": "http:\/\/purl.org\/dc\/terms\/",
-    "uri": "@id",
-    "type": "@type",
-    "conceptschemes": "onki:hasConceptScheme",
+    "title": {
+      "@id": "rdfs:label",
+      "@language": "en"
+    },
+    "vocabularies": "onki:hasVocabulary",
     "id": "onki:vocabularyIdentifier",
-    "defaultLanguage": "onki:defaultLanguage",
-    "languages": "onki:language",
-    "label": "rdfs:label",
-    "prefLabel": "skos:prefLabel",
-    "title": "dct:title",
-    "@language": "en",
-    "@base": "https:\/\/agrovoc.fao.org\/browse\/rest\/v1\/agrovoc\/"
+    "uri": "@id",
+    "@base": "https:\/\/agrovoc.fao.org\/browse\/rest\/v1\/vocabularies"
   },
   "uri": "",
-  "id": "agrovoc",
-  "marcSource": false,
-  "title": "AGROVOC Multilingual Thesaurus",
-  "defaultLanguage": "en",
-  "languages": [
-    "de",
-    "be",
-    "my",
-    "ca",
-    "cs",
-    "zh",
-    "ko",
-    "da",
-    "sk",
-    "es",
-    "et",
-    "fi",
-    "fr",
-    "ka",
-    "el",
-    "hi",
-    "hu",
-    "en",
-    "it",
-    "ja",
-    "km",
-    "lo",
-    "la",
-    "ms",
-    "nl",
-    "nb",
-    "nn",
-    "fa",
-    "pl",
-    "pt",
-    "pt-BR",
-    "ro",
-    "ru",
-    "sr",
-    "sw",
-    "sv",
-    "th",
-    "te",
-    "tr",
-    "uk",
-    "vi",
-    "ar"
-  ],
-  "conceptschemes": [
+  "vocabularies": [
     {
-      "prefLabel": "AGROVOC",
-      "uri": "http:\/\/aims.fao.org\/aos\/agrovoc",
-      "type": "skos:ConceptScheme"
+      "uri": "agrovoc",
+      "id": "agrovoc",
+      "title": "AGROVOC Multilingual Thesaurus"
     }
   ]
 }

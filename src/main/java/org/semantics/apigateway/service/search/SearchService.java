@@ -41,7 +41,16 @@ public class SearchService extends AbstractEndpointService {
     public CompletableFuture<Object> performSearch(String query, String database, String format, String targetDbSchema, boolean showResponseConfiguration) {
         ResponseFormat responseFormat = format == null ? null : ResponseFormat.valueOf(format);
         TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
-        return performSearch(query, database, responseFormat, targetDbSchemaEnum, showResponseConfiguration, null, null, null);
+        return performSearch(query, database, responseFormat, targetDbSchemaEnum, showResponseConfiguration, null, null, null, null);
+    }
+
+    public CompletableFuture<Object> performSearch(
+            String query, String database, ResponseFormat format,
+            TargetDbSchema targetDbSchema, boolean showResponseConfiguration,
+            String[] terminologies,
+            String collectionId,
+            User currentUser) {
+        return performSearch(query, database, format, targetDbSchema, showResponseConfiguration, terminologies, collectionId, currentUser, null);
     }
 
     public CompletableFuture<Object> performSearch(
@@ -74,7 +83,8 @@ public class SearchService extends AbstractEndpointService {
             String targetDbSchema, boolean showResponseConfiguration,
             String[] terminologies,
             String collectionId,
-            User currentUser) {
+            User currentUser,
+            ApiAccessor accessor) {
 
         CompletableFuture<Object> future = new CompletableFuture<>();
         Map<String, String> apiUrls;
@@ -86,7 +96,9 @@ public class SearchService extends AbstractEndpointService {
             return future;
         }
 
-        ApiAccessor accessor = getAccessor();
+        if (accessor == null) {
+            accessor = getAccessor();
+        }
         accessor.setUrls(apiUrls);
         accessor.setLogger(logger);
         accessor.setCacheEnabled(false);

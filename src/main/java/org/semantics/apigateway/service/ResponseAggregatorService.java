@@ -38,7 +38,7 @@ public class ResponseAggregatorService {
         List<AggregatedResourceBody> result = transformData(nestedData, config, endpoint);
         newResponse.setCollection(result);
 
-        logger.info("Transformed response: {}", result.size());
+        logger.info("Transformed response: {} from  {}", result.size(), config.getName());
         return newResponse;
     }
 
