@@ -80,6 +80,9 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
+      react-json-view-lite:
+        specifier: ^2.3.0
+        version: 2.3.0(react@18.2.0)
       react-query:
         specifier: 3.39.2
         version: 3.39.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -2552,6 +2555,12 @@ packages:
 
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
+
+  react-json-view-lite@2.3.0:
+    resolution: {integrity: sha512-btGE+nynBIPRPLWMkE7ASOeF7QzzG6S3bTOTL0FLFNvprMsODmv8eUMFCUK9SOJqV8GCOW/avCpDJnMSchTafQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
 
   react-query@3.39.2:
     resolution: {integrity: sha512-F6hYDKyNgDQfQOuR1Rsp3VRzJnWHx6aRnnIZHMNGGgbL3SBgpZTDg8MQwmxOgpCAoqZJA+JSNCydF1xGJqKOCA==}
@@ -5885,6 +5894,10 @@ snapshots:
   react-is@18.1.0: {}
 
   react-is@18.3.1: {}
+
+  react-json-view-lite@2.3.0(react@18.2.0):
+    dependencies:
+      react: 18.2.0
 
   react-query@3.39.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
