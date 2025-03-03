@@ -49,11 +49,11 @@ public class AggregatedResourceBody {
     @JsonIgnore
     private Map<String, Object> originalBody;
 
+
     public static AggregatedResourceBody fromMap(Map<String, Object> item, DatabaseConfig config, String endpoint) throws RuntimeException {
         AggregatedResourceBody newItem = new AggregatedResourceBody();
         ResponseMapping responseMapping = config.getResponseMapping(endpoint);
         newItem.setOriginalBody(item);
-
         // Mapping fields based on the JSON configuration
 
         setStringProperty(item, responseMapping.getIri(), newItem::setIri);
@@ -87,7 +87,6 @@ public class AggregatedResourceBody {
 
         return newItem;
     }
-
 
     public Map<String, Object> toMap(boolean includeOriginalBody) {
         Map<String, Object> map = new HashMap<>();

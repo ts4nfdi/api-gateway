@@ -44,6 +44,7 @@ public class SearchService extends AbstractEndpointService {
         return performSearch(query, database, responseFormat, targetDbSchemaEnum, showResponseConfiguration, null, null, null, null);
     }
 
+    // Performs a federated search across multiple databases and optionally transforms the results for a target database schema]
     public CompletableFuture<Object> performSearch(
             String query, String database, ResponseFormat format,
             TargetDbSchema targetDbSchema, boolean showResponseConfiguration,
@@ -77,7 +78,6 @@ public class SearchService extends AbstractEndpointService {
         }
         accessor.setUrls(apiUrls);
         accessor.setLogger(logger);
-        accessor.setCacheEnabled(false);
 
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
 
