@@ -1,7 +1,6 @@
-package org.semantics.apigateway.controller;
+package org.semantics.apigateway.controller.local;
 
-import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
-import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.semantics.apigateway.model.user.TerminologyCollection;
@@ -16,7 +15,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/users/collections")
 @Tag(name = "Users - Collections")
-@SecurityScheme(type = SecuritySchemeType.APIKEY)
+@SecurityRequirement(name = "BearerAuth")
 @AllArgsConstructor
 @CrossOrigin
 public class CollectionsController {

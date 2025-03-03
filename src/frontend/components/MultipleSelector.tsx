@@ -1,7 +1,7 @@
 import {Command as CommandPrimitive, useCommandState} from 'cmdk';
 import {X} from 'lucide-react';
 import * as React from 'react';
-import {forwardRef, useEffect} from 'react';
+import {forwardRef, Ref, useEffect} from 'react';
 
 import {Badge} from '@/components/ui/badge';
 import {Command, CommandGroup, CommandItem, CommandList} from '@/components/ui/command';
@@ -193,7 +193,7 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
             inputProps,
             hideClearAllButton = false,
         }: MultipleSelectorProps,
-        ref: React.Ref<MultipleSelectorRef>,
+        ref: Ref<MultipleSelectorRef>,
     ) => {
         const inputRef = React.useRef<HTMLInputElement>(null);
         const [open, setOpen] = React.useState(false);
