@@ -2,11 +2,9 @@ package org.semantics.apigateway;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.apache.lucene.queryparser.classic.ParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.semantics.apigateway.config.DatabaseConfig;
@@ -19,7 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.nio.file.Files;
@@ -32,7 +29,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
@@ -89,7 +87,7 @@ public class SearchServiceTest {
 
     @Test
     public void testSearchAllDatabases() {
-        CompletableFuture<Object> r = searchService.performSearch("plant", "", "", "", false);
+        CompletableFuture<Object> r = searchService.performSearch("plant", "",null,null, false);
 
         AggregatedApiResponse response = (AggregatedApiResponse) r.join();
 
@@ -128,7 +126,7 @@ public class SearchServiceTest {
 
     @Test
     public void testSearchOlsSchema() {
-        CompletableFuture<Object> r = searchService.performSearch("plant", "", "", "ols", false);
+        CompletableFuture<Object> r = searchService.performSearch("plant", "", null, "ols", false);
 
         Map<String, Object> response = (Map<String, Object>) r.join();
 
@@ -144,7 +142,7 @@ public class SearchServiceTest {
 
     @Test
     public void testSearchJsonLdFormat() {
-        CompletableFuture<Object> r = searchService.performSearch("plant", "", "jsonld", "", false);
+        CompletableFuture<Object> r = searchService.performSearch("plant", "", "jsonld", null, false);
 
         List<Map<String, Object>> response = (List<Map<String, Object>>) r.join();
 

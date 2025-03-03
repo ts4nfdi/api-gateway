@@ -1,28 +1,15 @@
 package org.semantics.apigateway.service;
 
-import lombok.Getter;
-import org.apache.lucene.queryparser.classic.ParseException;
-import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
-import org.semantics.apigateway.model.responses.ApiResponse;
-import org.semantics.apigateway.model.responses.TransformedApiResponse;
-import org.semantics.apigateway.service.search.SearchLocalIndexerService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
 
