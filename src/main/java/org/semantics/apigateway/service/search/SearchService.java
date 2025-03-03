@@ -1,27 +1,21 @@
 package org.semantics.apigateway.service.search;
 
-import lombok.Getter;
 import org.apache.lucene.queryparser.classic.ParseException;
-import org.semantics.apigateway.config.DatabaseConfig;
-import org.semantics.apigateway.model.BackendType;
 import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
-import org.semantics.apigateway.model.responses.ApiResponse;
-import org.semantics.apigateway.model.responses.TransformedApiResponse;
-import org.semantics.apigateway.model.user.InvalidJwtException;
 import org.semantics.apigateway.model.user.TerminologyCollection;
 import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.*;
-import org.semantics.apigateway.service.auth.CollectionRepository;
 import org.semantics.apigateway.service.auth.CollectionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -42,7 +36,9 @@ public class SearchService extends AbstractEndpointService {
     }
 
     public CompletableFuture<Object> performSearch(String query, String database, String format, String targetDbSchema, boolean showResponseConfiguration) {
-        return performSearch(query, database, ResponseFormat.valueOf(format), TargetDbSchema.valueOf(targetDbSchema), showResponseConfiguration, null, null, null);
+        ResponseFormat responseFormat = format == null ? null : ResponseFormat.valueOf(format);
+        TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
+        return performSearch(query, database, responseFormat, targetDbSchemaEnum, showResponseConfiguration, null, null, null);
     }
 
     public CompletableFuture<Object> performSearch(
