@@ -1,5 +1,5 @@
 import httpClient from "@/lib/httpClient";
-import {RestApplicationClient, RestResponse, uriEncoding} from "@/lib/RestClient";
+import {RestApplicationClient, RestResponse} from "@/lib/RestClient";
 
 
 interface CreateCollectionRequest {
