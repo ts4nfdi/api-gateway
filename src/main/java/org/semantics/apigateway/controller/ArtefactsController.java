@@ -14,8 +14,6 @@ import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.ArtefactsService;
 import org.semantics.apigateway.service.auth.AuthService;
-import org.semantics.apigateway.service.search.SearchService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
