@@ -22,6 +22,10 @@ export class ConfigurationRestClient extends RestApplicationClient {
     getAllServices(): RestResponse<ServiceConfig[]> {
         return this.httpClient.request({method: 'GET', url: '/config/services'})
     }
+
+    getMetadata(type: string): RestResponse<any> {
+        return this.httpClient.request({method: 'GET', url: `/config/metadata/${type}`})
+    }
 }
 
 export const configurationRestClient = new ConfigurationRestClient(httpClient)
