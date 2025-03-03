@@ -14,13 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +39,6 @@ public class ConfigurationLoader {
     private List<DatabaseConfig> databaseConfigs;
     private List<ServiceConfig> serviceConfigs;
     private Map<String, Map<String, String>> responseMappings;
-
 
 
     // Method invoked after on server start, loads database configurations and replace environment variables
@@ -63,33 +62,23 @@ public class ConfigurationLoader {
 
     private List<ServiceConfig> loadServiceConfigurations() throws IOException {
         List<ServiceConfig> services = new ArrayList<>();
-        Resource backendTypesDir = resourceLoader.getResource("classpath:backend_types");
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource[] yamlResources = resolver.getResources("classpath:/backend_types/*.yml");
 
-        if (!backendTypesDir.exists()) {
-            logger.warn("Backend types directory not found: {}", backendTypesDir);
-            return services;
-        }
-
-        File directory = backendTypesDir.getFile();
-        File[] yamlFiles = directory.listFiles((dir, name) -> name.toLowerCase().endsWith(".yaml") || name.toLowerCase().endsWith(".yml"));
-
-        if (yamlFiles == null || yamlFiles.length == 0) {
+        if (yamlResources.length == 0) {
             logger.warn("No YAML files found in backend_types directory");
             return services;
         }
 
         ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
 
-        for (File yamlFile : yamlFiles) {
-            try {
-                logger.info("Loading service configuration from: {}", yamlFile.getName());
-                String serviceConfigYaml = Files.readString(yamlFile.toPath());
-
-                // Parse the service config and add to the list
-                ServiceConfig serviceConfig = objectMapper.readValue(serviceConfigYaml, ServiceConfig.class);
+        for (Resource resource : yamlResources) {
+            try (InputStream inputStream = resource.getInputStream()) {
+                logger.info("Loading service configuration from: {}", resource.getFilename());
+                ServiceConfig serviceConfig = objectMapper.readValue(inputStream, ServiceConfig.class);
                 services.add(serviceConfig);
             } catch (Exception e) {
-                logger.error("Error loading service configuration from file: {}", yamlFile.getName(), e);
+                logger.error("Error loading service configuration from file: {}", resource.getFilename(), e);
                 throw new RuntimeException("Error loading service configuration", e);
             }
         }
