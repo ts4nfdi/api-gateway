@@ -1,14 +1,16 @@
 package org.semantics.apigateway.service;
 
-import lombok.Getter;
 import org.semantics.apigateway.config.DatabaseConfig;
+import org.semantics.apigateway.model.ResponseFormat;
+import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.responses.ApiResponse;
 import org.semantics.apigateway.model.responses.TransformedApiResponse;
 import org.semantics.apigateway.model.user.TerminologyCollection;
+import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,9 +24,8 @@ import java.util.stream.Collectors;
 public abstract class AbstractEndpointService {
 
     private final ConfigurationLoader configurationLoader;
-    private ResponseTransformerService responseTransformerService;
-    @Getter
-    private ApiAccessor accessor;
+    private final ResponseTransformerService responseTransformerService;
+    private final CacheManager cacheManager;
     private final JsonLdTransform jsonLdTransform;
     protected static final Logger logger = LoggerFactory.getLogger(AbstractEndpointService.class);
 
@@ -34,18 +35,21 @@ public abstract class AbstractEndpointService {
     private final List<DatabaseConfig> ontologyConfigs;
 
 
-    public AbstractEndpointService(ConfigurationLoader configurationLoader, ApiAccessor accessor, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService) {
+    public AbstractEndpointService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService) {
         this.configurationLoader = configurationLoader;
         this.ontologyConfigs = configurationLoader.getDatabaseConfigs();
-        this.accessor = accessor;
         this.jsonLdTransform = jsonLdTransform;
         this.responseTransformerService = responseTransformerService;
+        this.cacheManager = cacheManager;
     }
 
+    protected ApiAccessor getAccessor() {
+        return new ApiAccessor(this.cacheManager);
+    }
 
+    protected Object transformForTargetDbSchema(Object data, TargetDbSchema targetDbSchemaEnum) {
+        String targetDbSchema = targetDbSchemaEnum == null ? "" : targetDbSchemaEnum.toString();
 
-
-    protected Object transformForTargetDbSchema(Object data, String targetDbSchema) {
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
             try {
                 List<Map<String, Object>> collections;
@@ -67,9 +71,9 @@ public abstract class AbstractEndpointService {
 
     protected Map<String, String> filterDatabases(String database, String endpoint) {
         Map<String, String> apiUrls;
-        String[] databases = database.split(",");
+        String[] databases = (database == null || database.isEmpty()) ? new String[0] : database.split(",");
 
-        if (database.isEmpty()) {
+        if (databases.length == 0) {
             apiUrls = ontologyConfigs.stream().collect(Collectors.toMap(dbConfig -> dbConfig.getUrl(endpoint), DatabaseConfig::getApiKey));
         } else {
 
@@ -85,7 +89,9 @@ public abstract class AbstractEndpointService {
         return apiUrls;
     }
 
-    protected Object transformJsonLd(AggregatedApiResponse transformedResponse, String format) {
+    protected Object transformJsonLd(AggregatedApiResponse transformedResponse, ResponseFormat formatEnum) {
+        String format = formatEnum == null ? "" : formatEnum.toString();
+
         if (jsonLdTransform.isJsonLdFormat(format)) {
             return jsonLdTransform.convertToJsonLd(transformedResponse.getCollection());
         } else {
@@ -102,8 +108,12 @@ public abstract class AbstractEndpointService {
     protected TransformedApiResponse transformSingleApiResponse(Map.Entry<String, ApiResponse> entry, String endpoint) {
         String url = entry.getKey();
         ApiResponse results = entry.getValue();
-
-        DatabaseConfig config = this.configurationLoader.getConfigByUrl(url, endpoint);
+        DatabaseConfig config = null;
+        try {
+            config = this.configurationLoader.getConfigByUrl(url, endpoint);
+        } catch (Exception e) {
+            logger.error("Error getting config for URL: {}", url, e);
+        }
 
         TransformedApiResponse transformedResponse = dynTransformResponse.dynTransformResponse(results, config, endpoint);
 
@@ -122,11 +132,17 @@ public abstract class AbstractEndpointService {
         aggregatedApiResponse.setShowConfig(showResponseConfiguration);
         aggregatedApiResponse.setTerminologyCollection(terminologyCollection);
 
-        List<Map<String, Object>> aggregatedCollections = data.stream().map(TransformedApiResponse::getCollection)
+        List<Map<String, Object>> aggregatedCollections = data.stream().map(x -> x.getCollection(showResponseConfiguration))
                 .flatMap(List::stream)
                 .sorted((m1, m2) -> {
                     String label1 = (String) m1.getOrDefault("label", "");
                     String label2 = (String) m2.getOrDefault("label", "");
+                    if (label1 == null)
+                        label1 = "";
+
+                    if (label2 == null)
+                        label2 = "";
+
                     return label1.compareTo(label2);
                 })
                 .collect(Collectors.toList());

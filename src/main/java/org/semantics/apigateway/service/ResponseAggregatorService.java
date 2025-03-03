@@ -1,17 +1,16 @@
 package org.semantics.apigateway.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.semantics.apigateway.config.DatabaseConfig;
+import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 import org.semantics.apigateway.model.responses.ApiResponse;
 import org.semantics.apigateway.model.responses.TransformedApiResponse;
-import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class ResponseAggregatorService {
@@ -79,12 +78,16 @@ public class ResponseAggregatorService {
         if (docs instanceof List) {
             processList((List<?>) docs, result, config, endpoint);
         } else if (docs instanceof Map) {
-            AggregatedResourceBody newItem = processItem((Map<String, Object>) docs, config, endpoint);
-            if (newItem != null) {
-                result.add(newItem);
-            }
+            addNewItem(docs, result, config, endpoint);
         } else {
             logger.error("Unexpected document type: {}. Expected List or Map.", docs.getClass().getSimpleName());
+        }
+    }
+
+    private void addNewItem(Object docs, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint){
+        AggregatedResourceBody newItem = processItem((Map<String, Object>) docs, config, endpoint);
+        if (newItem != null) {
+            result.add(newItem);
         }
     }
 
@@ -92,10 +95,7 @@ public class ResponseAggregatorService {
     private void processList(List<?> dataList, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint) {
         for (Object item : dataList) {
             if (item instanceof Map) {
-                AggregatedResourceBody newItem = processItem((Map<String, Object>) item, config, endpoint);
-                if (newItem != null) {
-                    result.add(newItem);
-                }
+                addNewItem(item, result, config, endpoint);
             } else {
                 logger.warn("Skipping non-Map item: {}", item);
             }
