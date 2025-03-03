@@ -43,7 +43,7 @@ public abstract class AbstractEndpointService {
         this.cacheManager = cacheManager;
     }
 
-    protected ApiAccessor getAccessor() {
+    public ApiAccessor getAccessor() {
         return new ApiAccessor(this.cacheManager);
     }
 
