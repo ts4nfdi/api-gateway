@@ -6,7 +6,6 @@ import {Alert, AlertDescription} from "@/components/ui/alert";
 import TextInput from "@/components/TextInput";
 import {Button} from "@/components/ui/button";
 
-import 'react-json-view-lite/dist/index.css';
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Loading} from "@/components/Loading";
 import {Badge} from "@/components/ui/badge";
