@@ -5,6 +5,7 @@ import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.responses.ApiResponse;
 import org.semantics.apigateway.model.responses.TransformedApiResponse;
+import org.semantics.apigateway.model.user.TerminologyCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,9 +113,14 @@ public abstract class AbstractEndpointService {
     }
 
     protected AggregatedApiResponse flattenResponseList(List<TransformedApiResponse> data, boolean showResponseConfiguration) {
+        return flattenResponseList(data, showResponseConfiguration, null);
+    }
+
+    protected AggregatedApiResponse flattenResponseList(List<TransformedApiResponse> data, boolean showResponseConfiguration, TerminologyCollection terminologyCollection) {
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
 
         aggregatedApiResponse.setShowConfig(showResponseConfiguration);
+        aggregatedApiResponse.setTerminologyCollection(terminologyCollection);
 
         List<Map<String, Object>> aggregatedCollections = data.stream().map(TransformedApiResponse::getCollection)
                 .flatMap(List::stream)

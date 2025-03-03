@@ -5,6 +5,7 @@ import ModalContainer from "@/lib/modal";
 import MultipleSelector, {SelectorOption} from "@/components/MultipleSelector";
 import {BrowseCard} from "@/app/home/browse/BrowseCard";
 import {PaginatedCardList} from "@/components/PaginatedCardList";
+import DatabaseSelector from "@/components/DatabaseSelector";
 
 type Artefact = {
     label: string;
@@ -140,16 +141,7 @@ const ArtefactsTable: React.FC<ArtefactsTableProps> = ({apiUrl}) => {
                     onChange={(e: any) => setSearchQuery(e.target.value)}
                 />
                 <div className="w-1/2">
-                    <MultipleSelector
-                        defaultOptions={sourceOptions}
-                        placeholder="Select by source..."
-                        onChange={(e: SelectorOption[]) => setSelectedSources(e.map((o: any) => o.value))}
-                        emptyIndicator={
-                            <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
-                                no results found.
-                            </p>
-                        }
-                    />
+                    <DatabaseSelector sourceOptions={sourceOptions} setSelectedSources={setSelectedSources}/>
                 </div>
                 {/*
                 <p>

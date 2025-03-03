@@ -1,21 +1,8 @@
-import {EuiLoadingChart, EuiText} from "@elastic/eui";
 import React from "react";
+import {Loader, Loader2} from "lucide-react";
 
-export function Loader() {
-
-    // Custom spinner container style
-    const spinnerContainerStyle: any = {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        height: '200px',
-    };
-
-    return (
-        <div style={spinnerContainerStyle}>
-            <EuiLoadingChart size="xl"/>
-            <EuiText>Loading resources</EuiText>
-        </div>
-    )
+export function Loading() {
+    return (<div className="flex justify-center w-full py-4">
+        <Loader2 className="h-8 w-8 animate-spin text-gray-500"/>
+    </div>)
 }
