@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import TextInput from "@/components/TextInput";
 import {Alert, AlertDescription} from "@/components/ui/alert";
 import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog";
-import 'react-json-view-lite/dist/index.css';
 import {Code} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
 import httpClient from "@/lib/httpClient";
