@@ -28,11 +28,21 @@ public class ArtefactsService extends AbstractEndpointService {
         this.collectionService = collectionService;
     }
 
+
     public CompletableFuture<Object> getArtefacts(String database, ResponseFormat format,
                                                   TargetDbSchema targetDbSchema,
                                                   boolean showResponseConfiguration,
                                                   String collectionId,
                                                   User currentUser) {
+        return getArtefacts(database, format, targetDbSchema, showResponseConfiguration, collectionId, currentUser, null);
+    }
+
+    public CompletableFuture<Object> getArtefacts(String database, ResponseFormat format,
+                                                  TargetDbSchema targetDbSchema,
+                                                  boolean showResponseConfiguration,
+                                                  String collectionId,
+                                                  User currentUser,
+                                                  ApiAccessor accessor) {
 
         CompletableFuture<Object> future = new CompletableFuture<>();
         Map<String, String> apiUrls;
@@ -44,7 +54,11 @@ public class ArtefactsService extends AbstractEndpointService {
             return future;
         }
 
-        ApiAccessor accessor = getAccessor();
+
+        if (accessor == null) {
+            accessor = getAccessor();
+        }
+
         accessor.setUrls(apiUrls);
         accessor.setLogger(logger);
         accessor.setCacheEnabled(false);
@@ -61,10 +75,15 @@ public class ArtefactsService extends AbstractEndpointService {
     }
 
     public CompletableFuture<Object> getArtefact(String id, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
+        return getArtefact(id, format, targetDbSchema, showResponseConfiguration, null);
+    }
+    public CompletableFuture<Object> getArtefact(String id, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration, ApiAccessor accessor) {
 
         Map<String, String> apiUrls = filterDatabases("", "resource_details");
 
-        ApiAccessor accessor = getAccessor();
+        if (accessor == null) {
+            accessor = getAccessor();
+        }
         accessor.setUrls(apiUrls);
         accessor.setLogger(logger);
         accessor.setUnDecodeUrl(true);
@@ -79,11 +98,16 @@ public class ArtefactsService extends AbstractEndpointService {
 
 
     public CompletableFuture<Object> getArtefactTerm(String id, String uri, String database, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
+        return getArtefactTerm(id, uri, database, format, targetDbSchema, showResponseConfiguration, null);
+    }
+    public CompletableFuture<Object> getArtefactTerm(String id, String uri, String database, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration, ApiAccessor accessor) {
         Map<String, String> apiUrls = filterDatabases(database, "concept_details");
 
         String encodedUrl = URLEncoder.encode(uri, StandardCharsets.UTF_8);
 
-        ApiAccessor accessor = getAccessor();
+        if (accessor == null) {
+            accessor = getAccessor();
+        }
         accessor.setUrls(apiUrls);
         accessor.setLogger(logger);
         accessor.setUnDecodeUrl(true);
