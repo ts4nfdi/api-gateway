@@ -2,15 +2,14 @@
 
 import React, {useEffect, useState} from "react";
 import {useSearch} from "@/lib/search";
-import ModalContainer, {useModal} from "@/lib/modal";
+import {useModal} from "@/lib/modal";
 import {AutoCompleteResult} from "@/app/home/search/AutoCompleteResult";
-import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
-import {Card, CardContent} from "@/components/ui/card";
+import {Card, CardContent, CardHeader} from "@/components/ui/card";
 import TextInput from "@/components/TextInput";
-import JsonViewerModal from "@/components/JsonVieweModal";
 import DatabaseSelector from "@/components/DatabaseSelector";
 import {Loading} from "@/components/Loading";
+import APIUrlInput from "@/components/APIUrlInput";
 import CollectionSelector from "@/components/CollectionsSelector";
 
 
@@ -103,10 +102,7 @@ const SearchResultsCard = ({suggestions, isLoading, errorMessage, responseTime, 
                             <Card className="shadow-lg overflow-hidden max-h-96 overflow-y-auto">
                                 <div className="w-full">
                                     {suggestions.map((suggestion: any, index: any) => (
-                                        <ListItem
-                                            key={index}
-                                            onClick={() => openModal(suggestion)}
-                                        >
+                                        <ListItem key={index}>
                                             <AutoCompleteResult suggestion={suggestion}/>
                                         </ListItem>
                                     ))}
@@ -145,49 +141,40 @@ export default function Autocomplete(props: { apiUrl: string }) {
 
     useEffect(() => {
         debouncedFetchSuggestions(inputValue);
-    }, [apiUrl, debouncedFetchSuggestions]);
+    }, [apiUrl, debouncedFetchSuggestions, inputValue]);
 
     return (
         <>
-            <div className="space-y-6 w-full">
-                <div className="space-y-2">
-                    <div className="flex space-x-1 items-center">
-                        <Label htmlFor="apiUrl">Gateway search endpoint</Label>
-                        <JsonViewerModal url={apiUrl}/>
-                    </div>
-
-                    <Input
-                        id="apiUrl"
-                        value={apiUrl}
-                        onChange={handleApiUrlChange}
-                        placeholder="Enter API URL"
-                        className="w-full"
-                    />
+            <CardHeader>
+                <div className="flex items-center space-x-2">
+                    <h2 className='text-2xl font-semibold text-gray-900'>Find a concept</h2>
+                    <APIUrlInput url={apiUrl}  variant={'badge'}/>
                 </div>
-
-                <div className="space-y-2">
-                    <Label htmlFor="search">Search</Label>
-                    <TextInput
-                        id="search"
-                        placeholder="Search a term"
-                        value={inputValue}
-                        isClearable={true}
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <div className="flex items-center space-x-1">
-                    <div className="w-1/2">
-                        <DatabaseSelector onChange={setSelectedSources}/>
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-6 w-full my-5">
+                    <div className="space-y-2">
+                        <Label htmlFor="search">Search</Label>
+                        <TextInput
+                            id="search"
+                            placeholder="Search a term"
+                            value={inputValue}
+                            isClearable={true}
+                            onChange={handleInputChange}
+                        />
                     </div>
-                    <div className="w-1/2">
-                        <CollectionSelector onChange={setSelectedCollection}/>
+                    <div className="flex items-center space-x-1">
+                        <div className="w-1/2">
+                            <DatabaseSelector onChange={setSelectedSources}/>
+                        </div>
+                        <div className="w-1/2">
+                            <CollectionSelector onChange={setSelectedCollection}/>
+                        </div>
                     </div>
+                    <SearchResultsCard openModal={openModal} suggestions={suggestions} isLoading={isLoading}
+                                       errorMessage={errorMessage} responseTime={responseTime}/>
                 </div>
-
-                <SearchResultsCard openModal={openModal} suggestions={suggestions} isLoading={isLoading}
-                                   errorMessage={errorMessage} responseTime={responseTime}/>
-            </div>
-            <ModalContainer onClose={closeModal} artefact={selectedObject} isOpen={isModalOpen}></ModalContainer>
+            </CardContent>
         </>
     );
 }
