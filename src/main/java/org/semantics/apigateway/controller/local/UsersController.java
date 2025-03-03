@@ -1,4 +1,4 @@
-package org.semantics.apigateway.controller;
+package org.semantics.apigateway.controller.local;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
