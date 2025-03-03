@@ -41,7 +41,7 @@ public class SearchService extends AbstractEndpointService {
     public CompletableFuture<Object> performSearch(String query, String database, String format, String targetDbSchema, boolean showResponseConfiguration) {
         ResponseFormat responseFormat = format == null ? ResponseFormat.json : ResponseFormat.valueOf(format);
         TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
-        return performSearch(query, database, responseFormat, targetDbSchemaEnum, showResponseConfiguration, null, null, null);
+        return performSearch(query, database, responseFormat, targetDbSchemaEnum, showResponseConfiguration, null, null, null, null);
     }
 
     // Performs a federated search across multiple databases and optionally transforms the results for a target database schema]
@@ -51,6 +51,17 @@ public class SearchService extends AbstractEndpointService {
             String[] terminologies,
             String collectionId,
             User currentUser) {
+        return performSearch(query, database, format, targetDbSchema, showResponseConfiguration, terminologies, collectionId, currentUser, null);
+    }
+
+    // Performs a federated search across multiple databases and optionally transforms the results for a target database schema]
+    public CompletableFuture<Object> performSearch(
+            String query, String database, ResponseFormat format,
+            TargetDbSchema targetDbSchema, boolean showResponseConfiguration,
+            String[] terminologies,
+            String collectionId,
+            User currentUser,
+            ApiAccessor accessor) {
 
         CompletableFuture<Object> future = new CompletableFuture<>();
         Map<String, String> apiUrls;
@@ -67,7 +78,6 @@ public class SearchService extends AbstractEndpointService {
         }
         accessor.setUrls(apiUrls);
         accessor.setLogger(logger);
-        accessor.setCacheEnabled(false);
 
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
 
