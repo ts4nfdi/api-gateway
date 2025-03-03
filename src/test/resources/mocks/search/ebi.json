@@ -1,0 +1,4254 @@
+{
+  "page" : 0,
+  "numElements" : 20,
+  "totalPages" : 1270,
+  "totalElements" : 25393,
+  "elements" : [ {
+    "appearsIn" : [ "biolink" ],
+    "curie" : "Plant",
+    "directAncestor" : [ "https://w3id.org/biolink/vocab/CellularOrganism", "https://w3id.org/biolink/vocab/OrganismalEntity", "https://w3id.org/biolink/vocab/BiologicalEntity", "https://w3id.org/biolink/vocab/NamedThing", "https://w3id.org/biolink/vocab/Entity" ],
+    "directParent" : [ "https://w3id.org/biolink/vocab/CellularOrganism" ],
+    "hasDirectChildren" : false,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : false,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "https://w3id.org/biolink/vocab/CellularOrganism", "https://w3id.org/biolink/vocab/OrganismalEntity", "https://w3id.org/biolink/vocab/BiologicalEntity", "https://w3id.org/biolink/vocab/NamedThing", "https://w3id.org/biolink/vocab/Entity" ],
+    "hierarchicalParent" : [ "https://w3id.org/biolink/vocab/CellularOrganism" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "https://w3id.org/biolink/vocab/Plant",
+    "isDefiningOntology" : false,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "plant" ],
+    "linkedEntities" : {
+      "http://www.w3.org/2004/02/skos/core#exactMatch" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 36.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "has exact match" ],
+        "curie" : "SKOS:exactMatch",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/PO_0000003" : {
+        "definedBy" : [ "po" ],
+        "numAppearsIn" : 22.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "whole plant" ],
+        "curie" : "PO:0000003",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/NCIT_C79659" : {
+        "definedBy" : [ "ncit" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "Plant, Whole" ],
+        "curie" : "NCIT:C79659",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/biolink/vocab/CellularOrganism" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "cellular organism" ],
+        "curie" : "CellularOrganism",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#inScheme" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "is in scheme" ],
+        "curie" : "SKOS:inScheme",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "https://w3id.org/biolink/vocab/OrganismalEntity" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "organismal entity" ],
+        "curie" : "OrganismalEntity",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/biolink/vocab/NamedThing" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "named thing" ],
+        "curie" : "NamedThing",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/biolink/vocab/BiologicalEntity" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "biological entity" ],
+        "curie" : "BiologicalEntity",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/biolink/vocab/Entity" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "entity" ],
+        "curie" : "Entity",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/NCIT_C14258" : {
+        "definedBy" : [ "ncit" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "Plant" ],
+        "curie" : "NCIT:C14258",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      }
+    },
+    "numDescendants" : 0.0,
+    "numHierarchicalDescendants" : 0.0,
+    "ontologyId" : "biolink",
+    "ontologyIri" : "https://w3id.org/biolink/biolink-model.owl.ttl",
+    "searchableAnnotationValues" : false,
+    "shortForm" : "Plant",
+    "type" : [ "class", "entity" ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "plant",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : "https://w3id.org/biolink/vocab/CellularOrganism",
+    "http://www.w3.org/2004/02/skos/core#exactMatch" : [ "http://purl.bioontology.org/ontology/STY/T002", "http://purl.obolibrary.org/obo/NCIT_C14258", "http://purl.obolibrary.org/obo/NCIT_C79659", "http://purl.obolibrary.org/obo/PO_0000003" ],
+    "http://www.w3.org/2004/02/skos/core#inScheme" : "https://w3id.org/biolink/biolink-model"
+  }, {
+    "appearsIn" : [ "emi" ],
+    "curie" : "PLANT_XANTHONES",
+    "directAncestor" : [ "https://purl.org/npc#Class", "http://www.w3.org/2004/02/skos/core#Concept", "https://purl.org/emi#ChemicalTaxon", "https://purl.org/emi#ChemicalEntity" ],
+    "directParent" : [ "https://purl.org/npc#Class" ],
+    "hasDirectChildren" : false,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : false,
+    "hasHierarchicalParents" : false,
+    "imported" : true,
+    "iri" : "https://purl.org/npc#PLANT_XANTHONES",
+    "isDefiningOntology" : false,
+    "isObsolete" : false,
+    "label" : [ "Plant xanthones" ],
+    "linkedEntities" : {
+      "https://purl.org/emi#ChemicalEntity" : {
+        "definedBy" : [ "emi" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Chemical entity" ],
+        "curie" : "ChemicalEntity",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#broader" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has broader" ],
+        "curie" : "SKOS:broader",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#Concept" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Concept" ],
+        "curie" : "SKOS:Concept",
+        "type" : [ "class", "entity" ]
+      },
+      "https://purl.org/emi#ChemicalTaxon" : {
+        "definedBy" : [ "emi" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Chemical taxon" ],
+        "curie" : "ChemicalTaxon",
+        "type" : [ "class", "entity" ]
+      },
+      "https://purl.org/npc#XANTHONES" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Xanthones" ],
+        "curie" : "XANTHONES",
+        "type" : [ "individual", "entity" ]
+      },
+      "https://purl.org/npc#Class" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Natural product class" ],
+        "curie" : "Class",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      }
+    },
+    "numDescendants" : 0.0,
+    "numHierarchicalDescendants" : 0.0,
+    "ontologyId" : "emi",
+    "ontologyIri" : "https://purl.org/emi",
+    "ontologyPreferredPrefix" : "EMI",
+    "searchableAnnotationValues" : true,
+    "shortForm" : "PLANT_XANTHONES",
+    "type" : [ "individual", "entity" ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual", "https://purl.org/npc#Class" ],
+    "http://www.w3.org/2000/01/rdf-schema#label" : "Plant xanthones",
+    "http://www.w3.org/2004/02/skos/core#broader" : "https://purl.org/npc#XANTHONES"
+  }, {
+    "appearsIn" : [ "ado", "bto" ],
+    "curie" : "BTO:0001481",
+    "definedBy" : [ "bto" ],
+    "definition" : [ {
+      "type" : [ "reification" ],
+      "value" : "Any of a kingdom (Plantae) of living things typically lacking locomotive movement or obvious nervous or sensory organs and possessing cellulose cell walls.",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "From_Merriam-Webster's_Online_Dictionary_at_www.Merriam-Webster.com:http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=plant"
+      } ]
+    } ],
+    "definitionProperty" : "http://purl.obolibrary.org/obo/IAO_0000115",
+    "directAncestor" : [ "http://purl.obolibrary.org/obo/BTO_0000000" ],
+    "directParent" : [ "http://purl.obolibrary.org/obo/BTO_0000000" ],
+    "hasDirectChildren" : true,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : true,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://purl.obolibrary.org/obo/BTO_0000000" ],
+    "hierarchicalParent" : [ "http://purl.obolibrary.org/obo/BTO_0000000" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://purl.obolibrary.org/obo/BTO_0001481",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "plant" ],
+    "linkedEntities" : {
+      "http://purl.obolibrary.org/obo/BTO_0000000" : {
+        "definedBy" : [ "bto" ],
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "tissues, cell types and enzyme sources" ],
+        "curie" : "BTO:0000000",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasSynonymType" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 90.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_synonym_type" ],
+        "curie" : "OIO:hasSynonymType",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/bto#SCI" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "SCIENTIFIC NAME" ],
+        "curie" : "SCI",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#id" : {
+        "numAppearsIn" : 178.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "id" ],
+        "curie" : "id",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/IAO_0000115" : {
+        "definedBy" : [ "iao" ],
+        "numAppearsIn" : 226.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "definition" ],
+        "curie" : "IAO:0000115",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 190.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_related_synonym" ],
+        "curie" : "OIO:hasRelatedSynonym",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "BTO:0001481" : {
+        "iri" : "http://purl.obolibrary.org/obo/BTO_0001481",
+        "definedBy" : [ "bto" ],
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "plant" ],
+        "curie" : "BTO:0001481",
+        "type" : [ "class", "entity" ],
+        "url" : "http://purl.obolibrary.org/obo/BTO_0001481",
+        "source" : "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml"
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasOBONamespace" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 172.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_obo_namespace" ],
+        "curie" : "OIO:hasOBONamespace",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/bto#GE" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "LANGUAGE GERMAN" ],
+        "curie" : "GE",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      }
+    },
+    "numDescendants" : 51.0,
+    "numHierarchicalDescendants" : 414.0,
+    "ontologyId" : "bto",
+    "ontologyIri" : "http://purl.obolibrary.org/obo/bto.owl",
+    "ontologyPreferredPrefix" : "BTO",
+    "searchableAnnotationValues" : [ false ],
+    "shortForm" : "BTO_0001481",
+    "synonym" : [ {
+      "type" : [ "reification" ],
+      "value" : "Pflanze",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasSynonymType" : "http://purl.obolibrary.org/obo/bto#GE",
+        "oboSynonymTypeName" : "LANGUAGE GERMAN"
+      } ]
+    }, {
+      "type" : [ "reification" ],
+      "value" : "plantae",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasSynonymType" : "http://purl.obolibrary.org/obo/bto#SCI",
+        "oboSynonymTypeName" : "SCIENTIFIC NAME"
+      } ]
+    }, {
+      "type" : [ "reification" ],
+      "value" : "viridiplantae",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasSynonymType" : "http://purl.obolibrary.org/obo/bto#SCI",
+        "oboSynonymTypeName" : "SCIENTIFIC NAME"
+      } ]
+    } ],
+    "synonymProperty" : "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym",
+    "type" : [ "class", "entity" ],
+    "http://purl.obolibrary.org/obo/IAO_0000115" : {
+      "type" : [ "reification" ],
+      "value" : "Any of a kingdom (Plantae) of living things typically lacking locomotive movement or obvious nervous or sensory organs and possessing cellulose cell walls.",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "From_Merriam-Webster's_Online_Dictionary_at_www.Merriam-Webster.com:http://www.m-w.com/cgi-bin/dictionary?book=Dictionary&va=plant"
+      } ]
+    },
+    "http://www.geneontology.org/formats/oboInOwl#hasOBONamespace" : "BrendaTissueOBO",
+    "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym" : [ {
+      "type" : [ "reification" ],
+      "value" : "Pflanze",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasSynonymType" : "http://purl.obolibrary.org/obo/bto#GE",
+        "oboSynonymTypeName" : "LANGUAGE GERMAN"
+      } ]
+    }, {
+      "type" : [ "reification" ],
+      "value" : "plantae",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasSynonymType" : "http://purl.obolibrary.org/obo/bto#SCI",
+        "oboSynonymTypeName" : "SCIENTIFIC NAME"
+      } ]
+    }, {
+      "type" : [ "reification" ],
+      "value" : "viridiplantae",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasSynonymType" : "http://purl.obolibrary.org/obo/bto#SCI",
+        "oboSynonymTypeName" : "SCIENTIFIC NAME"
+      } ]
+    } ],
+    "http://www.geneontology.org/formats/oboInOwl#id" : "BTO:0001481",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "plant",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : "http://purl.obolibrary.org/obo/BTO_0000000"
+  }, {
+    "appearsIn" : [ "bao" ],
+    "curie" : "BAO:0000605",
+    "definedBy" : [ "bao" ],
+    "definition" : [ "They are living organisms which derive their energy from photosynthesis, with the exception of parasitic plants. Plants include herbs, shrubs, trees, grasses, vines, etc." ],
+    "definitionProperty" : "http://purl.obolibrary.org/obo/IAO_0000115",
+    "directAncestor" : [ "http://www.bioassayontology.org/bao#BAO_0000509", "http://www.bioassayontology.org/bao#BAO_0000658", "http://www.bioassayontology.org/bao#BAO_0000551", "http://www.bioassayontology.org/bao#BAO_0003114" ],
+    "directParent" : [ "http://www.bioassayontology.org/bao#BAO_0000509" ],
+    "hasDirectChildren" : true,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : true,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://www.bioassayontology.org/bao#BAO_0000509", "http://www.bioassayontology.org/bao#BAO_0000658", "http://www.bioassayontology.org/bao#BAO_0000551", "http://www.bioassayontology.org/bao#BAO_0003114" ],
+    "hierarchicalParent" : [ "http://www.bioassayontology.org/bao#BAO_0000509" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : true,
+    "iri" : "http://www.bioassayontology.org/bao#BAO_0000605",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "plant" ],
+    "linkedEntities" : {
+      "http://www.bioassayontology.org/bao#BAO_0000658" : {
+        "definedBy" : [ "bao" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "cellular organisms" ],
+        "curie" : "BAO:0000658",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.bioassayontology.org/bao#BAO_0000418" : {
+        "definedBy" : [ "bao" ],
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "fungi" ],
+        "curie" : "BAO:0000418",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.bioassayontology.org/bao#BAO_0000659" : {
+        "definedBy" : [ "bao" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "metazoa" ],
+        "curie" : "BAO:0000659",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://www.bioassayontology.org/bao#BAO_0003114" : {
+        "definedBy" : [ "bao" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "assay biology component" ],
+        "curie" : "BAO:0003114",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/IAO_0000115" : {
+        "definedBy" : [ "iao" ],
+        "numAppearsIn" : 226.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "definition" ],
+        "curie" : "IAO:0000115",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.bioassayontology.org/bao#BAO_0000662" : {
+        "definedBy" : [ "bao" ],
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "protozoan" ],
+        "curie" : "BAO:0000662",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.bioassayontology.org/bao#BAO_0000509" : {
+        "definedBy" : [ "bao" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "eukaryote" ],
+        "curie" : "BAO:0000509",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.bioassayontology.org/bao#BAO_0000551" : {
+        "definedBy" : [ "bao" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "organism" ],
+        "curie" : "BAO:0000551",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      }
+    },
+    "numDescendants" : 2.0,
+    "numHierarchicalDescendants" : 2.0,
+    "ontologyId" : "bao",
+    "ontologyIri" : "http://www.bioassayontology.org/bao/bao_complete.owl",
+    "ontologyPreferredPrefix" : "BAO",
+    "searchableAnnotationValues" : [ true ],
+    "shortForm" : "BAO_0000605",
+    "type" : [ "class", "entity" ],
+    "http://purl.obolibrary.org/obo/IAO_0000115" : "They are living organisms which derive their energy from photosynthesis, with the exception of parasitic plants. Plants include herbs, shrubs, trees, grasses, vines, etc.",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "plant",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : "http://www.bioassayontology.org/bao#BAO_0000509",
+    "http://www.w3.org/2002/07/owl#disjointWith" : [ "http://www.bioassayontology.org/bao#BAO_0000418", "http://www.bioassayontology.org/bao#BAO_0000659", "http://www.bioassayontology.org/bao#BAO_0000662" ]
+  }, {
+    "appearsIn" : [ "snomed" ],
+    "curie" : "SNOMED:37202001",
+    "definedBy" : [ "snomed" ],
+    "directAncestor" : [ "http://snomed.info/id/228656006", "http://snomed.info/id/256248008", "http://snomed.info/id/289958009", "http://snomed.info/id/115668003", "http://snomed.info/id/105590001", "http://snomed.info/id/138875005", "http://snomed.info/id/260786008", "http://snomed.info/id/260769002" ],
+    "directParent" : [ "http://snomed.info/id/228656006" ],
+    "hasDirectChildren" : true,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : true,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://snomed.info/id/228656006", "http://snomed.info/id/256248008", "http://snomed.info/id/289958009", "http://snomed.info/id/115668003", "http://snomed.info/id/105590001", "http://snomed.info/id/138875005", "http://snomed.info/id/260786008", "http://snomed.info/id/260769002" ],
+    "hierarchicalParent" : [ "http://snomed.info/id/228656006" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://snomed.info/id/37202001",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plant fiber (substance)" ],
+    "linkedEntities" : {
+      "http://www.w3.org/2004/02/skos/core#altLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 24.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "alternative label" ],
+        "curie" : "SKOS:altLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://snomed.info/id/260769002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Material (substance)", "Material" ],
+        "curie" : "SNOMED:260769002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/228656006" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plant structure (substance)", "Plant structure" ],
+        "curie" : "SNOMED:228656006",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/115668003" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Biological substance (substance)", "Biological substance" ],
+        "curie" : "SNOMED:115668003",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/256248008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plant material (substance)", "Plant material" ],
+        "curie" : "SNOMED:256248008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://snomed.info/id/260786008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Natural material (substance)", "Natural material" ],
+        "curie" : "SNOMED:260786008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/105590001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Substance (substance)", "Substance" ],
+        "curie" : "SNOMED:105590001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/289958009" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Organic natural material (substance)", "Organic natural material" ],
+        "curie" : "SNOMED:289958009",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/138875005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "SNOMED CT Concept (SNOMED RT+CTV3)", "SNOMED CT Concept" ],
+        "curie" : "SNOMED:138875005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#prefLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 29.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "preferred label" ],
+        "curie" : "SKOS:prefLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      }
+    },
+    "numDescendants" : 9.0,
+    "numHierarchicalDescendants" : 9.0,
+    "ontologyId" : "snomed",
+    "ontologyIri" : "http://snomed.info/sct/900000000000207008",
+    "ontologyPreferredPrefix" : "SNOMED",
+    "searchableAnnotationValues" : [ false ],
+    "shortForm" : "SNOMED_37202001",
+    "type" : [ "class", "entity" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "CTV3:Xa36x",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "Plant fiber (substance)",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : "http://snomed.info/id/228656006"
+  }, {
+    "appearsIn" : [ "snomed" ],
+    "curie" : "SNOMED:4666008",
+    "definedBy" : [ "snomed" ],
+    "directAncestor" : [ "http://snomed.info/id/31006001", "http://snomed.info/id/415671008", "http://snomed.info/id/410607006", "http://snomed.info/id/138875005" ],
+    "directParent" : [ "http://snomed.info/id/31006001" ],
+    "hasDirectChildren" : false,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : false,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://snomed.info/id/31006001", "http://snomed.info/id/415671008", "http://snomed.info/id/410607006", "http://snomed.info/id/138875005" ],
+    "hierarchicalParent" : [ "http://snomed.info/id/31006001" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://snomed.info/id/4666008",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plant producing photosensitization (organism)" ],
+    "linkedEntities" : {
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/31006001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Kingdom Plantae (organism)", "Kingdom Plantae" ],
+        "curie" : "SNOMED:31006001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/410607006" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Organism (organism)", "Organism" ],
+        "curie" : "SNOMED:410607006",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/415671008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Domain Eukarya (organism)", "Domain Eukarya" ],
+        "curie" : "SNOMED:415671008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/138875005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "SNOMED CT Concept (SNOMED RT+CTV3)", "SNOMED CT Concept" ],
+        "curie" : "SNOMED:138875005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#prefLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 29.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "preferred label" ],
+        "curie" : "SKOS:prefLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      }
+    },
+    "numDescendants" : 0.0,
+    "numHierarchicalDescendants" : 0.0,
+    "ontologyId" : "snomed",
+    "ontologyIri" : "http://snomed.info/sct/900000000000207008",
+    "ontologyPreferredPrefix" : "SNOMED",
+    "searchableAnnotationValues" : [ false ],
+    "shortForm" : "SNOMED_4666008",
+    "type" : [ "class", "entity" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "CTV3:XUEee",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "Plant producing photosensitization (organism)",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : "http://snomed.info/id/31006001"
+  }, {
+    "appearsIn" : [ "snomed" ],
+    "curie" : "SNOMED:41473004",
+    "definedBy" : [ "snomed" ],
+    "directAncestor" : [ "http://snomed.info/id/31006001", "http://snomed.info/id/415671008", "http://snomed.info/id/410607006", "http://snomed.info/id/138875005" ],
+    "directParent" : [ "http://snomed.info/id/31006001" ],
+    "hasDirectChildren" : false,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : false,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://snomed.info/id/31006001", "http://snomed.info/id/415671008", "http://snomed.info/id/410607006", "http://snomed.info/id/138875005" ],
+    "hierarchicalParent" : [ "http://snomed.info/id/31006001" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://snomed.info/id/41473004",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plant producing estrogen compounds (organism)" ],
+    "linkedEntities" : {
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/31006001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Kingdom Plantae (organism)", "Kingdom Plantae" ],
+        "curie" : "SNOMED:31006001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/410607006" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Organism (organism)", "Organism" ],
+        "curie" : "SNOMED:410607006",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/415671008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Domain Eukarya (organism)", "Domain Eukarya" ],
+        "curie" : "SNOMED:415671008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/138875005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "SNOMED CT Concept (SNOMED RT+CTV3)", "SNOMED CT Concept" ],
+        "curie" : "SNOMED:138875005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#prefLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 29.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "preferred label" ],
+        "curie" : "SKOS:prefLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      }
+    },
+    "numDescendants" : 0.0,
+    "numHierarchicalDescendants" : 0.0,
+    "ontologyId" : "snomed",
+    "ontologyIri" : "http://snomed.info/sct/900000000000207008",
+    "ontologyPreferredPrefix" : "SNOMED",
+    "searchableAnnotationValues" : [ false ],
+    "shortForm" : "SNOMED_41473004",
+    "type" : [ "class", "entity" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "CTV3:XUDd9",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "Plant producing estrogen compounds (organism)",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : "http://snomed.info/id/31006001"
+  }, {
+    "appearsIn" : [ "snomed" ],
+    "curie" : "SNOMED:705692007",
+    "definedBy" : [ "snomed" ],
+    "directAncestor" : [ "http://snomed.info/id/705689008", "http://snomed.info/id/707727004", "http://snomed.info/id/49062001", "http://snomed.info/id/260787004", "http://snomed.info/id/138875005" ],
+    "directParent" : [ "http://snomed.info/id/705689008" ],
+    "hasDirectChildren" : true,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : true,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://snomed.info/id/705689008", "http://snomed.info/id/707727004", "http://snomed.info/id/49062001", "http://snomed.info/id/260787004", "http://snomed.info/id/138875005" ],
+    "hierarchicalParent" : [ "http://snomed.info/id/705689008" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://snomed.info/id/705692007",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plant saccharide hemostatic agent (physical object)" ],
+    "linkedEntities" : {
+      "http://snomed.info/id/701099005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Topical plant saccharide hemostatic agent, bioabsorbable (physical object)" ],
+        "curie" : "SNOMED:701099005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/705689008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Hemostatic agent (physical object)" ],
+        "curie" : "SNOMED:705689008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/705691000" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Bioabsorbable hemostatic agent (physical object)" ],
+        "curie" : "SNOMED:705691000",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/707727004" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Device substance (physical object)", "Device substance" ],
+        "curie" : "SNOMED:707727004",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/260787004" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Physical object (physical object)", "Physical object" ],
+        "curie" : "SNOMED:260787004",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/49062001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Device (physical object)", "Device" ],
+        "curie" : "SNOMED:49062001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://snomed.info/id/701093006" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Surgical plant polysaccharide hemostatic agent (physical object)" ],
+        "curie" : "SNOMED:701093006",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/701193009" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Topical plant polysaccharide hemostatic agent, non-bioabsorbable (physical object)" ],
+        "curie" : "SNOMED:701193009",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/701300008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Topical plant polysaccharide hemostatic agent, non-bioabsorbable, antimicrobial (physical object)" ],
+        "curie" : "SNOMED:701300008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/705690004" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Non-bioabsorbable hemostatic agent (physical object)" ],
+        "curie" : "SNOMED:705690004",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/138875005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "SNOMED CT Concept (SNOMED RT+CTV3)", "SNOMED CT Concept" ],
+        "curie" : "SNOMED:138875005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#prefLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 29.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "preferred label" ],
+        "curie" : "SKOS:prefLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      }
+    },
+    "numDescendants" : 4.0,
+    "numHierarchicalDescendants" : 4.0,
+    "ontologyId" : "snomed",
+    "ontologyIri" : "http://snomed.info/sct/900000000000207008",
+    "ontologyPreferredPrefix" : "SNOMED",
+    "relatedFrom" : [ {
+      "property" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "value" : "http://snomed.info/id/701193009",
+      "type" : [ "related" ],
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2002/07/owl#intersectionOf" : [ "http://snomed.info/id/705690004", "http://snomed.info/id/705692007" ]
+    }, {
+      "property" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "value" : "http://snomed.info/id/701300008",
+      "type" : [ "related" ],
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2002/07/owl#intersectionOf" : [ "http://snomed.info/id/705690004", "http://snomed.info/id/705692007" ]
+    }, {
+      "property" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "value" : "http://snomed.info/id/701099005",
+      "type" : [ "related" ],
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2002/07/owl#intersectionOf" : [ "http://snomed.info/id/705691000", "http://snomed.info/id/705692007" ]
+    }, {
+      "property" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "value" : "http://snomed.info/id/701093006",
+      "type" : [ "related" ],
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2002/07/owl#intersectionOf" : [ "http://snomed.info/id/705691000", "http://snomed.info/id/705692007" ]
+    } ],
+    "searchableAnnotationValues" : [ false ],
+    "shortForm" : "SNOMED_705692007",
+    "type" : [ "class", "entity" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "CTV3:XUpI8",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "Plant saccharide hemostatic agent (physical object)",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : "http://snomed.info/id/705689008"
+  }, {
+    "appearsIn" : [ "upheno", "hp" ],
+    "curie" : "HP:0025537",
+    "definedBy" : [ "hp" ],
+    "definition" : [ "An abnormal accumulation of fluid beneath the skin on sole of the foot." ],
+    "definitionProperty" : "http://purl.obolibrary.org/obo/IAO_0000115",
+    "directAncestor" : [ "http://purl.obolibrary.org/obo/HP_0100872", "http://purl.obolibrary.org/obo/HP_0001760", "http://purl.obolibrary.org/obo/HP_0002814", "http://purl.obolibrary.org/obo/HP_0040064", "http://purl.obolibrary.org/obo/HP_0000118", "http://purl.obolibrary.org/obo/HP_0000001", "http://purl.obolibrary.org/obo/HP_0011356", "http://purl.obolibrary.org/obo/HP_0011121", "http://purl.obolibrary.org/obo/HP_0000951", "http://purl.obolibrary.org/obo/HP_0001574" ],
+    "directParent" : [ "http://purl.obolibrary.org/obo/HP_0100872" ],
+    "hasDirectChildren" : false,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : false,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://purl.obolibrary.org/obo/HP_0100872", "http://purl.obolibrary.org/obo/HP_0001760", "http://purl.obolibrary.org/obo/HP_0002814", "http://purl.obolibrary.org/obo/HP_0040064", "http://purl.obolibrary.org/obo/HP_0000118", "http://purl.obolibrary.org/obo/HP_0000001", "http://purl.obolibrary.org/obo/HP_0011356", "http://purl.obolibrary.org/obo/HP_0011121", "http://purl.obolibrary.org/obo/HP_0000951", "http://purl.obolibrary.org/obo/HP_0001574" ],
+    "hierarchicalParent" : [ "http://purl.obolibrary.org/obo/HP_0100872" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://purl.obolibrary.org/obo/HP_0025537",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plantar edema" ],
+    "linkedEntities" : {
+      "http://purl.obolibrary.org/obo/HP_0002814" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 10.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the lower limb" ],
+        "curie" : "HP:0002814",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0000118" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 22.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Phenotypic abnormality" ],
+        "curie" : "HP:0000118",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/comment" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "comment" ],
+        "curie" : "comment",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_language" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_language" ],
+        "curie" : "translation_language",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/source_value" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_value" ],
+        "curie" : "source_value",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/IAO_0000115" : {
+        "definedBy" : [ "iao" ],
+        "numAppearsIn" : 226.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "definition" ],
+        "curie" : "IAO:0000115",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://orcid.org/0000-0002-0736-9199" : {
+        "source" : "ORCID",
+        "url" : "https://orcid.org/0000-0002-0736-9199",
+        "label" : "Robinson, Peter"
+      },
+      "http://purl.org/dc/elements/1.1/date" : {
+        "definedBy" : [ "dc" ],
+        "numAppearsIn" : 109.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Date" ],
+        "curie" : "DC:date",
+        "type" : [ "property", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/hp#uk_spelling" : {
+        "numAppearsIn" : 4.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "UK spelling" ],
+        "curie" : "uk_spelling",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0011121" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 13.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal skin morphology" ],
+        "curie" : "HP:0011121",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/source_version" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_version" ],
+        "curie" : "source_version",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001574" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 13.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the integument" ],
+        "curie" : "HP:0001574",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0000001" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "All" ],
+        "curie" : "HP:0000001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.org/dc/terms/creator" : {
+        "definedBy" : [ "dcterms" ],
+        "numAppearsIn" : 72.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Creator" ],
+        "curie" : "DCTERMS:creator",
+        "type" : [ "property", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_status" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_status" ],
+        "curie" : "translation_status",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "HP:0025537" : {
+        "iri" : "http://purl.obolibrary.org/obo/HP_0025537",
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plantar edema" ],
+        "curie" : "HP:0025537",
+        "type" : [ "class", "entity" ],
+        "url" : "http://purl.obolibrary.org/obo/HP_0025537",
+        "source" : "https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.json"
+      },
+      "http://purl.obolibrary.org/obo/HP_0011356" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 6.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Regional abnormality of skin" ],
+        "curie" : "HP:0011356",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "https://w3id.org/babelon/source" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source" ],
+        "curie" : "source",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_date" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_date" ],
+        "curie" : "translation_date",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasSynonymType" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 90.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_synonym_type" ],
+        "curie" : "OIO:hasSynonymType",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001760" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal foot morphology" ],
+        "curie" : "HP:0001760",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0000951" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 13.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the skin" ],
+        "curie" : "HP:0000951",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_precision" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_precision" ],
+        "curie" : "translation_precision",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0040064" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 10.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of limbs" ],
+        "curie" : "HP:0040064",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_exact_synonym" ],
+        "curie" : "OIO:hasExactSynonym",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.w3.org/2001/XMLSchema#dateTime" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : false,
+        "type" : [ "class", "entity" ],
+        "label" : [ "dateTime" ],
+        "curie" : "dateTime"
+      },
+      "http://purl.obolibrary.org/obo/HP_0100872" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 5.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the plantar skin of foot" ],
+        "curie" : "HP:0100872",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/source_language" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_language" ],
+        "curie" : "source_language",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      }
+    },
+    "numDescendants" : 0.0,
+    "numHierarchicalDescendants" : 0.0,
+    "ontologyId" : "hp",
+    "ontologyIri" : "http://purl.obolibrary.org/obo/hp/hp-international.owl",
+    "ontologyPreferredPrefix" : "HP",
+    "searchableAnnotationValues" : [ false ],
+    "shortForm" : "HP_0025537",
+    "synonym" : [ {
+      "type" : [ "reification" ],
+      "value" : "Plantar oedema",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasSynonymType" : "http://purl.obolibrary.org/obo/hp#uk_spelling",
+        "oboSynonymTypeName" : "UK spelling"
+      } ]
+    } ],
+    "synonymProperty" : "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym",
+    "type" : [ "class", "entity" ],
+    "http://purl.obolibrary.org/obo/IAO_0000115" : [ "An abnormal accumulation of fluid beneath the skin on sole of the foot." ],
+    "http://purl.org/dc/elements/1.1/date" : "2017-05-18T01:29:36Z",
+    "http://purl.org/dc/terms/creator" : "https://orcid.org/0000-0002-0736-9199",
+    "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : [ {
+      "type" : [ "reification" ],
+      "value" : "Plantar oedema",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasSynonymType" : "http://purl.obolibrary.org/obo/hp#uk_spelling",
+        "oboSynonymTypeName" : "UK spelling"
+      } ]
+    } ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : [ "Plantar edema" ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : "http://purl.obolibrary.org/obo/HP_0100872"
+  }, {
+    "appearsIn" : [ "upheno", "hp" ],
+    "curie" : "HP:0100870",
+    "definedBy" : [ "hp" ],
+    "definition" : [ {
+      "type" : [ "reification" ],
+      "value" : "Telangiectases (small dilated blood vessels) located on the skin of sole of foot.",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "https://orcid.org/0000-0002-0736-9199"
+      } ]
+    } ],
+    "definitionProperty" : "http://purl.obolibrary.org/obo/IAO_0000115",
+    "directAncestor" : [ "http://purl.obolibrary.org/obo/HP_0100585", "http://purl.obolibrary.org/obo/HP_0001009", "http://purl.obolibrary.org/obo/HP_0011276", "http://purl.obolibrary.org/obo/HP_0002597", "http://purl.obolibrary.org/obo/HP_0001626", "http://purl.obolibrary.org/obo/HP_0000118", "http://purl.obolibrary.org/obo/HP_0000001", "http://purl.obolibrary.org/obo/HP_0011354", "http://purl.obolibrary.org/obo/HP_0011121", "http://purl.obolibrary.org/obo/HP_0000951", "http://purl.obolibrary.org/obo/HP_0001574", "http://purl.obolibrary.org/obo/HP_0100872", "http://purl.obolibrary.org/obo/HP_0001760", "http://purl.obolibrary.org/obo/HP_0002814", "http://purl.obolibrary.org/obo/HP_0040064", "http://purl.obolibrary.org/obo/HP_0011356" ],
+    "directParent" : [ "http://purl.obolibrary.org/obo/HP_0100585", "http://purl.obolibrary.org/obo/HP_0100872" ],
+    "hasDirectChildren" : false,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : false,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://purl.obolibrary.org/obo/HP_0100585", "http://purl.obolibrary.org/obo/HP_0001009", "http://purl.obolibrary.org/obo/HP_0011276", "http://purl.obolibrary.org/obo/HP_0002597", "http://purl.obolibrary.org/obo/HP_0001626", "http://purl.obolibrary.org/obo/HP_0000118", "http://purl.obolibrary.org/obo/HP_0000001", "http://purl.obolibrary.org/obo/HP_0011354", "http://purl.obolibrary.org/obo/HP_0011121", "http://purl.obolibrary.org/obo/HP_0000951", "http://purl.obolibrary.org/obo/HP_0001574", "http://purl.obolibrary.org/obo/HP_0100872", "http://purl.obolibrary.org/obo/HP_0001760", "http://purl.obolibrary.org/obo/HP_0002814", "http://purl.obolibrary.org/obo/HP_0040064", "http://purl.obolibrary.org/obo/HP_0011356" ],
+    "hierarchicalParent" : [ "http://purl.obolibrary.org/obo/HP_0100585", "http://purl.obolibrary.org/obo/HP_0100872" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://purl.obolibrary.org/obo/HP_0100870",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plantar telangiectasia" ],
+    "linkedEntities" : {
+      "http://purl.obolibrary.org/obo/HP_0000118" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 22.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Phenotypic abnormality" ],
+        "curie" : "HP:0000118",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0002814" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 10.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the lower limb" ],
+        "curie" : "HP:0002814",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/comment" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "comment" ],
+        "curie" : "comment",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/RO_0002573" : {
+        "definedBy" : [ "ro" ],
+        "numAppearsIn" : 23.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has modifier" ],
+        "curie" : "RO:0002573",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_language" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_language" ],
+        "curie" : "translation_language",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/BFO_0000050" : {
+        "definedBy" : [ "ro" ],
+        "numAppearsIn" : 164.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "part of" ],
+        "curie" : "RO_",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/source_value" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_value" ],
+        "curie" : "source_value",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/IAO_0000115" : {
+        "definedBy" : [ "iao" ],
+        "numAppearsIn" : 226.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "definition" ],
+        "curie" : "IAO:0000115",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://orcid.org/0000-0002-0736-9199" : {
+        "source" : "ORCID",
+        "url" : "https://orcid.org/0000-0002-0736-9199",
+        "label" : "Robinson, Peter"
+      },
+      "http://purl.obolibrary.org/obo/BFO_0000051" : {
+        "definedBy" : [ "bfo" ],
+        "numAppearsIn" : 147.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has part" ],
+        "curie" : "BFO:0000051",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0011121" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 13.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal skin morphology" ],
+        "curie" : "HP:0011121",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/source_version" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_version" ],
+        "curie" : "source_version",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_confidence" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_confidence" ],
+        "curie" : "translation_confidence",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001574" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 13.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the integument" ],
+        "curie" : "HP:0001574",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0000001" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "All" ],
+        "curie" : "HP:0000001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.org/dc/terms/creator" : {
+        "definedBy" : [ "dcterms" ],
+        "numAppearsIn" : 72.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Creator" ],
+        "curie" : "DCTERMS:creator",
+        "type" : [ "property", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/MPATH_476" : {
+        "definedBy" : [ "mpath" ],
+        "numAppearsIn" : 4.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "telangiectasia" ],
+        "curie" : "MPATH:476",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_status" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_status" ],
+        "curie" : "translation_status",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#creation_date" : {
+        "numAppearsIn" : 163.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "creation_date" ],
+        "curie" : "creation_date",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "UMLS:C4020947" : {
+        "url" : "https://uts.nlm.nih.gov/uts/umls/concept/C4020947",
+        "source" : "https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.json",
+        "curie" : "UMLS:C4020947"
+      },
+      "http://purl.obolibrary.org/obo/HP_0011354" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Generalized abnormality of skin" ],
+        "curie" : "HP:0011354",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0011356" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 6.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Regional abnormality of skin" ],
+        "curie" : "HP:0011356",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0002597" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 14.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the vasculature" ],
+        "curie" : "HP:0002597",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "https://w3id.org/babelon/source" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source" ],
+        "curie" : "source",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_date" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_date" ],
+        "curie" : "translation_date",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001009" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Telangiectasia" ],
+        "curie" : "HP:0001009",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#id" : {
+        "numAppearsIn" : 178.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "id" ],
+        "curie" : "id",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001760" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal foot morphology" ],
+        "curie" : "HP:0001760",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0000951" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 13.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the skin" ],
+        "curie" : "HP:0000951",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_precision" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_precision" ],
+        "curie" : "translation_precision",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "HP:0100870" : {
+        "iri" : "http://purl.obolibrary.org/obo/HP_0100870",
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plantar telangiectasia" ],
+        "curie" : "HP:0100870",
+        "type" : [ "class", "entity" ],
+        "url" : "http://purl.obolibrary.org/obo/HP_0100870",
+        "source" : "https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.json"
+      },
+      "http://purl.obolibrary.org/obo/HP_0040064" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 10.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of limbs" ],
+        "curie" : "HP:0040064",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0011276" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Vascular skin abnormality" ],
+        "curie" : "HP:0011276",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0100585" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 4.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Telangiectasia of the skin" ],
+        "curie" : "HP:0100585",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_exact_synonym" ],
+        "curie" : "OIO:hasExactSynonym",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001626" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 16.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the cardiovascular system" ],
+        "curie" : "HP:0001626",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/RO_0000052" : {
+        "definedBy" : [ "ro" ],
+        "numAppearsIn" : 122.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "characteristic of" ],
+        "curie" : "RO:0000052",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/PATO_0000460" : {
+        "definedBy" : [ "pato" ],
+        "numAppearsIn" : 27.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "abnormal" ],
+        "curie" : "PATO:0000460",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0100872" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 5.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the plantar skin of foot" ],
+        "curie" : "HP:0100872",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/source_language" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_language" ],
+        "curie" : "source_language",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://orcid.org/0009-0006-4530-3154" : {
+        "url" : "https://orcid.org/0009-0006-4530-3154",
+        "source" : "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+        "curie" : "orcid:0009-0006-4530-3154"
+      },
+      "http://purl.obolibrary.org/obo/PATO_0000470" : {
+        "definedBy" : [ "pato" ],
+        "numAppearsIn" : 29.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "increased amount" ],
+        "curie" : "PATO:0000470",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/UBERON_0013778" : {
+        "definedBy" : [ "uberon" ],
+        "numAppearsIn" : 8.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "skin of sole of pes" ],
+        "curie" : "UBERON:0013778",
+        "type" : [ "class", "entity" ]
+      }
+    },
+    "numDescendants" : 0.0,
+    "numHierarchicalDescendants" : 0.0,
+    "ontologyId" : "hp",
+    "ontologyIri" : "http://purl.obolibrary.org/obo/hp/hp-international.owl",
+    "ontologyPreferredPrefix" : "HP",
+    "searchableAnnotationValues" : [ false ],
+    "shortForm" : "HP_0100870",
+    "synonym" : [ "Plantar teleangiectasia", "Telangiectases of soles", "Teleangiectases of soles" ],
+    "synonymProperty" : "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym",
+    "type" : [ "class", "entity" ],
+    "http://purl.obolibrary.org/obo/IAO_0000115" : [ {
+      "type" : [ "reification" ],
+      "value" : "Telangiectases (small dilated blood vessels) located on the skin of sole of foot.",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "https://orcid.org/0000-0002-0736-9199"
+      } ]
+    } ],
+    "http://purl.org/dc/terms/creator" : "https://orcid.org/0009-0006-4530-3154",
+    "http://www.geneontology.org/formats/oboInOwl#creation_date" : "2011-11-30T11:19:59Z",
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "UMLS:C4020947",
+    "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : [ "Plantar teleangiectasia", "Telangiectases of soles", "Teleangiectases of soles" ],
+    "http://www.geneontology.org/formats/oboInOwl#id" : "HP:0100870",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : [ "Plantar telangiectasia" ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ "http://purl.obolibrary.org/obo/HP_0100585", "http://purl.obolibrary.org/obo/HP_0100872" ],
+    "http://www.w3.org/2002/07/owl#equivalentClass" : {
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Restriction",
+      "http://www.w3.org/2002/07/owl#onProperty" : "http://purl.obolibrary.org/obo/BFO_0000051",
+      "http://www.w3.org/2002/07/owl#someValuesFrom" : {
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+        "http://www.w3.org/2002/07/owl#intersectionOf" : [ "http://purl.obolibrary.org/obo/PATO_0000470", {
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Restriction",
+          "http://www.w3.org/2002/07/owl#onProperty" : "http://purl.obolibrary.org/obo/RO_0000052",
+          "http://www.w3.org/2002/07/owl#someValuesFrom" : {
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+            "http://www.w3.org/2002/07/owl#intersectionOf" : [ "http://purl.obolibrary.org/obo/MPATH_476", {
+              "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Restriction",
+              "http://www.w3.org/2002/07/owl#onProperty" : "http://purl.obolibrary.org/obo/BFO_0000050",
+              "http://www.w3.org/2002/07/owl#someValuesFrom" : "http://purl.obolibrary.org/obo/UBERON_0013778",
+              "isObsolete" : false
+            } ]
+          },
+          "isObsolete" : false
+        }, {
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Restriction",
+          "http://www.w3.org/2002/07/owl#onProperty" : "http://purl.obolibrary.org/obo/RO_0002573",
+          "http://www.w3.org/2002/07/owl#someValuesFrom" : "http://purl.obolibrary.org/obo/PATO_0000460",
+          "isObsolete" : false
+        } ]
+      },
+      "isObsolete" : false
+    }
+  }, {
+    "appearsIn" : [ "upheno", "hp" ],
+    "curie" : "HP:0010612",
+    "definedBy" : [ "hp" ],
+    "definition" : [ {
+      "type" : [ "reification" ],
+      "value" : "The presence of multiple pits (small, pinpoint-large indentations on the surface of the skin) located on the skin of sole of foot.",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "https://orcid.org/0000-0002-0736-9199"
+      } ]
+    } ],
+    "definitionProperty" : "http://purl.obolibrary.org/obo/IAO_0000115",
+    "directAncestor" : [ "http://purl.obolibrary.org/obo/HP_0100276", "http://purl.obolibrary.org/obo/HP_0011355", "http://purl.obolibrary.org/obo/HP_0011121", "http://purl.obolibrary.org/obo/HP_0000951", "http://purl.obolibrary.org/obo/HP_0001574", "http://purl.obolibrary.org/obo/HP_0000118", "http://purl.obolibrary.org/obo/HP_0000001", "http://purl.obolibrary.org/obo/HP_0100872", "http://purl.obolibrary.org/obo/HP_0001760", "http://purl.obolibrary.org/obo/HP_0002814", "http://purl.obolibrary.org/obo/HP_0040064", "http://purl.obolibrary.org/obo/HP_0011356" ],
+    "directParent" : [ "http://purl.obolibrary.org/obo/HP_0100276", "http://purl.obolibrary.org/obo/HP_0100872" ],
+    "hasDirectChildren" : false,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : false,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://purl.obolibrary.org/obo/HP_0100276", "http://purl.obolibrary.org/obo/HP_0011355", "http://purl.obolibrary.org/obo/HP_0011121", "http://purl.obolibrary.org/obo/HP_0000951", "http://purl.obolibrary.org/obo/HP_0001574", "http://purl.obolibrary.org/obo/HP_0000118", "http://purl.obolibrary.org/obo/HP_0000001", "http://purl.obolibrary.org/obo/HP_0100872", "http://purl.obolibrary.org/obo/HP_0001760", "http://purl.obolibrary.org/obo/HP_0002814", "http://purl.obolibrary.org/obo/HP_0040064", "http://purl.obolibrary.org/obo/HP_0011356" ],
+    "hierarchicalParent" : [ "http://purl.obolibrary.org/obo/HP_0100276", "http://purl.obolibrary.org/obo/HP_0100872" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://purl.obolibrary.org/obo/HP_0010612",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plantar pits" ],
+    "linkedEntities" : {
+      "http://purl.obolibrary.org/obo/HP_0000118" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 22.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Phenotypic abnormality" ],
+        "curie" : "HP:0000118",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0002814" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 10.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the lower limb" ],
+        "curie" : "HP:0002814",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/comment" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "comment" ],
+        "curie" : "comment",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "HP:0010612" : {
+        "iri" : "http://purl.obolibrary.org/obo/HP_0010612",
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plantar pits" ],
+        "curie" : "HP:0010612",
+        "type" : [ "class", "entity" ],
+        "url" : "http://purl.obolibrary.org/obo/HP_0010612",
+        "source" : "https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.json"
+      },
+      "https://w3id.org/babelon/translation_language" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_language" ],
+        "curie" : "translation_language",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/source_value" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_value" ],
+        "curie" : "source_value",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/IAO_0000115" : {
+        "definedBy" : [ "iao" ],
+        "numAppearsIn" : 226.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "definition" ],
+        "curie" : "IAO:0000115",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://orcid.org/0000-0002-0736-9199" : {
+        "source" : "ORCID",
+        "url" : "https://orcid.org/0000-0002-0736-9199",
+        "label" : "Robinson, Peter"
+      },
+      "http://purl.obolibrary.org/obo/HP_0011121" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 13.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal skin morphology" ],
+        "curie" : "HP:0011121",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/source_version" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_version" ],
+        "curie" : "source_version",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_confidence" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_confidence" ],
+        "curie" : "translation_confidence",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001574" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 13.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the integument" ],
+        "curie" : "HP:0001574",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0000001" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "All" ],
+        "curie" : "HP:0000001",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_status" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_status" ],
+        "curie" : "translation_status",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#creation_date" : {
+        "numAppearsIn" : 163.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "creation_date" ],
+        "curie" : "creation_date",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0011355" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 6.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Localized skin lesion" ],
+        "curie" : "HP:0011355",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0011356" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 6.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Regional abnormality of skin" ],
+        "curie" : "HP:0011356",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0100276" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 3.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Skin pit" ],
+        "curie" : "HP:0100276",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.org/dc/elements/1.1/creator" : {
+        "definedBy" : [ "dc" ],
+        "numAppearsIn" : 124.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Creator" ],
+        "curie" : "DC:creator",
+        "type" : [ "property", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "https://w3id.org/babelon/source" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source" ],
+        "curie" : "source",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_date" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_date" ],
+        "curie" : "translation_date",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#id" : {
+        "numAppearsIn" : 178.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "id" ],
+        "curie" : "id",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001760" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal foot morphology" ],
+        "curie" : "HP:0001760",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0000951" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 13.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the skin" ],
+        "curie" : "HP:0000951",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_precision" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_precision" ],
+        "curie" : "translation_precision",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0040064" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 10.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of limbs" ],
+        "curie" : "HP:0040064",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0100872" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 5.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the plantar skin of foot" ],
+        "curie" : "HP:0100872",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/source_language" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_language" ],
+        "curie" : "source_language",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "UMLS:C1852301" : {
+        "url" : "https://uts.nlm.nih.gov/uts/umls/concept/C1852301",
+        "source" : "https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.json",
+        "curie" : "UMLS:C1852301"
+      }
+    },
+    "numDescendants" : 0.0,
+    "numHierarchicalDescendants" : 0.0,
+    "ontologyId" : "hp",
+    "ontologyIri" : "http://purl.obolibrary.org/obo/hp/hp-international.owl",
+    "ontologyPreferredPrefix" : "HP",
+    "searchableAnnotationValues" : [ false ],
+    "shortForm" : "HP_0010612",
+    "type" : [ "class", "entity" ],
+    "http://purl.obolibrary.org/obo/IAO_0000115" : [ {
+      "type" : [ "reification" ],
+      "value" : "The presence of multiple pits (small, pinpoint-large indentations on the surface of the skin) located on the skin of sole of foot.",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "https://orcid.org/0000-0002-0736-9199"
+      } ]
+    } ],
+    "http://purl.org/dc/elements/1.1/creator" : "sandra1",
+    "http://www.geneontology.org/formats/oboInOwl#creation_date" : "2009-10-28T01:25:57Z",
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "UMLS:C1852301",
+    "http://www.geneontology.org/formats/oboInOwl#id" : "HP:0010612",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : [ "Plantar pits" ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ "http://purl.obolibrary.org/obo/HP_0100276", "http://purl.obolibrary.org/obo/HP_0100872" ]
+  }, {
+    "appearsIn" : [ "mondo", "upheno", "hp", "doid" ],
+    "curie" : "HP:0007556",
+    "definedBy" : [ "hp" ],
+    "definition" : [ {
+      "type" : [ "reification" ],
+      "value" : "Hyperkeratosis affecting the sole of the foot.",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "https://orcid.org/0000-0002-0736-9199"
+      } ]
+    } ],
+    "definitionProperty" : "http://purl.obolibrary.org/obo/IAO_0000115",
+    "directAncestor" : [ "http://purl.obolibrary.org/obo/HP_0000962", "http://purl.obolibrary.org/obo/HP_0011368", "http://purl.obolibrary.org/obo/HP_0001072", "http://purl.obolibrary.org/obo/HP_0011121", "http://purl.obolibrary.org/obo/HP_0000951", "http://purl.obolibrary.org/obo/HP_0001574", "http://purl.obolibrary.org/obo/HP_0000118", "http://purl.obolibrary.org/obo/HP_0000001", "http://purl.obolibrary.org/obo/HP_0100872", "http://purl.obolibrary.org/obo/HP_0001760", "http://purl.obolibrary.org/obo/HP_0002814", "http://purl.obolibrary.org/obo/HP_0040064", "http://purl.obolibrary.org/obo/HP_0011356" ],
+    "directParent" : [ "http://purl.obolibrary.org/obo/HP_0000962", "http://purl.obolibrary.org/obo/HP_0100872" ],
+    "hasDirectChildren" : true,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : true,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://purl.obolibrary.org/obo/HP_0000962", "http://purl.obolibrary.org/obo/HP_0011368", "http://purl.obolibrary.org/obo/HP_0001072", "http://purl.obolibrary.org/obo/HP_0011121", "http://purl.obolibrary.org/obo/HP_0000951", "http://purl.obolibrary.org/obo/HP_0001574", "http://purl.obolibrary.org/obo/HP_0000118", "http://purl.obolibrary.org/obo/HP_0000001", "http://purl.obolibrary.org/obo/HP_0100872", "http://purl.obolibrary.org/obo/HP_0001760", "http://purl.obolibrary.org/obo/HP_0002814", "http://purl.obolibrary.org/obo/HP_0040064", "http://purl.obolibrary.org/obo/HP_0011356" ],
+    "hierarchicalParent" : [ "http://purl.obolibrary.org/obo/HP_0000962", "http://purl.obolibrary.org/obo/HP_0100872" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://purl.obolibrary.org/obo/HP_0007556",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plantar hyperkeratosis" ],
+    "linkedEntities" : {
+      "http://purl.obolibrary.org/obo/HP_0000118" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 22.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Phenotypic abnormality" ],
+        "curie" : "HP:0000118",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0002814" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 10.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the lower limb" ],
+        "curie" : "HP:0002814",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/comment" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "comment" ],
+        "curie" : "comment",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_language" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_language" ],
+        "curie" : "translation_language",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translator" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translator" ],
+        "curie" : "translator",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/source_value" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_value" ],
+        "curie" : "source_value",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/IAO_0000115" : {
+        "definedBy" : [ "iao" ],
+        "numAppearsIn" : 226.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "definition" ],
+        "curie" : "IAO:0000115",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://orcid.org/0000-0002-0736-9199" : {
+        "source" : "ORCID",
+        "url" : "https://orcid.org/0000-0002-0736-9199",
+        "label" : "Robinson, Peter"
+      },
+      "http://purl.obolibrary.org/obo/HP_0011121" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 13.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal skin morphology" ],
+        "curie" : "HP:0011121",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0011368" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 8.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Epidermal thickening" ],
+        "curie" : "HP:0011368",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/source_version" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_version" ],
+        "curie" : "source_version",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_confidence" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_confidence" ],
+        "curie" : "translation_confidence",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001574" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 13.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the integument" ],
+        "curie" : "HP:0001574",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0000001" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "All" ],
+        "curie" : "HP:0000001",
+        "type" : [ "class", "entity" ]
+      },
+      "HP:0007445" : {
+        "url" : "http://purl.obolibrary.org/obo/HP_0007445",
+        "source" : "https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.json",
+        "curie" : "HP:0007445"
+      },
+      "https://w3id.org/babelon/translation_status" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_status" ],
+        "curie" : "translation_status",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0011356" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 6.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Regional abnormality of skin" ],
+        "curie" : "HP:0011356",
+        "type" : [ "class", "entity" ]
+      },
+      "UMLS:C1856954" : {
+        "url" : "https://uts.nlm.nih.gov/uts/umls/concept/C1856954",
+        "source" : "https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.json",
+        "curie" : "UMLS:C1856954"
+      },
+      "HP:0007556" : {
+        "iri" : "http://purl.obolibrary.org/obo/HP_0007556",
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 4.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plantar hyperkeratosis" ],
+        "curie" : "HP:0007556",
+        "type" : [ "class", "entity" ],
+        "url" : "http://purl.obolibrary.org/obo/HP_0007556",
+        "source" : "https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.json"
+      },
+      "HP:0007382" : {
+        "url" : "http://purl.obolibrary.org/obo/HP_0007382",
+        "source" : "https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.json",
+        "curie" : "HP:0007382"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "https://w3id.org/babelon/source" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source" ],
+        "curie" : "source",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasAlternativeId" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 143.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_alternative_id" ],
+        "curie" : "OIO:hasAlternativeId",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_date" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_date" ],
+        "curie" : "translation_date",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#id" : {
+        "numAppearsIn" : 178.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "id" ],
+        "curie" : "id",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001760" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal foot morphology" ],
+        "curie" : "HP:0001760",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0000951" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 13.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the skin" ],
+        "curie" : "HP:0000951",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_precision" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_precision" ],
+        "curie" : "translation_precision",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0000962" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Hyperkeratosis" ],
+        "curie" : "HP:0000962",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0040064" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 10.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of limbs" ],
+        "curie" : "HP:0040064",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_exact_synonym" ],
+        "curie" : "OIO:hasExactSynonym",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translator_expertise" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translator_expertise" ],
+        "curie" : "translator_expertise",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0100872" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 5.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the plantar skin of foot" ],
+        "curie" : "HP:0100872",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/source_language" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_language" ],
+        "curie" : "source_language",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001072" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Thickened skin" ],
+        "curie" : "HP:0001072",
+        "type" : [ "class", "entity" ]
+      }
+    },
+    "numDescendants" : 12.0,
+    "numHierarchicalDescendants" : 12.0,
+    "ontologyId" : "hp",
+    "ontologyIri" : "http://purl.obolibrary.org/obo/hp/hp-international.owl",
+    "ontologyPreferredPrefix" : "HP",
+    "searchableAnnotationValues" : [ false ],
+    "shortForm" : "HP_0007556",
+    "synonym" : [ "Plantar hyperkeratoses" ],
+    "synonymProperty" : "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym",
+    "type" : [ "class", "entity" ],
+    "http://purl.obolibrary.org/obo/IAO_0000115" : [ {
+      "type" : [ "reification" ],
+      "value" : "Hyperkeratosis affecting the sole of the foot.",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "https://orcid.org/0000-0002-0736-9199"
+      } ]
+    } ],
+    "http://www.geneontology.org/formats/oboInOwl#hasAlternativeId" : [ "HP:0007382", "HP:0007445" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "UMLS:C1856954",
+    "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : [ "Plantar hyperkeratoses" ],
+    "http://www.geneontology.org/formats/oboInOwl#id" : "HP:0007556",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : [ "Plantar hyperkeratosis" ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ "http://purl.obolibrary.org/obo/HP_0000962", "http://purl.obolibrary.org/obo/HP_0100872" ]
+  }, {
+    "appearsIn" : [ "upheno", "hp" ],
+    "curie" : "HP:0008112",
+    "definedBy" : [ "hp" ],
+    "definition" : [ "A type of contracture in which the plantar flexion muscles are contracted.", "Plantar flexion is the movement of the top of the foot away from the leg in a downward motion. With plantar flexion contracture, the abiliuty to passively or actively move the tip of the toe back closer to the leg is limited." ],
+    "definitionProperty" : [ "http://purl.obolibrary.org/obo/IAO_0000115", "http://www.w3.org/2000/01/rdf-schema#comment" ],
+    "directAncestor" : [ "http://purl.obolibrary.org/obo/HP_0034677", "http://purl.obolibrary.org/obo/HP_0008366", "http://purl.obolibrary.org/obo/HP_0001760", "http://purl.obolibrary.org/obo/HP_0002814", "http://purl.obolibrary.org/obo/HP_0040064", "http://purl.obolibrary.org/obo/HP_0000118", "http://purl.obolibrary.org/obo/HP_0000001", "http://purl.obolibrary.org/obo/HP_0005750", "http://purl.obolibrary.org/obo/HP_0003121", "http://purl.obolibrary.org/obo/HP_0001371", "http://purl.obolibrary.org/obo/HP_0034392", "http://purl.obolibrary.org/obo/HP_0003549", "http://purl.obolibrary.org/obo/HP_0033127", "http://purl.obolibrary.org/obo/HP_0011729", "http://purl.obolibrary.org/obo/HP_0034430", "http://purl.obolibrary.org/obo/HP_0011843", "http://purl.obolibrary.org/obo/HP_0011805", "http://purl.obolibrary.org/obo/HP_0003011", "http://purl.obolibrary.org/obo/HP_0100261", "http://purl.obolibrary.org/obo/HP_0011842", "http://purl.obolibrary.org/obo/HP_0000924", "http://purl.obolibrary.org/obo/HP_0034673", "http://purl.obolibrary.org/obo/HP_0003028", "http://purl.obolibrary.org/obo/HP_0100491", "http://purl.obolibrary.org/obo/HP_0001367" ],
+    "directParent" : [ "http://purl.obolibrary.org/obo/HP_0034677" ],
+    "hasDirectChildren" : false,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : false,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://purl.obolibrary.org/obo/HP_0034677", "http://purl.obolibrary.org/obo/HP_0008366", "http://purl.obolibrary.org/obo/HP_0001760", "http://purl.obolibrary.org/obo/HP_0002814", "http://purl.obolibrary.org/obo/HP_0040064", "http://purl.obolibrary.org/obo/HP_0000118", "http://purl.obolibrary.org/obo/HP_0000001", "http://purl.obolibrary.org/obo/HP_0005750", "http://purl.obolibrary.org/obo/HP_0003121", "http://purl.obolibrary.org/obo/HP_0001371", "http://purl.obolibrary.org/obo/HP_0034392", "http://purl.obolibrary.org/obo/HP_0003549", "http://purl.obolibrary.org/obo/HP_0033127", "http://purl.obolibrary.org/obo/HP_0011729", "http://purl.obolibrary.org/obo/HP_0034430", "http://purl.obolibrary.org/obo/HP_0011843", "http://purl.obolibrary.org/obo/HP_0011805", "http://purl.obolibrary.org/obo/HP_0003011", "http://purl.obolibrary.org/obo/HP_0100261", "http://purl.obolibrary.org/obo/HP_0011842", "http://purl.obolibrary.org/obo/HP_0000924", "http://purl.obolibrary.org/obo/HP_0034673", "http://purl.obolibrary.org/obo/HP_0003028", "http://purl.obolibrary.org/obo/HP_0100491", "http://purl.obolibrary.org/obo/HP_0001367" ],
+    "hierarchicalParent" : [ "http://purl.obolibrary.org/obo/HP_0034677" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://purl.obolibrary.org/obo/HP_0008112",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plantar flexion contracture" ],
+    "linkedEntities" : {
+      "http://purl.obolibrary.org/obo/HP_0002814" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 10.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the lower limb" ],
+        "curie" : "HP:0002814",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0000118" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 22.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Phenotypic abnormality" ],
+        "curie" : "HP:0000118",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/comment" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "comment" ],
+        "curie" : "comment",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_language" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_language" ],
+        "curie" : "translation_language",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translator" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translator" ],
+        "curie" : "translator",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/source_value" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_value" ],
+        "curie" : "source_value",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/IAO_0000115" : {
+        "definedBy" : [ "iao" ],
+        "numAppearsIn" : 226.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "definition" ],
+        "curie" : "IAO:0000115",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/hp#plural_form" : {
+        "numAppearsIn" : 5.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "plural form" ],
+        "curie" : "plural_form",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0100491" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 6.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of lower limb joint" ],
+        "curie" : "HP:0100491",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/source_version" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_version" ],
+        "curie" : "source_version",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0000924" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 13.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the skeletal system" ],
+        "curie" : "HP:0000924",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_confidence" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_confidence" ],
+        "curie" : "translation_confidence",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0000001" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "All" ],
+        "curie" : "HP:0000001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0008366" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 5.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Foot joint contracture" ],
+        "curie" : "HP:0008366",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_status" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_status" ],
+        "curie" : "translation_status",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0011805" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 10.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal skeletal muscle morphology" ],
+        "curie" : "HP:0011805",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0034392" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 5.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Joint contracture" ],
+        "curie" : "HP:0034392",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0034677" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 5.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Ankle contracture" ],
+        "curie" : "HP:0034677",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0100261" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 6.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal tendon morphology" ],
+        "curie" : "HP:0100261",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0034430" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal joint physiology" ],
+        "curie" : "HP:0034430",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0034673" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 5.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal ankle morphology" ],
+        "curie" : "HP:0034673",
+        "type" : [ "class", "entity" ]
+      },
+      "HP:0008112" : {
+        "iri" : "http://purl.obolibrary.org/obo/HP_0008112",
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plantar flexion contracture" ],
+        "curie" : "HP:0008112",
+        "type" : [ "class", "entity" ],
+        "url" : "http://purl.obolibrary.org/obo/HP_0008112",
+        "source" : "https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.json"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0005750" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Lower-limb joint contracture" ],
+        "curie" : "HP:0005750",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/source" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source" ],
+        "curie" : "source",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_date" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_date" ],
+        "curie" : "translation_date",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasSynonymType" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 90.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_synonym_type" ],
+        "curie" : "OIO:hasSynonymType",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0033127" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the musculoskeletal system" ],
+        "curie" : "HP:0033127",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0003549" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of connective tissue" ],
+        "curie" : "HP:0003549",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#id" : {
+        "numAppearsIn" : 178.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "id" ],
+        "curie" : "id",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001760" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal foot morphology" ],
+        "curie" : "HP:0001760",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001367" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal joint morphology" ],
+        "curie" : "HP:0001367",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0003028" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 5.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the ankle" ],
+        "curie" : "HP:0003028",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/translation_precision" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translation_precision" ],
+        "curie" : "translation_precision",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0011842" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 12.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal skeletal morphology" ],
+        "curie" : "HP:0011842",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0011843" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormal musculoskeletal physiology" ],
+        "curie" : "HP:0011843",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0040064" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 10.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of limbs" ],
+        "curie" : "HP:0040064",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0001371" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 9.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Flexion contracture" ],
+        "curie" : "HP:0001371",
+        "type" : [ "class", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0011729" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 8.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of joint mobility" ],
+        "curie" : "HP:0011729",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_exact_synonym" ],
+        "curie" : "OIO:hasExactSynonym",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "UMLS:C1861239" : {
+        "url" : "https://uts.nlm.nih.gov/uts/umls/concept/C1861239",
+        "source" : "https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.json",
+        "curie" : "UMLS:C1861239"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#comment" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 183.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "comment" ],
+        "curie" : "RDFS:comment",
+        "type" : [ "property", "entity" ]
+      },
+      "https://w3id.org/babelon/translator_expertise" : {
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "translator_expertise" ],
+        "curie" : "translator_expertise",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0003121" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Limb joint contracture" ],
+        "curie" : "HP:0003121",
+        "type" : [ "class", "entity" ]
+      },
+      "https://w3id.org/babelon/source_language" : {
+        "numAppearsIn" : 2.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "source_language" ],
+        "curie" : "source_language",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://purl.obolibrary.org/obo/HP_0003011" : {
+        "definedBy" : [ "hp" ],
+        "numAppearsIn" : 10.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Abnormality of the musculature" ],
+        "curie" : "HP:0003011",
+        "type" : [ "class", "entity" ]
+      }
+    },
+    "numDescendants" : 0.0,
+    "numHierarchicalDescendants" : 0.0,
+    "ontologyId" : "hp",
+    "ontologyIri" : "http://purl.obolibrary.org/obo/hp/hp-international.owl",
+    "ontologyPreferredPrefix" : "HP",
+    "searchableAnnotationValues" : [ false ],
+    "shortForm" : "HP_0008112",
+    "synonym" : [ {
+      "type" : [ "reification" ],
+      "value" : "Plantar flexion contractures",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasSynonymType" : "http://purl.obolibrary.org/obo/hp#plural_form",
+        "oboSynonymTypeName" : "plural form"
+      } ]
+    } ],
+    "synonymProperty" : "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym",
+    "type" : [ "class", "entity" ],
+    "http://purl.obolibrary.org/obo/IAO_0000115" : "A type of contracture in which the plantar flexion muscles are contracted.",
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "UMLS:C1861239",
+    "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" : {
+      "type" : [ "reification" ],
+      "value" : "Plantar flexion contractures",
+      "axioms" : [ {
+        "http://www.geneontology.org/formats/oboInOwl#hasSynonymType" : "http://purl.obolibrary.org/obo/hp#plural_form",
+        "oboSynonymTypeName" : "plural form"
+      } ]
+    },
+    "http://www.geneontology.org/formats/oboInOwl#id" : "HP:0008112",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#comment" : "Plantar flexion is the movement of the top of the foot away from the leg in a downward motion. With plantar flexion contracture, the abiliuty to passively or actively move the tip of the toe back closer to the leg is limited.",
+    "http://www.w3.org/2000/01/rdf-schema#label" : [ "Plantar flexion contracture" ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : "http://purl.obolibrary.org/obo/HP_0034677"
+  }, {
+    "appearsIn" : [ "snomed" ],
+    "curie" : "SNOMED:227259009",
+    "definedBy" : [ "snomed" ],
+    "directAncestor" : [ "http://snomed.info/id/22836000", "http://snomed.info/id/227210005", "http://snomed.info/id/255620007", "http://snomed.info/id/762766007", "http://snomed.info/id/105590001", "http://snomed.info/id/138875005" ],
+    "directParent" : [ "http://snomed.info/id/22836000" ],
+    "hasDirectChildren" : false,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : false,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://snomed.info/id/22836000", "http://snomed.info/id/227210005", "http://snomed.info/id/255620007", "http://snomed.info/id/762766007", "http://snomed.info/id/105590001", "http://snomed.info/id/138875005" ],
+    "hierarchicalParent" : [ "http://snomed.info/id/22836000" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://snomed.info/id/227259009",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plantain (substance)", "Plantain" ],
+    "linkedEntities" : {
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/227210005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Vegetables pulses herbs and spices (substance)", "Vegetables pulses herbs and spices" ],
+        "curie" : "SNOMED:227210005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/762766007" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Edible substance (substance)", "Edible substance" ],
+        "curie" : "SNOMED:762766007",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://snomed.info/id/105590001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Substance (substance)", "Substance" ],
+        "curie" : "SNOMED:105590001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/22836000" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Vegetable (substance)", "Vegetable" ],
+        "curie" : "SNOMED:22836000",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/138875005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "SNOMED CT Concept (SNOMED RT+CTV3)", "SNOMED CT Concept" ],
+        "curie" : "SNOMED:138875005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/255620007" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Food (substance)", "Food" ],
+        "curie" : "SNOMED:255620007",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#prefLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 29.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "preferred label" ],
+        "curie" : "SKOS:prefLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      }
+    },
+    "numDescendants" : 0.0,
+    "numHierarchicalDescendants" : 0.0,
+    "ontologyId" : "snomed",
+    "ontologyIri" : "http://snomed.info/sct/900000000000207008",
+    "ontologyPreferredPrefix" : "SNOMED",
+    "searchableAnnotationValues" : [ "Plantain", false ],
+    "shortForm" : "SNOMED_227259009",
+    "type" : [ "class", "entity" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "CTV3:Ub0PY",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "Plantain (substance)",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : "http://snomed.info/id/22836000",
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : "Plantain"
+  }, {
+    "appearsIn" : [ "snomed" ],
+    "curie" : "SNOMED:264147007",
+    "definedBy" : [ "snomed" ],
+    "directAncestor" : [ "http://snomed.info/id/314807000", "http://snomed.info/id/272426002", "http://snomed.info/id/272424004", "http://snomed.info/id/309825002", "http://snomed.info/id/362981000", "http://snomed.info/id/138875005" ],
+    "directParent" : [ "http://snomed.info/id/314807000" ],
+    "hasDirectChildren" : false,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : false,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://snomed.info/id/314807000", "http://snomed.info/id/272426002", "http://snomed.info/id/272424004", "http://snomed.info/id/309825002", "http://snomed.info/id/362981000", "http://snomed.info/id/138875005" ],
+    "hierarchicalParent" : [ "http://snomed.info/id/314807000" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://snomed.info/id/264147007",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plantar (qualifier value)", "Plantar" ],
+    "linkedEntities" : {
+      "http://snomed.info/id/309825002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Spatial and relational concepts (qualifier value)", "Spatial and relational concepts" ],
+        "curie" : "SNOMED:309825002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/272426002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Specific site descriptor (qualifier value)", "Specific site descriptor" ],
+        "curie" : "SNOMED:272426002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/362981000" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Qualifier value (qualifier value)", "Qualifier value" ],
+        "curie" : "SNOMED:362981000",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/314807000" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Regional site descriptor (qualifier value)", "Regional site descriptor" ],
+        "curie" : "SNOMED:314807000",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://snomed.info/id/272424004" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Relative sites (qualifier value)", "Relative sites" ],
+        "curie" : "SNOMED:272424004",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/138875005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "SNOMED CT Concept (SNOMED RT+CTV3)", "SNOMED CT Concept" ],
+        "curie" : "SNOMED:138875005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#prefLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 29.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "preferred label" ],
+        "curie" : "SKOS:prefLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      }
+    },
+    "numDescendants" : 0.0,
+    "numHierarchicalDescendants" : 0.0,
+    "ontologyId" : "snomed",
+    "ontologyIri" : "http://snomed.info/sct/900000000000207008",
+    "ontologyPreferredPrefix" : "SNOMED",
+    "searchableAnnotationValues" : [ "Plantar", false ],
+    "shortForm" : "SNOMED_264147007",
+    "type" : [ "class", "entity" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "CTV3:XC0KV",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "Plantar (qualifier value)",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : "http://snomed.info/id/314807000",
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : "Plantar"
+  }, {
+    "appearsIn" : [ "snomed" ],
+    "curie" : "SNOMED:178051003",
+    "definedBy" : [ "snomed" ],
+    "directAncestor" : [ "http://snomed.info/id/107737002", "http://snomed.info/id/112697007", "http://snomed.info/id/118666003", "http://snomed.info/id/118664000", "http://snomed.info/id/362958002", "http://snomed.info/id/71388002", "http://snomed.info/id/138875005", "http://snomed.info/id/387713003", "http://snomed.info/id/128927009", "http://snomed.info/id/65801008", "http://snomed.info/id/128303001", "http://snomed.info/id/118292001", "http://snomed.info/id/119686008", "http://snomed.info/id/128995005", "http://snomed.info/id/107784002", "http://snomed.info/id/118710009", "http://snomed.info/id/118949002", "http://snomed.info/id/771329004", "http://snomed.info/id/363187007", "http://snomed.info/id/61661004", "http://snomed.info/id/107793001", "http://snomed.info/id/118716003", "http://snomed.info/id/17045008", "http://snomed.info/id/118753009", "http://snomed.info/id/118738001", "http://snomed.info/id/373351007", "http://snomed.info/id/40151007", "http://snomed.info/id/129234005", "http://snomed.info/id/74422001", "http://snomed.info/id/56361007", "http://snomed.info/id/363285009" ],
+    "directParent" : [ "http://snomed.info/id/107737002", "http://snomed.info/id/119686008", "http://snomed.info/id/17045008", "http://snomed.info/id/40151007" ],
+    "hasDirectChildren" : true,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : true,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://snomed.info/id/107737002", "http://snomed.info/id/112697007", "http://snomed.info/id/118666003", "http://snomed.info/id/118664000", "http://snomed.info/id/362958002", "http://snomed.info/id/71388002", "http://snomed.info/id/138875005", "http://snomed.info/id/387713003", "http://snomed.info/id/128927009", "http://snomed.info/id/65801008", "http://snomed.info/id/128303001", "http://snomed.info/id/118292001", "http://snomed.info/id/119686008", "http://snomed.info/id/128995005", "http://snomed.info/id/107784002", "http://snomed.info/id/118710009", "http://snomed.info/id/118949002", "http://snomed.info/id/771329004", "http://snomed.info/id/363187007", "http://snomed.info/id/61661004", "http://snomed.info/id/107793001", "http://snomed.info/id/118716003", "http://snomed.info/id/17045008", "http://snomed.info/id/118753009", "http://snomed.info/id/118738001", "http://snomed.info/id/373351007", "http://snomed.info/id/40151007", "http://snomed.info/id/129234005", "http://snomed.info/id/74422001", "http://snomed.info/id/56361007", "http://snomed.info/id/363285009" ],
+    "hierarchicalParent" : [ "http://snomed.info/id/107737002", "http://snomed.info/id/119686008", "http://snomed.info/id/17045008", "http://snomed.info/id/40151007" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://snomed.info/id/178051003",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plantar fasciectomy (procedure)", "Plantar fasciectomy" ],
+    "linkedEntities" : {
+      "http://snomed.info/id/40151007" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Aponeurectomy (procedure)", "Aponeurectomy" ],
+        "curie" : "SNOMED:40151007",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#altLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 24.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "alternative label" ],
+        "curie" : "SKOS:altLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://snomed.info/id/118753009" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Procedure on fascia (procedure)", "Procedure on fascia" ],
+        "curie" : "SNOMED:118753009",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/128303001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Surgical removal (procedure)", "Surgical removal" ],
+        "curie" : "SNOMED:128303001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/363187007" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Limb operation (procedure)", "Limb operation" ],
+        "curie" : "SNOMED:363187007",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/118666003" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Procedure on musculoskeletal system (procedure)", "Procedure on musculoskeletal system" ],
+        "curie" : "SNOMED:118666003",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/609096000" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Role group (attribute)", "Role group" ],
+        "curie" : "SNOMED:609096000",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "http://snomed.info/id/118949002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Procedure on extremity (procedure)", "Procedure on extremity" ],
+        "curie" : "SNOMED:118949002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/56361007" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Excision of soft tissue (procedure)", "Excision of soft tissue" ],
+        "curie" : "SNOMED:56361007",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/771329004" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Procedure on body region (procedure)", "Procedure on body region" ],
+        "curie" : "SNOMED:771329004",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/107793001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Operative procedure on ankle AND/OR foot (procedure)", "Operative procedure on ankle AND/OR foot" ],
+        "curie" : "SNOMED:107793001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/363285009" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Removal of soft tissue (procedure)", "Removal of soft tissue" ],
+        "curie" : "SNOMED:363285009",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/17045008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Operation on fascia (procedure)", "Operation on fascia" ],
+        "curie" : "SNOMED:17045008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/220023008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plantar fascia structure (body structure)", "Plantar fascia structure" ],
+        "curie" : "SNOMED:220023008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/362958002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Procedure by site (procedure)", "Procedure by site" ],
+        "curie" : "SNOMED:362958002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/112697007" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Operation on musculoskeletal system (procedure)", "Operation on musculoskeletal system" ],
+        "curie" : "SNOMED:112697007",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/128995005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Excision of lower extremity structure (procedure)", "Excision of lower extremity structure" ],
+        "curie" : "SNOMED:128995005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/107737002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Musculoskeletal system excision (procedure)", "Musculoskeletal system excision" ],
+        "curie" : "SNOMED:107737002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/387713003" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Surgical procedure (procedure)", "Surgical procedure" ],
+        "curie" : "SNOMED:387713003",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/74422001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Fasciectomy (procedure)", "Fasciectomy" ],
+        "curie" : "SNOMED:74422001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/118716003" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Procedure on foot (procedure)", "Procedure on foot" ],
+        "curie" : "SNOMED:118716003",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/129304002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Excision - action (qualifier value)", "Excision - action" ],
+        "curie" : "SNOMED:129304002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://snomed.info/id/373351007" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Surgical procedure on soft tissue (procedure)", "Surgical procedure on soft tissue" ],
+        "curie" : "SNOMED:373351007",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/129234005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Procedure on aponeurosis (procedure)", "Procedure on aponeurosis" ],
+        "curie" : "SNOMED:129234005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/118664000" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Procedure on body system (procedure)", "Procedure on body system" ],
+        "curie" : "SNOMED:118664000",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/118738001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Procedure on soft tissue (procedure)", "Procedure on soft tissue" ],
+        "curie" : "SNOMED:118738001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/128927009" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Procedure by method (procedure)", "Procedure by method" ],
+        "curie" : "SNOMED:128927009",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/119686008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Foot excision (procedure)", "Foot excision" ],
+        "curie" : "SNOMED:119686008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/260686004" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Method (attribute)", "Method" ],
+        "curie" : "SNOMED:260686004",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "http://snomed.info/id/71388002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Procedure (procedure)", "Procedure" ],
+        "curie" : "SNOMED:71388002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/61661004" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Operative procedure on foot (procedure)", "Operative procedure on foot" ],
+        "curie" : "SNOMED:61661004",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/118710009" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Procedure on lower extremity (procedure)", "Procedure on lower extremity" ],
+        "curie" : "SNOMED:118710009",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/107784002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Surgical procedure on lower extremity (procedure)", "Surgical procedure on lower extremity" ],
+        "curie" : "SNOMED:107784002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/118292001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Removal (procedure)", "Removal" ],
+        "curie" : "SNOMED:118292001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/138875005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "SNOMED CT Concept (SNOMED RT+CTV3)", "SNOMED CT Concept" ],
+        "curie" : "SNOMED:138875005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/405813007" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Procedure site - Direct (attribute)", "Procedure site - Direct" ],
+        "curie" : "SNOMED:405813007",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "http://snomed.info/id/65801008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Excision (procedure)", "Excision" ],
+        "curie" : "SNOMED:65801008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#prefLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 29.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "preferred label" ],
+        "curie" : "SKOS:prefLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      }
+    },
+    "numDescendants" : 3.0,
+    "numHierarchicalDescendants" : 3.0,
+    "ontologyId" : "snomed",
+    "ontologyIri" : "http://snomed.info/sct/900000000000207008",
+    "ontologyPreferredPrefix" : "SNOMED",
+    "searchableAnnotationValues" : [ "Excision of plantar fascia", "Plantar fasciectomy", false ],
+    "shortForm" : "SNOMED_178051003",
+    "type" : [ "class", "entity" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "CTV3:7H322",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "Plantar fasciectomy (procedure)",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ "http://snomed.info/id/107737002", "http://snomed.info/id/119686008", "http://snomed.info/id/17045008", "http://snomed.info/id/40151007" ],
+    "http://www.w3.org/2002/07/owl#equivalentClass" : {
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2002/07/owl#intersectionOf" : [ "http://snomed.info/id/71388002", {
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Restriction",
+        "http://www.w3.org/2002/07/owl#onProperty" : "http://snomed.info/id/609096000",
+        "http://www.w3.org/2002/07/owl#someValuesFrom" : {
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+          "http://www.w3.org/2002/07/owl#intersectionOf" : [ {
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Restriction",
+            "http://www.w3.org/2002/07/owl#onProperty" : "http://snomed.info/id/260686004",
+            "http://www.w3.org/2002/07/owl#someValuesFrom" : "http://snomed.info/id/129304002",
+            "isObsolete" : false
+          }, {
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Restriction",
+            "http://www.w3.org/2002/07/owl#onProperty" : "http://snomed.info/id/405813007",
+            "http://www.w3.org/2002/07/owl#someValuesFrom" : "http://snomed.info/id/220023008",
+            "isObsolete" : false
+          } ]
+        },
+        "isObsolete" : false
+      } ]
+    },
+    "http://www.w3.org/2004/02/skos/core#altLabel" : "Excision of plantar fascia",
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : "Plantar fasciectomy"
+  }, {
+    "appearsIn" : [ "snomed" ],
+    "curie" : "SNOMED:1660001",
+    "definedBy" : [ "snomed" ],
+    "directAncestor" : [ "http://snomed.info/id/228656006", "http://snomed.info/id/256248008", "http://snomed.info/id/289958009", "http://snomed.info/id/115668003", "http://snomed.info/id/105590001", "http://snomed.info/id/138875005", "http://snomed.info/id/260786008", "http://snomed.info/id/260769002" ],
+    "directParent" : [ "http://snomed.info/id/228656006" ],
+    "hasDirectChildren" : false,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : false,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://snomed.info/id/228656006", "http://snomed.info/id/256248008", "http://snomed.info/id/289958009", "http://snomed.info/id/115668003", "http://snomed.info/id/105590001", "http://snomed.info/id/138875005", "http://snomed.info/id/260786008", "http://snomed.info/id/260769002" ],
+    "hierarchicalParent" : [ "http://snomed.info/id/228656006" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://snomed.info/id/1660001",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plant seeds (substance)", "Plant seeds" ],
+    "linkedEntities" : {
+      "http://snomed.info/id/260769002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Material (substance)", "Material" ],
+        "curie" : "SNOMED:260769002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/228656006" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plant structure (substance)", "Plant structure" ],
+        "curie" : "SNOMED:228656006",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/115668003" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Biological substance (substance)", "Biological substance" ],
+        "curie" : "SNOMED:115668003",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/256248008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plant material (substance)", "Plant material" ],
+        "curie" : "SNOMED:256248008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://snomed.info/id/260786008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Natural material (substance)", "Natural material" ],
+        "curie" : "SNOMED:260786008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/105590001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Substance (substance)", "Substance" ],
+        "curie" : "SNOMED:105590001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/289958009" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Organic natural material (substance)", "Organic natural material" ],
+        "curie" : "SNOMED:289958009",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/138875005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "SNOMED CT Concept (SNOMED RT+CTV3)", "SNOMED CT Concept" ],
+        "curie" : "SNOMED:138875005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#prefLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 29.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "preferred label" ],
+        "curie" : "SKOS:prefLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      }
+    },
+    "numDescendants" : 0.0,
+    "numHierarchicalDescendants" : 0.0,
+    "ontologyId" : "snomed",
+    "ontologyIri" : "http://snomed.info/sct/900000000000207008",
+    "ontologyPreferredPrefix" : "SNOMED",
+    "searchableAnnotationValues" : [ "Plant seeds", false ],
+    "shortForm" : "SNOMED_1660001",
+    "type" : [ "class", "entity" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "CTV3:XU8Id",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "Plant seeds (substance)",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : "http://snomed.info/id/228656006",
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : "Plant seeds"
+  }, {
+    "appearsIn" : [ "snomed" ],
+    "curie" : "SNOMED:16696001",
+    "definedBy" : [ "snomed" ],
+    "directAncestor" : [ "http://snomed.info/id/62873003", "http://snomed.info/id/256248008", "http://snomed.info/id/289958009", "http://snomed.info/id/115668003", "http://snomed.info/id/105590001", "http://snomed.info/id/138875005", "http://snomed.info/id/260786008", "http://snomed.info/id/260769002", "http://snomed.info/id/65863008", "http://snomed.info/id/312412007" ],
+    "directParent" : [ {
+      "type" : [ "reification" ],
+      "value" : "http://snomed.info/id/62873003",
+      "axioms" : [ {
+        "childRelationToParent" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      } ]
+    }, {
+      "type" : [ "reification" ],
+      "value" : "http://snomed.info/id/65863008",
+      "axioms" : [ {
+        "childRelationToParent" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      } ]
+    } ],
+    "hasDirectChildren" : true,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : true,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://snomed.info/id/62873003", "http://snomed.info/id/256248008", "http://snomed.info/id/289958009", "http://snomed.info/id/115668003", "http://snomed.info/id/105590001", "http://snomed.info/id/138875005", "http://snomed.info/id/260786008", "http://snomed.info/id/260769002", "http://snomed.info/id/65863008", "http://snomed.info/id/312412007" ],
+    "hierarchicalParent" : [ {
+      "type" : [ "reification" ],
+      "value" : "http://snomed.info/id/62873003",
+      "axioms" : [ {
+        "childRelationToParent" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      } ]
+    }, {
+      "type" : [ "reification" ],
+      "value" : "http://snomed.info/id/65863008",
+      "axioms" : [ {
+        "childRelationToParent" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      } ]
+    }, "http://snomed.info/id/62873003", "http://snomed.info/id/65863008" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://snomed.info/id/16696001",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plant pigment (substance)", "Plant pigment" ],
+    "linkedEntities" : {
+      "http://snomed.info/id/260769002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Material (substance)", "Material" ],
+        "curie" : "SNOMED:260769002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/312412007" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Substance categorized functionally (substance)" ],
+        "curie" : "SNOMED:312412007",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/14602007" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Chlorophyll (substance)", "Chlorophyll" ],
+        "curie" : "SNOMED:14602007",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/115668003" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Biological substance (substance)", "Biological substance" ],
+        "curie" : "SNOMED:115668003",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/256248008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plant material (substance)", "Plant material" ],
+        "curie" : "SNOMED:256248008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://snomed.info/id/62873003" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plant agent (substance)", "Plant product" ],
+        "curie" : "SNOMED:62873003",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/260786008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Natural material (substance)", "Natural material" ],
+        "curie" : "SNOMED:260786008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/105590001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Substance (substance)", "Substance" ],
+        "curie" : "SNOMED:105590001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/418677006" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Tetrapyrrole (substance)", "Tetrapyrrole" ],
+        "curie" : "SNOMED:418677006",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/65863008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Pigment (substance)", "Pigment" ],
+        "curie" : "SNOMED:65863008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/289958009" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Organic natural material (substance)", "Organic natural material" ],
+        "curie" : "SNOMED:289958009",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/138875005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "SNOMED CT Concept (SNOMED RT+CTV3)", "SNOMED CT Concept" ],
+        "curie" : "SNOMED:138875005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#prefLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 29.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "preferred label" ],
+        "curie" : "SKOS:prefLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      }
+    },
+    "numDescendants" : 7.0,
+    "numHierarchicalDescendants" : 7.0,
+    "ontologyId" : "snomed",
+    "ontologyIri" : "http://snomed.info/sct/900000000000207008",
+    "ontologyPreferredPrefix" : "SNOMED",
+    "relatedFrom" : [ {
+      "property" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "value" : "http://snomed.info/id/14602007",
+      "type" : [ "related" ],
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2002/07/owl#intersectionOf" : [ "http://snomed.info/id/16696001", "http://snomed.info/id/418677006" ]
+    } ],
+    "relatedTo" : [ {
+      "property" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "value" : "http://snomed.info/id/62873003",
+      "type" : [ "related" ],
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2002/07/owl#intersectionOf" : [ "http://snomed.info/id/62873003", "http://snomed.info/id/65863008" ]
+    }, {
+      "property" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "value" : "http://snomed.info/id/65863008",
+      "type" : [ "related" ],
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2002/07/owl#intersectionOf" : [ "http://snomed.info/id/62873003", "http://snomed.info/id/65863008" ]
+    } ],
+    "searchableAnnotationValues" : [ "Plant pigment", false ],
+    "shortForm" : "SNOMED_16696001",
+    "type" : [ "class", "entity" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "CTV3:XU8Js",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "Plant pigment (substance)",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+      "type" : [ "reification" ],
+      "value" : "http://snomed.info/id/62873003",
+      "axioms" : [ {
+        "childRelationToParent" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      } ]
+    }, {
+      "type" : [ "reification" ],
+      "value" : "http://snomed.info/id/65863008",
+      "axioms" : [ {
+        "childRelationToParent" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      } ]
+    }, {
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2002/07/owl#intersectionOf" : [ "http://snomed.info/id/62873003", "http://snomed.info/id/65863008" ]
+    } ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : "Plant pigment"
+  }, {
+    "appearsIn" : [ "snomed" ],
+    "curie" : "SNOMED:119301009",
+    "definedBy" : [ "snomed" ],
+    "directAncestor" : [ "http://snomed.info/id/123038009", "http://snomed.info/id/138875005" ],
+    "directParent" : [ "http://snomed.info/id/123038009" ],
+    "hasDirectChildren" : false,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : false,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://snomed.info/id/123038009", "http://snomed.info/id/138875005" ],
+    "hierarchicalParent" : [ "http://snomed.info/id/123038009" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://snomed.info/id/119301009",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plant specimen (specimen)", "Plant specimen" ],
+    "linkedEntities" : {
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/609096000" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Role group (attribute)", "Role group" ],
+        "curie" : "SNOMED:609096000",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "http://snomed.info/id/228656006" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plant structure (substance)", "Plant structure" ],
+        "curie" : "SNOMED:228656006",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/123038009" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Specimen (specimen)", "Specimen" ],
+        "curie" : "SNOMED:123038009",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://snomed.info/id/370133003" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Specimen substance (attribute)", "Specimen substance" ],
+        "curie" : "SNOMED:370133003",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/138875005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "SNOMED CT Concept (SNOMED RT+CTV3)", "SNOMED CT Concept" ],
+        "curie" : "SNOMED:138875005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#prefLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 29.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "preferred label" ],
+        "curie" : "SKOS:prefLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      }
+    },
+    "numDescendants" : 0.0,
+    "numHierarchicalDescendants" : 0.0,
+    "ontologyId" : "snomed",
+    "ontologyIri" : "http://snomed.info/sct/900000000000207008",
+    "ontologyPreferredPrefix" : "SNOMED",
+    "searchableAnnotationValues" : [ "Plant specimen", false ],
+    "shortForm" : "SNOMED_119301009",
+    "type" : [ "class", "entity" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : "CTV3:XU4r1",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "Plant specimen (specimen)",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : "http://snomed.info/id/123038009",
+    "http://www.w3.org/2002/07/owl#equivalentClass" : {
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2002/07/owl#intersectionOf" : [ "http://snomed.info/id/123038009", {
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Restriction",
+        "http://www.w3.org/2002/07/owl#onProperty" : "http://snomed.info/id/609096000",
+        "http://www.w3.org/2002/07/owl#someValuesFrom" : {
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Restriction",
+          "http://www.w3.org/2002/07/owl#onProperty" : "http://snomed.info/id/370133003",
+          "http://www.w3.org/2002/07/owl#someValuesFrom" : "http://snomed.info/id/228656006",
+          "isObsolete" : false
+        },
+        "isObsolete" : false
+      } ]
+    },
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : "Plant specimen"
+  }, {
+    "appearsIn" : [ "snomed" ],
+    "curie" : "SNOMED:202882003",
+    "definedBy" : [ "snomed" ],
+    "directAncestor" : [ "http://snomed.info/id/118932009", "http://snomed.info/id/116316008", "http://snomed.info/id/419518009", "http://snomed.info/id/116312005", "http://snomed.info/id/302293008", "http://snomed.info/id/301857004", "http://snomed.info/id/118234003", "http://snomed.info/id/404684003", "http://snomed.info/id/138875005", "http://snomed.info/id/700012005", "http://snomed.info/id/118937003", "http://snomed.info/id/128605003", "http://snomed.info/id/123946008", "http://snomed.info/id/64572001", "http://snomed.info/id/280136002", "http://snomed.info/id/280134004", "http://snomed.info/id/19660004", "http://snomed.info/id/248402002", "http://snomed.info/id/312225001", "http://snomed.info/id/105969002", "http://snomed.info/id/928000", "http://snomed.info/id/106028002", "http://snomed.info/id/362965005", "http://snomed.info/id/363044007", "http://snomed.info/id/363175000", "http://snomed.info/id/363170005", "http://snomed.info/id/128139000", "http://snomed.info/id/363179006", "http://snomed.info/id/363171009", "http://snomed.info/id/36948007", "http://snomed.info/id/26077002" ],
+    "directParent" : [ "http://snomed.info/id/118932009", "http://snomed.info/id/280136002", "http://snomed.info/id/312225001", "http://snomed.info/id/363044007", "http://snomed.info/id/363175000", "http://snomed.info/id/363179006", "http://snomed.info/id/36948007" ],
+    "hasDirectChildren" : true,
+    "hasDirectParents" : true,
+    "hasHierarchicalChildren" : true,
+    "hasHierarchicalParents" : true,
+    "hierarchicalAncestor" : [ "http://snomed.info/id/118932009", "http://snomed.info/id/116316008", "http://snomed.info/id/419518009", "http://snomed.info/id/116312005", "http://snomed.info/id/302293008", "http://snomed.info/id/301857004", "http://snomed.info/id/118234003", "http://snomed.info/id/404684003", "http://snomed.info/id/138875005", "http://snomed.info/id/700012005", "http://snomed.info/id/118937003", "http://snomed.info/id/128605003", "http://snomed.info/id/123946008", "http://snomed.info/id/64572001", "http://snomed.info/id/280136002", "http://snomed.info/id/280134004", "http://snomed.info/id/19660004", "http://snomed.info/id/248402002", "http://snomed.info/id/312225001", "http://snomed.info/id/105969002", "http://snomed.info/id/928000", "http://snomed.info/id/106028002", "http://snomed.info/id/362965005", "http://snomed.info/id/363044007", "http://snomed.info/id/363175000", "http://snomed.info/id/363170005", "http://snomed.info/id/128139000", "http://snomed.info/id/363179006", "http://snomed.info/id/363171009", "http://snomed.info/id/36948007", "http://snomed.info/id/26077002" ],
+    "hierarchicalParent" : [ "http://snomed.info/id/118932009", "http://snomed.info/id/280136002", "http://snomed.info/id/312225001", "http://snomed.info/id/363044007", "http://snomed.info/id/363175000", "http://snomed.info/id/363179006", "http://snomed.info/id/36948007" ],
+    "hierarchicalProperty" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+    "imported" : false,
+    "iri" : "http://snomed.info/id/202882003",
+    "isDefiningOntology" : true,
+    "isObsolete" : false,
+    "isPreferredRoot" : false,
+    "label" : [ "Plantar fasciitis (disorder)", "Plantar fasciitis" ],
+    "linkedEntities" : {
+      "http://snomed.info/id/280136002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Disorder of soft tissue of lower limb (disorder)", "Disorder of soft tissue of lower limb" ],
+        "curie" : "SNOMED:280136002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#altLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 24.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "alternative label" ],
+        "curie" : "SKOS:altLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://snomed.info/id/302293008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Finding of limb structure (finding)", "Finding of limb structure" ],
+        "curie" : "SNOMED:302293008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/700012005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Disorder of free lower limb (disorder)", "Disorder of free lower limb" ],
+        "curie" : "SNOMED:700012005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/128605003" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Disorder of extremity (disorder)", "Disorder of extremity" ],
+        "curie" : "SNOMED:128605003",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 7.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "subClassOf" ],
+        "curie" : "RDFS:subClassOf",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/116312005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Finding of lower limb (finding)", "Finding of lower limb" ],
+        "curie" : "SNOMED:116312005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/312225001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Musculoskeletal and connective tissue disorder (disorder)", "Musculoskeletal and connective tissue disorder" ],
+        "curie" : "SNOMED:312225001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/363170005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Inflammation of specific body structures or tissue (disorder)", "Inflammation of specific body structures or tissue" ],
+        "curie" : "SNOMED:363170005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/609096000" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Role group (attribute)", "Role group" ],
+        "curie" : "SNOMED:609096000",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "http://snomed.info/id/19660004" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Disorder of soft tissue (disorder)", "Disorder of soft tissue" ],
+        "curie" : "SNOMED:19660004",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/220023008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Plantar fascia structure (body structure)", "Plantar fascia structure" ],
+        "curie" : "SNOMED:220023008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/118937003" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Disorder of lower extremity (disorder)", "Disorder of lower extremity" ],
+        "curie" : "SNOMED:118937003",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/363171009" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Inflammation of specific body systems (disorder)", "Inflammation of specific body systems" ],
+        "curie" : "SNOMED:363171009",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/363179006" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Inflammatory disorder of musculoskeletal system (disorder)", "Inflammatory disorder of musculoskeletal system" ],
+        "curie" : "SNOMED:363179006",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/419518009" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Finding of ankle or foot (finding)", "Finding of ankle or foot" ],
+        "curie" : "SNOMED:419518009",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/128139000" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Inflammatory disorder (disorder)", "Inflammatory disorder" ],
+        "curie" : "SNOMED:128139000",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/280134004" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Disorder of soft tissue of limb (disorder)", "Disorder of soft tissue of limb" ],
+        "curie" : "SNOMED:280134004",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/362965005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Disorder of body system (disorder)", "Disorder of body system" ],
+        "curie" : "SNOMED:362965005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/363175000" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Inflammatory disorder of extremity (disorder)", "Inflammatory disorder of extremity" ],
+        "curie" : "SNOMED:363175000",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : {
+        "definedBy" : [ "oio" ],
+        "numAppearsIn" : 204.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "has_dbxref" ],
+        "curie" : "OIO:hasDbXref",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      },
+      "http://snomed.info/id/248402002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "General finding of soft tissue (finding)", "General finding of soft tissue" ],
+        "curie" : "SNOMED:248402002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/64572001" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Disease (disorder)", "Disease" ],
+        "curie" : "SNOMED:64572001",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/106028002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Musculoskeletal finding (finding)", "Musculoskeletal finding" ],
+        "curie" : "SNOMED:106028002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/26077002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Disorder of fascia (disorder)", "Disorder of fascia" ],
+        "curie" : "SNOMED:26077002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/301857004" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Finding of body region (finding)", "Finding of body region" ],
+        "curie" : "SNOMED:301857004",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/363698007" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Finding site (attribute)", "Finding site" ],
+        "curie" : "SNOMED:363698007",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "http://snomed.info/id/363044007" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Connective tissue disorder by body site (disorder)", "Connective tissue disorder by body site" ],
+        "curie" : "SNOMED:363044007",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/105969002" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Disorder of connective tissue (disorder)", "Disorder of connective tissue" ],
+        "curie" : "SNOMED:105969002",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/928000" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Disorder of musculoskeletal system (disorder)", "Disorder of musculoskeletal system" ],
+        "curie" : "SNOMED:928000",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/116316008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Finding of foot region (finding)", "Finding of foot region" ],
+        "curie" : "SNOMED:116316008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/36948007" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Fasciitis (disorder)", "Fasciitis" ],
+        "curie" : "SNOMED:36948007",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/118234003" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Finding by site (finding)", "Finding by site" ],
+        "curie" : "SNOMED:118234003",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/116676008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Associated morphology (attribute)", "Associated morphology" ],
+        "curie" : "SNOMED:116676008",
+        "type" : [ "property", "objectProperty", "entity" ]
+      },
+      "http://snomed.info/id/123946008" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Disorder by body site (disorder)", "Disorder by body site" ],
+        "curie" : "SNOMED:123946008",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label" : {
+        "definedBy" : [ "rdfs" ],
+        "numAppearsIn" : 202.0,
+        "hasLocalDefinition" : false,
+        "label" : [ "label" ],
+        "curie" : "RDFS:label",
+        "type" : [ "property", "entity" ]
+      },
+      "http://snomed.info/id/409774005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Inflammatory morphology (morphologic abnormality)", "Inflammatory morphology" ],
+        "curie" : "SNOMED:409774005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/404684003" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Clinical finding (finding)", "Clinical finding" ],
+        "curie" : "SNOMED:404684003",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/138875005" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "SNOMED CT Concept (SNOMED RT+CTV3)", "SNOMED CT Concept" ],
+        "curie" : "SNOMED:138875005",
+        "type" : [ "class", "entity" ]
+      },
+      "http://snomed.info/id/118932009" : {
+        "definedBy" : [ "snomed" ],
+        "numAppearsIn" : 1.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "Disorder of foot (disorder)", "Disorder of foot" ],
+        "curie" : "SNOMED:118932009",
+        "type" : [ "class", "entity" ]
+      },
+      "http://www.w3.org/2004/02/skos/core#prefLabel" : {
+        "definedBy" : [ "skos" ],
+        "numAppearsIn" : 29.0,
+        "hasLocalDefinition" : true,
+        "label" : [ "preferred label" ],
+        "curie" : "SKOS:prefLabel",
+        "type" : [ "property", "annotationProperty", "entity" ]
+      }
+    },
+    "numDescendants" : 1.0,
+    "numHierarchicalDescendants" : 1.0,
+    "ontologyId" : "snomed",
+    "ontologyIri" : "http://snomed.info/sct/900000000000207008",
+    "ontologyPreferredPrefix" : "SNOMED",
+    "searchableAnnotationValues" : [ "Policeman's heel", "Plantar fasciitis", false ],
+    "shortForm" : "SNOMED_202882003",
+    "type" : [ "class", "entity" ],
+    "http://www.geneontology.org/formats/oboInOwl#hasDbXref" : [ "CTV3:N2179", "ICD10CM:M72.27" ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2000/01/rdf-schema#label" : "Plantar fasciitis (disorder)",
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ "http://snomed.info/id/118932009", "http://snomed.info/id/280136002", "http://snomed.info/id/312225001", "http://snomed.info/id/363044007", "http://snomed.info/id/363175000", "http://snomed.info/id/363179006", "http://snomed.info/id/36948007" ],
+    "http://www.w3.org/2002/07/owl#equivalentClass" : {
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2002/07/owl#intersectionOf" : [ "http://snomed.info/id/64572001", {
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Restriction",
+        "http://www.w3.org/2002/07/owl#onProperty" : "http://snomed.info/id/609096000",
+        "http://www.w3.org/2002/07/owl#someValuesFrom" : {
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Class",
+          "http://www.w3.org/2002/07/owl#intersectionOf" : [ {
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Restriction",
+            "http://www.w3.org/2002/07/owl#onProperty" : "http://snomed.info/id/116676008",
+            "http://www.w3.org/2002/07/owl#someValuesFrom" : "http://snomed.info/id/409774005",
+            "isObsolete" : false
+          }, {
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://www.w3.org/2002/07/owl#Restriction",
+            "http://www.w3.org/2002/07/owl#onProperty" : "http://snomed.info/id/363698007",
+            "http://www.w3.org/2002/07/owl#someValuesFrom" : "http://snomed.info/id/220023008",
+            "isObsolete" : false
+          } ]
+        },
+        "isObsolete" : false
+      } ]
+    },
+    "http://www.w3.org/2004/02/skos/core#altLabel" : "Policeman's heel",
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : "Plantar fasciitis"
+  } ],
+  "facetFieldsToCounts" : { }
+}
