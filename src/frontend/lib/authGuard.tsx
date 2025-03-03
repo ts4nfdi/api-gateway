@@ -48,6 +48,7 @@ export function AuthProvider({children, config = {}}: AuthProviderProps) {
                 setUser(response.data)
             } catch (error) {
                 setUser(null)
+                localStorage.removeItem('token')
             } finally {
                 setIsLoading(false)
             }
