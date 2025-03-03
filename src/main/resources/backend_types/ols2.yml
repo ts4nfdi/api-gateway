@@ -1,0 +1,58 @@
+name: ols2
+endpoints:
+  search:
+    path: /entities?search=%s
+    responseMapping:
+      nestedJson: elements
+      label: label
+      iri: iri
+      ontology: ontologyId
+      synonym: synonym->value
+      shortForm: shortForm
+      description: description|definition->value
+      ontologyIri: ontologyIri
+      obsolete: isObsolete
+      type: type
+  resources:
+    path: ontologies?size=10000
+    responseMapping:
+      nestedJson: elements
+      label: title|label
+      iri: uri|iri
+      ontology: ontologyId
+      synonym: synonym
+      shortForm: ontologyId
+      description: definition|description
+      type: type
+      sourceUrl: _links->self->href
+      obsolete: isObsolete
+      modified: loaded
+      ontologyIri: uri|iri
+      version: http://www.w3.org/2002/07/owl#versionInfo
+  concept_details:
+    path: ontologies/%s/classes?iri=%s
+    responseMapping:
+      nestedJson: elements
+      label: label
+      iri: iri
+      ontology: ontologyId
+      synonym: synonym->value
+      shortForm: shortForm
+      description: definition->value|description
+      sourceUrl: _links->self->href
+      type: type
+      obsolete: isObsolete
+      ontologyIri: ontologyIri
+  resource_details:
+    path: ontologies/%s
+    responseMapping:
+      nestedJson: ""
+      key: ""
+      label: ontologyId
+      iri: iri
+      ontology: ontologyId
+      synonym: synonym
+      shortForm: short_form
+      description: description
+      sourceUrl: _links->self->href
+      type: type

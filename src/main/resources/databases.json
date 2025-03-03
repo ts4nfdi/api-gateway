@@ -19,9 +19,9 @@
       "apiKey": "${BIODIVPORTAL_API_KEY}"
     },
     {
-      "type": "ols",
-      "name": "ols-ebi",
-      "url": "https://www.ebi.ac.uk/ols4/api"
+      "type": "ols2",
+      "name": "ebi",
+      "url": "https://www.ebi.ac.uk/ols4/api/v2"
     },
     {
       "type": "ols",
