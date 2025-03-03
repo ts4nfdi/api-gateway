@@ -61,7 +61,6 @@ public class ArtefactsService extends AbstractEndpointService {
 
         accessor.setUrls(apiUrls);
         accessor.setLogger(logger);
-        accessor.setCacheEnabled(false);
 
 
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
