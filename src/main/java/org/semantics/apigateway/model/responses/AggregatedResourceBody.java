@@ -1,18 +1,15 @@
 package org.semantics.apigateway.model.responses;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.jsonldjava.utils.Obj;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.jena.rdf.model.ResourceFactory;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.ResponseMapping;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Consumer;
 
 @Getter
 @Setter
@@ -20,29 +17,43 @@ import java.util.Map;
 public class AggregatedResourceBody {
     private String iri;
     private String label;
-    private List<String> synonym;
-    private List<String> description;
+    private List<String> synonyms;
+    private List<String> descriptions;
     @JsonProperty("short_form")
     private String shortForm;
     private String ontology;
+    @JsonProperty("ontology_iri")
+    private String ontologyIri;
     private String type;
+
     private String source;
     @JsonProperty("source_name")
     private String sourceName;
     @JsonProperty("source_url")
     private String sourceUrl;
+
     @JsonProperty("backend_type")
     private String backendType;
+
+    private String created;
+    private String modified;
+    private String version;
 
     @JsonProperty("@context")
     private String context;
     @JsonProperty("@type")
     private String typeURI;
 
+    private boolean obsolete;
+
+    @JsonIgnore
+    private Map<String, Object> originalBody;
+
+
     public static AggregatedResourceBody fromMap(Map<String, Object> item, DatabaseConfig config, String endpoint) throws RuntimeException {
         AggregatedResourceBody newItem = new AggregatedResourceBody();
         ResponseMapping responseMapping = config.getResponseMapping(endpoint);
-
+        newItem.setOriginalBody(item);
         // Mapping fields based on the JSON configuration
 
         setStringProperty(item, responseMapping.getIri(), newItem::setIri);
@@ -77,13 +88,13 @@ public class AggregatedResourceBody {
         return newItem;
     }
 
-    public Map<String, Object> toMap() {
+    public Map<String, Object> toMap(boolean includeOriginalBody) {
         Map<String, Object> map = new HashMap<>();
 
         putIfNotEmpty(map, "iri", this.iri);
         putIfNotEmpty(map, "label", this.label);
-        putIfNotEmpty(map, "synonym", this.synonym);
-        putIfNotEmpty(map, "description", this.description);
+        putIfNotEmpty(map, "synonyms", this.synonyms);
+        putIfNotEmpty(map, "descriptions", this.descriptions);
         putIfNotEmpty(map, "short_form", this.shortForm);
         putIfNotEmpty(map, "type", this.type);
         putIfNotEmpty(map, "source", this.source);
@@ -91,6 +102,14 @@ public class AggregatedResourceBody {
         putIfNotEmpty(map, "source_url", this.sourceUrl);
         putIfNotEmpty(map, "backend_type", this.backendType);
         putIfNotEmpty(map, "ontology", this.ontology);
+        putIfNotEmpty(map, "obsolete", this.obsolete);
+        putIfNotEmpty(map, "ontology_iri", this.ontologyIri);
+        putIfNotEmpty(map, "created", this.created);
+        putIfNotEmpty(map, "modified", this.modified);
+        putIfNotEmpty(map, "version", this.version);
+
+        if (includeOriginalBody)
+            map.put("originalResponse", this.originalBody);
 
         return map;
     }
