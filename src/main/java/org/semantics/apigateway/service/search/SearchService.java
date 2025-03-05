@@ -88,7 +88,7 @@ public class SearchService extends AbstractEndpointService {
                 .thenApply(data -> filterOutByCollection(collection , data))
                 .thenApply(data -> reIndexResults(query, data))
                 .thenApply(data -> transformJsonLd(data, format))
-                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema));
+                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, "search"));
     }
 
 
