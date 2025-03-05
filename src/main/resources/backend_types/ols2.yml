@@ -7,9 +7,9 @@ endpoints:
       label: label
       iri: iri
       ontology: ontologyId
-      synonym: synonym->value
       shortForm: shortForm
-      description: description|definition->value
+      synonyms: synonym->value
+      descriptions: description|definition->value
       ontologyIri: ontologyIri
       obsolete: isObsolete
       type: type
@@ -20,9 +20,9 @@ endpoints:
       label: title|label
       iri: uri|iri
       ontology: ontologyId
-      synonym: synonym
+      synonyms: synonym
+      descriptions: definition|description
       shortForm: ontologyId
-      description: definition|description
       type: type
       sourceUrl: _links->self->href
       obsolete: isObsolete
@@ -36,9 +36,9 @@ endpoints:
       label: label
       iri: iri
       ontology: ontologyId
-      synonym: synonym->value
+      synonyms: synonym->value
+      descriptions: definition->value|description
       shortForm: shortForm
-      description: definition->value|description
       sourceUrl: _links->self->href
       type: type
       obsolete: isObsolete
@@ -51,8 +51,8 @@ endpoints:
       label: ontologyId
       iri: iri
       ontology: ontologyId
-      synonym: synonym
+      synonyms: synonym
+      descriptions: description
       shortForm: short_form
-      description: description
       sourceUrl: _links->self->href
       type: type

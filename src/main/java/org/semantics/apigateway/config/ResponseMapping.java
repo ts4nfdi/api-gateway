@@ -11,15 +11,16 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ResponseMapping {
     private String nestedJson;
+    private String key;
+
     private String iri;
     private String label;
     private String source;
     private String sourceUrl;
     private String shortForm;
-    private String synonym;
+    private String synonyms;
+    private String descriptions;
     private String ontology;
-    private String key;
-    private String description;
     private String type;
     private String obsolete;
     private String OntologyIri;
