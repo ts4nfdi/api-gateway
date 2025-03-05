@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.ResponseMapping;
+import org.semantics.apigateway.service.MappingTransformer;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -54,12 +55,12 @@ public class AggregatedResourceBody {
         AggregatedResourceBody newItem = new AggregatedResourceBody();
         ResponseMapping responseMapping = config.getResponseMapping(endpoint);
         newItem.setOriginalBody(item);
-        // Mapping fields based on the JSON configuration
 
+        // Mapping fields based on the JSON configuration
         setStringProperty(item, responseMapping.getIri(), newItem::setIri);
         setStringProperty(item, responseMapping.getLabel(), newItem::setLabel);
-        setListProperty(item, responseMapping.getSynonym(), newItem::setSynonyms);
-        setListProperty(item, responseMapping.getDescription(), newItem::setDescriptions);
+        setListProperty(item, responseMapping.getSynonyms(), newItem::setSynonyms);
+        setListProperty(item, responseMapping.getDescriptions(), newItem::setDescriptions);
         setStringProperty(item, responseMapping.getShortForm(), newItem::setShortForm);
         setStringProperty(item, responseMapping.getVersion(), newItem::setVersion);
         setStringProperty(item, responseMapping.getType(), newItem::setType);
@@ -120,7 +121,7 @@ public class AggregatedResourceBody {
     }
 
     private static void setStringProperty(Map<String, Object> item, String key, Consumer<String> setter) {
-        Object value = itemValueGetter(item, key);
+        Object value = MappingTransformer.itemValueGetter(item, key);
         Optional.ofNullable(value)
                 .map(x -> {
                     if (x instanceof List) {
@@ -132,7 +133,7 @@ public class AggregatedResourceBody {
     }
 
     private static void setBooleanProperty(Map<String, Object> item, String key, Consumer<Boolean> setter) {
-        Object value = itemValueGetter(item, key);
+        Object value = MappingTransformer.itemValueGetter(item, key);
         if (value != null) {
             setter.accept(Boolean.parseBoolean(value.toString()));
         } else {
@@ -141,7 +142,7 @@ public class AggregatedResourceBody {
     }
 
     private static void setListProperty(Map<String, Object> item, String key, Consumer<List<String>> setter) {
-        Object value = itemValueGetter(item, key);
+        Object value = MappingTransformer.itemValueGetter(item, key);
         List<String> list = Collections.emptyList();
         if (value instanceof List) {
             list = (List<String>) value;
@@ -151,55 +152,5 @@ public class AggregatedResourceBody {
         setter.accept(list);
     }
 
-    private static Object itemValueGetter(Map<String, Object> item, String key) {
-        if (key == null) {
-            return null;
-        }
 
-        String[] options = key.split("\\|");
-
-        // Use findFirst to return the first non-null value found
-        return Arrays.stream(options)
-                .map(option -> {
-                    if (option.contains("->")) {
-                        String[] keys = option.split("->");
-                        Object value = item;
-                        for (String s : keys) {
-                            if (value == null) {
-                                break;
-                            }
-                            if (value instanceof Map) {
-                                value = ((Map<?, ?>) value).get(s);
-                            } else if (value instanceof List) {
-                                value = listItemValueGetter(s, value);
-                            }
-                        }
-                        return value;
-                    } else if (item.containsKey(option)) {
-                        // This should use 'option' not 'key'
-                        return item.get(option);
-                    }
-                    return null;
-                })
-                .filter(Objects::nonNull)
-                .findFirst()
-                .orElse(null);
-    }
-
-    private static List<Object> listItemValueGetter(String key, Object value) {
-        List<?> list = (List<?>) value;
-        if (list.isEmpty()) {
-            return null;
-        }
-
-        List<Object> out = new ArrayList<>();
-
-        list.forEach(x -> {
-            if (x instanceof Map) {
-                Map<?, ?> map = (Map<?, ?>) x;
-                out.add(map.get(key));
-            }
-        });
-        return out;
-    }
 }

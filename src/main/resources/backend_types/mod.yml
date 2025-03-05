@@ -4,26 +4,27 @@ endpoints:
     path: /artefacts?pagesize=10000
     responseMapping:
       nestedJson: collection
-      label: ontology->name
-      iri: URI|uri
+      label: name
+      iri: "@id"
       type: "@type"
-      ontology: ontology->acronym
+      ontology: acronym
       ontologyIri: URI|uri
-      description: description
-      sourceUrl: ontology->links->ui
+      descriptions: description
+      sourceUrl: "@id"
       created: released
       modified: modificationDate
-      synonym: alternative
+      synonyms: alternative
       version: version
-      shortForm: ontology->acronym
+      shortForm: acronym
+
   concept_details:
     path: ontologies/%s/classes/%s?apikey=%s
     responseMapping:
       label: prefLabel
       iri: "@id"
-      synonym: synonym
+      synonyms: synonym
       ontology: links->ontology
-      description: definition
+      descriptions: definition
       sourceUrl: links->ui
       type: "@type"
       obsolete: obsolete
@@ -33,9 +34,16 @@ endpoints:
     path: ontologies/%s?apikey=%s
     responseMapping:
       nestedJson: ""
-      label: acronym
+      label: name
       iri: "@id"
       type: "@type"
       ontology: acronym
-      sourceUrl: links->ui
-      description: name
+      ontologyIri: URI|uri
+      descriptions: description
+      sourceUrl: "@id"
+      created: released
+      modified: modificationDate
+      synonyms: alternative
+      version: version
+      shortForm: acronym
+
