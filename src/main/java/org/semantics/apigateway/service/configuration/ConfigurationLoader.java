@@ -111,15 +111,14 @@ public class ConfigurationLoader {
     }
 
     public DatabaseConfig getDatabaseConfig(String database) {
-        return databaseConfigs.stream()
-                .filter(c -> c.getDatabase().equalsIgnoreCase(database))
+        return serviceConfigs.stream()
+                .filter(c -> c.getName().equalsIgnoreCase(database))
+                .map(ServiceConfig::getDatabaseConfig)
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Config not found for database: " + database));
     }
 
     public DatabaseConfig getConfigByUrl(String url, String endpoint) {
-        System.out.println(databaseConfigs.get(0).getDatabase());
-
         return databaseConfigs.stream()
                 .filter(c -> c.getUrl(endpoint).equalsIgnoreCase(url))
                 .findFirst()

@@ -72,7 +72,7 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
 
     @Test
     public void testGetAllArtefact() {
-        CompletableFuture<Object> r = artefactsService.getArtefact("AGROVOC", null, null, false, apiAccessor);
+        CompletableFuture<Object> r = artefactsService.getArtefact("AGROVOC",null, null, null, false, apiAccessor);
 
         AggregatedApiResponse response = (AggregatedApiResponse) r.join();
 
