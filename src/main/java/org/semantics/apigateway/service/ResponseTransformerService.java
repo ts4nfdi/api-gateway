@@ -1,9 +1,11 @@
 package org.semantics.apigateway.service;
 
 import lombok.Getter;
+import org.semantics.apigateway.api.ModTransformer;
 import org.semantics.apigateway.api.OlsTransformer;
 import org.semantics.apigateway.api.OntoPortalTransformer;
 import org.semantics.apigateway.api.SkosmosTransformer;
+import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.springframework.stereotype.Service;
 
@@ -27,40 +29,47 @@ public class ResponseTransformerService {
 
     // Method to transform and structure results based on database
     public Map<String, Object> transformAndStructureResults(List<Map<String, Object>> combinedResults, String
-            targetDbSchema) throws IOException {
-        return transformJsonResponse(combinedResults, targetDbSchema);
+            targetDbSchema, String endpoint, Boolean isNoList) throws IOException {
+        return transformJsonResponse(combinedResults, targetDbSchema, endpoint, isNoList);
     }
 
     // Method to transform the JSON response from a database into a specific format
-    private Map<String, Object>  transformJsonResponse(List<Map<String, Object>> originalResponse, String targetDataBase) {
+    private Map<String, Object>  transformJsonResponse(List<Map<String, Object>> originalResponse, String targetDataBase, String endpoint, Boolean isNoList) {
+        DatabaseConfig databaseConfig = configurationLoader.getDatabaseConfig(targetDataBase);
         switch (targetDataBase) {
-            // Case for transforming data from the OLS database
             case "ols":
                 OlsTransformer olsTransformer = new OlsTransformer();
                 List<Map<String, Object>> transformedResults = originalResponse.stream()
-                        .map(olsTransformer::transformItem)
+                        .map(x ->  olsTransformer.transformItem(x, databaseConfig.getResponseMapping(endpoint)))
                         .filter(Objects::nonNull)
                         .collect(Collectors.toList());
 
-                return olsTransformer.constructResponse(transformedResults);
-            // Case for transforming data from the OntoPortal database
+                return olsTransformer.constructResponse(transformedResults, false);
             case "ontoportal":
                 OntoPortalTransformer ontoPortalTransformer = new OntoPortalTransformer();
                 List<Map<String, Object>> transformedResultsOntoPortal = originalResponse.stream()
-                        .map(ontoPortalTransformer::transformItem)
+                        .map(x ->  ontoPortalTransformer.transformItem(x, databaseConfig.getResponseMapping(endpoint)))
                         .filter(Objects::nonNull)
                         .collect(Collectors.toList());
 
-                return ontoPortalTransformer.constructResponse(transformedResultsOntoPortal);
-            // Add more cases here for other databases as needed
+                return ontoPortalTransformer.constructResponse(transformedResultsOntoPortal, false);
             case "skosmos":
                 SkosmosTransformer skosmosTransformer = new SkosmosTransformer();
                 List<Map<String, Object>> transformedResultsSkosmos = originalResponse.stream()
-                        .map(skosmosTransformer::transformItem)
+                        .map(x ->  skosmosTransformer.transformItem(x, databaseConfig.getResponseMapping(endpoint)))
                         .filter(Objects::nonNull)
                         .collect(Collectors.toList());
-                return  skosmosTransformer.constructResponse(transformedResultsSkosmos);
+                return  skosmosTransformer.constructResponse(transformedResultsSkosmos, false);
+             case "mod":
+                 ModTransformer modTransformer = new ModTransformer();
+                    List<Map<String, Object>> transformedResultsMod = originalResponse.stream()
+                            .map(x -> modTransformer.transformItem(x, databaseConfig.getResponseMapping(endpoint)))
+                            .filter(Objects::nonNull)
+                            .collect(Collectors.toList());
+
+                    return modTransformer.constructResponse(transformedResultsMod, isNoList);
             default:
+
                 return (Map<String, Object>) new HashMap<>().put("error", "No database configuration found");
         }
     }
