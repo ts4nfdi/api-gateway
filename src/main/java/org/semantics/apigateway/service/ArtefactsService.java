@@ -70,15 +70,15 @@ public class ArtefactsService extends AbstractEndpointService {
                 .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration, collection))
                 .thenApply(data -> filterOutByCollection(collection, data))
                 .thenApply(data -> transformJsonLd(data, format))
-                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema));
+                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, "resources"));
     }
 
-    public CompletableFuture<Object> getArtefact(String id, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
-        return getArtefact(id, format, targetDbSchema, showResponseConfiguration, null);
+    public CompletableFuture<Object> getArtefact(String id, String database, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
+        return getArtefact(id, database, format, targetDbSchema, showResponseConfiguration, null);
     }
-    public CompletableFuture<Object> getArtefact(String id, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration, ApiAccessor accessor) {
+    public CompletableFuture<Object> getArtefact(String id, String database, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration, ApiAccessor accessor) {
 
-        Map<String, String> apiUrls = filterDatabases("", "resource_details");
+        Map<String, String> apiUrls = filterDatabases(database, "resource_details");
 
         if (accessor == null) {
             accessor = getAccessor();
@@ -91,10 +91,26 @@ public class ArtefactsService extends AbstractEndpointService {
                 .thenApply(data -> this.transformApiResponses(data, "resource_details"))
                 .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration))
                 .thenApply(data -> filterArtefactsById(data, id))
+                .thenApply(data -> selectArtefact(data, database))
                 .thenApply(data -> transformJsonLd(data, format))
-                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema));
+                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, "resource_details"));
     }
 
+    public AggregatedApiResponse selectArtefact(AggregatedApiResponse apiResponse, String database) {
+        if(database == null){
+            return apiResponse;
+        }
+
+        Map<String, Object> a = apiResponse.getCollection().stream().filter(x -> x.get("backend_type").equals(database)).findFirst().orElse(null);
+
+        if(a == null){
+            return apiResponse;
+        }
+
+        apiResponse.setCollection(List.of(a));
+        apiResponse.setNoList(true);
+        return apiResponse;
+    }
 
     public CompletableFuture<Object> getArtefactTerm(String id, String uri, String database, ResponseFormat format, TargetDbSchema targetDbSchema, boolean showResponseConfiguration) {
         return getArtefactTerm(id, uri, database, format, targetDbSchema, showResponseConfiguration, null);
@@ -115,7 +131,7 @@ public class ArtefactsService extends AbstractEndpointService {
                 .thenApply(data -> this.transformApiResponses(data, "concept_details"))
                 .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration))
                 .thenApply(data -> transformJsonLd(data, format))
-                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema));
+                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, "concept_details"));
     }
 
 
