@@ -49,8 +49,9 @@ public abstract class AbstractEndpointService {
 
     protected Object transformForTargetDbSchema(Object data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
         String targetDbSchema = targetDbSchemaEnum == null ? "" : targetDbSchemaEnum.toString();
-        boolean isNoList = false;
+
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
+            boolean isNoList = false;
             try {
                 List<Map<String, Object>> collections;
                 if (data instanceof AggregatedApiResponse) {
