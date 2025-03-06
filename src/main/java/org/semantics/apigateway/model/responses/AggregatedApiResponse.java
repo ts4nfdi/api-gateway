@@ -25,7 +25,7 @@ public class AggregatedApiResponse {
     private List<ApiResponse> originalResponses;
     private boolean showConfig = false;
     private String endpoint = null;
-    private boolean noList = true;
+    private boolean noList = false;
     private TerminologyCollection terminologyCollection = null;
 
     @JsonGetter

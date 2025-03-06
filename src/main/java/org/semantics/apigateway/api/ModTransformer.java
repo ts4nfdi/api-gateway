@@ -31,6 +31,9 @@ public class ModTransformer implements DatabaseTransformer {
         }
 
         Map<String, Object> transformedItem = new HashMap<>();
+        if(mapping == null){
+            return item;
+        }
         mapping.inverseMapping().forEach((transformedKey, ourKey) -> {
 
             Object value = item.get(ourKey);
