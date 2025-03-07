@@ -6,7 +6,6 @@ import {useEffect} from "react";
 import UserProfileLoader from "@/app/auth/profile/components/user-profile-loader";
 import UserProfile from "@/app/auth/profile/components/user-profile";
 import CollectionsTable from "@/app/auth/profile/components/collections";
-import {PageHeader} from "@/app/Header";
 
 export default function Profile() {
     const {user, isLoading, logout, authRedirect} = useAuth()
