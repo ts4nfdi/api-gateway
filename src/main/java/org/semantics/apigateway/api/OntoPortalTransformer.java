@@ -1,5 +1,7 @@
 package org.semantics.apigateway.api;
 
+import org.semantics.apigateway.config.ResponseMapping;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.Map;
 
 public class OntoPortalTransformer implements DatabaseTransformer {
     @Override
-    public Map<String, Object> transformItem(Map<String, Object> item) {
+    public Map<String, Object> transformItem(Map<String, Object> item, ResponseMapping mapping) {
         if (item == null) {
             return null;
         }
@@ -55,7 +57,7 @@ public class OntoPortalTransformer implements DatabaseTransformer {
     }
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, boolean list) {
         Map<String, Object> response = new HashMap<>();
         response.put("page", 1);
         response.put("pageCount", 1);
