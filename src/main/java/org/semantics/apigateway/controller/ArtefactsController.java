@@ -86,7 +86,7 @@ public class ArtefactsController {
             @Parameter(description = "Display more details about the request results")
             @RequestParam(required = false, defaultValue = "false") boolean showResponseConfiguration
     ) {
-        return this.artefactsService.getArtefact(id, format, targetDbSchema, showResponseConfiguration)
+        return this.artefactsService.getArtefact(id, database, format, targetDbSchema, showResponseConfiguration)
                 .<ResponseEntity<?>>thenApply(ResponseEntity::ok)
                 .exceptionally(e -> ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body("Error: " + e.getCause().getMessage()));
     }

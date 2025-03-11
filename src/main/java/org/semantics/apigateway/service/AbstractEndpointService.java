@@ -47,18 +47,20 @@ public abstract class AbstractEndpointService {
         return new ApiAccessor(this.cacheManager);
     }
 
-    protected Object transformForTargetDbSchema(Object data, TargetDbSchema targetDbSchemaEnum) {
+    protected Object transformForTargetDbSchema(Object data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
         String targetDbSchema = targetDbSchemaEnum == null ? "" : targetDbSchemaEnum.toString();
 
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
+            boolean isNoList = false;
             try {
                 List<Map<String, Object>> collections;
                 if (data instanceof AggregatedApiResponse) {
                     collections = ((AggregatedApiResponse) data).getCollection();
+                    isNoList = ((AggregatedApiResponse) data).isNoList();
                 } else {
                     collections = (List<Map<String, Object>>) data;
                 }
-                Object transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema);
+                Object transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isNoList);
                 logger.debug("Transformed results for database schema: {}", transformedResults);
                 return transformedResults;
             } catch (IOException e) {
@@ -176,7 +178,6 @@ public abstract class AbstractEndpointService {
 
         return data;
     }
-
 
     protected AggregatedApiResponse filterOutByCollection(TerminologyCollection terminologiesCollection, AggregatedApiResponse data) {
         if (terminologiesCollection == null) {

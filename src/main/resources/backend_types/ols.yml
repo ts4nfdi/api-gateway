@@ -8,9 +8,9 @@ endpoints:
       label: label
       iri: iri
       ontology: ontology_name
-      synonym: synonym
+      synonyms: synonym
+      descriptions: description
       shortForm: short_form
-      description: description
       type: type
   resources:
     path: ontologies?size=10000
@@ -20,9 +20,9 @@ endpoints:
       label: config->title|ontologyId
       iri: config->id
       ontology: ontologyId
-      synonym: synonym
+      synonyms: synonym
+      descriptions: config->description
       shortForm: ontologyId
-      description: config->description
       type: type
       sourceUrl: _links->self->href
       version: config->version
@@ -32,9 +32,9 @@ endpoints:
       label: label
       iri: iri
       ontology: ontology_name
-      synonym: synonyms
+      synonyms: synonyms
+      descriptions: description
       shortForm: short_form
-      description: description
       sourceUrl: _links->self->href
       type: type
       obsolete: is_obsolete
@@ -47,8 +47,8 @@ endpoints:
       label: ontologyId
       iri: iri
       ontology: ontologyId
-      synonym: synonym
+      synonyms: synonym
+      descriptions: description
       shortForm: short_form
-      description: description
       sourceUrl: _links->self->href
       type: type

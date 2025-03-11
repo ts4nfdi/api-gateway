@@ -6,10 +6,10 @@ endpoints:
       nestedJson: collection
       label: prefLabel
       iri: "@id"
-      synonym: synonym
+      synonyms: synonym
+      descriptions: definition
       ontology: links->ontology
       sourceUrl: links->ui
-      description: definition
       type: "@type"
   resources:
     path: /submissions?apikey=%s&display_links=true&display_context=false&display=ontology,description,URI,released,modificationDate,alternative,version
@@ -18,13 +18,13 @@ endpoints:
       label: ontology->name
       iri: URI|uri
       type: "@type"
+      descriptions: description
       ontology: ontology->acronym
       ontologyIri: URI|uri
-      description: description
       sourceUrl: ontology->links->ui
       created: released
       modified: modificationDate
-      synonym: alternative
+      synonyms: alternative
       version: version
       shortForm: ontology->acronym
   concept_details:
@@ -32,9 +32,9 @@ endpoints:
     responseMapping:
       label: prefLabel
       iri: "@id"
-      synonym: synonym
+      synonyms: synonym
+      descriptions: definition
       ontology: links->ontology
-      description: definition
       sourceUrl: links->ui
       type: "@type"
       obsolete: obsolete
@@ -49,4 +49,4 @@ endpoints:
       type: "@type"
       ontology: acronym
       sourceUrl: links->ui
-      description: name
+      descriptions: name
