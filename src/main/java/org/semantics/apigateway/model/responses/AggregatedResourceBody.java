@@ -164,50 +164,74 @@ public class AggregatedResourceBody {
         return newItem;
     }
 
-    public Map<String, Object> toMap(boolean includeOriginalBody) {
+    public Map<String, Object> toMap(boolean includeOriginalBody, boolean displayEmpty) {
         Map<String, Object> map = new HashMap<>();
 
-        putIfNotEmpty(map, "iri", this.iri);
-        putIfNotEmpty(map, "label", this.label);
-        putIfNotEmpty(map, "synonyms", this.synonyms);
-        putIfNotEmpty(map, "descriptions", this.descriptions);
-        putIfNotEmpty(map, "short_form", this.shortForm);
-        putIfNotEmpty(map, "type", this.type);
-        putIfNotEmpty(map, "source", this.source);
-        putIfNotEmpty(map, "source_name", this.sourceName);
-        putIfNotEmpty(map, "source_url", this.sourceUrl);
-        putIfNotEmpty(map, "backend_type", this.backendType);
-        putIfNotEmpty(map, "ontology", this.ontology);
-        putIfNotEmpty(map, "obsolete", this.obsolete);
-        putIfNotEmpty(map, "ontology_iri", this.ontologyIri);
-        putIfNotEmpty(map, "created", this.created);
-        putIfNotEmpty(map, "modified", this.modified);
-        putIfNotEmpty(map, "version", this.version);
+        for (Field field : this.getClass().getDeclaredFields()) {
+            try {
+                field.setAccessible(true);
 
-        if (includeOriginalBody)
-            map.put("originalResponse", this.originalBody);
+                String propertyName = field.getName();
+
+                if (propertyName.equals("context") || propertyName.equals("typeURI")) {
+                    continue;
+                }
+
+                if (!includeOriginalBody && field.getName().equals("originalBody")) {
+                    continue;
+                }
+
+                JsonProperty jsonProperty = field.getAnnotation(JsonProperty.class);
+                JsonIgnore jsonIgnore = field.getAnnotation(JsonIgnore.class);
+
+                if (jsonIgnore != null) {
+                    continue;
+                }
+
+                if (jsonProperty != null) {
+                    propertyName = jsonProperty.value();
+                }
+
+
+                // Add to map if not null
+                Object value = field.get(this);
+
+                if (isEmpty(value) && !displayEmpty) {
+                    continue;
+                }
+
+                map.put(propertyName, value);
+            } catch (IllegalAccessException ignored) {
+            }
+        }
+
+        if (includeOriginalBody) {
+            map.put("originalResponse", originalBody);
+        }
 
         return map;
     }
 
 
-    private void putIfNotEmpty(Map<String, Object> map, String key, Object value) {
-        map.put(key, value);
+    public static boolean isEmpty(Object value) {
+        return value == null ||
+                value.equals("") ||
+                (value instanceof List && ((List<?>) value).isEmpty());
     }
 
-    private static void setStringProperty(Map<String, Object> item, String key, Consumer<String> setter) {
+    private void setStringProperty(Map<String, Object> item, String key, Consumer<String> setter) {
         Object value = MappingTransformer.itemValueGetter(item, key);
         Optional.ofNullable(value)
                 .map(x -> {
-                    if (x instanceof List) {
-                        return ((List<?>) x).get(0);
+                    if (x instanceof List<?> list) {
+                        return  list.isEmpty() ? null : list.get(0);
                     } else {
                         return x;
                     }
                 }).map(Object::toString).ifPresent(setter);
     }
 
-    private static void setBooleanProperty(Map<String, Object> item, String key, Consumer<Boolean> setter) {
+    private void setBooleanProperty(Map<String, Object> item, String key, Consumer<Boolean> setter) {
         Object value = MappingTransformer.itemValueGetter(item, key);
         if (value != null) {
             setter.accept(Boolean.parseBoolean(value.toString()));
@@ -216,7 +240,7 @@ public class AggregatedResourceBody {
         }
     }
 
-    private static void setListProperty(Map<String, Object> item, String key, Consumer<List<String>> setter) {
+    private void setListProperty(Map<String, Object> item, String key, Consumer<List<String>> setter) {
         Object value = MappingTransformer.itemValueGetter(item, key);
         List<String> list = Collections.emptyList();
         if (value instanceof List) {
