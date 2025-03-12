@@ -29,12 +29,12 @@ public class ResponseTransformerService {
 
     // Method to transform and structure results based on database
     public Map<String, Object> transformAndStructureResults(List<Map<String, Object>> combinedResults, String
-            targetDbSchema, String endpoint, Boolean isNoList) throws IOException {
-        return transformJsonResponse(combinedResults, targetDbSchema, endpoint, isNoList);
+            targetDbSchema, String endpoint, Boolean isList) throws IOException {
+        return transformJsonResponse(combinedResults, targetDbSchema, endpoint, isList);
     }
 
     // Method to transform the JSON response from a database into a specific format
-    private Map<String, Object>  transformJsonResponse(List<Map<String, Object>> originalResponse, String targetDataBase, String endpoint, Boolean isNoList) {
+    private Map<String, Object>  transformJsonResponse(List<Map<String, Object>> originalResponse, String targetDataBase, String endpoint, Boolean isList) {
         DatabaseConfig databaseConfig = configurationLoader.getDatabaseConfig(targetDataBase);
         switch (targetDataBase) {
             case "ols":
@@ -67,7 +67,7 @@ public class ResponseTransformerService {
                             .filter(Objects::nonNull)
                             .collect(Collectors.toList());
 
-                    return modTransformer.constructResponse(transformedResultsMod, isNoList);
+                    return modTransformer.constructResponse(transformedResultsMod, isList);
             default:
 
                 return (Map<String, Object>) new HashMap<>().put("error", "No database configuration found");
