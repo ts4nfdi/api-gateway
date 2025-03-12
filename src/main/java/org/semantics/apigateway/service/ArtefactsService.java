@@ -136,7 +136,13 @@ public class ArtefactsService extends AbstractEndpointService {
 
 
     private AggregatedApiResponse filterArtefactsById(AggregatedApiResponse transformedResponse, String id) {
-        List<Map<String, Object>> filtredList = transformedResponse.getCollection().stream().filter(x -> x.getOrDefault("label", "").toString().equalsIgnoreCase(id)).collect(Collectors.toList());
+        List<Map<String, Object>> filtredList = transformedResponse.getCollection().stream().filter(x ->  {
+            Object o = x.get("short_form");
+            if(o == null){
+                return false;
+            }
+            return x.get("short_form").toString().equalsIgnoreCase(id);
+        }).collect(Collectors.toList());
         transformedResponse.setCollection(filtredList);
         return transformedResponse;
     }
