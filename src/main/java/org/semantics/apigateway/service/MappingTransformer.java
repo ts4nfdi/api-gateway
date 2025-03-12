@@ -59,6 +59,8 @@ public class MappingTransformer {
                                 value = ((Map<?, ?>) value).get(s);
                             } else if (value instanceof List) {
                                 value = listItemValueGetter(s, value);
+                                if(((List<?>) value).isEmpty())
+                                    value = null;
                             }
                         }
                         return value;
@@ -80,18 +82,22 @@ public class MappingTransformer {
      * @param list The source list
      * @return The value at the specified index or null
      */
-    public static Object listItemValueGetter(String key, Object list) {
+    public static List<String> listItemValueGetter(String key, Object list) {
         if (!(list instanceof List)) {
             return null;
         }
 
         List<?> sourceList = (List<?>) list;
-        try {
-            int index = Integer.parseInt(key);
-            return index >= 0 && index < sourceList.size() ? sourceList.get(index) : null;
-        } catch (NumberFormatException e) {
+        return sourceList.stream().map(x -> {
+            if (x instanceof Map) {
+                Map<String, Object> map = (Map<String, Object>) x;
+                if (map.containsKey(key)) {
+                    Object value = map.get(key);
+                    return value == null ? null : value.toString();
+                }
+            }
             return null;
-        }
+        }).filter(Objects::nonNull).toList();
     }
 
     /**
@@ -113,6 +119,7 @@ public class MappingTransformer {
         // Handle multiple key options
         String[] options = key.split("\\|");
         String primaryKey = options[0];
+        // TODO Handle multiple key options
 
         // Handle nested keys
         if (primaryKey.contains("->")) {
