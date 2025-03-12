@@ -29,8 +29,8 @@ public abstract class AbstractEndpointService {
     private final JsonLdTransform jsonLdTransform;
     protected static final Logger logger = LoggerFactory.getLogger(AbstractEndpointService.class);
 
-
     private final ResponseAggregatorService dynTransformResponse = new ResponseAggregatorService();
+
 
     private final List<DatabaseConfig> ontologyConfigs;
 
@@ -48,19 +48,21 @@ public abstract class AbstractEndpointService {
     }
 
     protected Object transformForTargetDbSchema(Object data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
+        return transformForTargetDbSchema(data, targetDbSchemaEnum, endpoint, true);
+    }
+
+    protected Object transformForTargetDbSchema(Object data, TargetDbSchema targetDbSchemaEnum, String endpoint, Boolean isList) {
         String targetDbSchema = targetDbSchemaEnum == null ? "" : targetDbSchemaEnum.toString();
 
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
-            boolean isNoList = false;
             try {
                 List<Map<String, Object>> collections;
                 if (data instanceof AggregatedApiResponse) {
                     collections = ((AggregatedApiResponse) data).getCollection();
-                    isNoList = ((AggregatedApiResponse) data).isNoList();
                 } else {
                     collections = (List<Map<String, Object>>) data;
                 }
-                Object transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isNoList);
+                Object transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList);
                 logger.debug("Transformed results for database schema: {}", transformedResults);
                 return transformedResults;
             } catch (IOException e) {

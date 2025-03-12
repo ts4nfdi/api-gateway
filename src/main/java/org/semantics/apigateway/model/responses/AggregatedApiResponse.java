@@ -25,7 +25,7 @@ public class AggregatedApiResponse {
     private List<ApiResponse> originalResponses;
     private boolean showConfig = false;
     private String endpoint = null;
-    private boolean noList = false;
+    private boolean isList = true;
     private TerminologyCollection terminologyCollection = null;
 
     @JsonGetter
@@ -63,10 +63,8 @@ public class AggregatedApiResponse {
         public void serialize(AggregatedApiResponse response, JsonGenerator gen, SerializerProvider serializers) throws IOException {
             if (!response.isShowConfig()) {
 
-                if(response.isNoList()) {
-//                    gen.writeStartObject();
+                if(!response.isList()) {
                     gen.writeObject(response.getCollection().get(0));
-//                    gen.writeEndObject();
                 } else {
                     gen.writeStartArray();
                     for (Map<String, Object> item : response.getCollection()) {
