@@ -8,7 +8,10 @@ import lombok.Setter;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.ResponseMapping;
 import org.semantics.apigateway.service.MappingTransformer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -16,6 +19,9 @@ import java.util.function.Consumer;
 @Setter
 @NoArgsConstructor
 public class AggregatedResourceBody {
+    @JsonIgnore
+    private final Logger logger = LoggerFactory.getLogger(AggregatedResourceBody.class);
+
     private String iri;
     private String label;
     private List<String> synonyms;
@@ -46,31 +52,100 @@ public class AggregatedResourceBody {
     private String typeURI;
 
     private boolean obsolete;
+    private String status;
+    private String versionIRI;
+    private String accessRights;
+    private String license;
+    private String identifier;
+    private List<String> keywords;
+    private String landingPage;
+    private List<String> language;
+    private List<String> subject;
+    private String accrualMethod;
+    private String accrualPeriodicity;
+
+    private List<String> bibliographicCitation;
+
+    private List<String> contactPoint;
+    private List<String> creator;
+    private List<String> contributor;
+    private List<String> rightsHolder;
+    private List<String> publisher;
+
+    private String coverage;
+    private String hasFormat;
+    private String competencyQuestion;
+    private String semanticArtefactRelation;
+    private List<String> createdWith;
+    private List<String> wasGeneratedBy;
+
+    //TODO use this instead of source in the future
+    private List<String> includedInDataCatalog;
 
     @JsonIgnore
     private Map<String, Object> originalBody;
 
+    private void setFieldValue(Object target, Field field, Object value) {
+        try {
+            field.set(target, value);
+        } catch (IllegalAccessException e) {
+            logger.error(e.getMessage());
+        }
+    }
+
+    private void fillWithItem(Map<String, Object> item, ResponseMapping mapping) {
+        AggregatedResourceBody target = this;
+        // Create a reflection-based mapping of getter methods from ResponseMapping to their values
+        Map<String,String> responseMappings = mapping.toMap();
+
+        Field[] fields = this.getClass().getDeclaredFields();
+
+        for (Field field : fields) {
+            String fieldName = field.getName();
+
+            // Skip fields that we don't want to map automatically
+            if (fieldName.equals("originalBody") ||
+                    fieldName.equals("source") ||
+                    fieldName.equals("backendType") ||
+                    fieldName.equals("sourceName") ||
+                    fieldName.equals("context") ||
+                    fieldName.equals("typeURI")) {
+                continue;
+            }
+
+
+            String mappingValue = responseMappings.get(fieldName);
+
+            if (mappingValue == null) {
+                continue; // No mapping found for this field
+            }
+
+            try {
+                field.setAccessible(true);
+                Class<?> fieldType = field.getType();
+
+                if (fieldType == String.class) {
+                    setStringProperty(item, mappingValue,
+                            value -> setFieldValue(target, field, value));
+                } else if (fieldType == boolean.class || fieldType == Boolean.class) {
+                    setBooleanProperty(item, mappingValue,
+                            value -> setFieldValue(target, field, value));
+                } else if (List.class.isAssignableFrom(fieldType)) {
+                    setListProperty(item, mappingValue,
+                            value -> setFieldValue(target, field, value));
+                }
+            } catch (Exception e) {
+                logger.error("Filling aggregated body error {}", e.getMessage());
+            }
+        }
+    }
 
     public static AggregatedResourceBody fromMap(Map<String, Object> item, DatabaseConfig config, String endpoint) throws RuntimeException {
         AggregatedResourceBody newItem = new AggregatedResourceBody();
         ResponseMapping responseMapping = config.getResponseMapping(endpoint);
         newItem.setOriginalBody(item);
 
-        // Mapping fields based on the JSON configuration
-        setStringProperty(item, responseMapping.getIri(), newItem::setIri);
-        setStringProperty(item, responseMapping.getLabel(), newItem::setLabel);
-        setListProperty(item, responseMapping.getSynonyms(), newItem::setSynonyms);
-        setListProperty(item, responseMapping.getDescriptions(), newItem::setDescriptions);
-        setStringProperty(item, responseMapping.getShortForm(), newItem::setShortForm);
-        setStringProperty(item, responseMapping.getVersion(), newItem::setVersion);
-        setStringProperty(item, responseMapping.getType(), newItem::setType);
-        setStringProperty(item, responseMapping.getSourceUrl(), newItem::setSourceUrl);
-        setBooleanProperty(item, responseMapping.getObsolete(), newItem::setObsolete);
-        setStringProperty(item, responseMapping.getOntologyIri(), newItem::setOntologyIri);
-        setStringProperty(item, responseMapping.getOntology(), newItem::setOntology);
-        setStringProperty(item, responseMapping.getModified(), newItem::setModified);
-        setStringProperty(item, responseMapping.getCreated(), newItem::setCreated);
-
+        newItem.fillWithItem(item, responseMapping);
 
         if (item.containsKey("@context")) {
             newItem.setContext(item.get("@context").toString());
