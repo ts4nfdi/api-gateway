@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 public class ResponseMapping {
     private String nestedJson;
     private String key;
+    private String totalCount;
+    private String page;
 
     private String iri;
     private String label;
