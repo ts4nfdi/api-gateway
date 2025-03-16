@@ -48,4 +48,15 @@ public class SearchController {
         return searchService.performSearch(query, params, terminologies, collectionId, user, null)
                 .thenApply(ResponseEntity::ok).get();
     }
+
+
+    @Operation(summary = "Search all of the content in a catalogue.")
+    @GetMapping(value = {"/search/metadata"})
+    public Object searchMetadata(
+            @Parameter(description = "The text to search", example = "plant")
+            @RequestParam String query,
+            @ParameterObject CommonRequestParams params
+    ) {
+        return artefactsService.searchMetadata(query, params, null);
+    }
 }
