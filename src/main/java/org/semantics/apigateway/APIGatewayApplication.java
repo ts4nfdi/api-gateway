@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.models.OpenAPI;
 import org.semantics.apigateway.model.user.Role;
 import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.auth.UserRepository;
@@ -34,8 +33,10 @@ import java.util.concurrent.Executor;
                 "\n" +
                 "A standout feature of this service is its dynamic nature, governed by a JSON configuration file. This design choice allows for easy extension and customization of the service to include new TS or modify existing configurations."),
         tags = {
-                @Tag(name = "Search"),
-                @Tag(name = "Artefacts"),
+                @Tag(name = "Search", description = "The search endpoints"),
+                @Tag(name = "Artefacts / Metadata", description = "The artefacts metadata endpoints"),
+                @Tag(name = "Artefacts / Data", description = "The artefacts data endpoints"),
+                @Tag(name = "Ols", description = "The OLS endpoints"),
         }
 )
 @SecurityScheme(
@@ -47,7 +48,7 @@ import java.util.concurrent.Executor;
 public class APIGatewayApplication implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(APIGatewayApplication.class);
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Value("${user.admin.password}")
