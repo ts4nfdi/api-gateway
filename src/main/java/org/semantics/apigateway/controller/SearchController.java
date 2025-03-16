@@ -50,7 +50,7 @@ public class SearchController {
     }
 
 
-    @Operation(summary = "Search all of the content in a catalogue.")
+    @Operation(summary = "Search all of the metadata in a catalogue.")
     @GetMapping(value = {"/search/metadata"})
     public Object searchMetadata(
             @Parameter(description = "The text to search", example = "plant")
