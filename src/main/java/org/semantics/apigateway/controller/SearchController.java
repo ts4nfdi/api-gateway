@@ -45,7 +45,7 @@ public class SearchController {
             @RequestParam(required = false) String collectionId
     ) throws ExecutionException, InterruptedException {
         User user = authService.tryGetCurrentUser();
-        return searchService.performSearch(query, params, terminologies, collectionId, user)
+        return searchService.performSearch(query, params, terminologies, collectionId, user, null)
                 .thenApply(ResponseEntity::ok).get();
     }
 }
