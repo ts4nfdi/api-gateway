@@ -1,11 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Loader} from "@/components/Loading";
+import {Loading} from "@/components/Loading";
 import {Input} from "@/components/ui/input";
-import ModalContainer from "@/lib/modal";
-import MultipleSelector, {SelectorOption} from "@/components/MultipleSelector";
 import {BrowseCard} from "@/app/home/browse/BrowseCard";
 import {PaginatedCardList} from "@/components/PaginatedCardList";
 import DatabaseSelector from "@/components/DatabaseSelector";
+import APIUrlInput from "@/components/APIUrlInput";
+import {CollectionResponse, collectionRestClient} from "@/app/auth/lib/CollectionsRestClient";
+import {CardContent, CardHeader} from "@/components/ui/card";
+import CollectionSelector from "@/components/CollectionsSelector";
 
 type Artefact = {
     label: string;
@@ -13,6 +15,7 @@ type Artefact = {
     backend_type: string;
     source_name: string;
     source: string;
+    short_form: string;
 };
 
 type ResponseConfig = {
@@ -50,18 +53,14 @@ const ArtefactsTable: React.FC<ArtefactsTableProps> = ({apiUrl}) => {
         totalResponseTime: 0,
     });
     const [loading, setLoading] = useState(true);
-    const [sortField, setSortField] = useState<keyof Artefact>("label");
-    const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
-    const [pageIndex, setPageIndex] = useState(0);
-    const [pageSize, setPageSize] = useState(10);
     const [searchQuery, setSearchQuery] = useState("");
-    const [selectedSources, setSelectedSources] = useState<string[]>([]);
-    const [sourceOptions, setSourceOptions] = useState<SelectorOption[]>([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedObject, setSelectedObject] = useState<Artefact | null>(null);
     const isInitialMount = useRef(true);
-
+    const [selectedSources, setSelectedSources] = useState<string[]>([]);
+    const [selectedCollection, setSelectedCollection] = useState<string[]>([]);
+    const [collections, setCollections] = useState<CollectionResponse[]>([]);
+    const [url, setApiUrl] = useState(apiUrl);
     let [filteredItems, setFilteredItems] = useState<any[]>([]);
+
 
     const fetchArtefacts = async () => {
         try {
@@ -69,16 +68,8 @@ const ArtefactsTable: React.FC<ArtefactsTableProps> = ({apiUrl}) => {
             const responseJson = await response.json();
             const data: Artefact[] = responseJson.collection;
 
-            let uniqueSourceNames: any[] = data.map((item) => item.source_name);
-            // @ts-ignore
-            uniqueSourceNames = [...new Set(uniqueSourceNames)]
-            uniqueSourceNames = uniqueSourceNames.map(x => {
-                return {label: x, value: x}
-            }).concat()
-
             setItems(data);
             setResponseConfig(responseJson.responseConfig);
-            setSourceOptions(uniqueSourceNames);
         } catch (error) {
             console.error("Error fetching artefacts:", error);
         } finally {
@@ -87,26 +78,43 @@ const ArtefactsTable: React.FC<ArtefactsTableProps> = ({apiUrl}) => {
     };
 
     useEffect(() => {
+        collectionRestClient.getAllCollections().then((x: any) => {
+            setCollections(x.data);
+        }).catch((e: any) => {
+            setCollections([]);
+        })
+    }, []);
+
+    useEffect(() => {
         if (isInitialMount.current) {
             fetchArtefacts();
             isInitialMount.current = false;
         }
-    }, [apiUrl]);
+    }, [apiUrl, fetchArtefacts]);
 
+    const collectionTerminologies = (id: string) => {
+        const collection = collections.find((x) => x.id === id);
+        return collection ? collection.terminologies.map(x => x.toLowerCase()) : [];
+    }
 
     useEffect(() => {
-        let filtered = items.filter((item) => {
+        let filtered = items.filter((item: Artefact) => {
             const matchesSearch =
-                item.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                item.description?.toString().toLowerCase().includes(searchQuery.toLowerCase());
+                item.short_form?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                item.label?.toString().toLowerCase().includes(searchQuery.toLowerCase());
 
             const matchesSource =
                 selectedSources.length === 0 || selectedSources.includes(item.source_name);
 
-            return matchesSearch && matchesSource;
+            const matchesCollection =
+                selectedCollection.length === 0 || collectionTerminologies(selectedCollection[0]).includes(item.short_form.toLowerCase());
+
+            return matchesSearch && matchesSource && matchesCollection;
         });
         setFilteredItems(filtered);
-    }, [searchQuery, items, selectedSources]);
+        setApiUrl(`${apiUrl}&database=${selectedSources.join(',')}&collectionId=${selectedCollection.join(',')}`);
+    }, [searchQuery, items, selectedSources, selectedCollection, apiUrl]);
+
 
     /*
         const groupedBySourceName = filteredItems.reduce<Record<string, { count: number; time?: number }>>((acc, item) => {
@@ -118,35 +126,39 @@ const ArtefactsTable: React.FC<ArtefactsTableProps> = ({apiUrl}) => {
             return acc;
         }, {});*/
 
-    const openModal = (item: Artefact) => {
-        setSelectedObject(item);
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setSelectedObject(null);
-        setIsModalOpen(false);
-    };
-
-    if (loading) {
-        return <Loader/>;
-    }
 
     return (
-        <div>
-            <div className="space-y-4">
-                <Input
-                    placeholder="Search by label or description"
-                    value={searchQuery}
-                    onChange={(e: any) => setSearchQuery(e.target.value)}
-                />
-                <div className="w-1/2">
-                    <DatabaseSelector sourceOptions={sourceOptions} setSelectedSources={setSelectedSources}/>
+        <>
+            <CardHeader>
+                <div className="flex items-center space-x-2">
+                    <h2 className='text-2xl font-semibold text-gray-900'>Browse resources</h2>
+                    <APIUrlInput url={url} variant={'badge'}/>
                 </div>
-                {/*
-                <p>
-                    Results: {filteredItems.length} ({prettyMilliseconds(responseConfig.totalResponseTime)})
-                </p>
+            </CardHeader>
+            <CardContent>
+                <div>
+                    <div className="space-y-4">
+
+                        <Input
+                            placeholder="Search by label or description"
+                            value={searchQuery}
+                            onChange={(e: any) => setSearchQuery(e.target.value)}
+                        />
+                        <div className="flex items-center space-x-1">
+                            <div className="w-1/2">
+                                <DatabaseSelector onChange={setSelectedSources}/>
+
+                            </div>
+                            <div className="w-1/2">
+                                <CollectionSelector onChange={setSelectedCollection}/>
+                            </div>
+                        </div>
+
+                        <p>
+                            Found {filteredItems.length} results
+                        </p>
+
+                        {/*
 
                 <ul>
                     {Object.entries(groupedBySourceName).map(([sourceName, {count, time}]) => (
@@ -155,23 +167,27 @@ const ArtefactsTable: React.FC<ArtefactsTableProps> = ({apiUrl}) => {
                         </li>
                     ))}
                 </ul> */}
-            </div>
+                    </div>
 
-            <PaginatedCardList
-                itemsPerPage={12}
-                items={filteredItems.map(x => {
-                    return {title: `${x.description} (${x.label})`, sourceUrl: x.source_url, tags: [x.source_name]};
-                }).concat()}
-                CardComponent={(props: any) => (
-                    <BrowseCard
-                        {...props}
-                        onTagClick={() => {
-                        }}/>
-                )}/>
+                    {loading && <Loading/>}
+                    {!loading && filteredItems.length !== 0 && (
+                        <PaginatedCardList
+                            itemsPerPage={12}
+                            items={filteredItems.map(x => {
+                                return {
+                                    artefact: x,
+                                };
+                            }).concat()}
+                            CardComponent={(props: any) => (
+                                <BrowseCard
+                                    {...props}
+                                    onTagClick={() => {
+                                    }}/>
+                            )}/>)}
 
-            <ModalContainer isOpen={isModalOpen} artefact={selectedObject}
-                            onClose={closeModal}/>
-        </div>
+                </div>
+            </CardContent>
+        </>
     );
 };
 

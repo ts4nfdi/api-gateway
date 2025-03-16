@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Badge} from "@/components/ui/badge";
 import {ChevronRight} from "lucide-react";
-import ModalContainer from "@/lib/modal";
+import DialogWrapper from "@/components/Dialog";
+import TermViewer from "@/components/TermViewer";
 
 export function AutoCompleteResult({suggestion}: any) {
+    const [dialogOpen, setDialogOpen] = useState(false);
+
     const getBadgeVariant = (color: string) => {
         switch (color) {
             case 'primary':
@@ -20,29 +23,35 @@ export function AutoCompleteResult({suggestion}: any) {
     };
 
     return (
-        <div className="flex flex-wrap justify-between items-center w-full">
-            <div className="flex-grow max-w-[50%]">
-                <div>{suggestion.label}</div>
+        <>
+            <div className="flex flex-wrap justify-between items-center w-full" onClick={() => setDialogOpen(true)}>
+                <div className="flex-grow max-w-[50%]">
+                    <div>{suggestion.label}</div>
 
+                </div>
+                <div className="flex flex-wrap gap-2">
+                    <Badge className={getBadgeVariant('primary')}
+                           title={`${suggestion.backend_type}(${suggestion.source})`}>
+                        {suggestion.source_name.toUpperCase()}
+                    </Badge>
+
+                    <ChevronRight className="mx-1 h-4 w-4 text-gray-400"/>
+
+                    <Badge className={getBadgeVariant('success')}>
+                        {suggestion.ontology.toUpperCase()}
+                    </Badge>
+
+                    <ChevronRight className="mx-1 h-4 w-4 text-gray-400"/>
+
+                    <Badge className={getBadgeVariant('danger')} title={suggestion.iri}>
+                        {suggestion.short_form}
+                    </Badge>
+                </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-                <Badge className={getBadgeVariant('primary')} title={`${suggestion.backend_type}(${suggestion.source})`}>
-                    {suggestion.source_name.toUpperCase()}
-                </Badge>
-
-                <ChevronRight className="mx-1 h-4 w-4 text-gray-400"/>
-
-                <Badge className={getBadgeVariant('success')}>
-                    {suggestion.ontology.toUpperCase()}
-                </Badge>
-
-                <ChevronRight className="mx-1 h-4 w-4 text-gray-400"/>
-
-                <Badge className={getBadgeVariant('danger')} title={suggestion.iri}>
-                    {suggestion.short_form}
-                </Badge>
-            </div>
-        </div>
+             <DialogWrapper title={suggestion.label} isOpen={dialogOpen} setIsOpen={setDialogOpen}>
+                <TermViewer data={suggestion}/>
+            </DialogWrapper>
+        </>
     );
 }
 
