@@ -1,6 +1,7 @@
 package org.semantics.apigateway.service.search;
 
 import org.apache.lucene.queryparser.classic.ParseException;
+import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
@@ -41,56 +42,38 @@ public class SearchService extends AbstractEndpointService {
     public CompletableFuture<Object> performSearch(String query, String database, String format, String targetDbSchema, boolean showResponseConfiguration) {
         ResponseFormat responseFormat = format == null ? ResponseFormat.json : ResponseFormat.valueOf(format);
         TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
-        return performSearch(query, database, responseFormat, targetDbSchemaEnum, showResponseConfiguration, null, null, null, null);
+        CommonRequestParams commonRequestParams = new CommonRequestParams();
+        commonRequestParams.setDatabase(database);
+        commonRequestParams.setFormat(responseFormat);
+        commonRequestParams.setTargetDbSchema(targetDbSchemaEnum);
+        commonRequestParams.setShowResponseConfiguration(showResponseConfiguration);
+        return performSearch(query, commonRequestParams, null, null, null, null);
     }
 
-    // Performs a federated search across multiple databases and optionally transforms the results for a target database schema]
     public CompletableFuture<Object> performSearch(
-            String query, String database, ResponseFormat format,
-            TargetDbSchema targetDbSchema, boolean showResponseConfiguration,
-            String[] terminologies,
-            String collectionId,
-            User currentUser) {
-        return performSearch(query, database, format, targetDbSchema, showResponseConfiguration, terminologies, collectionId, currentUser, null);
-    }
-
-    // Performs a federated search across multiple databases and optionally transforms the results for a target database schema]
-    public CompletableFuture<Object> performSearch(
-            String query, String database, ResponseFormat format,
-            TargetDbSchema targetDbSchema, boolean showResponseConfiguration,
+            String query,
+            CommonRequestParams params,
             String[] terminologies,
             String collectionId,
             User currentUser,
             ApiAccessor accessor) {
-
-        CompletableFuture<Object> future = new CompletableFuture<>();
-        Map<String, String> apiUrls;
-
-        try {
-            apiUrls = filterDatabases(database, "search");
-        } catch (Exception e) {
-            future.completeExceptionally(e);
-            return future;
-        }
-
-        if (accessor == null) {
-            accessor = getAccessor();
-        }
-        accessor.setUrls(apiUrls);
-        accessor.setLogger(logger);
-
+        String endpoint = "search";
+        String database = params.getDatabase();
+        ResponseFormat format = params.getFormat();
+        TargetDbSchema targetDbSchema = params.getTargetDbSchema();
+        boolean showResponseConfiguration = params.isShowResponseConfiguration();
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
+        accessor = initAccessor(database, endpoint, accessor);
 
         return accessor.get(query)
-                .thenApply(data -> this.transformApiResponses(data, "search"))
+                .thenApply(data -> this.transformApiResponses(data, endpoint))
                 .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration, collection))
                 .thenApply(data -> filterOutByTerminologies(terminologies, data))
-                .thenApply(data -> filterOutByCollection(collection , data))
+                .thenApply(data -> filterOutByCollection(collection, data))
                 .thenApply(data -> reIndexResults(query, data))
                 .thenApply(data -> transformJsonLd(data, format))
-                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, "search"));
+                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint));
     }
-
 
     private AggregatedApiResponse reIndexResults(String query, AggregatedApiResponse data) {
         List<Map<String, Object>> collection = data.getCollection();
