@@ -27,6 +27,7 @@ endpoints:
       iri: uri
       type: type
       synonyms: synonym
+
   resource_details:
     path: /agrovoc
     responseMapping:
@@ -35,3 +36,4 @@ endpoints:
       type: type
       ontology: id
       descriptions: title
+      shortForm: id

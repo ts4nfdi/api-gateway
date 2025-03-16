@@ -4,7 +4,7 @@ endpoints:
     path: /artefacts?pagesize=10000
     responseMapping:
       nestedJson: collection
-      label: name
+      label: title
       iri: "@id"
       type: "@type"
       ontology: acronym
@@ -16,6 +16,30 @@ endpoints:
       synonyms: alternative
       version: version
       shortForm: acronym
+      status: status
+      versionIRI: versionIRI
+      accessRights: accessRights
+      license: license
+      contactPoint: contactPoint
+      identifier: identifier
+      creator: creator
+      keywords: keyword
+      landingPage: landingPage
+      language: language
+      publisher: publisher
+      subject: subject
+      accrualMethod: accrualMethod
+      accrualPeriodicity: accrualPeriodicity
+      bibliographicCitation: bibliographicCitation
+      contributor: contributor
+      coverage: coverage
+      hasFormat: hasFormat
+      rightsHolder: rightsHolder
+      competencyQuestion: competencyQuestion
+      semanticArtefactRelation: semanticArtefactRelation
+      createdWith: createdWith
+      wasGeneratedBy: wasGeneratedBy
+      includedInDataCatalog: includedInDataCatalog
 
   concept_details:
     path: ontologies/%s/classes/%s?apikey=%s
@@ -34,7 +58,7 @@ endpoints:
     path: ontologies/%s?apikey=%s
     responseMapping:
       nestedJson: ""
-      label: name
+      label: title
       iri: "@id"
       type: "@type"
       ontology: acronym
@@ -46,4 +70,29 @@ endpoints:
       synonyms: alternative
       version: version
       shortForm: acronym
+      status: status
+      versionIRI: versionIRI
+      accessRights: accessRights
+      license: license
+      contactPoint: contactPoint
+      creator: creator
+      identifier: identifier
+      keywords: keyword
+      landingPage: landingPage
+      language: language
+      publisher: publisher
+      subject: subject
+      accrualMethod: accrualMethod
+      accrualPeriodicity: accrualPeriodicity
+      bibliographicCitation: bibliographicCitation
+      contributor: contributor
+      coverage: coverage
+      hasFormat: hasFormat
+      rightsHolder: rightsHolder
+      competencyQuestion: competencyQuestion
+      semanticArtefactRelation: semanticArtefactRelation
+      createdWith: createdWith
+      wasGeneratedBy: wasGeneratedBy
+      includedInDataCatalog: includedInDataCatalog
+
 

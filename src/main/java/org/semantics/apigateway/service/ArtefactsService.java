@@ -62,7 +62,6 @@ public class ArtefactsService extends AbstractEndpointService {
         accessor.setUrls(apiUrls);
         accessor.setLogger(logger);
 
-
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
 
         return accessor.get()
@@ -93,10 +92,11 @@ public class ArtefactsService extends AbstractEndpointService {
                 .thenApply(data -> filterArtefactsById(data, id))
                 .thenApply(data -> selectArtefact(data, database))
                 .thenApply(data -> transformJsonLd(data, format))
-                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, "resource_details"));
+                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, "resource_details", false));
     }
 
     public AggregatedApiResponse selectArtefact(AggregatedApiResponse apiResponse, String database) {
+        // TODO: update this to merge the results instead of returning only one the first one
         if(database == null){
             return apiResponse;
         }
@@ -108,7 +108,7 @@ public class ArtefactsService extends AbstractEndpointService {
         }
 
         apiResponse.setCollection(List.of(a));
-        apiResponse.setNoList(true);
+        apiResponse.setList(false);
         return apiResponse;
     }
 
@@ -131,12 +131,18 @@ public class ArtefactsService extends AbstractEndpointService {
                 .thenApply(data -> this.transformApiResponses(data, "concept_details"))
                 .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration))
                 .thenApply(data -> transformJsonLd(data, format))
-                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, "concept_details"));
+                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, "concept_details", false));
     }
 
 
     private AggregatedApiResponse filterArtefactsById(AggregatedApiResponse transformedResponse, String id) {
-        List<Map<String, Object>> filtredList = transformedResponse.getCollection().stream().filter(x -> x.getOrDefault("label", "").toString().equalsIgnoreCase(id)).collect(Collectors.toList());
+        List<Map<String, Object>> filtredList = transformedResponse.getCollection().stream().filter(x ->  {
+            Object o = x.get("short_form");
+            if(o == null){
+                return false;
+            }
+            return x.get("short_form").toString().equalsIgnoreCase(id);
+        }).collect(Collectors.toList());
         transformedResponse.setCollection(filtredList);
         return transformedResponse;
     }
