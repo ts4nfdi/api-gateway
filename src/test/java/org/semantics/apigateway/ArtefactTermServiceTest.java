@@ -5,8 +5,9 @@ import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.semantics.apigateway.config.DatabaseConfig;
+import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
-import org.semantics.apigateway.service.ArtefactsService;
+import org.semantics.apigateway.service.artefacts.ArtefactsDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +20,6 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -31,7 +31,7 @@ import static org.mockito.Mockito.when;
 public class ArtefactTermServiceTest extends ApplicationTestAbstract {
 
     @Autowired
-    private ArtefactsService artefactsService;
+    private ArtefactsDataService artefactsService;
 
 
     @BeforeEach
@@ -82,13 +82,12 @@ public class ArtefactTermServiceTest extends ApplicationTestAbstract {
 
     @Test
     public void testGetArtefactTerm() {
-        CompletableFuture<Object> r = artefactsService.getArtefactTerm("AGROVOC", "http://aims.fao.org/aos/agrovoc/c_330834", null, null, null, false, apiAccessor);
-
-        AggregatedApiResponse response = (AggregatedApiResponse) r.join();
+        Object r = artefactsService.getArtefactTerm("AGROVOC", "http://aims.fao.org/aos/agrovoc/c_330834", new CommonRequestParams(), apiAccessor);
+        AggregatedApiResponse response = (AggregatedApiResponse) r;
 
         List<Map<String, Object>> responseList = response.getCollection();
 
-        assertThat(responseList).hasSize(2);
+        assertThat(responseList).hasSize(1);
 
         Map<String, Object> skosmosItem = responseList.get(0);
         assertThat(skosmosItem.get("iri")).isEqualTo("http://aims.fao.org/aos/agrovoc/c_330834");
@@ -98,7 +97,14 @@ public class ArtefactTermServiceTest extends ApplicationTestAbstract {
         assertThat(skosmosItem.get("source")).isEqualTo("https://agrovoc.fao.org/browse/rest/v1");
         assertThat(skosmosItem.get("source_name")).isEqualTo("agrovoc");
 
-        Map<String, Object> ontoportalItem = responseList.get(1);
+
+
+        CommonRequestParams params = new CommonRequestParams();
+        params.setDatabase("ontoportal");
+        r = artefactsService.getArtefactTerm("AGROVOC", "http://aims.fao.org/aos/agrovoc/c_330834", params, apiAccessor);
+        response = (AggregatedApiResponse) r;
+        responseList = response.getCollection();
+        Map<String, Object> ontoportalItem = responseList.get(0);
         assertThat(ontoportalItem.get("iri")).isEqualTo("http://aims.fao.org/aos/agrovoc/c_330834");
         assertThat(ontoportalItem.get("backend_type")).isEqualTo("ontoportal");
 //        assertThat(ontoportalItem.get("short_form")).isEqualTo("c_330834"); // TODO implement default value logic
@@ -118,8 +124,6 @@ public class ArtefactTermServiceTest extends ApplicationTestAbstract {
         List<?> synonymList = (List<?>) ontoportalItem.get("synonyms");
         assertThat(synonymList).isEmpty();
 
-        assertThat(responseList.stream().map(x -> x.get("source_name")).distinct().sorted().toArray())
-                .isEqualTo(new String[]{"agroportal", "agrovoc"});
     }
 
 }
