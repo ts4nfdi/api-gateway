@@ -1,109 +1,138 @@
 name: ontoportal
+models:
+  artefact: &artefact
+    label: ontology->name
+    iri: URI|uri
+    type: "@type"
+    descriptions: description
+    ontology: ontology->acronym
+    ontologyIri: URI|uri
+    sourceUrl: ontology->links->ui
+    created: released
+    modified: modificationDate
+    synonyms: alternative
+    version: version
+    shortForm: ontology->acronym
+    status: status
+    versionIRI: versionIRI
+    license: hasLicense
+    contactPoint: contact->email
+    creator: hasCreator->email|hasCreator->name
+    publisher: publisher->email|publisher->name
+    rightsHolder: copyrightHolder->email|copyrightHolder->name
+    contributor: hasContributor->email|hasContributor->name
+    identifier: identifier
+    keywords: keywords
+    landingPage: homepage
+    language: naturalLanguage
+    subject: hasDomain
+    accrualMethod: accrualMethod
+    accrualPeriodicity: accrualPeriodicity
+    bibliographicCitation: publication
+    coverage: coverage
+    hasFormat: hasFormat
+    competencyQuestion: competencyQuestion
+    wasGeneratedBy: wasGeneratedBy
+    includedInDataCatalog: includedInDataCatalog
+    semanticArtefactRelation: ontologyRelatedTo
+    createdWith: usedOntologyEngineeringTool
+    obsolete: obsolete
+    accessRights: ontology->viewingRestriction
+  term: &term
+    label: prefLabel|label
+    iri: "@id"
+    synonyms: synonym
+    descriptions: definition
+    ontology: links->ontology
+    sourceUrl: links->ui
+    type: "@type"
+    obsolete: obsolete
+    created: created
+    modified: modified
+
+  searchResult: &searchResult
+    label: prefLabel
+    iri: "@id"
+    synonyms: synonym
+    descriptions: definition
+    ontology: links->ontology
+    sourceUrl: links->ui
+    type: "@type"
+
+
 endpoints:
   search:
     path: /search?q=%s&apikey=%s
     responseMapping:
       nestedJson: collection
-      label: prefLabel
-      iri: "@id"
-      synonyms: synonym
-      descriptions: definition
-      ontology: links->ontology
-      sourceUrl: links->ui
-      type: "@type"
+      <<: *searchResult
+
   resources:
     path: /submissions?apikey=%s&display_links=true&display_context=false&display=ontology,description,URI,released,modificationDate,alternative,version,status,versionIRI,hasLicense,contact,hasCreator,identifier,keyword,naturalLanguage,publisher,homepage,hasDomain,accrualMethod,accrualPeriodicity,publication,hasContributor,coverage,hasFormat,copyrightHolder,competencyQuestion,wasGeneratedBy,includedInDataCatalog,ontologyRelatedTo,usedOntologyEngineeringTool,keywords,obsolete
     responseMapping:
       nestedJson: collection
-      label: ontology->name
-      iri: URI|uri
-      type: "@type"
-      descriptions: description
-      ontology: ontology->acronym
-      ontologyIri: URI|uri
-      sourceUrl: ontology->links->ui
-      created: released
-      modified: modificationDate
-      synonyms: alternative
-      version: version
-      shortForm: ontology->acronym
-      status: status
-      versionIRI: versionIRI
-      license: hasLicense
-      contactPoint: contact->email
-      creator: hasCreator->email|hasCreator->name
-      publisher: publisher->email|publisher->name
-      rightsHolder: copyrightHolder->email|copyrightHolder->name
-      contributor: hasContributor->email|hasContributor->name
-      identifier: identifier
-      keywords: keywords
-      landingPage: homepage
-      language: naturalLanguage
-      subject: hasDomain
-      accrualMethod: accrualMethod
-      accrualPeriodicity: accrualPeriodicity
-      bibliographicCitation: publication
-      coverage: coverage
-      hasFormat: hasFormat
-      competencyQuestion: competencyQuestion
-      wasGeneratedBy: wasGeneratedBy
-      includedInDataCatalog: includedInDataCatalog
-      semanticArtefactRelation: ontologyRelatedTo
-      createdWith: usedOntologyEngineeringTool
-      obsolete: obsolete
-      accessRights: ontology->viewingRestriction
+      <<: *artefact
+
+  concepts:
+    path: /ontologies/%s/classes?page=%s&apikey=%s&pagesize=50&display_links=true&display_context=false
+    responseMapping:
+      nestedJson: collection
+      totalCount: totalCount
+      page: page
+      <<: *term
+
+  properties:
+    path: /ontologies/%s/properties?page=%s&apikey=%s&pagesize=50&display_links=true&display_context=false
+    responseMapping:
+      nestedJson: collection
+      totalCount: totalCount
+      page: page
+      <<: *term
 
   concept_details:
     path: ontologies/%s/classes/%s?apikey=%s
     responseMapping:
-      label: prefLabel
-      iri: "@id"
-      synonyms: synonym
-      descriptions: definition
-      ontology: links->ontology
-      sourceUrl: links->ui
-      type: "@type"
-      obsolete: obsolete
-      created: created
-      modified: modified
+      <<: *term
+
+  property_details:
+    path: ontologies/%s/properties/%s?apikey=%s
+    responseMapping:
+      <<: *term
+
   resource_details:
     path: ontologies/%s/latest_submission?apikey=%s&display=all
     responseMapping:
-      nestedJson: ""
-      label: ontology->name
-      iri: URI|uri
-      type: "@type"
-      descriptions: description
-      ontology: ontology->acronym
-      ontologyIri: URI|uri
-      sourceUrl: ontology->links->ui
-      created: released
-      modified: modificationDate
-      synonyms: alternative
-      version: version
-      shortForm: ontology->acronym
-      status: status
-      versionIRI: versionIRI
-      license: hasLicense
-      contactPoint: contact->email
-      creator: hasCreator->email
-      publisher: publisher->email
-      rightsHolder: copyrightHolder->email
-      identifier: identifier
-      keywords: keywords
-      landingPage: homepage
-      language: naturalLanguage
-      subject: hasDomain
-      accrualMethod: accrualMethod
-      accrualPeriodicity: accrualPeriodicity
-      bibliographicCitation: publication
-      contributor: hasContributor->email|hasContributor->name
-      coverage: coverage
-      hasFormat: hasFormat
-      competencyQuestion: competencyQuestion
-      wasGeneratedBy: wasGeneratedBy
-      includedInDataCatalog: includedInDataCatalog
-      semanticArtefactRelation: ontologyRelatedTo
-      createdWith: usedOntologyEngineeringTool
-      obsolete: obsolete
-      accessRights: ontology->viewingRestriction
+      <<: *artefact
+
+  individuals:
+    path: /ontologies/%s/instances?page=%s&apikey=%s&pagesize=50&display_links=true&display_context=false
+    responseMapping:
+      nestedJson: collection
+      totalCount: totalCount
+      page: page
+      <<: *term
+
+  individual_details:
+    path: ontologies/%s/instances/%s?apikey=%s
+    responseMapping:
+      <<: *term
+
+  schemes:
+    path: ontologies/%s/schemes?page=%s&apikey=%s
+    responseMapping:
+      <<: *term
+
+  scheme_details:
+    path: ontologies/%s/schemes/%s?apikey=%s
+    responseMapping:
+      <<: *term
+
+  collections:
+    path: ontologies/%s/collections?page=%s&apikey=%s
+    responseMapping:
+      <<: *term
+
+  collection_details:
+    path: ontologies/%s/collections/%s?apikey=%s
+    responseMapping:
+      <<: *term
