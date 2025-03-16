@@ -16,6 +16,6 @@ public  class TransformedApiResponse {
     private ApiResponse originalResponse;
 
     public List<Map<String, Object>> getCollection(boolean showOriginalResponse) {
-        return collection.stream().map(x -> x.toMap(showOriginalResponse)).toList();
+        return collection.stream().map(x -> x.toMap(showOriginalResponse, true)).toList();
     }
 }

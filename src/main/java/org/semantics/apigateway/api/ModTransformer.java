@@ -40,6 +40,7 @@ public class ModTransformer implements DatabaseTransformer {
             if (value == null) {
                 value = item.get(toSnakeCaseRegex(ourKey));
             }
+
             MappingTransformer.itemValueSetter(transformedItem, transformedKey, value);
         });
 
@@ -50,6 +51,7 @@ public class ModTransformer implements DatabaseTransformer {
     public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, boolean list) {
         if(!list) {
             Map<String, Object> response = transformedResults.get(0);
+            // TODO: Add @context
             response.put("@context", Collections.singletonMap("@vocab", ""));
             return response;
         }

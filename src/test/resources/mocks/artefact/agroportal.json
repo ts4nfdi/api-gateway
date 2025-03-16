@@ -1,115 +1,914 @@
 {
-  "administeredBy": [
-    "https://data.agroportal.lirmm.fr/users/AGROVOC"
+  "id": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions/54",
+  "submissionId": 54,
+  "submissionStatus": [
+    "ERROR_DIFF",
+    "INDEXED",
+    "INDEXED_ALL_DATA",
+    "INDEXED_PROPERTIES",
+    "METRICS",
+    "OBSOLETE",
+    "RDF",
+    "RDF_LABELS",
+    "UPLOADED"
   ],
-  "acronym": "AGROVOC",
-  "name": "AGROVOC",
-  "summaryOnly": false,
-  "flat": null,
-  "ontologyType": "https://data.agroportal.lirmm.fr/ontology_types/ONTOLOGY",
-  "group": [
-    "https://data.agroportal.lirmm.fr/groups/AGROTERMOS"
+  "ontology": {
+    "administeredBy": [
+      "https://data.agroportal.lirmm.fr/users/AGROVOC"
+    ],
+    "acronym": "AGROVOC",
+    "name": "AGROVOC",
+    "group": [
+      "https://data.agroportal.lirmm.fr/groups/AGROTERMOS"
+    ],
+    "hasDomain": [
+      "https://data.agroportal.lirmm.fr/categories/AG-ENG",
+      "https://data.agroportal.lirmm.fr/categories/AG-RES",
+      "https://data.agroportal.lirmm.fr/categories/AGRI",
+      "https://data.agroportal.lirmm.fr/categories/CULT",
+      "https://data.agroportal.lirmm.fr/categories/EARTH",
+      "https://data.agroportal.lirmm.fr/categories/ENV",
+      "https://data.agroportal.lirmm.fr/categories/FISH",
+      "https://data.agroportal.lirmm.fr/categories/FOREST",
+      "https://data.agroportal.lirmm.fr/categories/NAT-RES"
+    ],
+    "viewingRestriction": "public",
+    "viewOf": null,
+    "reviews": [],
+    "notes": [
+      "https://data.agroportal.lirmm.fr/notes/607f5af0-ff2f-013c-2e2d-5254006dce65",
+      "https://data.agroportal.lirmm.fr/notes/d31ed960-95e7-013c-2b2a-5254006dce65",
+      "https://data.agroportal.lirmm.fr/notes/d4e51e30-ff2f-013c-2e2d-5254006dce65"
+    ],
+    "projects": [
+      "https://data.agroportal.lirmm.fr/projects/AGRIS",
+      "https://data.agroportal.lirmm.fr/projects/ANAEE+Semantics",
+      "https://data.agroportal.lirmm.fr/projects/C4AI-KGAP",
+      "https://data.agroportal.lirmm.fr/projects/D2KAB",
+      "https://data.agroportal.lirmm.fr/projects/FooSIN",
+      "https://data.agroportal.lirmm.fr/projects/Maggot",
+      "https://data.agroportal.lirmm.fr/projects/RDAWheat",
+      "https://data.agroportal.lirmm.fr/projects/VEST-AP"
+    ],
+    "@id": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC",
+    "@type": "http://data.bioontology.org/metadata/Ontology",
+    "links": {
+      "submissions": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions",
+      "properties": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/properties",
+      "classes": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes",
+      "single_class": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/{class_id}",
+      "roots": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/roots",
+      "schemes": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/schemes",
+      "collections": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/collections",
+      "xl_labels": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/skos_xl_labels",
+      "instances": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/instances",
+      "metrics": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/metrics",
+      "reviews": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/reviews",
+      "notes": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/notes",
+      "groups": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/groups",
+      "categories": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/categories",
+      "latest_submission": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/latest_submission",
+      "projects": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/projects",
+      "download": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/download",
+      "views": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/views",
+      "analytics": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/analytics",
+      "agents": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/agents",
+      "mappings": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/mappings",
+      "ui": "http://agroportal.lirmm.fr/ontologies/AGROVOC",
+      "@context": {
+        "submissions": "http://data.bioontology.org/metadata/OntologySubmission",
+        "properties": "http://data.bioontology.org/metadata/Property",
+        "classes": "http://www.w3.org/2002/07/owl#Class",
+        "single_class": "http://www.w3.org/2002/07/owl#Class",
+        "roots": "http://www.w3.org/2002/07/owl#Class",
+        "schemes": "http://www.w3.org/2004/02/skos/core#ConceptScheme",
+        "collections": "http://www.w3.org/2004/02/skos/core#Collection",
+        "xl_labels": "http://www.w3.org/2008/05/skos-xl#Label",
+        "instances": "http://data.bioontology.org/metadata/Instance",
+        "metrics": "http://data.bioontology.org/metadata/Metrics",
+        "reviews": "http://data.bioontology.org/metadata/Review",
+        "notes": "http://data.bioontology.org/metadata/Note",
+        "groups": "http://data.bioontology.org/metadata/Group",
+        "categories": "http://data.bioontology.org/metadata/Category",
+        "latest_submission": "http://data.bioontology.org/metadata/OntologySubmission",
+        "projects": "http://data.bioontology.org/metadata/Project",
+        "download": "http://data.bioontology.org/metadata/Ontology",
+        "views": "http://data.bioontology.org/metadata/Ontology",
+        "analytics": "http://data.bioontology.org/metadata/Analytics",
+        "agents": "http://xmlns.com/foaf/0.1/Agent",
+        "mappings": "metadata/Mapping",
+        "ui": "http://data.bioontology.org/metadata/Ontology"
+      }
+    },
+    "@context": {
+      "@vocab": "http://data.bioontology.org/metadata/",
+      "acronym": "http://omv.ontoware.org/2005/05/ontology#acronym",
+      "name": "http://omv.ontoware.org/2005/05/ontology#name",
+      "administeredBy": {
+        "@id": "http://data.bioontology.org/metadata/User",
+        "@type": "@id"
+      },
+      "group": {
+        "@id": "http://data.bioontology.org/metadata/Group",
+        "@type": "@id"
+      },
+      "viewingRestriction": "http://data.bioontology.org/metadata/viewingRestriction",
+      "hasDomain": {
+        "@id": "http://data.bioontology.org/metadata/Category",
+        "@type": "@id"
+      },
+      "viewOf": {
+        "@id": "http://data.bioontology.org/metadata/Ontology",
+        "@type": "@id"
+      },
+      "@language": "en"
+    }
+  },
+  "metrics": {
+    "id": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions/54/metrics",
+    "classes": 34,
+    "averageChildCount": 4,
+    "classesWithMoreThan25Children": 0,
+    "classesWithNoDefinition": 7,
+    "classesWithOneChild": 4,
+    "maxChildCount": 22,
+    "maxDepth": 0,
+    "individuals": 1285576,
+    "properties": 209,
+    "numberOfAxioms": null,
+    "entities": null,
+    "@id": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions/54/metrics",
+    "@type": "http://data.bioontology.org/metadata/Metrics",
+    "links": {
+      "ontology": "https://data.agroportal.lirmm.fr/",
+      "submission": "https://data.agroportal.lirmm.fr/",
+      "@context": {
+        "ontology": "http://data.bioontology.org/metadata/Ontology",
+        "submission": "http://data.bioontology.org/metadata/OntologySubmission"
+      }
+    },
+    "@context": {
+      "@vocab": "http://data.bioontology.org/metadata/",
+      "classes": "http://data.bioontology.org/metadata/classes",
+      "individuals": "http://data.bioontology.org/metadata/individuals",
+      "properties": "http://data.bioontology.org/metadata/properties",
+      "maxDepth": "http://data.bioontology.org/metadata/maxDepth",
+      "maxChildCount": "http://data.bioontology.org/metadata/maxChildCount",
+      "averageChildCount": "http://data.bioontology.org/metadata/averageChildCount",
+      "classesWithOneChild": "http://data.bioontology.org/metadata/classesWithOneChild",
+      "classesWithMoreThan25Children": "http://data.bioontology.org/metadata/classesWithMoreThan25Children",
+      "classesWithNoDefinition": "http://data.bioontology.org/metadata/classesWithNoDefinition",
+      "numberOfAxioms": "http://omv.ontoware.org/2005/05/ontology#numberOfAxioms",
+      "entities": "http://rdfs.org/ns/void#entities",
+      "@language": "en"
+    }
+  },
+  "naturalLanguage": [
+    "http://lexvo.org/id/iso639-1/ro",
+    "http://lexvo.org/id/iso639-1/ar",
+    "http://lexvo.org/id/iso639-1/ca",
+    "http://lexvo.org/id/iso639-1/cs",
+    "http://lexvo.org/id/iso639-1/da",
+    "http://lexvo.org/id/iso639-1/de",
+    "http://lexvo.org/id/iso639-1/el",
+    "http://lexvo.org/id/iso639-1/en",
+    "http://lexvo.org/id/iso639-1/es",
+    "http://lexvo.org/id/iso639-1/et",
+    "http://lexvo.org/id/iso639-1/fa",
+    "http://lexvo.org/id/iso639-1/fi",
+    "http://lexvo.org/id/iso639-1/fr",
+    "http://lexvo.org/id/iso639-1/hi",
+    "http://lexvo.org/id/iso639-1/hu",
+    "http://lexvo.org/id/iso639-1/it",
+    "http://lexvo.org/id/iso639-1/ja",
+    "http://lexvo.org/id/iso639-1/ka",
+    "http://lexvo.org/id/iso639-1/ko",
+    "http://lexvo.org/id/iso639-1/lo",
+    "http://lexvo.org/id/iso639-1/ms",
+    "http://lexvo.org/id/iso639-1/nl",
+    "http://lexvo.org/id/iso639-1/no",
+    "http://lexvo.org/id/iso639-1/pl",
+    "http://lexvo.org/id/iso639-1/pt",
+    "http://lexvo.org/id/iso639-1/ru",
+    "http://lexvo.org/id/iso639-1/sk",
+    "http://lexvo.org/id/iso639-1/sr",
+    "http://lexvo.org/id/iso639-1/sv",
+    "http://lexvo.org/id/iso639-1/sw",
+    "http://lexvo.org/id/iso639-1/te",
+    "http://lexvo.org/id/iso639-1/th",
+    "http://lexvo.org/id/iso639-1/tr",
+    "http://lexvo.org/id/iso639-1/uk",
+    "http://lexvo.org/id/iso639-1/zh"
+  ],
+  "classType": null,
+  "hasOntologyLanguage": "SKOS",
+  "URI": "http://aims.fao.org/aos/agrovoc/",
+  "prefLabelProperty": "http://www.w3.org/2004/02/skos/core#prefLabel",
+  "definitionProperty": "http://www.w3.org/2004/02/skos/core#definition",
+  "synonymProperty": "http://www.w3.org/2004/02/skos/core#altLabel",
+  "authorProperty": "http://purl.org/dc/elements/1.1/creator",
+  "hierarchyProperty": "http://www.w3.org/2004/02/skos/core#broader",
+  "obsoleteProperty": "http://www.w3.org/2002/07/owl#deprecated",
+  "obsoleteParent": "http://www.geneontology.org/formats/oboInOwl#ObsoleteClass",
+  "createdProperty": "http://purl.org/dc/elements/1.1/created",
+  "modifiedProperty": "http://purl.org/dc/elements/1.1/modified",
+  "versionIRI": null,
+  "version": "2024-04",
+  "status": "production",
+  "deprecated": false,
+  "hasFormalityLevel": "http://w3id.org/nkos/nkostype#thesaurus",
+  "hasOntologySyntax": "http://www.w3.org/ns/formats/N3",
+  "isOfType": "http://omv.ontoware.org/2005/05/ontology#Vocabulary",
+  "identifier": [],
+  "description": "AGROVOC is a multilingual and controlled vocabulary designed to cover concepts and terminology under FAO's areas of interest. It is a large Linked Open Data set about agriculture, available for public use, and its highest impact is through facilitating the access and visibility of data across domains and languages.",
+  "homepage": "http://www.fao.org/agrovoc/",
+  "documentation": null,
+  "notes": [
+    "http://www.fao.org/agrovoc/news",
+    "Since the early 1980's, the Food and Agriculture Organization of the United Nations (FAO) has coordinated AGROVOC, a multilingual and controlled vocabulary which is a valuable tool for data to be classified homogeneously, facilitating interoperability and reuse."
+  ],
+  "keywords": [],
+  "hiddenLabel": [],
+  "alternative": [
+    "AGROVOC Dataset"
+  ],
+  "abstract": "AGROVOC covers all areas of interest to FAO, such as food, nutrition, agriculture, forestry, fisheries, names of animals and plants, environment, biological notions, techniques of plant cultivation, etc. The thesaurus is hierarchically organized under 25 top concepts.",
+  "publication": [
+    "https://www.fao.org/agrovoc/publications"
+  ],
+  "hasLicense": "https://creativecommons.org/licenses/by/4.0/",
+  "useGuidelines": "https://www.fao.org/documents/card/en/c/cb2838en",
+  "morePermissions": null,
+  "released": "2025-03-04T18:00:17.000+01:00",
+  "valid": null,
+  "curatedOn": [],
+  "creationDate": "2025-03-04T00:00:00.000+00:00",
+  "modificationDate": "2024-08-12T15:27:42.000+00:00",
+  "audience": "Worldwide",
+  "repository": null,
+  "bugDatabase": null,
+  "mailingList": "https://dgroups.org/fao/agrovoc/join",
+  "toDoList": [
+    " http://aims.fao.org/aos/agrovoc/",
+    "To curate and add new concepts to the thesaurus. Translating and localizing the vocabulary content to as many languages as needed. Encourage use of AGROVOC to index and tag information resources for subsequent data retrieval."
+  ],
+  "award": [],
+  "knownUsage": [
+    "http://www.fao.org/agris/",
+    "https://cgspace.cgiar.org/",
+    "https://datenzentrum.bonares.de/research-data.php",
+    "https://mel.cgiar.org/",
+    "https://www.fao.org/publications/"
+  ],
+  "designedForOntologyTask": [
+    "http://omv.ontoware.org/2005/05/ontology#AnnotationTask",
+    "http://omv.ontoware.org/2005/05/ontology#IndexingTask"
   ],
   "hasDomain": [
-    "https://data.agroportal.lirmm.fr/categories/FARMING",
-    "https://data.agroportal.lirmm.fr/categories/NATRES",
-    "https://data.agroportal.lirmm.fr/categories/TECH",
-    "https://data.agroportal.lirmm.fr/categories/FISHERIES",
-    "https://data.agroportal.lirmm.fr/categories/FORESTRY"
+    " http://dbpedia.org/resource/Agriculture",
+    "http://aims.fao.org/aos/agrovoc/c_203",
+    "http://aims.fao.org/aos/agrovoc/c_2593",
+    "http://aims.fao.org/aos/agrovoc/c_2934",
+    "http://aims.fao.org/aos/agrovoc/c_3055",
+    "http://aims.fao.org/aos/agrovoc/c_49892",
+    "http://dbpedia.org/resource/Environment",
+    "http://dbpedia.org/resource/Fishery",
+    "http://dbpedia.org/resource/Food",
+    "http://dbpedia.org/resource/Forestry",
+    "http://dbpedia.org/resource/Nutrition"
   ],
-  "viewingRestriction": "public",
-  "viewOf": null,
-  "views": [],
-  "reviews": [],
-  "notes": [
-    "https://data.agroportal.lirmm.fr/notes/607f5af0-ff2f-013c-2e2d-5254006dce65",
-    "https://data.agroportal.lirmm.fr/notes/d4e51e30-ff2f-013c-2e2d-5254006dce65",
-    "https://data.agroportal.lirmm.fr/notes/d31ed960-95e7-013c-2b2a-5254006dce65"
+  "coverage": "FAO's areas of interest",
+  "example": [],
+  "conformsToKnowledgeRepresentationParadigm": null,
+  "usedOntologyEngineeringMethodology": null,
+  "usedOntologyEngineeringTool": [
+    "VocBench"
   ],
-  "projects": [
-    "https://data.agroportal.lirmm.fr/projects/RDAWheat",
-    "https://data.agroportal.lirmm.fr/projects/D2KAB",
-    "https://data.agroportal.lirmm.fr/projects/VEST-AP",
-    "https://data.agroportal.lirmm.fr/projects/Maggot",
-    "https://data.agroportal.lirmm.fr/projects/ANAEE+Semantics",
-    "https://data.agroportal.lirmm.fr/projects/AGRIS",
-    "https://data.agroportal.lirmm.fr/projects/FooSIN"
+  "accrualMethod": [
+    "http://www.fao.org/agrovoc/maintenance"
   ],
-  "@id": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC",
-  "@type": "http://data.bioontology.org/metadata/Ontology",
+  "accrualPeriodicity": "http://purl.org/cld/freq/monthly",
+  "accrualPolicy": "https://www.fao.org/agrovoc/maintenance",
+  "competencyQuestion": [],
+  "wasGeneratedBy": [],
+  "wasInvalidatedBy": [],
+  "pullLocation": "http://agrovoc.uniroma2.it/latestAgrovoc/agrovoc_lod.nt.zip",
+  "isFormatOf": null,
+  "hasFormat": [],
+  "dataDump": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/download",
+  "csvDump": "http://data.agroportal.lirmm.fr/ontologies/AGROVOC/download?download_format=csv",
+  "uriLookupEndpoint": "http://data.agroportal.lirmm.fr/search?ontologies=AGROVOC&require_exact_match=true&q=",
+  "openSearchDescription": "http://data.agroportal.lirmm.fr/search?ontologies=AGROVOC",
+  "source": [],
+  "endpoint": [
+    "https://agrovoc.fao.org/sparql"
+  ],
+  "includedInDataCatalog": [
+    "https://bartoc.org/en/node/305",
+    "https://vocabs.ardc.edu.au/viewById/2",
+    "http://agroportal.lirmm.fr/ontologies/AGROVOC",
+    "https://agroportal.lirmm.fr/",
+    "https://fairsharing.org/FAIRsharing.anpj91",
+    "https://lod-cloud.net/dataset/agrovoc"
+  ],
+  "hasPriorVersion": null,
+  "hasPart": [],
+  "ontologyRelatedTo": [],
+  "similarTo": [],
+  "comesFromTheSameDomain": [],
+  "isAlignedTo": [
+    "http://crai.ub.edu/",
+    "http://dbpedia.org/void/Dataset",
+    "http://eurovoc.europa.eu/",
+    "http://id.loc.gov/authorities/sh90003079#concept",
+    "http://lod.gesis.org/thesoz/concept/q",
+    "http://vocabularies.unesco.org/",
+    "http://vocabulary.worldbank.org/thesaurus/",
+    "http://www.cadastralvocabulary.org/",
+    "http://www.gesis.org/en/services/tools-standards/social-science-thesaurus/",
+    "http://zbw.eu/stw/versions/latest/about",
+    "https://icd.who.int/icdapi",
+    "https://portal.dnb.de/",
+    "https://ukat.aim25.com/thesaurus/concept/",
+    "https://www.wikidata.org/",
+    "http://data.agroportal.lirmm.fr/ontologies/ANAEETHES",
+    "http://data.agroportal.lirmm.fr/ontologies/NALT",
+    "http://metadata.un.org/",
+    "http://www.geonames.org/",
+    "https://data.agroportal.lirmm.fr/ontologies/CABT",
+    "https://data.agroportal.lirmm.fr/ontologies/GEMET",
+    "https://data.agroportal.lirmm.fr/ontologies/SDGIO"
+  ],
+  "isBackwardCompatibleWith": [],
+  "isIncompatibleWith": [],
+  "hasDisparateModelling": [],
+  "hasDisjunctionsWith": [],
+  "generalizes": [],
+  "explanationEvolution": [],
+  "useImports": [
+    "http://aims.fao.org/aos/agrontology",
+    "http://www.w3.org/2004/02/skos/core",
+    "http://www.w3.org/2008/05/skos-xl"
+  ],
+  "usedBy": [],
+  "workTranslation": [],
+  "translationOfWork": [],
+  "uriRegexPattern": "http://aims.fao.org/aos/agrovoc/c_",
+  "preferredNamespaceUri": "http://aims.fao.org/aos/agrovoc/",
+  "preferredNamespacePrefix": "agrovoc",
+  "exampleIdentifier": "http://aims.fao.org/aos/agrovoc/c_38445",
+  "keyClasses": [],
+  "metadataVoc": [],
+  "uploadFilePath": "/srv/ontoportal/data/repository/AGROVOC/54/agrovoc_lod.nt.zip",
+  "diffFilePath": "/srv/ontoportal/data/repository/AGROVOC/22/bubastis_diff.xml",
+  "masterFileName": "agrovoc_lod.nt",
+  "associatedMedia": [
+    "https://www.fao.org/agrovoc/news/"
+  ],
+  "depiction": [],
+  "logo": null,
+  "missingImports": [
+    "http://aims.fao.org/aos/agrontology_temp/"
+  ],
+  "contact": [
+    {
+      "id": "https://data.agroportal.lirmm.fr/contacts/86819aa0-1880-0135-178f-525400026749",
+      "email": "AGROVOC@fao.org",
+      "name": "AGROVOC"
+    }
+  ],
+  "hasCreator": [
+    {
+      "id": "https://data.agroportal.lirmm.fr/Agents/48bdc460-994a-013d-f8e5-5254006dce65",
+      "agentType": "person",
+      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "name": null,
+      "homepage": null,
+      "acronym": null,
+      "email": null,
+      "affiliations": [],
+      "identifiers": [],
+      "@id": "https://data.agroportal.lirmm.fr/Agents/48bdc460-994a-013d-f8e5-5254006dce65",
+      "@type": "http://xmlns.com/foaf/0.1/Agent",
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "agentType": "http://data.bioontology.org/metadata/agentType",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "homepage": "http://xmlns.com/foaf/0.1/homepage",
+        "acronym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "email": "http://xmlns.com/foaf/0.1/mbox",
+        "identifiers": "http://www.w3.org/ns/adms#identifier",
+        "affiliations": "http://www.w3.org/ns/org#memberOf",
+        "creator": {
+          "@id": "http://data.bioontology.org/metadata/User",
+          "@type": "@id"
+        },
+        "@language": "en"
+      }
+    },
+    {
+      "id": "https://data.agroportal.lirmm.fr/Agents/48dfd610-994a-013d-f8e5-5254006dce65",
+      "agentType": "person",
+      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "name": null,
+      "homepage": null,
+      "acronym": null,
+      "email": null,
+      "affiliations": [],
+      "identifiers": [],
+      "@id": "https://data.agroportal.lirmm.fr/Agents/48dfd610-994a-013d-f8e5-5254006dce65",
+      "@type": "http://xmlns.com/foaf/0.1/Agent",
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "agentType": "http://data.bioontology.org/metadata/agentType",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "homepage": "http://xmlns.com/foaf/0.1/homepage",
+        "acronym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "email": "http://xmlns.com/foaf/0.1/mbox",
+        "identifiers": "http://www.w3.org/ns/adms#identifier",
+        "affiliations": "http://www.w3.org/ns/org#memberOf",
+        "creator": {
+          "@id": "http://data.bioontology.org/metadata/User",
+          "@type": "@id"
+        },
+        "@language": "en"
+      }
+    },
+    {
+      "id": "https://data.agroportal.lirmm.fr/Agents/48fbc620-994a-013d-f8e5-5254006dce65",
+      "agentType": "person",
+      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "name": null,
+      "homepage": null,
+      "acronym": null,
+      "email": null,
+      "affiliations": [],
+      "identifiers": [],
+      "@id": "https://data.agroportal.lirmm.fr/Agents/48fbc620-994a-013d-f8e5-5254006dce65",
+      "@type": "http://xmlns.com/foaf/0.1/Agent",
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "agentType": "http://data.bioontology.org/metadata/agentType",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "homepage": "http://xmlns.com/foaf/0.1/homepage",
+        "acronym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "email": "http://xmlns.com/foaf/0.1/mbox",
+        "identifiers": "http://www.w3.org/ns/adms#identifier",
+        "affiliations": "http://www.w3.org/ns/org#memberOf",
+        "creator": {
+          "@id": "http://data.bioontology.org/metadata/User",
+          "@type": "@id"
+        },
+        "@language": "en"
+      }
+    },
+    {
+      "id": "https://data.agroportal.lirmm.fr/Agents/49180b90-994a-013d-f8e5-5254006dce65",
+      "agentType": "person",
+      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "name": null,
+      "homepage": null,
+      "acronym": null,
+      "email": null,
+      "affiliations": [],
+      "identifiers": [],
+      "@id": "https://data.agroportal.lirmm.fr/Agents/49180b90-994a-013d-f8e5-5254006dce65",
+      "@type": "http://xmlns.com/foaf/0.1/Agent",
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "agentType": "http://data.bioontology.org/metadata/agentType",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "homepage": "http://xmlns.com/foaf/0.1/homepage",
+        "acronym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "email": "http://xmlns.com/foaf/0.1/mbox",
+        "identifiers": "http://www.w3.org/ns/adms#identifier",
+        "affiliations": "http://www.w3.org/ns/org#memberOf",
+        "creator": {
+          "@id": "http://data.bioontology.org/metadata/User",
+          "@type": "@id"
+        },
+        "@language": "en"
+      }
+    },
+    {
+      "id": "https://data.agroportal.lirmm.fr/Agents/49371180-994a-013d-f8e5-5254006dce65",
+      "agentType": "person",
+      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "name": null,
+      "homepage": null,
+      "acronym": null,
+      "email": null,
+      "affiliations": [],
+      "identifiers": [],
+      "@id": "https://data.agroportal.lirmm.fr/Agents/49371180-994a-013d-f8e5-5254006dce65",
+      "@type": "http://xmlns.com/foaf/0.1/Agent",
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "agentType": "http://data.bioontology.org/metadata/agentType",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "homepage": "http://xmlns.com/foaf/0.1/homepage",
+        "acronym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "email": "http://xmlns.com/foaf/0.1/mbox",
+        "identifiers": "http://www.w3.org/ns/adms#identifier",
+        "affiliations": "http://www.w3.org/ns/org#memberOf",
+        "creator": {
+          "@id": "http://data.bioontology.org/metadata/User",
+          "@type": "@id"
+        },
+        "@language": "en"
+      }
+    },
+    {
+      "id": "https://data.agroportal.lirmm.fr/Agents/4962e8a0-994a-013d-f8e5-5254006dce65",
+      "agentType": "person",
+      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "name": "https://www.wikidata.org/entity/Q82151",
+      "homepage": null,
+      "acronym": null,
+      "email": null,
+      "affiliations": [],
+      "identifiers": [],
+      "@id": "https://data.agroportal.lirmm.fr/Agents/4962e8a0-994a-013d-f8e5-5254006dce65",
+      "@type": "http://xmlns.com/foaf/0.1/Agent",
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "agentType": "http://data.bioontology.org/metadata/agentType",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "homepage": "http://xmlns.com/foaf/0.1/homepage",
+        "acronym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "email": "http://xmlns.com/foaf/0.1/mbox",
+        "identifiers": "http://www.w3.org/ns/adms#identifier",
+        "affiliations": "http://www.w3.org/ns/org#memberOf",
+        "creator": {
+          "@id": "http://data.bioontology.org/metadata/User",
+          "@type": "@id"
+        },
+        "@language": "en"
+      }
+    },
+    {
+      "id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "agentType": "organization",
+      "creator": "https://data.agroportal.lirmm.fr/users/admin",
+      "name": "Food and Agriculture Organization of the United Nations",
+      "homepage": "http://www.fao.org/home/en/",
+      "acronym": "FAO",
+      "email": null,
+      "affiliations": [],
+      "identifiers": [
+        {
+          "id": "https://data.agroportal.lirmm.fr/Identifiers/ROR:00pe0tf51",
+          "notation": "00pe0tf51",
+          "creator": "https://data.agroportal.lirmm.fr/users/jonquet",
+          "schemaAgency": "ROR"
+        }
+      ],
+      "@id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "@type": "http://xmlns.com/foaf/0.1/Agent",
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "agentType": "http://data.bioontology.org/metadata/agentType",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "homepage": "http://xmlns.com/foaf/0.1/homepage",
+        "acronym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "email": "http://xmlns.com/foaf/0.1/mbox",
+        "identifiers": "http://www.w3.org/ns/adms#identifier",
+        "affiliations": "http://www.w3.org/ns/org#memberOf",
+        "creator": {
+          "@id": "http://data.bioontology.org/metadata/User",
+          "@type": "@id"
+        },
+        "@language": "en"
+      }
+    },
+    {
+      "id": "https://data.agroportal.lirmm.fr/Agents/dc180e60-7dc9-013d-a205-5254006dce65",
+      "agentType": "person",
+      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "name": "Food and Agriculture Organization of the United Nations",
+      "homepage": null,
+      "acronym": null,
+      "email": null,
+      "affiliations": [],
+      "identifiers": [],
+      "@id": "https://data.agroportal.lirmm.fr/Agents/dc180e60-7dc9-013d-a205-5254006dce65",
+      "@type": "http://xmlns.com/foaf/0.1/Agent",
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "agentType": "http://data.bioontology.org/metadata/agentType",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "homepage": "http://xmlns.com/foaf/0.1/homepage",
+        "acronym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "email": "http://xmlns.com/foaf/0.1/mbox",
+        "identifiers": "http://www.w3.org/ns/adms#identifier",
+        "affiliations": "http://www.w3.org/ns/org#memberOf",
+        "creator": {
+          "@id": "http://data.bioontology.org/metadata/User",
+          "@type": "@id"
+        },
+        "@language": "en"
+      }
+    }
+  ],
+  "publisher": [
+    {
+      "id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "agentType": "organization",
+      "creator": "https://data.agroportal.lirmm.fr/users/admin",
+      "name": "Food and Agriculture Organization of the United Nations",
+      "homepage": "http://www.fao.org/home/en/",
+      "acronym": "FAO",
+      "email": null,
+      "affiliations": [],
+      "identifiers": [
+        {
+          "id": "https://data.agroportal.lirmm.fr/Identifiers/ROR:00pe0tf51",
+          "notation": "00pe0tf51",
+          "creator": "https://data.agroportal.lirmm.fr/users/jonquet",
+          "schemaAgency": "ROR"
+        }
+      ],
+      "@id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "@type": "http://xmlns.com/foaf/0.1/Agent",
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "agentType": "http://data.bioontology.org/metadata/agentType",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "homepage": "http://xmlns.com/foaf/0.1/homepage",
+        "acronym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "email": "http://xmlns.com/foaf/0.1/mbox",
+        "identifiers": "http://www.w3.org/ns/adms#identifier",
+        "affiliations": "http://www.w3.org/ns/org#memberOf",
+        "creator": {
+          "@id": "http://data.bioontology.org/metadata/User",
+          "@type": "@id"
+        },
+        "@language": "en"
+      }
+    }
+  ],
+  "copyrightHolder": null,
+  "hasContributor": [],
+  "translator": [
+    {
+      "id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "agentType": "organization",
+      "creator": "https://data.agroportal.lirmm.fr/users/admin",
+      "name": "Food and Agriculture Organization of the United Nations",
+      "homepage": "http://www.fao.org/home/en/",
+      "acronym": "FAO",
+      "email": null,
+      "affiliations": [],
+      "identifiers": [
+        {
+          "id": "https://data.agroportal.lirmm.fr/Identifiers/ROR:00pe0tf51",
+          "notation": "00pe0tf51",
+          "creator": "https://data.agroportal.lirmm.fr/users/jonquet",
+          "schemaAgency": "ROR"
+        }
+      ],
+      "@id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "@type": "http://xmlns.com/foaf/0.1/Agent",
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "agentType": "http://data.bioontology.org/metadata/agentType",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "homepage": "http://xmlns.com/foaf/0.1/homepage",
+        "acronym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "email": "http://xmlns.com/foaf/0.1/mbox",
+        "identifiers": "http://www.w3.org/ns/adms#identifier",
+        "affiliations": "http://www.w3.org/ns/org#memberOf",
+        "creator": {
+          "@id": "http://data.bioontology.org/metadata/User",
+          "@type": "@id"
+        },
+        "@language": "en"
+      }
+    },
+    {
+      "id": "https://data.agroportal.lirmm.fr/Agents/bc8bc970-6e14-013d-9813-5254006dce65",
+      "agentType": "organization",
+      "creator": "https://data.agroportal.lirmm.fr/users/milenatelles",
+      "name": "Brazilian Agricultural Research Corporation",
+      "homepage": "https://www.embrapa.br/en/international",
+      "acronym": "Embrapa",
+      "email": null,
+      "affiliations": [],
+      "identifiers": [],
+      "@id": "https://data.agroportal.lirmm.fr/Agents/bc8bc970-6e14-013d-9813-5254006dce65",
+      "@type": "http://xmlns.com/foaf/0.1/Agent",
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "agentType": "http://data.bioontology.org/metadata/agentType",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "homepage": "http://xmlns.com/foaf/0.1/homepage",
+        "acronym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "email": "http://xmlns.com/foaf/0.1/mbox",
+        "identifiers": "http://www.w3.org/ns/adms#identifier",
+        "affiliations": "http://www.w3.org/ns/org#memberOf",
+        "creator": {
+          "@id": "http://data.bioontology.org/metadata/User",
+          "@type": "@id"
+        },
+        "@language": "en"
+      }
+    }
+  ],
+  "endorsedBy": [
+    {
+      "id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "agentType": "organization",
+      "creator": "https://data.agroportal.lirmm.fr/users/admin",
+      "name": "Food and Agriculture Organization of the United Nations",
+      "homepage": "http://www.fao.org/home/en/",
+      "acronym": "FAO",
+      "email": null,
+      "affiliations": [],
+      "identifiers": [
+        {
+          "id": "https://data.agroportal.lirmm.fr/Identifiers/ROR:00pe0tf51",
+          "notation": "00pe0tf51",
+          "creator": "https://data.agroportal.lirmm.fr/users/jonquet",
+          "schemaAgency": "ROR"
+        }
+      ],
+      "@id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "@type": "http://xmlns.com/foaf/0.1/Agent",
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "agentType": "http://data.bioontology.org/metadata/agentType",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "homepage": "http://xmlns.com/foaf/0.1/homepage",
+        "acronym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "email": "http://xmlns.com/foaf/0.1/mbox",
+        "identifiers": "http://www.w3.org/ns/adms#identifier",
+        "affiliations": "http://www.w3.org/ns/org#memberOf",
+        "creator": {
+          "@id": "http://data.bioontology.org/metadata/User",
+          "@type": "@id"
+        },
+        "@language": "en"
+      }
+    }
+  ],
+  "fundedBy": [
+    {
+      "id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "agentType": "organization",
+      "creator": "https://data.agroportal.lirmm.fr/users/admin",
+      "name": "Food and Agriculture Organization of the United Nations",
+      "homepage": "http://www.fao.org/home/en/",
+      "acronym": "FAO",
+      "email": null,
+      "affiliations": [],
+      "identifiers": [
+        {
+          "id": "https://data.agroportal.lirmm.fr/Identifiers/ROR:00pe0tf51",
+          "notation": "00pe0tf51",
+          "creator": "https://data.agroportal.lirmm.fr/users/jonquet",
+          "schemaAgency": "ROR"
+        }
+      ],
+      "@id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "@type": "http://xmlns.com/foaf/0.1/Agent",
+      "@context": {
+        "@vocab": "http://data.bioontology.org/metadata/",
+        "agentType": "http://data.bioontology.org/metadata/agentType",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "homepage": "http://xmlns.com/foaf/0.1/homepage",
+        "acronym": "http://www.w3.org/2004/02/skos/core#altLabel",
+        "email": "http://xmlns.com/foaf/0.1/mbox",
+        "identifiers": "http://www.w3.org/ns/adms#identifier",
+        "affiliations": "http://www.w3.org/ns/org#memberOf",
+        "creator": {
+          "@id": "http://data.bioontology.org/metadata/User",
+          "@type": "@id"
+        },
+        "@language": "en"
+      }
+    }
+  ],
+  "curatedBy": [],
+  "@id": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions/54",
+  "@type": "http://data.bioontology.org/metadata/OntologySubmission",
   "links": {
-    "submissions": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions",
-    "properties": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/properties",
-    "classes": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes",
-    "single_class": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/{class_id}",
-    "roots": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/roots",
-    "schemes": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/schemes",
-    "collections": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/collections",
-    "xl_labels": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/skos_xl_labels",
-    "instances": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/instances",
-    "metrics": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/metrics",
-    "reviews": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/reviews",
-    "notes": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/notes",
-    "groups": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/groups",
-    "categories": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/categories",
-    "latest_submission": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/latest_submission",
-    "projects": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/projects",
-    "download": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/download",
-    "views": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/views",
-    "analytics": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/analytics",
-    "agents": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/agents",
-    "ui": "http://agroportal.lirmm.fr/ontologies/AGROVOC",
+    "metrics": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions/54/metrics",
     "@context": {
-      "submissions": "http://data.bioontology.org/metadata/OntologySubmission",
-      "properties": "http://data.bioontology.org/metadata/Property",
-      "classes": "http://www.w3.org/2002/07/owl#Class",
-      "single_class": "http://www.w3.org/2002/07/owl#Class",
-      "roots": "http://www.w3.org/2002/07/owl#Class",
-      "schemes": "http://www.w3.org/2004/02/skos/core#ConceptScheme",
-      "collections": "http://www.w3.org/2004/02/skos/core#Collection",
-      "xl_labels": "http://www.w3.org/2008/05/skos-xl#Label",
-      "instances": "http://data.bioontology.org/metadata/Instance",
-      "metrics": "http://data.bioontology.org/metadata/Metrics",
-      "reviews": "http://data.bioontology.org/metadata/Review",
-      "notes": "http://data.bioontology.org/metadata/Note",
-      "groups": "http://data.bioontology.org/metadata/Group",
-      "categories": "http://data.bioontology.org/metadata/Category",
-      "latest_submission": "http://data.bioontology.org/metadata/OntologySubmission",
-      "projects": "http://data.bioontology.org/metadata/Project",
-      "download": "http://data.bioontology.org/metadata/Ontology",
-      "views": "http://data.bioontology.org/metadata/Ontology",
-      "analytics": "http://data.bioontology.org/metadata/Analytics",
-      "agents": "http://xmlns.com/foaf/0.1/Agent",
-      "ui": "http://data.bioontology.org/metadata/Ontology"
+      "metrics": "http://data.bioontology.org/metadata/OntologySubmission"
     }
   },
   "@context": {
     "@vocab": "http://data.bioontology.org/metadata/",
-    "acronym": "http://omv.ontoware.org/2005/05/ontology#acronym",
-    "name": "http://omv.ontoware.org/2005/05/ontology#name",
-    "administeredBy": {
-      "@id": "http://data.bioontology.org/metadata/User",
-      "@type": "@id"
-    },
-    "group": {
-      "@id": "http://data.bioontology.org/metadata/Group",
-      "@type": "@id"
-    },
-    "viewingRestriction": "http://data.bioontology.org/metadata/viewingRestriction",
-    "flat": "http://data.bioontology.org/metadata/flat",
-    "hasDomain": {
-      "@id": "http://data.bioontology.org/metadata/Category",
-      "@type": "@id"
-    },
-    "summaryOnly": "http://data.bioontology.org/metadata/summaryOnly",
-    "viewOf": {
-      "@id": "http://data.bioontology.org/metadata/Ontology",
-      "@type": "@id"
-    },
-    "ontologyType": {
-      "@id": "http://data.bioontology.org/metadata/OntologyType",
-      "@type": "@id"
-    },
+    "submissionId": "http://data.bioontology.org/metadata/submissionId",
+    "prefLabelProperty": "http://data.bioontology.org/metadata/prefLabelProperty",
+    "definitionProperty": "http://data.bioontology.org/metadata/definitionProperty",
+    "synonymProperty": "http://data.bioontology.org/metadata/synonymProperty",
+    "authorProperty": "http://data.bioontology.org/metadata/authorProperty",
+    "classType": "http://data.bioontology.org/metadata/classType",
+    "hierarchyProperty": "http://data.bioontology.org/metadata/hierarchyProperty",
+    "obsoleteProperty": "http://data.bioontology.org/metadata/obsoleteProperty",
+    "obsoleteParent": "http://data.bioontology.org/metadata/obsoleteParent",
+    "createdProperty": "http://data.bioontology.org/metadata/createdProperty",
+    "modifiedProperty": "http://data.bioontology.org/metadata/modifiedProperty",
+    "URI": "http://omv.ontoware.org/2005/05/ontology#URI",
+    "versionIRI": "http://www.w3.org/2002/07/owl#versionIRI",
+    "version": "http://omv.ontoware.org/2005/05/ontology#version",
+    "status": "http://omv.ontoware.org/2005/05/ontology#status",
+    "deprecated": "http://www.w3.org/2002/07/owl#deprecated",
+    "hasOntologyLanguage": "http://omv.ontoware.org/2005/05/ontology#hasOntologyLanguage",
+    "hasFormalityLevel": "http://omv.ontoware.org/2005/05/ontology#hasFormalityLevel",
+    "hasOntologySyntax": "http://omv.ontoware.org/2005/05/ontology#hasOntologySyntax",
+    "naturalLanguage": "http://omv.ontoware.org/2005/05/ontology#naturalLanguage",
+    "isOfType": "http://omv.ontoware.org/2005/05/ontology#isOfType",
+    "identifier": "http://purl.org/dc/terms/identifier",
+    "description": "http://omv.ontoware.org/2005/05/ontology#description",
+    "homepage": "http://xmlns.com/foaf/0.1/homepage",
+    "documentation": "http://omv.ontoware.org/2005/05/ontology#documentation",
+    "notes": "http://omv.ontoware.org/2005/05/ontology#notes",
+    "keywords": "http://omv.ontoware.org/2005/05/ontology#keywords",
+    "hiddenLabel": "http://www.w3.org/2004/02/skos/core#hiddenLabel",
+    "alternative": "http://purl.org/dc/terms/alternative",
+    "abstract": "http://purl.org/dc/terms/abstract",
+    "publication": "http://data.bioontology.org/metadata/publication",
+    "hasLicense": "http://omv.ontoware.org/2005/05/ontology#hasLicense",
+    "useGuidelines": "http://creativecommons.org/ns#useGuidelines",
+    "morePermissions": "http://creativecommons.org/ns#morePermissions",
+    "copyrightHolder": "http://schema.org/copyrightHolder",
+    "released": "http://data.bioontology.org/metadata/released",
+    "valid": "http://purl.org/dc/terms/valid",
+    "curatedOn": "http://purl.org/pav/curatedOn",
+    "creationDate": "http://omv.ontoware.org/2005/05/ontology#creationDate",
+    "modificationDate": "http://omv.ontoware.org/2005/05/ontology#modificationDate",
+    "contact": "http://data.bioontology.org/metadata/contact",
+    "hasCreator": "http://omv.ontoware.org/2005/05/ontology#hasCreator",
+    "hasContributor": "http://omv.ontoware.org/2005/05/ontology#hasContributor",
+    "curatedBy": "http://purl.org/pav/curatedBy",
+    "publisher": "http://purl.org/dc/terms/publisher",
+    "fundedBy": "http://xmlns.com/foaf/0.1/fundedBy",
+    "endorsedBy": "http://omv.ontoware.org/2005/05/ontology#endorsedBy",
+    "translator": "http://schema.org/translator",
+    "audience": "http://purl.org/dc/terms/audience",
+    "repository": "http://usefulinc.com/ns/doap#repository",
+    "bugDatabase": "http://usefulinc.com/ns/doap#bugDatabase",
+    "mailingList": "http://usefulinc.com/ns/doap#mailingList",
+    "toDoList": "http://purl.org/vocommons/voaf#toDoList",
+    "award": "http://schema.org/award",
+    "knownUsage": "http://omv.ontoware.org/2005/05/ontology#knownUsage",
+    "designedForOntologyTask": "http://omv.ontoware.org/2005/05/ontology#designedForOntologyTask",
+    "hasDomain": "http://omv.ontoware.org/2005/05/ontology#hasDomain",
+    "coverage": "http://purl.org/dc/terms/coverage",
+    "example": "http://purl.org/vocab/vann/example",
+    "conformsToKnowledgeRepresentationParadigm": "http://omv.ontoware.org/2005/05/ontology#conformsToKnowledgeRepresentationParadigm",
+    "usedOntologyEngineeringMethodology": "http://omv.ontoware.org/2005/05/ontology#usedOntologyEngineeringMethodology",
+    "usedOntologyEngineeringTool": "http://omv.ontoware.org/2005/05/ontology#usedOntologyEngineeringTool",
+    "accrualMethod": "http://purl.org/dc/terms/accrualMethod",
+    "accrualPeriodicity": "http://purl.org/dc/terms/accrualPeriodicity",
+    "accrualPolicy": "http://purl.org/dc/terms/accrualPolicy",
+    "competencyQuestion": "https://w3id.org/mod#competencyQuestion",
+    "wasGeneratedBy": "http://www.w3.org/ns/prov#wasGeneratedBy",
+    "wasInvalidatedBy": "http://www.w3.org/ns/prov#wasInvalidatedBy",
+    "pullLocation": "http://data.bioontology.org/metadata/pullLocation",
+    "isFormatOf": "http://purl.org/dc/terms/isFormatOf",
+    "hasFormat": "http://purl.org/dc/terms/hasFormat",
+    "dataDump": "http://rdfs.org/ns/void#dataDump",
+    "csvDump": "http://data.bioontology.org/metadata/csvDump",
+    "uriLookupEndpoint": "http://rdfs.org/ns/void#uriLookupEndpoint",
+    "openSearchDescription": "http://rdfs.org/ns/void#openSearchDescription",
+    "source": "http://purl.org/dc/terms/source",
+    "endpoint": "http://www.w3.org/ns/sparql-service-description#endpoint",
+    "includedInDataCatalog": "http://schema.org/includedInDataCatalog",
+    "hasPriorVersion": "http://omv.ontoware.org/2005/05/ontology#hasPriorVersion",
+    "hasPart": "http://purl.org/dc/terms/hasPart",
+    "ontologyRelatedTo": "http://kannel.open.ac.uk/ontology#ontologyRelatedTo",
+    "similarTo": "http://kannel.open.ac.uk/ontology#similarTo",
+    "comesFromTheSameDomain": "http://kannel.open.ac.uk/ontology#comesFromTheSameDomain",
+    "isAlignedTo": "http://kannel.open.ac.uk/ontology#isAlignedTo",
+    "isBackwardCompatibleWith": "http://omv.ontoware.org/2005/05/ontology#isBackwardCompatibleWith",
+    "isIncompatibleWith": "http://omv.ontoware.org/2005/05/ontology#isIncompatibleWith",
+    "hasDisparateModelling": "http://kannel.open.ac.uk/ontology#hasDisparateModelling",
+    "hasDisjunctionsWith": "http://purl.org/vocommons/voaf#hasDisjunctionsWith",
+    "generalizes": "http://purl.org/vocommons/voaf#generalizes",
+    "explanationEvolution": "http://kannel.open.ac.uk/ontology#explanationEvolution",
+    "useImports": "http://omv.ontoware.org/2005/05/ontology#useImports",
+    "usedBy": "http://purl.org/vocommons/voaf#usedBy",
+    "workTranslation": "http://schema.org/workTranslation",
+    "translationOfWork": "http://schema.org/translationOfWork",
+    "uriRegexPattern": "http://rdfs.org/ns/void#uriRegexPattern",
+    "preferredNamespaceUri": "http://purl.org/vocab/vann/preferredNamespaceUri",
+    "preferredNamespacePrefix": "http://purl.org/vocab/vann/preferredNamespacePrefix",
+    "exampleIdentifier": "http://identifiers.org/idot/exampleIdentifier",
+    "keyClasses": "http://omv.ontoware.org/2005/05/ontology#keyClasses",
+    "metadataVoc": "http://purl.org/vocommons/voaf#metadataVoc",
+    "uploadFilePath": "http://data.bioontology.org/metadata/uploadFilePath",
+    "diffFilePath": "http://data.bioontology.org/metadata/diffFilePath",
+    "masterFileName": "http://data.bioontology.org/metadata/masterFileName",
+    "associatedMedia": "http://schema.org/associatedMedia",
+    "depiction": "http://xmlns.com/foaf/0.1/depiction",
+    "logo": "http://xmlns.com/foaf/0.1/logo",
+    "metrics": "http://data.bioontology.org/metadata/metrics",
+    "submissionStatus": "http://data.bioontology.org/metadata/submissionStatus",
+    "missingImports": "http://data.bioontology.org/metadata/missingImports",
+    "ontology": "http://data.bioontology.org/metadata/ontology",
     "@language": "en"
   }
 }
