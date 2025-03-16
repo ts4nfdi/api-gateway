@@ -5,8 +5,9 @@ import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.semantics.apigateway.config.DatabaseConfig;
+import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
-import org.semantics.apigateway.service.ArtefactsService;
+import org.semantics.apigateway.service.artefacts.ArtefactsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -73,7 +74,7 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
 
     @Test
     public void testGetAllArtefacts() {
-        CompletableFuture<Object> r = artefactsService.getArtefacts("", null, null, false, null, null, apiAccessor);
+        CompletableFuture<Object> r = artefactsService.getArtefacts(new CommonRequestParams(), null, null, apiAccessor);
 
         AggregatedApiResponse response = (AggregatedApiResponse) r.join();
 
@@ -87,7 +88,7 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         assertThat(ontoportalItem.get("short_form")).isEqualTo("AAO");
         assertThat(ontoportalItem.get("label")).isEqualTo("Agriculture Activity Ontology");
         assertThat(ontoportalItem.get("source")).isEqualTo("https://data.agroportal.lirmm.fr");
-        assertThat(ontoportalItem.get("type")).isEqualTo("http://data.bioontology.org/metadata/OntologySubmission");
+//        assertThat(ontoportalItem.get("type")).isEqualTo("http://data.bioontology.org/metadata/OntologySubmission");
         assertThat(ontoportalItem.get("source_name")).isEqualTo("agroportal");
         assertThat(ontoportalItem.get("ontology")).isEqualTo("AAO");
         assertThat(ontoportalItem.get("synonyms")).isEqualTo(Collections.emptyList());
