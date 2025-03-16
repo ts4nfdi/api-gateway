@@ -81,7 +81,7 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
         assertThat(responseList).hasSize(3);
 
         Map<String, Object> ontoportalItem = responseList.get(0);
-        assertThat(ontoportalItem.get("iri")).isEqualTo("https://data.agroportal.lirmm.fr/ontologies/AGROVOC");
+        assertThat(ontoportalItem.get("iri")).isEqualTo("http://aims.fao.org/aos/agrovoc/");
         assertThat(ontoportalItem.get("backend_type")).isEqualTo("ontoportal");
 //        assertThat(ontoportalItem.get("short_form")).isEqualTo("agrovoc");
         assertThat(ontoportalItem.get("label")).isEqualTo("AGROVOC");
@@ -92,7 +92,7 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
 
         List<String> descriptionList1 = (List<String>) ontoportalItem.get("descriptions");
         assertThat(descriptionList1).hasSize(1);
-        assertThat(descriptionList1.get(0)).isEqualTo("AGROVOC");
+        assertThat(descriptionList1.get(0)).startsWith("AGROVOC is a multilingual and controlled vocabulary designed to cover concepts and terminology under FAO's areas of interest. ");
 
         Map<String, Object> skosmosItem = responseList.get(1);
         assertThat(skosmosItem.get("backend_type")).isEqualTo("skosmos");
