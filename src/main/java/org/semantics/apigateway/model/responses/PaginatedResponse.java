@@ -1,5 +1,6 @@
 package org.semantics.apigateway.model.responses;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,9 @@ import java.util.Map;
 @AllArgsConstructor
 public class PaginatedResponse {
     public static int PAGE_SIZE = 50;
+
+    @JsonIgnore
+    private String base = "https://example.org";
 
     @JsonProperty("totalItems")
     private final Long totalCount;
@@ -42,22 +46,21 @@ public class PaginatedResponse {
 
 
     @JsonProperty("@id")
-    public String id(){
-        String base = "https://example.org";
-        return String.format("%s/items?page=%s", base,this.page);
+    public String id() {
+        return String.format("%s/items?page=%s", this.base, this.page);
     }
 
     @JsonProperty("view")
     public Map<String, Object> view() {
-        String base = "https://example.org";
+        String base = this.base;
         return Map.of(
                 "@id", this.id(),
-                "@type","hydra:PartialCollectionView",
-                "firstPage", String.format("%s/items?page=%s", base,1),
-                "previousPage", String.format("%s/items?page=%s", base,this.page-1),
-                "nextPage", String.format("%s/items?page=%s", base,this.page+1),
-                "lastPage",String.format("%s/items?page=%s", base,this.getTotalPages())
-       );
+                "@type", "hydra:PartialCollectionView",
+                "firstPage", String.format("%s/items?page=%s", base, 1),
+                "previousPage", String.format("%s/items?page=%s", base, this.page - 1),
+                "nextPage", String.format("%s/items?page=%s", base, this.page + 1),
+                "lastPage", String.format("%s/items?page=%s", base, this.getTotalPages())
+        );
     }
 
     public PaginatedResponse(AggregatedApiResponse source) {
@@ -68,10 +71,10 @@ public class PaginatedResponse {
 
     @JsonProperty("totalPages")
     public Integer getTotalPages() {
-        return  (int) Math.ceil((double) this.totalCount / this.pageSize);
+        return (int) Math.ceil((double) this.totalCount / this.pageSize);
     }
 
-    public PaginatedResponse(){
+    public PaginatedResponse() {
         this.totalCount = 0L;
         this.page = 1;
         this.collection = Collections.emptyList();

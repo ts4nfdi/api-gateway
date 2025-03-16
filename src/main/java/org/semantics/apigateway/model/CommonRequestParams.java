@@ -16,11 +16,9 @@ public class CommonRequestParams {
     @QueryParam("database")
     @Parameter(
             name = "database",
-            description = "Choose on which databases of backend type to run the search",
-            schema = @Schema(type = "array",
-                    example = "ontoportal,ols,biodivportal,agroportal,agrovoc,ebi")
+            description = "Choose on which databases of backend type to run the search"
     )
-    private String database;
+    private String database = "";
 
     @QueryParam("format")
     @Parameter(name = "format", in = ParameterIn.QUERY, description = "Response format")
