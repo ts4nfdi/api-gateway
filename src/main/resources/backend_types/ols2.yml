@@ -1,4 +1,31 @@
 name: ols2
+models:
+  artefact: &artefact
+    label: title|label
+    iri: uri|iri
+    ontology: ontologyId
+    synonyms: synonym
+    descriptions: definition|description
+    shortForm: ontologyId
+    type: type
+    sourceUrl: _links->self->href
+    obsolete: isObsolete
+    modified: loaded
+    ontologyIri: uri|iri
+    version: http://www.w3.org/2002/07/owl#versionInfo
+  term: &term
+    label: label
+    iri: iri
+    ontology: ontologyId
+    synonyms: synonym->value
+    descriptions: definition->value|description->value
+    shortForm: shortForm
+    type: type
+    sourceUrl: _links->self->href
+    obsolete: isObsolete
+    ontologyIri: ontologyIri
+    modified: loaded
+
 endpoints:
   search:
     path: /entities?search=%s

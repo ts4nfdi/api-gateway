@@ -1,4 +1,28 @@
 name: ols
+models:
+  artefact: &artefact
+    label: config->title|ontologyId
+    iri: config->id
+    type: type
+    descriptions: config->description
+    ontology: ontologyId
+    sourceUrl: _links->self->href
+    version: config->version
+    synonyms: synonym
+    shortForm: ontologyId
+
+  term: &term
+    label: label
+    iri: iri
+    ontology: ontology_name
+    synonyms: synonyms
+    descriptions: description
+    shortForm: short_form
+    sourceUrl: _links->self->href
+    type: type
+    obsolete: is_obsolete
+    ontologyIri: ontology_iri
+
 endpoints:
   search:
     path: search?q=%s
