@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/ols")
-@Tag(name = "ols", description = "The Ontology Lookup Service (OLS) endpoints")
+@Tag(name = "Ols")
 public class OlsSearchController {
 
     private final SearchService searchService;
