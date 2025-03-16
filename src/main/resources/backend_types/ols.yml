@@ -49,6 +49,6 @@ endpoints:
       ontology: ontologyId
       synonyms: synonym
       descriptions: description
-      shortForm: short_form
+      shortForm: ontologyId
       sourceUrl: _links->self->href
       type: type
