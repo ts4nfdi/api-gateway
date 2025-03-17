@@ -20,6 +20,15 @@ endpoints:
       ontology: id
       shortForm: id
       descriptions: title
+
+  concepts:
+    path: /agrovoc/label?acronym=%s
+    responseMapping:
+      label: prefLabel
+      iri: uri
+      type: type
+      synonyms: synonym
+
   concept_details:
     path: /agrovoc/label?acronym=%s&uri=%s
     responseMapping:

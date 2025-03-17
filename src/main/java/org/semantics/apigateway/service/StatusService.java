@@ -14,13 +14,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Getter
@@ -56,7 +53,6 @@ public class StatusService {
 
     public Map<?, ?> getResultFromUrlReactive(String url) {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-
         return webClient.get()
                 .uri(getBaseUrl(request) + url)
                 .retrieve()
@@ -90,12 +86,13 @@ public class StatusService {
     }
 
     public Map<String, Object>  checkEndpoint(String endpoint) {
-        endpoint = URLDecoder.decode(endpoint, StandardCharsets.UTF_8);
-        String url = UriComponentsBuilder.fromUriString(endpoint)
-                .queryParam("showResponseConfiguration", "true")
-                .toUriString();
+        if(endpoint.contains("?")){
+            endpoint += "&showResponseConfiguration=true";
+        } else {
+            endpoint += "?showResponseConfiguration=true";
+        }
 
-        return calculateGlobalStats(url);
+        return calculateGlobalStats(endpoint);
     }
 
     private Map<String, Object> calculateGlobalStats(String exampleUrl) {

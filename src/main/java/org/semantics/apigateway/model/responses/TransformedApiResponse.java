@@ -13,6 +13,9 @@ import java.util.Map;
 @NoArgsConstructor
 public  class TransformedApiResponse {
     private List<AggregatedResourceBody> collection = new ArrayList<>();
+    private long totalCollections;
+    private int page;
+    private boolean paginate;
     private ApiResponse originalResponse;
 
     public List<Map<String, Object>> getCollection(boolean showOriginalResponse) {

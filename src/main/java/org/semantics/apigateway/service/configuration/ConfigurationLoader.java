@@ -1,7 +1,6 @@
 package org.semantics.apigateway.service.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.semantics.apigateway.config.DatabaseConfig;
@@ -17,6 +16,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,13 +69,13 @@ public class ConfigurationLoader {
             logger.warn("No YAML files found in backend_types directory");
             return services;
         }
-
-        ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
-
+        ObjectMapper objectMapper = new ObjectMapper();
         for (Resource resource : yamlResources) {
             try (InputStream inputStream = resource.getInputStream()) {
+                Yaml yaml = new Yaml();
+                Map<String, Object> rawYamlData = yaml.load(inputStream);
                 logger.info("Loading service configuration from: {}", resource.getFilename());
-                ServiceConfig serviceConfig = objectMapper.readValue(inputStream, ServiceConfig.class);
+                ServiceConfig serviceConfig = objectMapper.convertValue(rawYamlData, ServiceConfig.class);
                 services.add(serviceConfig);
             } catch (Exception e) {
                 logger.error("Error loading service configuration from file: {}", resource.getFilename(), e);
