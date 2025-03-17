@@ -1,4 +1,31 @@
 name: ols2
+models:
+  artefact: &artefact
+    label: title|label
+    iri: uri|iri
+    ontology: ontologyId
+    synonyms: synonym
+    descriptions: definition|description
+    shortForm: ontologyId
+    type: type
+    sourceUrl: _links->self->href
+    obsolete: isObsolete
+    modified: loaded
+    ontologyIri: uri|iri
+    version: http://www.w3.org/2002/07/owl#versionInfo
+  term: &term
+    label: label
+    iri: iri
+    ontology: ontologyId
+    synonyms: synonym->value
+    descriptions: definition->value|description->value
+    shortForm: shortForm
+    type: type
+    sourceUrl: _links->self->href
+    obsolete: isObsolete
+    ontologyIri: ontologyIri
+    modified: loaded
+
 endpoints:
   search:
     path: /entities?search=%s
@@ -17,42 +44,52 @@ endpoints:
     path: ontologies?size=10000
     responseMapping:
       nestedJson: elements
-      label: title|label
-      iri: uri|iri
-      ontology: ontologyId
-      synonyms: synonym
-      descriptions: definition|description
-      shortForm: ontologyId
-      type: type
-      sourceUrl: _links->self->href
-      obsolete: isObsolete
-      modified: loaded
-      ontologyIri: uri|iri
-      version: http://www.w3.org/2002/07/owl#versionInfo
+      <<: *artefact
+
+  concepts:
+    path: /ontologies/%s/classes?page=%s&size=50
+    responseMapping:
+      nestedJson: elements
+      totalCount: totalElements
+      page: page
+      <<: *term
+
+  properties:
+    path: /ontologies/%s/classes?page=%s&size=50
+    responseMapping:
+      nestedJson: elements
+      totalCount: totalElements
+      page: page
+      <<: *term
+
   concept_details:
     path: ontologies/%s/classes?iri=%s
     responseMapping:
       nestedJson: elements
-      label: label
-      iri: iri
-      ontology: ontologyId
-      synonyms: synonym->value
-      descriptions: definition->value|description
-      shortForm: shortForm
-      sourceUrl: _links->self->href
-      type: type
-      obsolete: isObsolete
-      ontologyIri: ontologyIri
+      <<: *term
+
+  property_details:
+    path: ontologies/%s/properties?iri=%s
+    responseMapping:
+      nestedJson: elements
+      <<: *term
+
   resource_details:
     path: ontologies/%s
     responseMapping:
       nestedJson: ""
       key: ""
-      label: ontologyId
-      iri: iri
-      ontology: ontologyId
-      synonyms: synonym
-      descriptions: description
-      shortForm: ontologyId
-      sourceUrl: _links->self->href
-      type: type
+      <<: *artefact
+
+  individuals:
+    path: /ontologies/%s/individuals?page=%s&size=50
+    responseMapping:
+      nestedJson: elements
+      totalCount: totalElements
+      page: page
+      <<: *term
+
+  individual_details:
+    path: ontologies/%s/individuals/%s?apikey=%s
+    responseMapping:
+      <<: *term

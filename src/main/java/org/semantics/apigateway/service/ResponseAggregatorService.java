@@ -11,15 +11,16 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 public class ResponseAggregatorService {
 
     private static final Logger logger = LoggerFactory.getLogger(ResponseAggregatorService.class);
 
-    // Main method to dynamically transform a response based on the provided config and endpoint
-    public TransformedApiResponse dynTransformResponse(ApiResponse response, DatabaseConfig config, String endpoint) {
+    public TransformedApiResponse dynTransformResponse(ApiResponse response, DatabaseConfig config, String endpoint, boolean paginate) {
         TransformedApiResponse newResponse = new TransformedApiResponse();
+
         newResponse.setOriginalResponse(response);
 
         if (response == null) {
@@ -27,8 +28,24 @@ public class ResponseAggregatorService {
             return newResponse;
         }
 
+        if(config.getResponseMapping(endpoint) == null) {
+            logger.error("Response mapping is not found for endpoint: {} for {}", endpoint, config.getName());
+            return newResponse;
+        }
+
         String nestedJsonKey = getNestedJsonKey(config, endpoint);
         Object nestedData = extractNestedData(response, nestedJsonKey);
+        String paginationKey = config.getResponseMapping(endpoint).getPage();
+        String totalCount = config.getResponseMapping(endpoint).getTotalCount();
+
+
+        String paginationData = getData(response.getResponseBody(), paginationKey).orElse("0");
+        String totalData = getData(response.getResponseBody(), totalCount).orElse("0");
+        if(!paginationData.equals("0")) {
+            newResponse.setPage(Integer.parseInt(paginationData));
+            newResponse.setTotalCollections(Long.parseLong(totalData));
+            newResponse.setPaginate(true);
+        }
 
         if (nestedData == null) {
             logger.error("Expected List or Map for nested JSON key: {}, but found null", nestedJsonKey);
@@ -78,13 +95,18 @@ public class ResponseAggregatorService {
         if (docs instanceof List) {
             processList((List<?>) docs, result, config, endpoint);
         } else if (docs instanceof Map) {
-            addNewItem(docs, result, config, endpoint);
+            Map<?, ?> docsMap = (Map<?, ?>) docs;
+            if(docsMap.containsKey("collection") && docsMap.size() == 1){
+                processList((List<?>) docsMap.get("collection"), result, config, endpoint);
+            } else {
+                addNewItem(docs, result, config, endpoint);
+            }
         } else {
             logger.error("Unexpected document type: {}. Expected List or Map.", docs.getClass().getSimpleName());
         }
     }
 
-    private void addNewItem(Object docs, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint){
+    private void addNewItem(Object docs, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint) {
         AggregatedResourceBody newItem = processItem((Map<String, Object>) docs, config, endpoint);
         if (newItem != null) {
             result.add(newItem);
@@ -120,5 +142,14 @@ public class ResponseAggregatorService {
     // Helper to get the documents key from config
     private String getDocsKey(DatabaseConfig config, String endpoint) {
         return config.getResponseMapping(endpoint).getKey();
+    }
+
+    private Optional<String> getData(Map<String, Object> responseBody, String key) {
+        Optional<String> result = Optional.empty();
+        Object value = MappingTransformer.itemValueGetter(responseBody, key);
+        if (value != null) {
+            result = Optional.of(value.toString());
+        }
+        return result;
     }
 }

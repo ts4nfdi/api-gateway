@@ -1,9 +1,9 @@
 package org.semantics.apigateway.api;
 
 import org.semantics.apigateway.config.ResponseMapping;
+import org.semantics.apigateway.model.responses.PaginatedResponse;
 import org.semantics.apigateway.service.MappingTransformer;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +15,11 @@ public class ModTransformer implements DatabaseTransformer {
         }
 
         // Replace uppercase letters preceded by a lowercase letter with '_' + lowercase
-        String snakeCase = camelCase.replaceAll(
+
+        return camelCase.replaceAll(
                 "(?<=[a-z0-9])(?=[A-Z])",
                 "_"
         ).toLowerCase();
-
-        return snakeCase;
     }
 
 
@@ -31,7 +30,7 @@ public class ModTransformer implements DatabaseTransformer {
         }
 
         Map<String, Object> transformedItem = new HashMap<>();
-        if(mapping == null){
+        if (mapping == null) {
             return item;
         }
         mapping.inverseMapping().forEach((transformedKey, ourKey) -> {
@@ -49,25 +48,21 @@ public class ModTransformer implements DatabaseTransformer {
 
     @Override
     public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, boolean list) {
-        if(!list) {
-            Map<String, Object> response = transformedResults.get(0);
-            // TODO: Add @context
-            response.put("@context", Collections.singletonMap("@vocab", ""));
-            return response;
-        }
+        PaginatedResponse paginatedResponse = new PaginatedResponse(
+                transformedResults,
+                transformedResults.size(),
+                1
+        );
 
         Map<String, Object> response = new HashMap<>();
         response.put("page", 1);
-        response.put("pageCount", 1);
+        response.put("pageCount", paginatedResponse.getTotalPages());
         response.put("totalCount", transformedResults.size());
-        response.put("prevPage", null);
-        response.put("nextPage", null);
-        Map<String, Object> links = new HashMap<>();
-        links.put("nextPage", null);
-        links.put("prevPage", null);
-        response.put("links", links);
         response.put("collection", transformedResults);
-        response.put("@context", Collections.singletonMap("@vocab", ""));
+        response.put("@context", paginatedResponse.getContext());
+        response.put("@type", paginatedResponse.getType());
+        response.put("links", paginatedResponse.view());
+        response.put("@id", paginatedResponse.id());
         return response;
     }
 }
