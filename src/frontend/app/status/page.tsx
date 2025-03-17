@@ -61,7 +61,7 @@ export default function Status() {
                 <APIExampleCheckResult url={'/artefacts'}/>
                 <APIExampleCheckResult url={'/search?query=concept'}/>
                 <APIExampleCheckResult url={'/artefacts/NCBITAXON'}/>
-                <APIExampleCheckResult url={'/artefacts/NCBITAXON/terms?uri=http://purl.obolibrary.org/obo/NCBITaxon_2'}/>
+                <APIExampleCheckResult url={'/artefacts/NCBITAXON/resources/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCBITaxon_2'}/>
             </div>
         </>
     );

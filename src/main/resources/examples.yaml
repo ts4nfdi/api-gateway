@@ -1,8 +1,8 @@
 data:
-  "NCIT_C2984 term (OLS)": "/artefacts/ncit/terms?uri=http://purl.obolibrary.org/obo/NCIT_C2984&showResponseConfiguration=true"
-  "AGROVOC/c_330834 term (OntoPortal, SKOSMOS)": "/artefacts/AGROVOC/terms?uri=http://aims.fao.org/aos/agrovoc/c_330834&showResponseConfiguration=true"
-  "NCBITaxon_131567 term from BCO (OntoPortal, ols, ols2)": "/artefacts/bco/terms?uri=http://purl.obolibrary.org/obo/NCBITaxon_131567&showResponseConfiguration=true"
-  "NCBITaxon_2 term from NCBITaxon (OntoPortal, ols2)": "/artefacts/ncbitaxon/terms?uri=http://purl.obolibrary.org/obo/NCBITaxon_2&showResponseConfiguration=true"
+  "NCIT_C2984 term (OLS)": "/artefacts/ncit/resources/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCIT_C2984?showResponseConfiguration=true"
+  "AGROVOC/c_330834 term (OntoPortal, SKOSMOS)": "/artefacts/AGROVOC/resources/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834?showResponseConfiguration=true"
+  "NCBITaxon_131567 term from BCO (OntoPortal, ols, ols2)": "/artefacts/bco/resources/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCBITaxon_131567?showResponseConfiguration=true"
+  "NCBITaxon_2 term from NCBITaxon (OntoPortal, ols2)": "/artefacts/ncbitaxon/resources/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCBITaxon_2?showResponseConfiguration=true"
 
 metadata:
   "Artefacts from OLS v1": "/artefacts?database=OLS&showResponseConfiguration=true"
