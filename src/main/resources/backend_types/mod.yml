@@ -4,26 +4,51 @@ endpoints:
     path: /artefacts?pagesize=10000
     responseMapping:
       nestedJson: collection
-      label: ontology->name
-      iri: URI|uri
+      label: title
+      iri: "@id"
       type: "@type"
-      ontology: ontology->acronym
+      ontology: acronym
       ontologyIri: URI|uri
-      description: description
-      sourceUrl: ontology->links->ui
+      descriptions: description
+      sourceUrl: "@id"
       created: released
       modified: modificationDate
-      synonym: alternative
+      synonyms: alternative
       version: version
-      shortForm: ontology->acronym
+      shortForm: acronym
+      status: status
+      versionIRI: versionIRI
+      accessRights: accessRights
+      license: license
+      contactPoint: contactPoint
+      identifier: identifier
+      creator: creator
+      keywords: keyword
+      landingPage: landingPage
+      language: language
+      publisher: publisher
+      subject: subject
+      accrualMethod: accrualMethod
+      accrualPeriodicity: accrualPeriodicity
+      bibliographicCitation: bibliographicCitation
+      contributor: contributor
+      coverage: coverage
+      hasFormat: hasFormat
+      rightsHolder: rightsHolder
+      competencyQuestion: competencyQuestion
+      semanticArtefactRelation: semanticArtefactRelation
+      createdWith: createdWith
+      wasGeneratedBy: wasGeneratedBy
+      includedInDataCatalog: includedInDataCatalog
+
   concept_details:
     path: ontologies/%s/classes/%s?apikey=%s
     responseMapping:
       label: prefLabel
       iri: "@id"
-      synonym: synonym
+      synonyms: synonym
       ontology: links->ontology
-      description: definition
+      descriptions: definition
       sourceUrl: links->ui
       type: "@type"
       obsolete: obsolete
@@ -33,9 +58,41 @@ endpoints:
     path: ontologies/%s?apikey=%s
     responseMapping:
       nestedJson: ""
-      label: acronym
+      label: title
       iri: "@id"
       type: "@type"
       ontology: acronym
-      sourceUrl: links->ui
-      description: name
+      ontologyIri: URI|uri
+      descriptions: description
+      sourceUrl: "@id"
+      created: released
+      modified: modificationDate
+      synonyms: alternative
+      version: version
+      shortForm: acronym
+      status: status
+      versionIRI: versionIRI
+      accessRights: accessRights
+      license: license
+      contactPoint: contactPoint
+      creator: creator
+      identifier: identifier
+      keywords: keyword
+      landingPage: landingPage
+      language: language
+      publisher: publisher
+      subject: subject
+      accrualMethod: accrualMethod
+      accrualPeriodicity: accrualPeriodicity
+      bibliographicCitation: bibliographicCitation
+      contributor: contributor
+      coverage: coverage
+      hasFormat: hasFormat
+      rightsHolder: rightsHolder
+      competencyQuestion: competencyQuestion
+      semanticArtefactRelation: semanticArtefactRelation
+      createdWith: createdWith
+      wasGeneratedBy: wasGeneratedBy
+      includedInDataCatalog: includedInDataCatalog
+
+

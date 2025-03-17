@@ -1,16 +1,16 @@
 package org.semantics.apigateway.api;
 
+import org.apache.jena.rdf.model.ResourceFactory;
+import org.semantics.apigateway.config.ResponseMapping;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.jena.rdf.model.ResourceFactory;
-import org.semantics.apigateway.api.DatabaseTransformer;
-
 public class OlsTransformer implements DatabaseTransformer {
     @Override
-    public Map<String, Object> transformItem(Map<String, Object> item) {
+    public Map<String, Object> transformItem(Map<String, Object> item, ResponseMapping mapping) {
         if (item == null) {
             return null;
         }
@@ -55,7 +55,7 @@ public class OlsTransformer implements DatabaseTransformer {
 
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, boolean list) {
         Map<String, Object> response = new HashMap<>();
         Map<String, Object> innerResponse = new HashMap<>();
         List<Map<String, Object>> docs = new ArrayList<>();

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.semantics.apigateway.config.DatabaseConfig;
+import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
@@ -23,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -71,7 +73,8 @@ public class SearchServiceTest extends ApplicationTestAbstract {
 
     @Test
     public void testSearchAllDatabases() {
-        CompletableFuture<Object> r = searchService.performSearch("plant", null, null, null, false, null, null, null, apiAccessor);
+        CommonRequestParams commonRequestParams = new CommonRequestParams();
+        CompletableFuture<Object> r = searchService.performSearch("plant", commonRequestParams, null, null, null, apiAccessor);
 
         AggregatedApiResponse response = (AggregatedApiResponse) r.join();
 
@@ -120,7 +123,9 @@ public class SearchServiceTest extends ApplicationTestAbstract {
 
     @Test
     public void testSearchOlsSchema() {
-        CompletableFuture<Object> r = searchService.performSearch("plant", null, null, TargetDbSchema.ols, false, null, null, null, apiAccessor);
+        CommonRequestParams commonRequestParams = new CommonRequestParams();
+        commonRequestParams.setTargetDbSchema(TargetDbSchema.ols);
+        CompletableFuture<Object> r = searchService.performSearch("plant", commonRequestParams, null, null, null, apiAccessor);
 
         Map<String, Object> response = (Map<String, Object>) r.join();
 
@@ -135,12 +140,14 @@ public class SearchServiceTest extends ApplicationTestAbstract {
     }
 
     @Test
-    public void testSearchJsonLdFormat() {
-        CompletableFuture<Object> r = searchService.performSearch("plant", null, ResponseFormat.jsonld, null, false, null, null, null, apiAccessor);
+    public void testSearchJsonLdFormat() throws ExecutionException, InterruptedException {
+        CommonRequestParams commonRequestParams = new CommonRequestParams();
+        commonRequestParams.setFormat(ResponseFormat.jsonld);
+        CompletableFuture<Object> r = searchService.performSearch("plant", commonRequestParams, null, null, null, apiAccessor);
 
-        List<Map<String, Object>> response = (List<Map<String, Object>>) r.join();
+        AggregatedApiResponse response = (AggregatedApiResponse) r.get();
 
-        Map<String, Object> firstPlant = response.get(0);
+        Map<String, Object> firstPlant = response.getCollection().get(0);
         assertThat(firstPlant.containsKey("@type")).isTrue();
         assertThat(firstPlant.containsKey("@context")).isTrue();
         //TODO add more assertions to check to @context content

@@ -25,6 +25,10 @@ public class AggregatedApiResponse {
     private List<ApiResponse> originalResponses;
     private boolean showConfig = false;
     private String endpoint = null;
+    private boolean isList = true;
+    private boolean paginate = false;
+    private long totalCount = 0;
+    private int page = 0;
     private TerminologyCollection terminologyCollection = null;
 
     @JsonGetter
@@ -56,27 +60,39 @@ public class AggregatedApiResponse {
         return config;
     }
 
+    public void setPaginate(boolean paginate) {
+        this.paginate = paginate;
+        this.setList(!paginate);
+    }
+
+
+
+
 
     public static class CustomSerializer extends JsonSerializer<AggregatedApiResponse> {
         @Override
         public void serialize(AggregatedApiResponse response, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            if (!response.isShowConfig()) {
-                gen.writeStartArray();
-                for (Map<String, Object> item : response.getCollection()) {
-                    gen.writeObject(item);
+            Object output;
+
+            if (response.isPaginate()) {
+                if (response.isShowConfig()) {
+                    output = new PaginatedWithConfigResponse(response);
+                } else {
+                    output = new PaginatedResponse(response);
                 }
-                gen.writeEndArray();
+            } else if (response.isShowConfig()) {
+                output = new ListResponseWithConfigResponse(response);
             } else {
-                gen.writeStartObject();
-                gen.writeFieldName("collection");
-                gen.writeObject(response.getCollection());
-                ResponseConfig config = response.responseConfig();
-                if (config != null) {
-                    gen.writeFieldName("responseConfig");
-                    gen.writeObject(config);
+                if (!response.isList() && !response.getCollection().isEmpty()) {
+                    // Return just the first item for a single object response
+                    output = response.getCollection().get(0);
+                } else {
+                    // Return the collection directly for a list response
+                    output = response.getCollection();
                 }
-                gen.writeEndObject();
             }
+
+            gen.writeObject(output);
         }
     }
 

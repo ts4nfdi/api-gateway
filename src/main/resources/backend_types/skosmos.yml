@@ -6,10 +6,10 @@ endpoints:
       nestedJson: results
       iri: uri
       label: prefLabel
-      synonym: altLabel
+      synonyms: altLabel
+      descriptions: scopeNote
       ontology: vocab
       type: type
-      description: scopeNote
   resources:
     path: /vocabularies?lang=en
     responseMapping:
@@ -19,14 +19,24 @@ endpoints:
       type: type
       ontology: id
       shortForm: id
-      description: title
+      descriptions: title
+
+  concepts:
+    path: /agrovoc/label?acronym=%s
+    responseMapping:
+      label: prefLabel
+      iri: uri
+      type: type
+      synonyms: synonym
+
   concept_details:
     path: /agrovoc/label?acronym=%s&uri=%s
     responseMapping:
       label: prefLabel
       iri: uri
       type: type
-      synonym: synonym
+      synonyms: synonym
+
   resource_details:
     path: /agrovoc
     responseMapping:
@@ -34,4 +44,5 @@ endpoints:
       iri: uri
       type: type
       ontology: id
-      description: title
+      descriptions: title
+      shortForm: id
