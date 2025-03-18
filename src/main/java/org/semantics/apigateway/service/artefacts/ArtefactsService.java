@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 
 @Service
@@ -29,12 +30,17 @@ public class ArtefactsService extends AbstractEndpointService {
     }
 
 
-    public CompletableFuture<Object> getArtefacts(CommonRequestParams params, String collectionId, User currentUser, ApiAccessor accessor) {
+    public Object getArtefacts(CommonRequestParams params, String collectionId, User currentUser, ApiAccessor accessor) {
         String endpoint = "resources";
-        return
-                findAllArtefacts(params, collectionId, currentUser, accessor)
-                        .thenApply(data -> transformJsonLd(data, params.getFormat()))
-                        .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint));
+        try {
+            return
+                    findAllArtefacts(params, collectionId, currentUser, accessor)
+                            .thenApply(data -> transformJsonLd(data, params.getFormat()))
+                            .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint)).get();
+        } catch (InterruptedException | ExecutionException e) {
+            logger.error(e.getMessage(), e);
+            return null;
+        }
     }
 
 
