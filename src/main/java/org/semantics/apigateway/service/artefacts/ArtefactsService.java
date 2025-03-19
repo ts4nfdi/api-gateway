@@ -1,6 +1,7 @@
 package org.semantics.apigateway.service.artefacts;
 
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.user.TerminologyCollection;
 import org.semantics.apigateway.model.user.User;
@@ -25,7 +26,7 @@ public class ArtefactsService extends AbstractEndpointService {
     private final CollectionService collectionService;
 
     public ArtefactsService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform transform, ResponseTransformerService responseTransformerService, CollectionService collectionService) {
-        super(configurationLoader, cacheManager, transform, responseTransformerService);
+        super(configurationLoader, cacheManager, transform, responseTransformerService, SemanticArtefact.class);
         this.collectionService = collectionService;
     }
 
