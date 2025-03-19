@@ -60,6 +60,12 @@ public abstract class ApplicationTestAbstract {
      */
     protected Map<String, Object> createOntoportalAgrovocFixture() {
         Map<String, Object> fixture = new HashMap<>();
+        //TODO: add source_url
+        //TODO: add @type
+        //TODO: add @context
+        //TODO: add @id
+        //TODO: add other fields
+
         fixture.put("iri", "http://aims.fao.org/aos/agrovoc/");
         fixture.put("backend_type", "ontoportal");
         fixture.put("short_form", "AGROVOC");

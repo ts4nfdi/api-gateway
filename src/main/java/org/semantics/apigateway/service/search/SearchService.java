@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 
 @Service
@@ -39,7 +39,7 @@ public class SearchService extends AbstractEndpointService {
         this.collectionService = collectionService;
     }
 
-    public CompletableFuture<Object> performSearch(String query, String database, String format, String targetDbSchema, boolean showResponseConfiguration) {
+    public Object performSearch(String query, String database, String format, String targetDbSchema, boolean showResponseConfiguration) {
         ResponseFormat responseFormat = format == null ? ResponseFormat.json : ResponseFormat.valueOf(format);
         TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
         CommonRequestParams commonRequestParams = new CommonRequestParams();
@@ -50,7 +50,7 @@ public class SearchService extends AbstractEndpointService {
         return performSearch(query, commonRequestParams, null, null, null, null);
     }
 
-    public CompletableFuture<Object> performSearch(
+    public Object performSearch(
             String query,
             CommonRequestParams params,
             String[] terminologies,
@@ -65,14 +65,18 @@ public class SearchService extends AbstractEndpointService {
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
         accessor = initAccessor(database, endpoint, accessor);
 
-        return accessor.get(query)
-                .thenApply(data -> this.transformApiResponses(data, endpoint))
-                .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration, collection))
-                .thenApply(data -> filterOutByTerminologies(terminologies, data))
-                .thenApply(data -> filterOutByCollection(collection, data))
-                .thenApply(data -> reIndexResults(query, data))
-                .thenApply(data -> transformJsonLd(data, format))
-                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint));
+        try {
+            return accessor.get(query)
+                    .thenApply(data -> this.transformApiResponses(data, endpoint))
+                    .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration, collection))
+                    .thenApply(data -> filterOutByTerminologies(terminologies, data))
+                    .thenApply(data -> filterOutByCollection(collection, data))
+                    .thenApply(data -> reIndexResults(query, data))
+                    .thenApply(data -> transformJsonLd(data, format))
+                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint)).get();
+        } catch (InterruptedException | ExecutionException e) {
+            return null;
+        }
     }
 
     private AggregatedApiResponse reIndexResults(String query, AggregatedApiResponse data) {
