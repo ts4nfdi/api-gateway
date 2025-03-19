@@ -9,7 +9,6 @@ import org.semantics.apigateway.config.ServiceConfig;
 import org.semantics.apigateway.config.ServicesConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -29,17 +28,17 @@ import java.util.Map;
 @Getter
 public class ConfigurationLoader {
 
-    @Autowired
-    private ConfigurableEnvironment environment;
-
-    @Autowired
-    private ResourceLoader resourceLoader;
+    private final ConfigurableEnvironment environment;
+    private final ResourceLoader resourceLoader;
 
     private static final Logger logger = LoggerFactory.getLogger(ConfigurationLoader.class);
     private List<DatabaseConfig> databaseConfigs;
     private List<ServiceConfig> serviceConfigs;
-    private Map<String, Map<String, String>> responseMappings;
 
+    public  ConfigurationLoader(ResourceLoader resourceLoader, ConfigurableEnvironment environment) {
+        this.resourceLoader = resourceLoader;
+        this.environment = environment;
+    }
 
     // Method invoked after on server start, loads database configurations and replace environment variables
     @PostConstruct

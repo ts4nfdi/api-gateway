@@ -114,8 +114,8 @@ public abstract class AggregatedResourceBody {
             Map<String, Object> item,
             DatabaseConfig config,
             String endpoint, T object) throws RuntimeException {
+        ResponseMapping responseMapping = config.getResponseMapping(endpoint);
 
-        ResponseMapping<?> responseMapping = config.getResponseMapping(endpoint, object.getClass());
         object.setOriginalBody(item);
         object.fillWithItem(item, responseMapping);
         object.setDefaultValues(config);
