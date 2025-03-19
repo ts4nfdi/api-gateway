@@ -3,14 +3,15 @@ package org.semantics.apigateway.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.semantics.apigateway.model.Endpoints;
+import org.semantics.apigateway.model.RDFResource;
+import org.semantics.apigateway.model.SemanticArtefact;
 import org.springframework.stereotype.Component;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Map;
 
 @Getter
@@ -27,9 +28,19 @@ public class DatabaseConfig {
     @JsonIgnore
     private ServiceConfig serviceConfig;
 
-
     public ResponseMapping getResponseMapping(String endpoint) {
-        return serviceConfig.getEndpoints().getOrDefault(endpoint, new EndpointConfig()).getResponseMapping();
+        Class<?> mappedClass = getMappingClass(Endpoints.valueOf(endpoint));
+        Map<String, String> out = serviceConfig.getEndpoints().getOrDefault(endpoint, new EndpointConfig()).getResponseMapping();
+        ResponseMapping responseMapping = new ResponseMapping();
+        responseMapping.setMappedClass(mappedClass);
+        return responseMapping.fromMap(out);
+    }
+
+    public static Class<?> getMappingClass(Endpoints endpoint) {
+        return switch (endpoint) {
+            case resources, resource_details -> SemanticArtefact.class;
+            case concept_details, search -> RDFResource.class;
+        };
     }
 
     @JsonIgnore
