@@ -2,6 +2,7 @@ package org.semantics.apigateway.service.search;
 
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
@@ -34,7 +35,7 @@ public class SearchService extends AbstractEndpointService {
     private final CollectionService collectionService;
 
     public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService, CollectionService collectionService) {
-        super(configurationLoader, cacheManager, jsonLdTransform, responseTransformerService);
+        super(configurationLoader, cacheManager, jsonLdTransform, responseTransformerService, RDFResource.class);
         this.localIndexer = localIndexer;
         this.collectionService = collectionService;
     }
