@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-import java.util.Map;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @AutoConfigureMockMvc
@@ -29,32 +26,29 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
 
 
     @Test
-    public void testGetArtefact() {
-        // Test ontoportal backend
+    public void testGetArtefacts(){
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor);
-        List<Map<String, Object>> responseList = response.getCollection();
-        assertThat(responseList).hasSize(1);
-        Map<String, Object> ontoportalItem = responseList.get(0);
-        assertThat(ontoportalItem).containsAllEntriesOf(createOntoportalAgrovocFixture());
-
-        // Test skosmos backend
-        commonRequestParams.setDatabase("skosmos");
-        response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor);
-        responseList = response.getCollection();
-
-        assertThat(responseList).hasSize(1);
-        Map<String, Object> skosmosItem = responseList.get(0);
-        assertThat(skosmosItem).containsAllEntriesOf(createSkosmosAgrovocFixture());
-
-        // Test ols backend
-        commonRequestParams.setDatabase("ols");
-        response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor);
-        responseList = response.getCollection();
-        assertThat(responseList).hasSize(1);
-        Map<String, Object> olsItem = responseList.get(0);
-        assertThat(olsItem).containsAllEntriesOf(createOlsAgrovocFixture());
+        assertThat(response.getCollection()).hasSize(1);
+        assertThat(response.getCollection().get(0)).containsAllEntriesOf(createOntoportalAgrovocFixture());
     }
 
 
+    @Test
+    public void testGetAretefactsSkosmos(){
+        CommonRequestParams commonRequestParams = new CommonRequestParams();
+        commonRequestParams.setDatabase("skosmos");
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor);
+        assertThat(response.getCollection()).hasSize(1);
+        assertThat(response.getCollection().get(0)).containsAllEntriesOf(createSkosmosAgrovocFixture());
+    }
+
+    @Test
+    public void testGetArtefactsOls() {
+        CommonRequestParams commonRequestParams = new CommonRequestParams();
+        commonRequestParams.setDatabase("ols");
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor);
+        assertThat(response.getCollection()).hasSize(1);
+        assertThat(response.getCollection().get(0)).containsAllEntriesOf(createOlsAgrovocFixture());
+    }
 }
