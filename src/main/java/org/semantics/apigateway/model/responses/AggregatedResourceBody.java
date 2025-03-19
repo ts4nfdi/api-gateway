@@ -54,7 +54,8 @@ public abstract class AggregatedResourceBody {
         }
     }
 
-    private List<Field> getAllFields() {
+
+    public List<Field> getAllFields() {
         Field[] declaredFields = this.getClass().getDeclaredFields();
         Field[] parentFields = this.getClass().getSuperclass().getDeclaredFields();
         List<Field> allFields = new ArrayList<>();
