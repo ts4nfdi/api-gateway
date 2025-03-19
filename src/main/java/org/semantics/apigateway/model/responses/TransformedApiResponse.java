@@ -11,8 +11,8 @@ import java.util.Map;
 @Getter
 @Setter
 @NoArgsConstructor
-public  class TransformedApiResponse {
-    private List<AggregatedResourceBody> collection = new ArrayList<>();
+public  class TransformedApiResponse<T extends AggregatedResourceBody> {
+    private List<T> collection = new ArrayList<>();
     private long totalCollections;
     private int page;
     private boolean paginate;
