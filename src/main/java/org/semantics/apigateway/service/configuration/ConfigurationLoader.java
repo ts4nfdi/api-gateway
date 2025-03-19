@@ -104,11 +104,6 @@ public class ConfigurationLoader {
         return dbConfig.getDatabases();
     }
 
-    public boolean databaseExist(String database) {
-        return database == null || database.isEmpty() ||
-                databaseConfigs.stream().anyMatch(config -> config.getName().equalsIgnoreCase(database));
-    }
-
     public DatabaseConfig getDatabaseConfig(String database) {
         return serviceConfigs.stream()
                 .filter(c -> c.getName().equalsIgnoreCase(database))
