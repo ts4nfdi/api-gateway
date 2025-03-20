@@ -15,7 +15,7 @@ endpoints:
     responseMapping:
       nestedJson: vocabularies
       label: id
-      iri: uri
+      iri: conceptschemes->uri|uri
       type: type
       ontology: id
       shortForm: id
@@ -41,7 +41,7 @@ endpoints:
     path: /agrovoc
     responseMapping:
       label: id
-      iri: uri
+      iri: conceptschemes->uri|uri
       type: type
       ontology: id
       descriptions: title

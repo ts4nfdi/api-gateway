@@ -1,0 +1,353 @@
+{
+  "_embedded": {
+    "terms": [
+      {
+        "iri": "http://purl.obolibrary.org/obo/NCBITaxon_2",
+        "lang": "en",
+        "description": [],
+        "synonyms": [
+          "eubacteria",
+          "Bacteria (ex Cavalier-Smith 1987)",
+          "Bacteria Woese et al. 2024",
+          "Bacteriobiota",
+          "Monera",
+          "Procaryotae",
+          "Prokaryota",
+          "Prokaryotae",
+          "bacteria",
+          "prokaryote",
+          "prokaryotes"
+        ],
+        "annotation": {
+          "database_cross_reference": [
+            "GC_ID:11",
+            "PMID:10425795",
+            "PMID:10425796",
+            "PMID:10425797",
+            "PMID:10490293",
+            "PMID:10843050",
+            "PMID:10939651",
+            "PMID:10939673",
+            "PMID:10939677",
+            "PMID:11211268",
+            "PMID:11321083",
+            "PMID:11321113",
+            "PMID:11411719",
+            "PMID:11540071",
+            "PMID:11542017",
+            "PMID:11542087",
+            "PMID:11760965",
+            "PMID:12054223",
+            "PMID:270744",
+            "PMID:32628106",
+            "PMID:36748408",
+            "PMID:7520741",
+            "PMID:8123559",
+            "PMID:8186100",
+            "PMID:8590690",
+            "PMID:9103655",
+            "PMID:9336922"
+          ],
+          "has_obo_namespace": [
+            "ncbi_taxonomy"
+          ],
+          "has_rank": [
+            "http://purl.obolibrary.org/obo/NCBITaxon_superkingdom"
+          ]
+        },
+        "label": "Bacteria",
+        "ontology_name": "ncbitaxon",
+        "ontology_prefix": "NCBITaxon",
+        "ontology_iri": "http://purl.obolibrary.org/obo/ncbitaxon.owl",
+        "is_obsolete": false,
+        "term_replaced_by": null,
+        "is_defining_ontology": true,
+        "has_children": true,
+        "is_root": false,
+        "short_form": "NCBITaxon_2",
+        "obo_id": "NCBITaxon:2",
+        "in_subset": null,
+        "obo_definition_citation": null,
+        "obo_xref": [
+          {
+            "database": "GC_ID",
+            "id": "11",
+            "description": null,
+            "url": "https://www.ncbi.nlm.nih.gov/Taxonomy/taxonomyhome.html/index.cgi?chapter=cgencodes#SG11"
+          },
+          {
+            "database": "PMID",
+            "id": "10425795",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/10425795"
+          },
+          {
+            "database": "PMID",
+            "id": "10425796",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/10425796"
+          },
+          {
+            "database": "PMID",
+            "id": "10425797",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/10425797"
+          },
+          {
+            "database": "PMID",
+            "id": "10490293",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/10490293"
+          },
+          {
+            "database": "PMID",
+            "id": "10843050",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/10843050"
+          },
+          {
+            "database": "PMID",
+            "id": "10939651",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/10939651"
+          },
+          {
+            "database": "PMID",
+            "id": "10939673",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/10939673"
+          },
+          {
+            "database": "PMID",
+            "id": "10939677",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/10939677"
+          },
+          {
+            "database": "PMID",
+            "id": "11211268",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/11211268"
+          },
+          {
+            "database": "PMID",
+            "id": "11321083",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/11321083"
+          },
+          {
+            "database": "PMID",
+            "id": "11321113",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/11321113"
+          },
+          {
+            "database": "PMID",
+            "id": "11411719",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/11411719"
+          },
+          {
+            "database": "PMID",
+            "id": "11540071",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/11540071"
+          },
+          {
+            "database": "PMID",
+            "id": "11542017",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/11542017"
+          },
+          {
+            "database": "PMID",
+            "id": "11542087",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/11542087"
+          },
+          {
+            "database": "PMID",
+            "id": "11760965",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/11760965"
+          },
+          {
+            "database": "PMID",
+            "id": "12054223",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/12054223"
+          },
+          {
+            "database": "PMID",
+            "id": "270744",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/270744"
+          },
+          {
+            "database": "PMID",
+            "id": "32628106",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/32628106"
+          },
+          {
+            "database": "PMID",
+            "id": "36748408",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/36748408"
+          },
+          {
+            "database": "PMID",
+            "id": "7520741",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/7520741"
+          },
+          {
+            "database": "PMID",
+            "id": "8123559",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/8123559"
+          },
+          {
+            "database": "PMID",
+            "id": "8186100",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/8186100"
+          },
+          {
+            "database": "PMID",
+            "id": "8590690",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/8590690"
+          },
+          {
+            "database": "PMID",
+            "id": "9103655",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/9103655"
+          },
+          {
+            "database": "PMID",
+            "id": "9336922",
+            "description": null,
+            "url": "http://www.ncbi.nlm.nih.gov/pubmed/9336922"
+          }
+        ],
+        "obo_synonym": [
+          {
+            "name": "eubacteria",
+            "scope": "hasExactSynonym",
+            "type": "genbank common name",
+            "xrefs": []
+          },
+          {
+            "name": "Bacteria (ex Cavalier-Smith 1987)",
+            "scope": "hasRelatedSynonym",
+            "type": "synonym",
+            "xrefs": []
+          },
+          {
+            "name": "Bacteria Woese et al. 2024",
+            "scope": "hasRelatedSynonym",
+            "type": "synonym",
+            "xrefs": []
+          },
+          {
+            "name": "Bacteriobiota",
+            "scope": "hasRelatedSynonym",
+            "type": "synonym",
+            "xrefs": []
+          },
+          {
+            "name": "Monera",
+            "scope": "hasRelatedSynonym",
+            "type": "in-part",
+            "xrefs": []
+          },
+          {
+            "name": "Procaryotae",
+            "scope": "hasRelatedSynonym",
+            "type": "in-part",
+            "xrefs": []
+          },
+          {
+            "name": "Prokaryota",
+            "scope": "hasRelatedSynonym",
+            "type": "in-part",
+            "xrefs": []
+          },
+          {
+            "name": "Prokaryotae",
+            "scope": "hasRelatedSynonym",
+            "type": "in-part",
+            "xrefs": []
+          },
+          {
+            "name": "bacteria",
+            "scope": "hasRelatedSynonym",
+            "type": "blast name",
+            "xrefs": []
+          },
+          {
+            "name": "prokaryote",
+            "scope": "hasRelatedSynonym",
+            "type": "in-part",
+            "xrefs": []
+          },
+          {
+            "name": "prokaryotes",
+            "scope": "hasRelatedSynonym",
+            "type": "in-part",
+            "xrefs": []
+          }
+        ],
+        "is_preferred_root": false,
+        "_links": {
+          "self": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2?lang=en"
+          },
+          "parents": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/parents"
+          },
+          "ancestors": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/ancestors"
+          },
+          "hierarchicalParents": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/hierarchicalParents"
+          },
+          "hierarchicalAncestors": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/hierarchicalAncestors"
+          },
+          "jstree": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/jstree"
+          },
+          "children": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/children"
+          },
+          "descendants": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/descendants"
+          },
+          "hierarchicalChildren": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/hierarchicalChildren"
+          },
+          "hierarchicalDescendants": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/hierarchicalDescendants"
+          },
+          "graph": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/graph"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/NCBITAXON/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCBITaxon_2"
+    }
+  },
+  "page": {
+    "size": 1,
+    "totalElements": 1,
+    "totalPages": 1,
+    "number": 0
+  }
+}

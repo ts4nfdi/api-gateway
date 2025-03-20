@@ -1,0 +1,20 @@
+{
+  "prefLabel": "AGR hunting and fishing",
+  "@id": "http://opendata.inrae.fr/thesaurusINRAE/mt_50",
+  "@type": "http://www.w3.org/2004/02/skos/core#ConceptScheme",
+  "links": {
+    "self": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/schemes/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fmt_50",
+    "roots": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/classes/roots?concept_scheme=http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fmt_50",
+    "ontology": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES",
+    "@context": {
+      "self": "http://www.w3.org/2004/02/skos/core#ConceptScheme",
+      "roots": "http://www.w3.org/2004/02/skos/core#Concept",
+      "ontology": "http://data.bioontology.org/metadata/Ontology"
+    }
+  },
+  "@context": {
+    "@vocab": "http://data.bioontology.org/metadata/",
+    "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+    "@language": "en"
+  }
+}

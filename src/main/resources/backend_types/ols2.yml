@@ -17,8 +17,8 @@ models:
     label: label
     iri: iri
     ontology: ontologyId
-    synonyms: synonym->value
-    descriptions: definition->value|description->value
+    synonyms: synonym->value|synonym
+    descriptions: definition->value|description->value|definition
     shortForm: shortForm
     type: type
     sourceUrl: _links->self->href
@@ -31,15 +31,8 @@ endpoints:
     path: /entities?search=%s
     responseMapping:
       nestedJson: elements
-      label: label
-      iri: iri
-      ontology: ontologyId
-      shortForm: shortForm
-      synonyms: synonym->value
-      descriptions: description|definition->value
-      ontologyIri: ontologyIri
-      obsolete: isObsolete
-      type: type
+      <<: *term
+
   resources:
     path: ontologies?size=10000
     responseMapping:
@@ -55,7 +48,7 @@ endpoints:
       <<: *term
 
   properties:
-    path: /ontologies/%s/classes?page=%s&size=50
+    path: /ontologies/%s/properties?page=%s&size=50
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -90,6 +83,7 @@ endpoints:
       <<: *term
 
   individual_details:
-    path: ontologies/%s/individuals/%s?apikey=%s
+    path: ontologies/%s/individuals?iri=%s
     responseMapping:
+      nestedJson: elements
       <<: *term

@@ -68,13 +68,13 @@ endpoints:
       <<: *searchResult
 
   resources:
-    path: /submissions?apikey=%s&display_links=true&display_context=false&display=ontology,description,URI,released,modificationDate,alternative,version,status,versionIRI,hasLicense,contact,hasCreator,identifier,keyword,naturalLanguage,publisher,homepage,hasDomain,accrualMethod,accrualPeriodicity,publication,hasContributor,coverage,hasFormat,copyrightHolder,competencyQuestion,wasGeneratedBy,includedInDataCatalog,ontologyRelatedTo,usedOntologyEngineeringTool,keywords,obsolete
+    path: /submissions?apikey=%s&display_links=true&display_context=false&display=ontology,description,URI,released,modificationDate,alternative,version,status,versionIRI,hasLicense,contact,hasCreator,identifier,keyword,naturalLanguage,publisher,homepage,hasDomain,accrualMethod,accrualPeriodicity,publication,hasContributor,coverage,hasFormat,copyrightHolder,competencyQuestion,wasGeneratedBy,includedInDataCatalog,ontologyRelatedTo,usedOntologyEngineeringTool,keywords,obsolete&lang=en
     responseMapping:
       nestedJson: collection
       <<: *artefact
 
   concepts:
-    path: /ontologies/%s/classes?page=%s&apikey=%s&pagesize=50&display_links=true&display_context=false
+    path: /ontologies/%s/classes?page=%s&apikey=%s&pagesize=50&display_links=true&display_context=false&lang=en
     responseMapping:
       nestedJson: collection
       totalCount: totalCount
@@ -82,7 +82,7 @@ endpoints:
       <<: *term
 
   properties:
-    path: /ontologies/%s/properties?page=%s&apikey=%s&pagesize=50&display_links=true&display_context=false
+    path: /ontologies/%s/properties?page=%s&apikey=%s&pagesize=50&display_links=true&display_context=false&lang=en
     responseMapping:
       nestedJson: collection
       totalCount: totalCount
@@ -90,22 +90,22 @@ endpoints:
       <<: *term
 
   concept_details:
-    path: ontologies/%s/classes/%s?apikey=%s
+    path: ontologies/%s/classes/%s?apikey=%s&lang=en
     responseMapping:
       <<: *term
 
   property_details:
-    path: ontologies/%s/properties/%s?apikey=%s
+    path: ontologies/%s/properties/%s?apikey=%s&lang=en
     responseMapping:
       <<: *term
 
   resource_details:
-    path: ontologies/%s/latest_submission?apikey=%s&display=all
+    path: ontologies/%s/latest_submission?apikey=%s&display=all&lang=en
     responseMapping:
       <<: *artefact
 
   individuals:
-    path: /ontologies/%s/instances?page=%s&apikey=%s&pagesize=50&display_links=true&display_context=false
+    path: /ontologies/%s/instances?page=%s&apikey=%s&pagesize=50&display_links=true&display_context=false&lang=en
     responseMapping:
       nestedJson: collection
       totalCount: totalCount
@@ -113,26 +113,26 @@ endpoints:
       <<: *term
 
   individual_details:
-    path: ontologies/%s/instances/%s?apikey=%s
+    path: ontologies/%s/instances/%s?apikey=%s&lang=en
     responseMapping:
       <<: *term
 
   schemes:
-    path: ontologies/%s/schemes?page=%s&apikey=%s
+    path: ontologies/%s/schemes?page=%s&apikey=%s&lang=en
     responseMapping:
       <<: *term
 
   scheme_details:
-    path: ontologies/%s/schemes/%s?apikey=%s
+    path: ontologies/%s/schemes/%s?apikey=%s&lang=en
     responseMapping:
       <<: *term
 
   collections:
-    path: ontologies/%s/collections?page=%s&apikey=%s
+    path: ontologies/%s/collections?page=%s&apikey=%s&lang=en
     responseMapping:
       <<: *term
 
   collection_details:
-    path: ontologies/%s/collections/%s?apikey=%s
+    path: ontologies/%s/collections/%s?apikey=%s&lang=en
     responseMapping:
       <<: *term

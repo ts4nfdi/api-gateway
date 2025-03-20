@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,5 +16,5 @@ import org.springframework.stereotype.Component;
 @Component
 public class EndpointConfig {
     private String path;
-    private ResponseMapping responseMapping;
+    private Map<String, String> responseMapping;
 }

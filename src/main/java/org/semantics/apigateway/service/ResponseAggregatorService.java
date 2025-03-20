@@ -1,26 +1,30 @@
 package org.semantics.apigateway.service;
 
+import lombok.Getter;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 import org.semantics.apigateway.model.responses.ApiResponse;
 import org.semantics.apigateway.model.responses.TransformedApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Component
+@Getter
 public class ResponseAggregatorService {
 
     private static final Logger logger = LoggerFactory.getLogger(ResponseAggregatorService.class);
+    private final Class<? extends AggregatedResourceBody> clazz;
+
+    public ResponseAggregatorService(Class<? extends AggregatedResourceBody> clazz) {
+        this.clazz = clazz;
+    }
 
     public TransformedApiResponse dynTransformResponse(ApiResponse response, DatabaseConfig config, String endpoint, boolean paginate) {
         TransformedApiResponse newResponse = new TransformedApiResponse();
-
         newResponse.setOriginalResponse(response);
 
         if (response == null) {
@@ -127,8 +131,9 @@ public class ResponseAggregatorService {
     // Process individual map items into AggregatedResourceBody
     private AggregatedResourceBody processItem(Map<String, Object> item, DatabaseConfig config, String endpoint) {
         try {
-            return AggregatedResourceBody.fromMap(item, config, endpoint);
+            return AggregatedResourceBody.fromMap(item, config, endpoint, getClazz().getDeclaredConstructor().newInstance());
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error("Error processing item: {}", e.getMessage(), e);
             return null;
         }

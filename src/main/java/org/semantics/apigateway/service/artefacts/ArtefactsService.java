@@ -1,6 +1,7 @@
 package org.semantics.apigateway.service.artefacts;
 
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.user.TerminologyCollection;
 import org.semantics.apigateway.model.user.User;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 
 @Service
@@ -24,17 +26,22 @@ public class ArtefactsService extends AbstractEndpointService {
     private final CollectionService collectionService;
 
     public ArtefactsService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform transform, ResponseTransformerService responseTransformerService, CollectionService collectionService) {
-        super(configurationLoader, cacheManager, transform, responseTransformerService);
+        super(configurationLoader, cacheManager, transform, responseTransformerService, SemanticArtefact.class);
         this.collectionService = collectionService;
     }
 
 
-    public CompletableFuture<Object> getArtefacts(CommonRequestParams params, String collectionId, User currentUser, ApiAccessor accessor) {
+    public Object getArtefacts(CommonRequestParams params, String collectionId, User currentUser, ApiAccessor accessor) {
         String endpoint = "resources";
-        return
-                findAllArtefacts(params, collectionId, currentUser, accessor)
-                        .thenApply(data -> transformJsonLd(data, params.getFormat()))
-                        .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint));
+        try {
+            return
+                    findAllArtefacts(params, collectionId, currentUser, accessor)
+                            .thenApply(data -> transformJsonLd(data, params.getFormat()))
+                            .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint)).get();
+        } catch (InterruptedException | ExecutionException e) {
+            logger.error(e.getMessage(), e);
+            return null;
+        }
     }
 
 

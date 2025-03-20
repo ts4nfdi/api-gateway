@@ -68,9 +68,10 @@ public class MappingTransformer {
                         // This should use 'option' not 'key'
                         return item.get(option);
                     }
+
                     return null;
                 })
-                .filter(Objects::nonNull)
+                .filter(x -> x != null && !((x instanceof String) && ((String) x).isEmpty()))
                 .findFirst()
                 .orElse(null);
     }
