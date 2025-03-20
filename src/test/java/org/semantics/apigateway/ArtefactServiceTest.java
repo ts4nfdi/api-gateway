@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ArtefactServiceTest extends ApplicationTestAbstract {
@@ -28,9 +26,9 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
     @Test
     public void testGetArtefacts(){
         CommonRequestParams commonRequestParams = new CommonRequestParams();
+        commonRequestParams.setDatabase("ontoportal");
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor);
-        assertThat(response.getCollection()).hasSize(1);
-        assertThat(response.getCollection().get(0)).containsAllEntriesOf(createOntoportalAgrovocFixture());
+        assertMapEquality(response, createOntoportalAgrovocFixture());
     }
 
 
@@ -39,8 +37,7 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase("skosmos");
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor);
-        assertThat(response.getCollection()).hasSize(1);
-        assertThat(response.getCollection().get(0)).containsAllEntriesOf(createSkosmosAgrovocFixture());
+        assertMapEquality(response, createSkosmosAgrovocFixture());
     }
 
     @Test
@@ -48,7 +45,6 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase("ols");
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor);
-        assertThat(response.getCollection()).hasSize(1);
-        assertThat(response.getCollection().get(0)).containsAllEntriesOf(createOlsAgrovocFixture());
+        assertMapEquality(response, createOlsAgrovocFixture());
     }
 }

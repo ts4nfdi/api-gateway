@@ -34,17 +34,18 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefacts(new CommonRequestParams(), null, null, apiAccessor);
         List<Map<String, Object>> responseList = response.getCollection();
 
-        assertThat(responseList.size()).isEqualTo(722);
+        assertThat(responseList.size()).isEqualTo(723);
 
         Map<String, Object> ontoportalItem = findByShortFormAndBackendType(responseList, "AGROVOC", "ontoportal");
         assertThat(ontoportalItem).containsAllEntriesOf(createOntoportalAgrovocFixture());
 
         Map<String, Object> skosmosItem = findByShortFormAndBackendType(responseList, "agrovoc", "skosmos");
-        assertThat(skosmosItem).containsAllEntriesOf(createSkosmosAgrovocFixture());
+        Map<String, Object> skosmosExpected = createSkosmosAgrovocFixture();
+        skosmosExpected.put("iri", "agrovoc");
+        assertThat(skosmosItem).containsAllEntriesOf(skosmosExpected);
 
-        //TODO: add ols case
-//        Map<String, Object> olsItem = findByShortFormAndBackendType(responseList, "", "ols");
-//        assertThat(olsItem).containsAllEntriesOf(createOlsAgrovocFixture());
+        Map<String, Object> olsItem = findByShortFormAndBackendType(responseList, "bto", "ols");
+        assertThat(olsItem).containsAllEntriesOf(createOlsFixture());
 
         Map<String, Object> ols2Item = findByShortFormAndBackendType(responseList, "bto", "ols2");
         assertThat(ols2Item).containsAllEntriesOf(createOls2Fixture());
@@ -54,6 +55,28 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
     }
 
 
+    private Map<String,Object> createOlsFixture(){
+        Map<String, Object> fixture = new HashMap<>();
+        fixture.put("iri", "http://purl.obolibrary.org/obo/bto.owl");
+        fixture.put("source", "https://service.tib.eu/ts4tib/api");
+        fixture.put("backend_type", "ols");
+        fixture.put("short_form", "bto");
+        fixture.put("label", "The BRENDA Tissue Ontology (BTO)");
+        fixture.put("source_name", "tib");
+        fixture.put("ontology", "bto");
+        fixture.put("synonyms", Collections.emptyList());
+        fixture.put("created", null);
+        fixture.put("obsolete", false);
+        fixture.put("source_url", "https://service.tib.eu:443/ts4tib/api/ontologies/bto");
+        fixture.put("modified", null);
+        fixture.put("ontology_iri", null);
+        fixture.put("version", "2021-10-26");
+        fixture.put("descriptions", List.of(
+                "A structured controlled vocabulary for the source of an enzyme comprising tissues, cell lines, cell types and cell cultures."
+        ));
+        fixture.put("type", null); //TODO: check if this is correct
+        return fixture;
+    }
     private Map<String, Object> createOls2Fixture() {
         Map<String, Object> fixture = new HashMap<>();
         fixture.put("iri", "http://purl.obolibrary.org/obo/bto.owl");
@@ -68,7 +91,7 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         fixture.put("created", null);
         fixture.put("obsolete", false);
         fixture.put("source_url", null);
-        fixture.put("modified", "2025-02-28T14:59:32.399774659");
+        fixture.put("modified", "2025-03-16T21:34:29.847078927");
         fixture.put("ontology_iri", "http://purl.obolibrary.org/obo/bto.owl");
         fixture.put("version", null);
         fixture.put("descriptions", List.of(

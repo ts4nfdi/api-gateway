@@ -13,8 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ArtefactDataServiceTest extends ApplicationTestAbstract {
@@ -330,11 +328,6 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         return fixture;
     }
 
-    private void assertMapEquality(AggregatedApiResponse expected, Map<String, Object> actual) {
-        assertThat(expected).isNotNull();
-        List<Map<String, Object>> expectedList = (List<Map<String, Object>>) expected.getCollection();
-        assertThat(expectedList).hasSize(1);
-        assertThat(actual).containsAllEntriesOf(expectedList.get(0));
-    }
+
 
 }
