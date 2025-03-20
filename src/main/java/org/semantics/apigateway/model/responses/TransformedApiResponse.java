@@ -12,13 +12,13 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 public  class TransformedApiResponse {
-    private List<?> collection = new ArrayList<>();
+    private List<AggregatedResourceBody> collection = new ArrayList<>();
     private long totalCollections;
     private int page;
     private boolean paginate;
     private ApiResponse originalResponse;
 
     public List<Map<String, Object>> getCollection(boolean showOriginalResponse) {
-        return collection.stream().map(x -> ((AggregatedResourceBody)x).toMap(showOriginalResponse, true)).toList();
+        return collection.stream().map(x -> x.toMap(showOriginalResponse, true)).toList();
     }
 }

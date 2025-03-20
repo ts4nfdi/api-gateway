@@ -56,7 +56,7 @@ public class ResponseAggregatorService {
             return newResponse;
         }
 
-        List<Object> result = transformData(nestedData, config, endpoint);
+        List<AggregatedResourceBody> result = transformData(nestedData, config, endpoint);
         newResponse.setCollection(result);
 
         logger.info("Transformed response: {} from  {}", result.size(), config.getName());
@@ -74,8 +74,8 @@ public class ResponseAggregatorService {
     }
 
     // Transform nested data into a list of AggregatedResourceBody
-    private List<Object> transformData(Object nestedData, DatabaseConfig config, String endpoint) {
-        List<Object> result = new ArrayList<>();
+    private List<AggregatedResourceBody> transformData(Object nestedData, DatabaseConfig config, String endpoint) {
+        List<AggregatedResourceBody> result = new ArrayList<>();
         if (nestedData instanceof List && !((List) nestedData).isEmpty()) {
             processList((List<?>) nestedData, result, config, endpoint);
         } else if (nestedData instanceof Map && !((Map) nestedData).isEmpty()) {
@@ -95,7 +95,7 @@ public class ResponseAggregatorService {
     }
 
     // Process the documents whether they are a List or single item
-    private void processDocs(Object docs, List<Object> result, DatabaseConfig config, String endpoint) {
+    private void processDocs(Object docs, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint) {
         if (docs instanceof List) {
             processList((List<?>) docs, result, config, endpoint);
         } else if (docs instanceof Map) {
@@ -110,15 +110,15 @@ public class ResponseAggregatorService {
         }
     }
 
-    private void addNewItem(Object docs, List<Object> result, DatabaseConfig config, String endpoint) {
-        Object newItem = processItem((Map<String, Object>) docs, config, endpoint);
+    private void addNewItem(Object docs, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint) {
+        AggregatedResourceBody newItem = processItem((Map<String, Object>) docs, config, endpoint);
         if (newItem != null) {
             result.add(newItem);
         }
     }
 
     // Process list of items and add valid processed items to the result list
-    private void processList(List<?> dataList, List<Object> result, DatabaseConfig config, String endpoint) {
+    private void processList(List<?> dataList, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint) {
         for (Object item : dataList) {
             if (item instanceof Map) {
                 addNewItem(item, result, config, endpoint);
@@ -129,7 +129,7 @@ public class ResponseAggregatorService {
     }
 
     // Process individual map items into AggregatedResourceBody
-    private Object processItem(Map<String, Object> item, DatabaseConfig config, String endpoint) {
+    private AggregatedResourceBody processItem(Map<String, Object> item, DatabaseConfig config, String endpoint) {
         try {
             return AggregatedResourceBody.fromMap(item, config, endpoint, getClazz().getDeclaredConstructor().newInstance());
         } catch (Exception e) {

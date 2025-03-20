@@ -232,7 +232,7 @@ public abstract class AbstractEndpointService {
         int pageSize = PaginatedResponse.PAGE_SIZE;
         int start = (page - 1) * pageSize;
         int end = Math.min(start + pageSize, response.getCollection().size());
-        List<?> collection = response.getCollection().subList(start, end);
+        List<AggregatedResourceBody> collection = response.getCollection().subList(start, end);
 
         response.setPage(page);
         response.setTotalCollections(response.getCollection().size());
@@ -258,7 +258,7 @@ public abstract class AbstractEndpointService {
 
         if (database != null) {
          a = apiResponse.stream()
-                    .filter(x -> !x.getCollection().isEmpty() && ((AggregatedResourceBody)x.getCollection().get(0)).getBackendType().equals(database))
+                    .filter(x -> !x.getCollection().isEmpty() && x.getCollection().get(0).getBackendType().equals(database))
                     .findFirst()
                     .orElse(null);
         }
