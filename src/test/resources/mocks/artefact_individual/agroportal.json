@@ -1,0 +1,19 @@
+{
+  "types": [
+    "http://www.w3.org/2002/07/owl#Class",
+    "http://www.w3.org/2002/07/owl#NamedIndividual"
+  ],
+  "label": [
+    "Europe"
+  ],
+  "prefLabel": "Europe",
+  "@id": "http://purl.obolibrary.org/obo/GAZ_00000464",
+  "@type": "http://www.w3.org/2002/07/owl#NamedIndividual",
+  "@context": {
+    "@vocab": "http://data.bioontology.org/metadata/",
+    "label": "http://www.w3.org/2000/01/rdf-schema#label",
+    "prefLabel": "http://www.w3.org/2004/02/skos/core#prefLabel",
+    "types": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+    "@language": "en"
+  }
+}

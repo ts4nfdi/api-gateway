@@ -39,7 +39,7 @@ public class DatabaseConfig {
     public static Class<?> getMappingClass(Endpoints endpoint) {
         return switch (endpoint) {
             case resources, resource_details -> SemanticArtefact.class;
-            case concept_details, search -> RDFResource.class;
+            default -> RDFResource.class;
         };
     }
 

@@ -1,0 +1,793 @@
+{
+  "page": 0,
+  "numElements": 1,
+  "totalPages": 1,
+  "totalElements": 1,
+  "elements": [
+    {
+      "appearsIn": [
+        "ovae",
+        "iceo",
+        "htn",
+        "cpont",
+        "aism",
+        "ino",
+        "clo",
+        "pso",
+        "stato",
+        "xpo",
+        "to",
+        "peco",
+        "pco",
+        "envo",
+        "rbo",
+        "gaz",
+        "ecto",
+        "eupath",
+        "hcao",
+        "ico",
+        "ohmi",
+        "ecao",
+        "msio",
+        "phipo",
+        "ecocore",
+        "swo",
+        "cl",
+        "doid",
+        "pato",
+        "opmi",
+        "bco",
+        "pride",
+        "ido",
+        "agro",
+        "omiabis",
+        "efo",
+        "obib",
+        "mondo",
+        "ohpi",
+        "idomal",
+        "mco",
+        "fovt",
+        "obcs",
+        "apollo_sv",
+        "ons",
+        "pcl",
+        "psdo",
+        "ncbitaxon",
+        "obi",
+        "vo",
+        "pr",
+        "uberon",
+        "oba",
+        "one",
+        "ontoneo",
+        "hso",
+        "ppo",
+        "idocovid19",
+        "eco",
+        "flopo",
+        "genepio",
+        "foodon",
+        "bcgo",
+        "ogg",
+        "chiro",
+        "micro",
+        "mp",
+        "slso",
+        "go",
+        "cido"
+      ],
+      "curie": "NCBITaxon:2",
+      "definedBy": [
+        "ncbitaxon"
+      ],
+      "directAncestor": [
+        "http://purl.obolibrary.org/obo/NCBITaxon_131567",
+        "http://purl.obolibrary.org/obo/NCBITaxon_1"
+      ],
+      "directParent": [
+        "http://purl.obolibrary.org/obo/NCBITaxon_131567"
+      ],
+      "hasDirectChildren": true,
+      "hasDirectParents": true,
+      "hasHierarchicalChildren": true,
+      "hasHierarchicalParents": true,
+      "hierarchicalAncestor": [
+        "http://purl.obolibrary.org/obo/NCBITaxon_131567",
+        "http://purl.obolibrary.org/obo/NCBITaxon_1"
+      ],
+      "hierarchicalParent": [
+        "http://purl.obolibrary.org/obo/NCBITaxon_131567"
+      ],
+      "hierarchicalProperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "imported": false,
+      "iri": "http://purl.obolibrary.org/obo/NCBITaxon_2",
+      "isDefiningOntology": true,
+      "isObsolete": false,
+      "isPreferredRoot": false,
+      "label": [
+        "Bacteria"
+      ],
+      "linkedEntities": {
+        "http://purl.obolibrary.org/obo/NCBITaxon_131567": {
+          "definedBy": [
+            "ncbitaxon"
+          ],
+          "numAppearsIn": 54.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "cellular organisms"
+          ],
+          "curie": "NCBITaxon:131567",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "PMID:11211268": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/11211268",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:11211268"
+        },
+        "PMID:11411719": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/11411719",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:11411719"
+        },
+        "PMID:11321113": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/11321113",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:11321113"
+        },
+        "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": {
+          "definedBy": [
+            "oio"
+          ],
+          "numAppearsIn": 91.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "has_synonym_type"
+          ],
+          "curie": "OIO:hasSynonymType",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "PMID:10425795": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/10425795",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:10425795"
+        },
+        "PMID:10425797": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/10425797",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:10425797"
+        },
+        "PMID:10425796": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/10425796",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:10425796"
+        },
+        "PMID:12054223": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/12054223",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:12054223"
+        },
+        "PMID:32628106": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/32628106",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:32628106"
+        },
+        "http://www.w3.org/2000/01/rdf-schema#subClassOf": {
+          "definedBy": [
+            "rdfs"
+          ],
+          "numAppearsIn": 7.0,
+          "hasLocalDefinition": false,
+          "label": [
+            "subClassOf"
+          ],
+          "curie": "RDFS:subClassOf",
+          "type": [
+            "property",
+            "entity"
+          ]
+        },
+        "PMID:10939677": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/10939677",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:10939677"
+        },
+        "PMID:270744": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/270744",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:270744"
+        },
+        "PMID:10843050": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/10843050",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:10843050"
+        },
+        "PMID:10939673": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/10939673",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:10939673"
+        },
+        "PMID:7520741": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/7520741",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:7520741"
+        },
+        "PMID:11321083": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/11321083",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:11321083"
+        },
+        "PMID:8186100": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/8186100",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:8186100"
+        },
+        "http://purl.obolibrary.org/obo/ncbitaxon#blast_name": {
+          "numAppearsIn": 21.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "blast name"
+          ],
+          "curie": "blast_name",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/ncbitaxon#genbank_common_name": {
+          "numAppearsIn": 22.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "genbank common name"
+          ],
+          "curie": "genbank_common_name",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/ncbitaxon#synonym": {
+          "numAppearsIn": 21.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "synonym"
+          ],
+          "curie": "synonym",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "PMID:11542017": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/11542017",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:11542017"
+        },
+        "PMID:8590690": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/8590690",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:8590690"
+        },
+        "PMID:9103655": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/9103655",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:9103655"
+        },
+        "PMID:10490293": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/10490293",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:10490293"
+        },
+        "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym": {
+          "definedBy": [
+            "oio"
+          ],
+          "numAppearsIn": 191.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "has_related_synonym"
+          ],
+          "curie": "OIO:hasRelatedSynonym",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "PMID:36748408": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/36748408",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:36748408"
+        },
+        "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym": {
+          "definedBy": [
+            "oio"
+          ],
+          "numAppearsIn": 204.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "has_exact_synonym"
+          ],
+          "curie": "OIO:hasExactSynonym",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://www.geneontology.org/formats/oboInOwl#hasDbXref": {
+          "definedBy": [
+            "oio"
+          ],
+          "numAppearsIn": 204.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "has_dbxref"
+          ],
+          "curie": "OIO:hasDbXref",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "GC_ID:11": {
+          "url": "https://www.ncbi.nlm.nih.gov/Taxonomy/taxonomyhome.html/index.cgi?chapter=cgencodes#SG11",
+          "source": "https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.json",
+          "curie": "GC_ID:11"
+        },
+        "http://purl.obolibrary.org/obo/ncbitaxon#in_part": {
+          "numAppearsIn": 19.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "in-part"
+          ],
+          "curie": "in_part",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "PMID:11540071": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/11540071",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:11540071"
+        },
+        "http://www.geneontology.org/formats/oboInOwl#hasOBONamespace": {
+          "definedBy": [
+            "oio"
+          ],
+          "numAppearsIn": 172.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "has_obo_namespace"
+          ],
+          "curie": "OIO:hasOBONamespace",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "PMID:9336922": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/9336922",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:9336922"
+        },
+        "PMID:10939651": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/10939651",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:10939651"
+        },
+        "PMID:11760965": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/11760965",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:11760965"
+        },
+        "http://purl.obolibrary.org/obo/ncbitaxon#has_rank": {
+          "definedBy": [
+            "ncbitaxon"
+          ],
+          "numAppearsIn": 47.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "has_rank"
+          ],
+          "curie": "has_rank",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "PMID:11542087": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/11542087",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:11542087"
+        },
+        "http://www.w3.org/2000/01/rdf-schema#label": {
+          "definedBy": [
+            "rdfs"
+          ],
+          "numAppearsIn": 201.0,
+          "hasLocalDefinition": false,
+          "label": [
+            "label"
+          ],
+          "curie": "RDFS:label",
+          "type": [
+            "property",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCBITaxon_superkingdom": {
+          "definedBy": [
+            "ncbitaxon"
+          ],
+          "numAppearsIn": 3.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "superkingdom"
+          ],
+          "curie": "NCBITaxon:superkingdom",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "PMID:8123559": {
+          "url": "http://www.ncbi.nlm.nih.gov/pubmed/8123559",
+          "source": "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml",
+          "curie": "PMID:8123559"
+        },
+        "http://purl.obolibrary.org/obo/NCBITaxon_1": {
+          "definedBy": [
+            "ncbitaxon"
+          ],
+          "numAppearsIn": 42.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "root"
+          ],
+          "curie": "NCBITaxon:1",
+          "type": [
+            "class",
+            "entity"
+          ]
+        }
+      },
+      "numDescendants": 571906.0,
+      "numHierarchicalDescendants": 571906.0,
+      "ontologyId": "ncbitaxon",
+      "ontologyIri": "http://purl.obolibrary.org/obo/ncbitaxon.owl",
+      "ontologyPreferredPrefix": "NCBITaxon",
+      "searchableAnnotationValues": [
+        false
+      ],
+      "shortForm": "NCBITaxon_2",
+      "synonym": [
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "eubacteria",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#genbank_common_name",
+              "oboSynonymTypeName": "genbank common name"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Bacteria (ex Cavalier-Smith 1987)",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#synonym",
+              "oboSynonymTypeName": "synonym"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Bacteria Woese et al. 2024",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#synonym",
+              "oboSynonymTypeName": "synonym"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Bacteriobiota",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#synonym",
+              "oboSynonymTypeName": "synonym"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Monera",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+              "oboSynonymTypeName": "in-part"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Procaryotae",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+              "oboSynonymTypeName": "in-part"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Prokaryota",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+              "oboSynonymTypeName": "in-part"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Prokaryotae",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+              "oboSynonymTypeName": "in-part"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "bacteria",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#blast_name",
+              "oboSynonymTypeName": "blast name"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "prokaryote",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+              "oboSynonymTypeName": "in-part"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "prokaryotes",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+              "oboSynonymTypeName": "in-part"
+            }
+          ]
+        }
+      ],
+      "synonymProperty": [
+        "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym",
+        "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym"
+      ],
+      "type": [
+        "class",
+        "entity"
+      ],
+      "http://purl.obolibrary.org/obo/ncbitaxon#has_rank": "http://purl.obolibrary.org/obo/NCBITaxon_superkingdom",
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref": [
+        "GC_ID:11",
+        "PMID:10425795",
+        "PMID:10425796",
+        "PMID:10425797",
+        "PMID:10490293",
+        "PMID:10843050",
+        "PMID:10939651",
+        "PMID:10939673",
+        "PMID:10939677",
+        "PMID:11211268",
+        "PMID:11321083",
+        "PMID:11321113",
+        "PMID:11411719",
+        "PMID:11540071",
+        "PMID:11542017",
+        "PMID:11542087",
+        "PMID:11760965",
+        "PMID:12054223",
+        "PMID:270744",
+        "PMID:32628106",
+        "PMID:36748408",
+        "PMID:7520741",
+        "PMID:8123559",
+        "PMID:8186100",
+        "PMID:8590690",
+        "PMID:9103655",
+        "PMID:9336922"
+      ],
+      "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym": {
+        "type": [
+          "reification"
+        ],
+        "value": "eubacteria",
+        "axioms": [
+          {
+            "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#genbank_common_name",
+            "oboSynonymTypeName": "genbank common name"
+          }
+        ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasOBONamespace": "ncbi_taxonomy",
+      "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym": [
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Bacteria (ex Cavalier-Smith 1987)",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#synonym",
+              "oboSynonymTypeName": "synonym"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Bacteria Woese et al. 2024",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#synonym",
+              "oboSynonymTypeName": "synonym"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Bacteriobiota",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#synonym",
+              "oboSynonymTypeName": "synonym"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Monera",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+              "oboSynonymTypeName": "in-part"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Procaryotae",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+              "oboSynonymTypeName": "in-part"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Prokaryota",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+              "oboSynonymTypeName": "in-part"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Prokaryotae",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+              "oboSynonymTypeName": "in-part"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "bacteria",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#blast_name",
+              "oboSynonymTypeName": "blast name"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "prokaryote",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+              "oboSynonymTypeName": "in-part"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "prokaryotes",
+          "axioms": [
+            {
+              "http://www.geneontology.org/formats/oboInOwl#hasSynonymType": "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+              "oboSynonymTypeName": "in-part"
+            }
+          ]
+        }
+      ],
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2000/01/rdf-schema#label": "Bacteria",
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf": "http://purl.obolibrary.org/obo/NCBITaxon_131567"
+    }
+  ],
+  "facetFieldsToCounts": {}
+}
