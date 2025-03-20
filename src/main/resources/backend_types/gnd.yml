@@ -1,0 +1,25 @@
+name: gnd
+models:
+  searchResult: &searchResult
+    label: preferredName
+    iri: id
+    ontology: ontology_name
+    synonyms: variantName
+    descriptions: biographicalOrHistoricalInformation
+    shortForm: gndIdentifier
+    sourceUrl: id
+    type: type
+
+endpoints:
+  search:
+    path: /search?q=%s&format=json
+    responseMapping:
+      nestedJson: member
+      <<: *searchResult
+
+  resources_details:
+    path: /gnd/%s.json
+    responseMapping:
+      nestedJson: ""
+      key: ""
+      <<: *searchResult
