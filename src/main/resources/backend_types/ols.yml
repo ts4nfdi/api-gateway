@@ -63,13 +63,17 @@ endpoints:
       <<: *term
 
   concept_details:
-    path: ontologies/%s/terms/%s
+    path: ontologies/%s/terms?iri=%s
     responseMapping:
+      nestedJson: _embedded
+      key: terms
       <<: *term
 
   property_details:
-    path: ontologies/%s/properties/%s
+    path: ontologies/%s/properties?iri=%s
     responseMapping:
+      nestedJson: _embedded
+      key: properties
       <<: *term
 
   resource_details:
@@ -89,6 +93,8 @@ endpoints:
       <<: *term
 
   individual_details:
-    path: ontologies/%s/individuals/%s?apikey=%s
+    path: ontologies/%s/individuals?iri=%s
     responseMapping:
+      nestedJson: _embedded
+      key: individuals
       <<: *term

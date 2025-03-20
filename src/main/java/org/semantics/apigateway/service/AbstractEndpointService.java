@@ -313,6 +313,7 @@ public abstract class AbstractEndpointService {
                     .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, false))
                     .get();
         } catch (InterruptedException | ExecutionException e) {
+            logger.error(e.getMessage(), e);
             return null;
         }
     }

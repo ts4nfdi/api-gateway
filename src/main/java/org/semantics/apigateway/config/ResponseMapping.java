@@ -34,6 +34,10 @@ public class ResponseMapping {
     }
 
     public ResponseMapping fromMap(Map<String, String> mappingValues) {
+        if(mappingValues == null) {
+            return this;
+        }
+
         List<Field> mappedClassFields = getAllFields();
 
         mappedClassFields.forEach(f -> {
