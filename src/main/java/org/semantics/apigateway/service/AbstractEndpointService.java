@@ -90,6 +90,7 @@ public abstract class AbstractEndpointService {
 
             if (apiUrls.isEmpty()) {
                 String possibleValues = ontologyConfigs.stream().map(DatabaseConfig::getName).collect(Collectors.joining(","));
+                //TODO: better supporting of error showing
                 throw new IllegalArgumentException("Database not found: " + database + " . Possible values are: " + possibleValues);
             }
         }
@@ -297,7 +298,8 @@ public abstract class AbstractEndpointService {
 
         accessor = initAccessor(database, endpoint, accessor);
 
-        List<String> ids = new ArrayList<>(List.of(id.toUpperCase()));
+        id = id.equals("gnd") ? "gnd" : id.toUpperCase();
+        List<String> ids = new ArrayList<>(List.of(id));
 
         if(uri != null && !uri.isEmpty()){
             String encodedUrl = URLEncoder.encode(uri, StandardCharsets.UTF_8);
