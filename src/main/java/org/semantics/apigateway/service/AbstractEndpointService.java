@@ -90,6 +90,7 @@ public abstract class AbstractEndpointService {
 
             if (apiUrls.isEmpty()) {
                 String possibleValues = ontologyConfigs.stream().map(DatabaseConfig::getName).collect(Collectors.joining(","));
+                //TODO: better supporting of error showing
                 throw new IllegalArgumentException("Database not found: " + database + " . Possible values are: " + possibleValues);
             }
         }
