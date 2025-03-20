@@ -21,6 +21,8 @@ import java.util.function.Consumer;
 public class AggregatedResourceBody {
     @JsonIgnore
     private final Logger logger = LoggerFactory.getLogger(AggregatedResourceBody.class);
+    @JsonIgnore
+    private boolean localDataValues = false;
 
     private String iri;
     private String label;
@@ -73,7 +75,7 @@ public class AggregatedResourceBody {
     private List<String> publisher;
 
     private String coverage;
-    private String hasFormat;
+    private List<String> hasFormat;
     private String competencyQuestion;
     private String semanticArtefactRelation;
     private List<String> createdWith;
@@ -93,10 +95,11 @@ public class AggregatedResourceBody {
         }
     }
 
-    private void fillWithItem(Map<String, Object> item, ResponseMapping mapping) {
+    private void fillWithItem(Map<String, Object> item, ResponseMapping mapping, boolean hardcodedValuesConfig) {
         AggregatedResourceBody target = this;
         // Create a reflection-based mapping of getter methods from ResponseMapping to their values
-        Map<String,String> responseMappings = mapping.toMap();
+        Map<String, String> responseMappings = mapping.toMap();
+        setLocalDataValues(hardcodedValuesConfig);
 
         Field[] fields = this.getClass().getDeclaredFields();
 
@@ -115,6 +118,7 @@ public class AggregatedResourceBody {
 
 
             String mappingValue = responseMappings.get(fieldName);
+
 
             if (mappingValue == null) {
                 continue; // No mapping found for this field
@@ -145,7 +149,8 @@ public class AggregatedResourceBody {
         ResponseMapping responseMapping = config.getResponseMapping(endpoint);
         newItem.setOriginalBody(item);
 
-        newItem.fillWithItem(item, responseMapping);
+        boolean localDataValues = config.getUrl(endpoint).endsWith("localData");
+        newItem.fillWithItem(item, responseMapping, localDataValues);
 
         if (item.containsKey("@context")) {
             newItem.setContext(item.get("@context").toString());
@@ -220,11 +225,17 @@ public class AggregatedResourceBody {
     }
 
     private void setStringProperty(Map<String, Object> item, String key, Consumer<String> setter) {
-        Object value = MappingTransformer.itemValueGetter(item, key);
+        Object value;
+        if (localDataValues) {
+            value = key;
+        } else {
+            value = MappingTransformer.itemValueGetter(item, key);
+
+        }
         Optional.ofNullable(value)
                 .map(x -> {
                     if (x instanceof List<?> list) {
-                        return  list.isEmpty() ? null : list.get(0);
+                        return list.isEmpty() ? null : list.get(0);
                     } else {
                         return x;
                     }
@@ -241,7 +252,12 @@ public class AggregatedResourceBody {
     }
 
     private void setListProperty(Map<String, Object> item, String key, Consumer<List<String>> setter) {
-        Object value = MappingTransformer.itemValueGetter(item, key);
+        Object value;
+        if (localDataValues) {
+            value = key != null ? List.of(key.split(";")) : Collections.emptyList();
+        } else {
+            value = MappingTransformer.itemValueGetter(item, key);
+        }
         List<String> list = Collections.emptyList();
         if (value instanceof List) {
             list = (List<String>) value;

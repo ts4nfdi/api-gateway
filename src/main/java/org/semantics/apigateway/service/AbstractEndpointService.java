@@ -298,7 +298,8 @@ public abstract class AbstractEndpointService {
 
         accessor = initAccessor(database, endpoint, accessor);
 
-        List<String> ids = new ArrayList<>(List.of(id.toUpperCase()));
+        id = id.equals("gnd") ? "gnd" : id.toUpperCase();
+        List<String> ids = new ArrayList<>(List.of(id));
 
         if(uri != null && !uri.isEmpty()){
             String encodedUrl = URLEncoder.encode(uri, StandardCharsets.UTF_8);
