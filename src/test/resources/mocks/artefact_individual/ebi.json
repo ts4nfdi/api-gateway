@@ -1,0 +1,228 @@
+{
+  "page": 0,
+  "numElements": 1,
+  "totalPages": 1,
+  "totalElements": 1,
+  "elements": [
+    {
+      "appearsIn": [
+        "foodon",
+        "gaz",
+        "opmi",
+        "gsso",
+        "genepio",
+        "foodon"
+      ],
+      "curie": "GAZ:00000464",
+      "definition": [
+        "LanguaL curation note: US FDA 1995 Code:  QR"
+      ],
+      "definitionProperty": "http://www.w3.org/2000/01/rdf-schema#comment",
+      "directAncestor": [
+        "http://purl.obolibrary.org/obo/GAZ_00000460",
+        "http://purl.obolibrary.org/obo/GAZ_00000013",
+        "http://purl.obolibrary.org/obo/ENVO_01000813",
+        "http://purl.obolibrary.org/obo/BFO_0000040"
+      ],
+      "directParent": [
+        "http://purl.obolibrary.org/obo/GAZ_00000460"
+      ],
+      "hasDirectChildren": true,
+      "hasDirectParents": true,
+      "hasHierarchicalChildren": true,
+      "hasHierarchicalParents": true,
+      "hierarchicalAncestor": [
+        "http://purl.obolibrary.org/obo/GAZ_00000460",
+        "http://purl.obolibrary.org/obo/GAZ_00000013",
+        "http://purl.obolibrary.org/obo/ENVO_01000813",
+        "http://purl.obolibrary.org/obo/BFO_0000040"
+      ],
+      "hierarchicalParent": [
+        "http://purl.obolibrary.org/obo/GAZ_00000460"
+      ],
+      "hierarchicalProperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "imported": false,
+      "iri": "http://purl.obolibrary.org/obo/GAZ_00000464",
+      "isDefiningOntology": false,
+      "isObsolete": false,
+      "isPreferredRoot": false,
+      "label": [
+        "Europe"
+      ],
+      "linkedEntities": {
+        "http://www.w3.org/2000/01/rdf-schema#subClassOf": {
+          "definedBy": [
+            "rdfs"
+          ],
+          "numAppearsIn": 7.0,
+          "hasLocalDefinition": false,
+          "label": [
+            "subClassOf"
+          ],
+          "curie": "RDFS:subClassOf",
+          "type": [
+            "property",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/IAO_0000118": {
+          "definedBy": [
+            "iao"
+          ],
+          "numAppearsIn": 127.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "alternative label"
+          ],
+          "curie": "IAO:0000118",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/GAZ_00000013": {
+          "numAppearsIn": 13.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "continent"
+          ],
+          "curie": "GAZ:00000013",
+          "type": [
+            "individual",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/BFO_0000040": {
+          "definedBy": [
+            "bfo"
+          ],
+          "numAppearsIn": 137.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "material entity"
+          ],
+          "curie": "BFO:0000040",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://www.geneontology.org/formats/oboInOwl#hasDbXref": {
+          "definedBy": [
+            "oio"
+          ],
+          "numAppearsIn": 204.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "has_dbxref"
+          ],
+          "curie": "OIO:hasDbXref",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/ENVO_01000813": {
+          "definedBy": [
+            "envo"
+          ],
+          "numAppearsIn": 18.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "astronomical body part"
+          ],
+          "curie": "ENVO:01000813",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/GAZ_00000460": {
+          "numAppearsIn": 9.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Eurasia"
+          ],
+          "curie": "GAZ:00000460",
+          "type": [
+            "individual",
+            "entity"
+          ]
+        },
+        "http://www.w3.org/2000/01/rdf-schema#comment": {
+          "definedBy": [
+            "rdfs"
+          ],
+          "numAppearsIn": 183.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "comment"
+          ],
+          "curie": "RDFS:comment",
+          "type": [
+            "property",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/IAO_0000412": {
+          "definedBy": [
+            "iao"
+          ],
+          "numAppearsIn": 112.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "imported from"
+          ],
+          "curie": "IAO:0000412",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://www.w3.org/2000/01/rdf-schema#label": {
+          "definedBy": [
+            "rdfs"
+          ],
+          "numAppearsIn": 201.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "label"
+          ],
+          "curie": "RDFS:label",
+          "type": [
+            "property",
+            "entity"
+          ]
+        }
+      },
+      "numDescendants": 58.0,
+      "numHierarchicalDescendants": 58.0,
+      "ontologyId": "foodon",
+      "ontologyIri": "http://purl.obolibrary.org/obo/foodon.owl",
+      "ontologyPreferredPrefix": "FOODON",
+      "searchableAnnotationValues": [
+        "europe",
+        false
+      ],
+      "shortForm": "GAZ_00000464",
+      "type": [
+        "individual",
+        "entity"
+      ],
+      "http://purl.obolibrary.org/obo/IAO_0000118": "europe",
+      "http://purl.obolibrary.org/obo/IAO_0000412": "http://langual.org",
+      "http://www.geneontology.org/formats/oboInOwl#hasDbXref": "http://www.langual.org/langual_thesaurus.asp?termid=R0355",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": [
+        "http://www.w3.org/2002/07/owl#Class",
+        "http://www.w3.org/2002/07/owl#NamedIndividual"
+      ],
+      "http://www.w3.org/2000/01/rdf-schema#comment": "LanguaL curation note: US FDA 1995 Code:  QR",
+      "http://www.w3.org/2000/01/rdf-schema#label": "Europe",
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf": "http://purl.obolibrary.org/obo/GAZ_00000460"
+    }
+  ],
+  "facetFieldsToCounts": {}
+}

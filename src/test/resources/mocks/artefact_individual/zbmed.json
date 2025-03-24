@@ -1,0 +1,62 @@
+{
+  "_embedded": {
+    "individuals": [
+      {
+        "iri": "http://purl.obolibrary.org/obo/GAZ_00000464",
+        "lang": "en",
+        "description": [
+          "LanguaL curation note: US FDA 1995 Code:  QR"
+        ],
+        "synonyms": [],
+        "annotation": {
+          "alternative label": [
+            "europe"
+          ],
+          "database_cross_reference": [
+            "http://www.langual.org/langual_thesaurus.asp?termid=R0355"
+          ],
+          "imported from": [
+            "http://langual.org"
+          ]
+        },
+        "type": null,
+        "label": "Europe",
+        "ontology_name": "foodon",
+        "ontology_prefix": "FOODON",
+        "ontology_iri": "http://purl.obolibrary.org/obo/foodon.owl",
+        "is_obsolete": false,
+        "is_defining_ontology": false,
+        "has_children": false,
+        "is_root": false,
+        "short_form": "GAZ_00000464",
+        "obo_id": "GAZ:00000464",
+        "in_subset": null,
+        "_links": {
+          "self": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/foodon/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGAZ_00000464?lang=en"
+          },
+          "types": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/foodon/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGAZ_00000464/types"
+          },
+          "alltypes": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/foodon/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGAZ_00000464/alltypes"
+          },
+          "jstree": {
+            "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/foodon/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGAZ_00000464/jstree"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "https://semanticlookup.zbmed.de/ols/api/ontologies/FOODON/individuals?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FGAZ_00000464"
+    }
+  },
+  "page": {
+    "size": 1,
+    "totalElements": 1,
+    "totalPages": 1,
+    "number": 0
+  }
+}

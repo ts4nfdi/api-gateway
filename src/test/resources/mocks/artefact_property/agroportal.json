@@ -1,0 +1,49 @@
+{
+  "label": [
+    "Abstract"
+  ],
+  "definition": [
+    "A summary of the resource."
+  ],
+  "parents": [
+    "http://purl.org/dc/elements/1.1/description",
+    "http://purl.org/dc/terms/description"
+  ],
+  "hasChildren": false,
+  "domain": null,
+  "range": null,
+  "@id": "http://purl.org/dc/terms/abstract",
+  "@type": "http://www.w3.org/2002/07/owl#AnnotationProperty",
+  "links": {
+    "self": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/properties/http%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Fabstract",
+    "ontology": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC",
+    "submission": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions/54",
+    "parents": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/properties/http%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Fabstract/parents",
+    "children": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/properties/http%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Fabstract/children",
+    "ancestors": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/properties/http%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Fabstract/ancestors",
+    "descendants": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/properties/http%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Fabstract/descendants",
+    "tree": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/properties/http%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Fabstract/tree",
+    "@context": {
+      "self": "http://www.w3.org/2002/07/owl#AnnotationProperty",
+      "ontology": "http://data.bioontology.org/metadata/Ontology",
+      "submission": "http://data.bioontology.org/metadata/OntologySubmission",
+      "parents": "http://www.w3.org/2002/07/owl#AnnotationProperty",
+      "children": "http://www.w3.org/2002/07/owl#AnnotationProperty",
+      "ancestors": "http://www.w3.org/2002/07/owl#AnnotationProperty",
+      "descendants": "http://www.w3.org/2002/07/owl#AnnotationProperty",
+      "tree": "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    }
+  },
+  "@context": {
+    "@vocab": "http://data.bioontology.org/metadata/",
+    "label": "http://www.w3.org/2000/01/rdf-schema#label",
+    "definition": "http://www.w3.org/2004/02/skos/core#definition",
+    "parents": {
+      "@id": "http://www.w3.org/2002/07/owl#AnnotationProperty",
+      "@type": "@id"
+    },
+    "domain": "http://www.w3.org/2000/01/rdf-schema#domain",
+    "range": "http://www.w3.org/2000/01/rdf-schema#range",
+    "@language": "en"
+  }
+}
