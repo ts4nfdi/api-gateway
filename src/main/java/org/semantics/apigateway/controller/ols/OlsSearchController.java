@@ -38,7 +38,7 @@ public class OlsSearchController {
             query = "*";
         }
 
-        return searchService.performSearch(query + "*", allParams.get("database"), allParams.get("format"), "ols", false);
+        return searchService.performSearch(query + "*", allParams.get("database"),  "ols", false);
     }
 
     @CrossOrigin

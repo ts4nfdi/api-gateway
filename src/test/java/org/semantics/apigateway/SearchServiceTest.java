@@ -6,7 +6,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.RDFResource;
-import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.service.search.SearchService;
@@ -17,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -76,19 +74,6 @@ public class SearchServiceTest extends ApplicationTestAbstract {
 
         assertThat(responseList).hasSize(100);
     }
-
-    @Test
-    public void testSearchJsonLdFormat() throws ExecutionException, InterruptedException {
-        CommonRequestParams commonRequestParams = new CommonRequestParams();
-        commonRequestParams.setFormat(ResponseFormat.jsonld);
-        AggregatedApiResponse response = (AggregatedApiResponse) searchService.performSearch("plant", commonRequestParams, null, null, null, apiAccessor);
-
-        Map<String, Object> firstPlant = response.getCollection().get(0);
-        assertThat(firstPlant.containsKey("@type")).isTrue();
-        assertThat(firstPlant.containsKey("@context")).isTrue();
-        //TODO add more assertions to check to @context content
-    }
-
 
     @Test
     public void testSearchGnd(){

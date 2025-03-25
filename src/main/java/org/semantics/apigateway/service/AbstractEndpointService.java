@@ -95,13 +95,14 @@ public abstract class AbstractEndpointService {
         return apiUrls;
     }
 
-    protected AggregatedApiResponse transformJsonLd(AggregatedApiResponse transformedResponse, ResponseFormat formatEnum) {
-        String format = formatEnum == null ? "" : formatEnum.toString();
-
-        if (jsonLdTransform.isJsonLdFormat(format)) {
-            transformedResponse.setCollection(jsonLdTransform.convertToJsonLd(transformedResponse.getCollection()));
+    protected AggregatedApiResponse transformJsonLd(AggregatedApiResponse transformedResponse) {
+        String type = "";
+        try {
+            type = this.dynTransformResponse.getClazz().getDeclaredConstructor().newInstance().getTypeURI();
+        } catch (Exception e) {
+            logger.error("Error transforming json Ld", e);
         }
-
+        transformedResponse.setCollection(jsonLdTransform.convertToJsonLd(transformedResponse.getCollection(), type));
         return transformedResponse;
     }
 
@@ -275,17 +276,15 @@ public abstract class AbstractEndpointService {
 
     protected Object paginatedList(String id, String endpoint, CommonRequestParams params, Integer page, ApiAccessor accessor) {
         String database = params.getDatabase();
-        ResponseFormat format = params.getFormat();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
-        boolean showResponseConfiguration = params.isShowResponseConfiguration();
 
         accessor = initAccessor(database, endpoint, accessor);
 
         return accessor.get(id.toUpperCase(), page.toString())
                 .thenApply(data -> this.transformApiResponses(data, endpoint, true))
                 .thenApply(data -> selectResultsByDatabase(data, database))
-                .thenApply(x -> paginate(x, showResponseConfiguration, page))
-                .thenApply(data -> transformJsonLd(data, format))
+                .thenApply(x -> paginate(x, params, page))
+                .thenApply(this::transformJsonLd)
                 .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, true));
     }
 
@@ -296,9 +295,7 @@ public abstract class AbstractEndpointService {
 
     protected Object findUri(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor accessor) {
         String database = params.getDatabase();
-        ResponseFormat format = params.getFormat();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
-        boolean showResponseConfiguration = params.isShowResponseConfiguration();
 
         accessor = initAccessor(database, endpoint, accessor);
 
@@ -316,8 +313,8 @@ public abstract class AbstractEndpointService {
             return accessor.get(ids.toArray(new String[0]))
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
                     .thenApply(data -> selectResultsByDatabase(data, database))
-                    .thenApply(x -> singleResponse(x, showResponseConfiguration))
-                    .thenApply(data -> transformJsonLd(data, format))
+                    .thenApply(x -> singleResponse(x, params))
+                    .thenApply(this::transformJsonLd)
                     .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, false))
                     .get();
         } catch (InterruptedException | ExecutionException e) {
