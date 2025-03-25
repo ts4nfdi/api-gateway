@@ -54,4 +54,9 @@ public class SemanticArtefact extends AggregatedResourceBody {
 
     //TODO use this instead of source in the future
     private List<String> includedInDataCatalog;
+
+    @Override
+    public String getTypeURI() {
+        return "https://w3id.org/mod#SemanticArtefact";
+    }
 }

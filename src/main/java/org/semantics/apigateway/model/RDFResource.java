@@ -45,4 +45,9 @@ public class RDFResource extends AggregatedResourceBody {
 
 
     private boolean obsolete;
+
+
+    public String getTypeURI(){
+        return "http://www.w3.org/2000/01/rdf-schema#Resource";
+    }
 }
