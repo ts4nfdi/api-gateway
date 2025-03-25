@@ -1,30 +1,20 @@
 package org.semantics.apigateway;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.service.artefacts.ArtefactsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
 
-import java.lang.reflect.Type;
-import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -37,117 +27,81 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
     @BeforeEach
     public void setup() {
         mockApiAccessor("artefacts", artefactsService.getAccessor());
-
-        when(restTemplate.getForEntity(
-                anyString(),
-                eq(Object.class)))
-                .thenAnswer(invocation -> {
-                    String url = invocation.getArgument(0, String.class);
-                    ResponseEntity<Map<String, Object>> response = ResponseEntity.status(404).body(new HashMap<>());
-                    for (DatabaseConfig config : configs) {
-                        String configHost = new URL(config.getUrl()).getHost();
-                        String currentURLHost = new URL(url).getHost();
-
-
-                        if (configHost.equals(currentURLHost)) {
-                            String jsonResponse = mockResponses.get(config.getName());
-                            Gson gson = new Gson();
-                            Type mapType = new TypeToken<Object>() {
-                            }.getType();
-                            Object map = gson.fromJson(jsonResponse, mapType);
-
-                            if (map instanceof List) {
-                                Map<String, Object> out = new HashMap<>();
-                                out.put("collection", map);
-                                response = ResponseEntity.status(200).body(out);
-                            } else {
-                                response = ResponseEntity.status(200).body((Map<String, Object>) map);
-                            }
-
-
-                            return response;
-                        }
-                    }
-                    return response;
-                });
     }
 
     @Test
     public void testGetAllArtefacts() {
-        CompletableFuture<Object> r = artefactsService.getArtefacts(new CommonRequestParams(), null, null, apiAccessor);
-
-        AggregatedApiResponse response = (AggregatedApiResponse) r.join();
-
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefacts(new CommonRequestParams(), null, null, apiAccessor);
         List<Map<String, Object>> responseList = response.getCollection();
 
-        assertThat(responseList.size()).isEqualTo(722);
+        assertThat(responseList.size()).isEqualTo(724);
 
-        Map<String, Object> ontoportalItem = findByShortFormAndBackendType(responseList, "AAO", "ontoportal");
-        assertThat(ontoportalItem.get("iri")).isEqualTo("http://cavoc.org/aao/");
-        assertThat(ontoportalItem.get("backend_type")).isEqualTo("ontoportal");
-        assertThat(ontoportalItem.get("short_form")).isEqualTo("AAO");
-        assertThat(ontoportalItem.get("label")).isEqualTo("Agriculture Activity Ontology");
-        assertThat(ontoportalItem.get("source")).isEqualTo("https://data.agroportal.lirmm.fr");
-//        assertThat(ontoportalItem.get("type")).isEqualTo("http://data.bioontology.org/metadata/OntologySubmission");
-        assertThat(ontoportalItem.get("source_name")).isEqualTo("agroportal");
-        assertThat(ontoportalItem.get("ontology")).isEqualTo("AAO");
-        assertThat(ontoportalItem.get("synonyms")).isEqualTo(Collections.emptyList());
-        assertThat(ontoportalItem.get("created")).isEqualTo("2015-05-07T00:00:00.000+00:00");
-        assertThat(ontoportalItem.get("obsolete")).isEqualTo(false);
-        assertThat(ontoportalItem.get("source_url")).isEqualTo("http://agroportal.lirmm.fr/ontologies/AAO");
-        assertThat(ontoportalItem.get("modified")).isEqualTo("2024-05-08T00:00:00.000+00:00");
-        assertThat(ontoportalItem.get("ontology_iri")).isEqualTo("http://cavoc.org/aao/");
-        assertThat(ontoportalItem.get("version")).isNull();
-        assertThat(((List<String>) ontoportalItem.get("descriptions")).get(0))
-                .isEqualTo("Agriculture Activity ontology (AAO) is an ontology that describes agricultural work using attributes such as purpose, behavior, objective, and its attribute values.");
-
+        Map<String, Object> ontoportalItem = findByShortFormAndBackendType(responseList, "AGROVOC", "ontoportal");
+        assertThat(ontoportalItem).containsAllEntriesOf(createOntoportalAgrovocFixture());
 
         Map<String, Object> skosmosItem = findByShortFormAndBackendType(responseList, "agrovoc", "skosmos");
+        Map<String, Object> skosmosExpected = createSkosmosAgrovocFixture();
+        skosmosExpected.put("iri", "agrovoc");
+        assertThat(skosmosItem).containsAllEntriesOf(skosmosExpected);
 
-        assertThat(skosmosItem.get("backend_type")).
-                isEqualTo("skosmos");
+        Map<String, Object> olsItem = findByShortFormAndBackendType(responseList, "bto", "ols");
+        assertThat(olsItem).containsAllEntriesOf(createOlsFixture());
 
-        assertThat(skosmosItem.get("label")).
+        Map<String, Object> ols2Item = findByShortFormAndBackendType(responseList, "bto", "ols2");
+        assertThat(ols2Item).containsAllEntriesOf(createOls2Fixture());
 
-                isEqualTo("agrovoc");
+        Map<String, Object> gndItem = findByShortFormAndBackendType(responseList, "GND", "gnd");
 
-        assertThat(skosmosItem.get("source")).
-
-                isEqualTo("https://agrovoc.fao.org/browse/rest/v1");
-
-        assertThat(skosmosItem.get("source_name")).
-
-                isEqualTo("agrovoc");
-
-
-        List<String> descriptionList2 = (List<String>) skosmosItem.get("descriptions");
-
-        assertThat(descriptionList2).hasSize(1);
-        assertThat(descriptionList2.get(0)).isEqualTo("AGROVOC Multilingual Thesaurus");
-
-
-        ontoportalItem = findByShortFormAndBackendType(responseList, "bto", "ols2");
-        assertThat(ontoportalItem.get("iri")).isEqualTo("http://purl.obolibrary.org/obo/bto.owl");
-        assertThat(ontoportalItem.get("backend_type")).isEqualTo("ols2");
-        assertThat(ontoportalItem.get("short_form")).isEqualTo("bto");
-        assertThat(ontoportalItem.get("label")).isEqualTo("BRENDA tissue / enzyme source");
-        assertThat(ontoportalItem.get("source")).isEqualTo("https://www.ebi.ac.uk/ols4/api/v2");
-        assertThat(ontoportalItem.get("type")).isEqualTo("ontology");
-        assertThat(ontoportalItem.get("source_name")).isEqualTo("ebi");
-        assertThat(ontoportalItem.get("ontology")).isEqualTo("bto");
-        assertThat(ontoportalItem.get("synonyms")).isEqualTo(Collections.emptyList());
-        assertThat(ontoportalItem.get("created")).isNull();
-        assertThat(ontoportalItem.get("obsolete")).isEqualTo(false);
-        assertThat(ontoportalItem.get("source_url")).isNull();
-        assertThat(ontoportalItem.get("modified")).isEqualTo("2025-02-28T14:59:32.399774659");
-        assertThat(ontoportalItem.get("ontology_iri")).isEqualTo("http://purl.obolibrary.org/obo/bto.owl");
-        assertThat(ontoportalItem.get("version")).isNull();
-        assertThat(((List<String>) ontoportalItem.get("descriptions")).get(0))
-                .isEqualTo("A structured controlled vocabulary for the source of an enzyme comprising tissues, cell lines, cell types and cell cultures.");
-
+        assertThat(gndItem).containsAllEntriesOf(createGndFixture());
 
         assertThat(responseList.stream().map(x -> x.get("source_name")).distinct().sorted().toArray())
-                .isEqualTo(new String[]{"agroportal", "agrovoc", "ebi", "tib"});
+                .isEqualTo(new String[]{"agroportal", "agrovoc", "ebi", "gnd", "tib"});
+    }
+
+
+    private Map<String,Object> createOlsFixture(){
+        Map<String, Object> fixture = new HashMap<>();
+        fixture.put("iri", "http://purl.obolibrary.org/obo/bto.owl");
+        fixture.put("source", "https://service.tib.eu/ts4tib/api");
+        fixture.put("backend_type", "ols");
+        fixture.put("short_form", "bto");
+        fixture.put("label", "The BRENDA Tissue Ontology (BTO)");
+        fixture.put("source_name", "tib");
+        fixture.put("ontology", "bto");
+        fixture.put("synonyms", Collections.emptyList());
+        fixture.put("created", null);
+        fixture.put("obsolete", false);
+        fixture.put("source_url", "https://service.tib.eu:443/ts4tib/api/ontologies/bto");
+        fixture.put("modified", null);
+        fixture.put("ontology_iri", null);
+        fixture.put("version", "2021-10-26");
+        fixture.put("descriptions", List.of(
+                "A structured controlled vocabulary for the source of an enzyme comprising tissues, cell lines, cell types and cell cultures."
+        ));
+        fixture.put("type", null); //TODO: check if this is correct
+        return fixture;
+    }
+    private Map<String, Object> createOls2Fixture() {
+        Map<String, Object> fixture = new HashMap<>();
+        fixture.put("iri", "http://purl.obolibrary.org/obo/bto.owl");
+        fixture.put("backend_type", "ols2");
+        fixture.put("short_form", "bto");
+        fixture.put("label", "BRENDA tissue / enzyme source");
+        fixture.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
+        fixture.put("type", "ontology");
+        fixture.put("source_name", "ebi");
+        fixture.put("ontology", "bto");
+        fixture.put("synonyms", Collections.emptyList());
+        fixture.put("created", null);
+        fixture.put("obsolete", false);
+        fixture.put("source_url", null);
+        fixture.put("modified", "2025-03-16T21:34:29.847078927");
+        fixture.put("ontology_iri", "http://purl.obolibrary.org/obo/bto.owl");
+        fixture.put("version", null);
+        fixture.put("descriptions", List.of(
+                "A structured controlled vocabulary for the source of an enzyme comprising tissues, cell lines, cell types and cell cultures."
+        ));
+        return fixture;
     }
 
 }

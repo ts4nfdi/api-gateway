@@ -18,72 +18,35 @@ import java.util.function.Consumer;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AggregatedResourceBody {
+public abstract class AggregatedResourceBody {
     @JsonIgnore
     private final Logger logger = LoggerFactory.getLogger(AggregatedResourceBody.class);
+    @JsonIgnore
+    private boolean localDataValues = false;
+    @JsonIgnore
+    protected Map<String, Object> originalBody;
 
-    private String iri;
-    private String label;
-    private List<String> synonyms;
-    private List<String> descriptions;
+    protected String iri;
+
     @JsonProperty("short_form")
-    private String shortForm;
-    private String ontology;
-    @JsonProperty("ontology_iri")
-    private String ontologyIri;
-    private String type;
+    protected String shortForm;
 
-    private String source;
+    protected String source;
+
     @JsonProperty("source_name")
-    private String sourceName;
+    protected String sourceName;
+
     @JsonProperty("source_url")
-    private String sourceUrl;
-
-    @JsonProperty("backend_type")
-    private String backendType;
-
-    private String created;
-    private String modified;
-    private String version;
+    protected String sourceUrl;
 
     @JsonProperty("@context")
-    private String context;
+    protected String context;
     @JsonProperty("@type")
-    private String typeURI;
+    protected String typeURI;
 
-    private boolean obsolete;
-    private String status;
-    private String versionIRI;
-    private String accessRights;
-    private String license;
-    private String identifier;
-    private List<String> keywords;
-    private String landingPage;
-    private List<String> language;
-    private List<String> subject;
-    private String accrualMethod;
-    private String accrualPeriodicity;
+    @JsonProperty("backend_type")
+    protected String backendType;
 
-    private List<String> bibliographicCitation;
-
-    private List<String> contactPoint;
-    private List<String> creator;
-    private List<String> contributor;
-    private List<String> rightsHolder;
-    private List<String> publisher;
-
-    private String coverage;
-    private String hasFormat;
-    private String competencyQuestion;
-    private String semanticArtefactRelation;
-    private List<String> createdWith;
-    private List<String> wasGeneratedBy;
-
-    //TODO use this instead of source in the future
-    private List<String> includedInDataCatalog;
-
-    @JsonIgnore
-    private Map<String, Object> originalBody;
 
     private void setFieldValue(Object target, Field field, Object value) {
         try {
@@ -93,14 +56,24 @@ public class AggregatedResourceBody {
         }
     }
 
-    private void fillWithItem(Map<String, Object> item, ResponseMapping mapping) {
+
+    public List<Field> getAllFields() {
+        Field[] declaredFields = this.getClass().getDeclaredFields();
+        Field[] parentFields = this.getClass().getSuperclass().getDeclaredFields();
+        List<Field> allFields = new ArrayList<>();
+        allFields.addAll(Arrays.asList(parentFields));
+        allFields.addAll(Arrays.asList(declaredFields));
+        return allFields;
+    }
+
+    public void fillWithItem(Map<String, Object> item, ResponseMapping mapping, boolean hardcodedValuesConfig) {
         AggregatedResourceBody target = this;
         // Create a reflection-based mapping of getter methods from ResponseMapping to their values
-        Map<String,String> responseMappings = mapping.toMap();
+        Map<String, String> responseMappings = mapping.toMap();
+        setLocalDataValues(hardcodedValuesConfig);
 
-        Field[] fields = this.getClass().getDeclaredFields();
 
-        for (Field field : fields) {
+        for (Field field : this.getAllFields()) {
             String fieldName = field.getName();
 
             // Skip fields that we don't want to map automatically
@@ -115,6 +88,7 @@ public class AggregatedResourceBody {
 
 
             String mappingValue = responseMappings.get(fieldName);
+
 
             if (mappingValue == null) {
                 continue; // No mapping found for this field
@@ -135,39 +109,55 @@ public class AggregatedResourceBody {
                             value -> setFieldValue(target, field, value));
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 logger.error("Filling aggregated body error {}", e.getMessage());
             }
         }
     }
 
-    public static AggregatedResourceBody fromMap(Map<String, Object> item, DatabaseConfig config, String endpoint) throws RuntimeException {
-        AggregatedResourceBody newItem = new AggregatedResourceBody();
+    public static <T extends AggregatedResourceBody> T fromMap(
+            Map<String, Object> item,
+            DatabaseConfig config,
+            String endpoint, T object) throws RuntimeException {
         ResponseMapping responseMapping = config.getResponseMapping(endpoint);
-        newItem.setOriginalBody(item);
+        boolean localDataValues = config.getUrl(endpoint).endsWith("localData");
 
-        newItem.fillWithItem(item, responseMapping);
+        object.setOriginalBody(item);
+        object.fillWithItem(item, responseMapping, localDataValues);
+        object.setDefaultValues(config);
 
         if (item.containsKey("@context")) {
-            newItem.setContext(item.get("@context").toString());
+            object.setContext(item.get("@context").toString());
         }
-
         if (item.containsKey("@type")) {
-            newItem.setTypeURI(item.get("@type").toString());
+            object.setTypeURI(item.get("@type").toString());
         }
 
+        return object;
+    }
+
+    public void setDefaultValues(DatabaseConfig config) {
+        AggregatedResourceBody newItem = this;
+        if (newItem.getShortForm() == null || newItem.getShortForm().isEmpty()) {
+            String iri = newItem.getIri();
+            if (iri.contains("#")) {
+                newItem.setShortForm(iri.substring(iri.lastIndexOf("#") + 1));
+            } else if (iri.contains("/")) {
+                newItem.setShortForm(iri.substring(iri.lastIndexOf("/") + 1));
+            } else {
+                newItem.setShortForm(newItem.getIri());
+            }
+        }
 
         newItem.setSource(config.getUrl());
         newItem.setBackendType(config.getDatabase());
         newItem.setSourceName(config.getName());
-
-
-        return newItem;
     }
 
     public Map<String, Object> toMap(boolean includeOriginalBody, boolean displayEmpty) {
         Map<String, Object> map = new HashMap<>();
 
-        for (Field field : this.getClass().getDeclaredFields()) {
+        for (Field field : this.getAllFields()) {
             try {
                 field.setAccessible(true);
 
@@ -212,7 +202,6 @@ public class AggregatedResourceBody {
         return map;
     }
 
-
     public static boolean isEmpty(Object value) {
         return value == null ||
                 value.equals("") ||
@@ -220,11 +209,17 @@ public class AggregatedResourceBody {
     }
 
     private void setStringProperty(Map<String, Object> item, String key, Consumer<String> setter) {
-        Object value = MappingTransformer.itemValueGetter(item, key);
+        Object value;
+        if (localDataValues) {
+            value = key;
+        } else {
+            value = MappingTransformer.itemValueGetter(item, key);
+
+        }
         Optional.ofNullable(value)
                 .map(x -> {
                     if (x instanceof List<?> list) {
-                        return  list.isEmpty() ? null : list.get(0);
+                        return list.isEmpty() ? null : list.get(0);
                     } else {
                         return x;
                     }
@@ -241,7 +236,12 @@ public class AggregatedResourceBody {
     }
 
     private void setListProperty(Map<String, Object> item, String key, Consumer<List<String>> setter) {
-        Object value = MappingTransformer.itemValueGetter(item, key);
+        Object value;
+        if (localDataValues) {
+            value = key != null ? List.of(key.split(";")) : Collections.emptyList();
+        } else {
+            value = MappingTransformer.itemValueGetter(item, key);
+        }
         List<String> list = Collections.emptyList();
         if (value instanceof List) {
             list = (List<String>) value;
@@ -250,6 +250,4 @@ public class AggregatedResourceBody {
         }
         setter.accept(list);
     }
-
-
 }

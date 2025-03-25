@@ -7,7 +7,9 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.*;
-import org.apache.lucene.queries.spans.*;
+import org.apache.lucene.queries.spans.SpanFirstQuery;
+import org.apache.lucene.queries.spans.SpanMultiTermQueryWrapper;
+import org.apache.lucene.queries.spans.SpanQuery;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.ByteBuffersDirectory;
@@ -31,7 +33,8 @@ public class SearchLocalIndexerService {
 
         List<Map<String, Object>> localIndexedResult = localIndexSearch(query, logger, index, INDEXED_FIELD);
 
-        return localIndexedResult.stream().map(x -> combinedResults.stream().filter(y -> y.get("iri").equals(x.get("iri")) && y.get("backend_type").equals(x.get("backend_type")))
+        return localIndexedResult.stream().map(x ->
+                combinedResults.stream().filter(y -> y.get("iri").equals(x.get("iri")) && y.get("backend_type").equals(x.get("backend_type")))
                 .findFirst().orElse(null)).collect(Collectors.toList());
     }
 
@@ -131,7 +134,9 @@ public class SearchLocalIndexerService {
 
         for (Map<String, Object> result : combinedResults) {
             Document doc = new Document();
-            doc.add(new StringField("id", result.get("iri").toString() + "_" + result.getOrDefault("ontology", "").toString(), Field.Store.YES));
+            String iri = (String) result.get("iri");
+            String ontology = (String) result.getOrDefault("ontology", "");
+            doc.add(new StringField("id", iri + "_" + ontology, Field.Store.YES));
             result.forEach((key, value) -> {
                 doc.add(new TextField(key, String.valueOf(value), Field.Store.YES));
                 doc.add(new TextField(key + ".lowercase", String.valueOf(value).toLowerCase(), Field.Store.YES));

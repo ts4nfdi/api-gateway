@@ -30,42 +30,40 @@ public abstract class AbstractEndpointService {
     private final ResponseTransformerService responseTransformerService;
     private final CacheManager cacheManager;
     private final JsonLdTransform jsonLdTransform;
-    protected static final Logger logger = LoggerFactory.getLogger(AbstractEndpointService.class);
-
-    private final ResponseAggregatorService dynTransformResponse = new ResponseAggregatorService();
-
-
+    private final ResponseAggregatorService dynTransformResponse;
     private final List<DatabaseConfig> ontologyConfigs;
 
+    protected static final Logger logger = LoggerFactory.getLogger(AbstractEndpointService.class);
 
-    public AbstractEndpointService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService) {
+    public AbstractEndpointService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService, Class<? extends AggregatedResourceBody> clazz) {
         this.configurationLoader = configurationLoader;
         this.ontologyConfigs = configurationLoader.getDatabaseConfigs();
         this.jsonLdTransform = jsonLdTransform;
         this.responseTransformerService = responseTransformerService;
         this.cacheManager = cacheManager;
+        this.dynTransformResponse = new ResponseAggregatorService(clazz);
     }
 
     public ApiAccessor getAccessor() {
         return new ApiAccessor(this.cacheManager);
     }
 
-    protected Object transformForTargetDbSchema(Object data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
+    protected Object transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
         return transformForTargetDbSchema(data, targetDbSchemaEnum, endpoint, true);
     }
 
-    protected Object transformForTargetDbSchema(Object data, TargetDbSchema targetDbSchemaEnum, String endpoint, Boolean isList) {
+    protected Object transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint, Boolean isList) {
         String targetDbSchema = targetDbSchemaEnum == null ? "" : targetDbSchemaEnum.toString();
 
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
             try {
                 List<Map<String, Object>> collections;
                 if (data instanceof AggregatedApiResponse) {
-                    collections = ((AggregatedApiResponse) data).getCollection();
+                    collections = data.getCollection();
                 } else {
                     collections = (List<Map<String, Object>>) data;
                 }
-                Object transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList);
+                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList);
                 logger.debug("Transformed results for database schema: {}", transformedResults);
                 return transformedResults;
             } catch (IOException e) {
@@ -90,13 +88,14 @@ public abstract class AbstractEndpointService {
 
             if (apiUrls.isEmpty()) {
                 String possibleValues = ontologyConfigs.stream().map(DatabaseConfig::getName).collect(Collectors.joining(","));
+                //TODO: better supporting of error showing
                 throw new IllegalArgumentException("Database not found: " + database + " . Possible values are: " + possibleValues);
             }
         }
         return apiUrls;
     }
 
-    protected Object transformJsonLd(AggregatedApiResponse transformedResponse, ResponseFormat formatEnum) {
+    protected AggregatedApiResponse transformJsonLd(AggregatedApiResponse transformedResponse, ResponseFormat formatEnum) {
         String format = formatEnum == null ? "" : formatEnum.toString();
 
         if (jsonLdTransform.isJsonLdFormat(format)) {
@@ -130,7 +129,7 @@ public abstract class AbstractEndpointService {
     }
 
     protected AggregatedApiResponse singleResponse(TransformedApiResponse transformedResponse, boolean showResponseConfiguration) {
-        if(transformedResponse == null){
+        if (transformedResponse == null) {
             return new AggregatedApiResponse();
         }
 
@@ -217,7 +216,7 @@ public abstract class AbstractEndpointService {
             return aggregatedApiResponse;
         }
 
-        if(response.getPage() == 0){
+        if (response.getPage() == 0) {
             enforcePagination(response, page);
         }
 
@@ -257,8 +256,9 @@ public abstract class AbstractEndpointService {
     public TransformedApiResponse selectResultsByDatabase(List<TransformedApiResponse> apiResponse, String database) {
         TransformedApiResponse a = null;
         // TODO: update this to merge the results instead of returning only one the first one
+
         if (database != null) {
-         a = apiResponse.stream()
+            a = apiResponse.stream()
                     .filter(x -> !x.getCollection().isEmpty() && x.getCollection().get(0).getBackendType().equals(database))
                     .findFirst()
                     .orElse(null);
@@ -289,6 +289,11 @@ public abstract class AbstractEndpointService {
                 .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, true));
     }
 
+    private boolean isLocalData(String id) {
+        // update in the future if we have other local data
+        return id.equals("gnd");
+    }
+
     protected Object findUri(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor accessor) {
         String database = params.getDatabase();
         ResponseFormat format = params.getFormat();
@@ -297,9 +302,11 @@ public abstract class AbstractEndpointService {
 
         accessor = initAccessor(database, endpoint, accessor);
 
-        List<String> ids = new ArrayList<>(List.of(id.toUpperCase()));
 
-        if(uri != null && !uri.isEmpty()){
+        id = isLocalData(id) ? id : id.toUpperCase(); // GND work only if lowercase
+        List<String> ids = new ArrayList<>(List.of(id));
+
+        if (uri != null && !uri.isEmpty()) {
             String encodedUrl = URLEncoder.encode(uri, StandardCharsets.UTF_8);
             ids.add(encodedUrl);
             accessor.setUnDecodeUrl(true);
@@ -314,6 +321,7 @@ public abstract class AbstractEndpointService {
                     .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, false))
                     .get();
         } catch (InterruptedException | ExecutionException e) {
+            logger.error(e.getMessage(), e);
             return null;
         }
     }

@@ -1,0 +1,54 @@
+name: gnd
+models:
+  artefact: &artefact
+    label: GDN
+    iri: https://lobid.org/gnd
+    type: "http://www.w3.org/2002/07/owl#Ontology"
+    descriptions: "The Common Authority File (GND) contains more than 8 million standard data sets. It is used to catalog literature in libraries, as well as archives, museums and research projects."
+    sourceUrl: https://lobid.org/gnd
+    created: "2018-07-11"
+    modified: "Updated hourly"
+    synonyms: "lobid GND"
+    version: "Not specified"
+    license: "CC0 1.0"
+    contactPoint: "https://lobid.org/team"
+    creator: "Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen (hbz)"
+    publisher: "Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen (hbz)"
+    identifier: "https://lobid.org/gnd"
+    keywords: "authority data;Germany;Austria;Switzerland"
+    landingPage: "https://lobid.org/gnd"
+    language: "de"
+    shortForm: GND
+    status: production
+    hasFormat: "json;ttl;rdf/xml"
+    accessRights: public
+  searchResult: &searchResult
+    label: preferredName
+    iri: id
+    ontology: ontology_name
+    synonyms: variantName
+    descriptions: biographicalOrHistoricalInformation
+    shortForm: gndIdentifier
+    sourceUrl: id
+    type: type
+
+endpoints:
+  search:
+    path: /gnd/search?q=%s&format=json
+    responseMapping:
+      nestedJson: member
+      <<: *searchResult
+
+  resources:
+    path: localData # means locally hardcoded values
+    responseMapping:
+      <<: *artefact
+  resource_details:
+    path: localData # means locally hardcoded values
+    responseMapping:
+      <<: *artefact
+
+  concept_details:
+    path: /%s/%s.json
+    responseMapping:
+      <<: *searchResult

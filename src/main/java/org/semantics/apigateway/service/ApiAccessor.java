@@ -30,7 +30,7 @@ public class ApiAccessor {
     private CacheService cacheService;
     private boolean cacheEnabled;
 
- 
+
     @Autowired
     public ApiAccessor(CacheManager cacheManager) {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
@@ -72,9 +72,7 @@ public class ApiAccessor {
     }
 
 
-
     public ApiResponse call(String url, String apikey, String... query) {
-
 
 
         ApiResponse result = new ApiResponse();
@@ -89,8 +87,18 @@ public class ApiAccessor {
                 return (ApiResponse) cacheService.read(fullUrl);
             }
 
-            if(!cacheEnabled)
+            if (!cacheEnabled)
                 logger.info("Cache is disabled");
+
+            if (url.endsWith("/localData")) {
+                logger.info("Local data requested for URL: {}", fullUrl);
+                Map<String, Object> out = new HashMap<>();
+                List<Object> collection = new ArrayList<>();
+                collection.add(new HashMap<>());
+                out.put("collection", collection);
+                result.setResponseBody(out);
+                return result;
+            }
 
             logger.info("Accessing URL: {}", fullUrl);
 
@@ -98,7 +106,7 @@ public class ApiAccessor {
 
             ResponseEntity<?> response;
             URL uri = new URL(fullUrl);
-            if(unDecodeUrl){
+            if (unDecodeUrl) {
                 restTemplate.setInterceptors(Collections.singletonList(new UriDecodingInterceptor()));
             }
             response = restTemplate.getForEntity(uri.toString(), Object.class);
@@ -141,9 +149,9 @@ public class ApiAccessor {
             queries.add(apikey);
         }
 
-        if (queries.isEmpty()){
+        if (queries.isEmpty()) {
             return url;
-        }else {
+        } else {
             return String.format(url, queries.toArray());
         }
 
