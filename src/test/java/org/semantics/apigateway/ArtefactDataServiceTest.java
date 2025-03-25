@@ -42,6 +42,11 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         params.setDatabase("ols");
         response = (AggregatedApiResponse) artefactsService.getArtefactTerm("ncbitaxon", "http://purl.obolibrary.org/obo/NCBITaxon_2", params, apiAccessor);
         assertMapEquality(response, createNCBITaxonFixture());
+
+        params = new CommonRequestParams();
+        params.setDatabase("gnd");
+        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("gnd", "4074335-4", params, apiAccessor);
+        assertMapEquality(response, createGndTermFixture());
     }
 
     @Test
@@ -328,6 +333,40 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         return fixture;
     }
 
+    private Map<String, Object> createGndTermFixture(){
+        Map<String, Object> fixture = new HashMap<>();
+        fixture.put("iri", "https://d-nb.info/gnd/4074335-4");
+        fixture.put("backend_type", "gnd");
+        fixture.put("created", null);
+        fixture.put("obsolete", false);
+        fixture.put("source", "https://lobid.org");
+        fixture.put("label", "London");
+        fixture.put("type", "AuthorityResource");
+        fixture.put("descriptions", List.of("Hauptstadt des Vereinigten Königreichs von Großbritannien und Nordirland, in Mittelsteinzeit besiedelt, 43 n. Chr. von Römern gegründet; das County of London war 1889-1965 Verwaltungsgrafschaft u. zeremonielle Grafschaft"));
+        fixture.put("version", null);
+        fixture.put("source_url", "https://d-nb.info/gnd/4074335-4");
+        fixture.put("short_form", "4074335-4");
+        fixture.put("modified", null);
+        fixture.put("ontology_iri", null);
+        fixture.put("source_name", "gnd");
+        fixture.put("ontology", null);
+        fixture.put("synonyms", List.of("Londen",
+                "Corporation of London",
+                "Augusta Trinobantum",
+                "Landan",
+                "Londres",
+                "Londinum",
+                "County of London",
+                "Lundonia",
+                "Londra",
+                "Londyn",
+                "Greater London",
+                "London (Great Britain)",
+                "Londinium",
+                "Westminster",
+                "Lundun"));
 
+        return fixture;
+    }
 
 }

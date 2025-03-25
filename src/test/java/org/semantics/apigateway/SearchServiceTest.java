@@ -97,7 +97,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         List<Map<String, Object>> responseList = response.getCollection();
         assertThat(responseList).hasSize(10);
         Map<String, Object> firstPlant = responseList.get(0);
-        assertThat(firstPlant).containsAllEntriesOf(createGndFixture());
+        assertThat(firstPlant).containsAllEntriesOf(createGndLondonFixture());
     }
 
     private Map<String, Object> createOntoPortalPlantFixture() {
@@ -139,7 +139,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         return thirdPlant;
     }
 
-    private Map<String, Object> createGndFixture() {
+    private Map<String, Object> createGndLondonFixture() {
         Map<String, Object> gndPlant = new HashMap<>();
         gndPlant.put("iri", "https://d-nb.info/gnd/4074335-4");
         gndPlant.put("backend_type", "gnd");

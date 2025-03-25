@@ -330,4 +330,49 @@ public abstract class ApplicationTestAbstract {
         assertThat(expectedList).hasSize(1);
         assertThat(actual).containsAllEntriesOf(expectedList.get(0));
     }
+
+    protected Map<String,Object> createGndFixture(){
+        Map<String, Object> fixture = new HashMap<>();
+        fixture.put("iri", "https://lobid.org/gnd");
+        fixture.put("backend_type", "gnd");
+        fixture.put("short_form", "GND");
+        fixture.put("label", "GDN");
+        fixture.put("source", "https://lobid.org");
+        fixture.put("source_name", "gnd");
+        fixture.put("source_url", "https://lobid.org/gnd");
+        fixture.put("descriptions", List.of("The Common Authority File (GND) contains more than 8 million standard data sets. It is used to catalog literature in libraries, as well as archives, museums and research projects."));
+        fixture.put("ontology", null);
+        fixture.put("ontology_iri", null);
+        fixture.put("synonyms", List.of("lobid GND"));
+        fixture.put("created", "2018-07-11");
+        fixture.put("obsolete", false);
+        fixture.put("version", "Not specified");
+        fixture.put("status", "production");
+        fixture.put("versionIRI", null);
+        fixture.put("accessRights", "public");
+        fixture.put("license", "CC0 1.0");
+        fixture.put("identifier", "https://lobid.org/gnd");
+        fixture.put("keywords", List.of("authority data", "Germany", "Austria", "Switzerland"));
+        fixture.put("landingPage", "https://lobid.org/gnd");
+        fixture.put("language", List.of("de"));
+        fixture.put("creator", List.of("Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen (hbz)"));
+        fixture.put("publisher", List.of("Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen (hbz)"));
+        fixture.put("createdWith", null);
+        fixture.put("contributor", null);
+        fixture.put("rightsHolder", null);
+        fixture.put("coverage", null);
+        fixture.put("hasFormat", "json;ttl;rdf/xml");
+        fixture.put("competencyQuestion", null);
+        fixture.put("semanticArtefactRelation", null);
+        fixture.put("wasGeneratedBy", null);
+        fixture.put("includedInDataCatalog", null);
+        fixture.put("accrualMethod", null);
+        fixture.put("accrualPeriodicity", null);
+        fixture.put("bibliographicCitation", null);
+        fixture.put("contactPoint", List.of("https://lobid.org/team"));
+        fixture.put("subject", null);
+        fixture.put("type", "http://www.w3.org/2002/07/owl#Ontology");
+        fixture.put("modified", "Updated hourly");
+        return fixture;
+    }
 }
