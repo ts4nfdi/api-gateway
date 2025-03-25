@@ -47,4 +47,12 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor);
         assertMapEquality(response, createOlsAgrovocFixture());
     }
+
+    @Test
+    public void testGetArtefactGND() {
+        CommonRequestParams commonRequestParams = new CommonRequestParams();
+        commonRequestParams.setDatabase("gnd");
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("gnd", commonRequestParams, apiAccessor);
+        assertMapEquality(response, createGndFixture());
+    }
 }
