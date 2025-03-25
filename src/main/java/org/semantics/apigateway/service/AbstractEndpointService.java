@@ -2,7 +2,6 @@ package org.semantics.apigateway.service;
 
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.CommonRequestParams;
-import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.*;
 import org.semantics.apigateway.model.user.TerminologyCollection;
@@ -129,35 +128,36 @@ public abstract class AbstractEndpointService {
         return dynTransformResponse.dynTransformResponse(results, config, endpoint, paginate);
     }
 
-    protected AggregatedApiResponse singleResponse(TransformedApiResponse transformedResponse, boolean showResponseConfiguration) {
+    protected AggregatedApiResponse singleResponse(TransformedApiResponse transformedResponse, CommonRequestParams commonRequestParams) {
         if (transformedResponse == null) {
             return new AggregatedApiResponse();
         }
 
-        AggregatedApiResponse aggregatedApiResponse = flattenResponseList(transformedResponse, showResponseConfiguration);
+        AggregatedApiResponse aggregatedApiResponse = flattenResponseList(transformedResponse, commonRequestParams);
         aggregatedApiResponse.setList(false);
 
         return aggregatedApiResponse;
     }
 
-    protected AggregatedApiResponse flattenResponseList(TransformedApiResponse data, boolean showResponseConfiguration) {
-        return flattenResponseList(List.of(data), showResponseConfiguration, null);
+    protected AggregatedApiResponse flattenResponseList(TransformedApiResponse data, CommonRequestParams commonRequestParams) {
+        return flattenResponseList(List.of(data), commonRequestParams, null);
     }
 
-    protected AggregatedApiResponse flattenResponseList(List<TransformedApiResponse> data, boolean showResponseConfiguration) {
-        return flattenResponseList(data, showResponseConfiguration, null);
+    protected AggregatedApiResponse flattenResponseList(List<TransformedApiResponse> data, CommonRequestParams commonRequestParams) {
+        return flattenResponseList(data, commonRequestParams, null);
     }
 
     protected AggregatedApiResponse flattenResponseList(List<TransformedApiResponse> data,
-                                                        boolean showResponseConfiguration,
+                                                        CommonRequestParams commonRequestParams,
                                                         TerminologyCollection terminologyCollection) {
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
-
+        boolean showResponseConfiguration = commonRequestParams.isShowResponseConfiguration();
+        boolean displayEmptyValues = commonRequestParams.isDisplayEmptyValues();
         aggregatedApiResponse.setShowConfig(showResponseConfiguration);
         aggregatedApiResponse.setTerminologyCollection(terminologyCollection);
 
         List<Map<String, Object>> aggregatedCollections = data.stream()
-                .map(x -> x.getCollection(showResponseConfiguration))
+                .map(x -> x.getCollection(showResponseConfiguration, displayEmptyValues))
                 .flatMap(List::stream)
                 .sorted((m1, m2) -> {
                     String label1 = (String) m1.getOrDefault("label", "");
@@ -209,7 +209,7 @@ public abstract class AbstractEndpointService {
         return filterOutByTerminologies(terminologiesCollection.getTerminologies().toArray(new String[0]), data);
     }
 
-    protected AggregatedApiResponse paginate(TransformedApiResponse response, boolean showResponseConfiguration, int page) {
+    protected AggregatedApiResponse paginate(TransformedApiResponse response, CommonRequestParams commonRequestParams, int page) {
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
         aggregatedApiResponse.setPaginate(true);
 
@@ -221,9 +221,12 @@ public abstract class AbstractEndpointService {
             enforcePagination(response, page);
         }
 
+        boolean showResponseConfiguration = commonRequestParams.isShowResponseConfiguration();
+        boolean displayEmpty = commonRequestParams.isDisplayEmptyValues();
+
         aggregatedApiResponse.setTotalCount(response.getTotalCollections());
         aggregatedApiResponse.setPage(response.getPage());
-        aggregatedApiResponse.setCollection(response.getCollection(showResponseConfiguration));
+        aggregatedApiResponse.setCollection(response.getCollection(showResponseConfiguration, displayEmpty));
         aggregatedApiResponse.setShowConfig(showResponseConfiguration);
         aggregatedApiResponse.setOriginalResponses(List.of(response.getOriginalResponse()));
 
