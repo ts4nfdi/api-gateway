@@ -35,11 +35,13 @@ export function AutoCompleteResult({suggestion}: any) {
                         {suggestion.source_name.toUpperCase()}
                     </Badge>
 
-                    <ChevronRight className="mx-1 h-4 w-4 text-gray-400"/>
 
-                    <Badge className={getBadgeVariant('success')}>
-                        {suggestion.ontology.toUpperCase()}
-                    </Badge>
+                    {suggestion.ontology && <>
+                        <ChevronRight className="mx-1 h-4 w-4 text-gray-400"/>
+                        <Badge className={getBadgeVariant('success')}>
+                            {suggestion.ontology}
+                        </Badge> </>
+                    }
 
                     <ChevronRight className="mx-1 h-4 w-4 text-gray-400"/>
 
@@ -48,7 +50,7 @@ export function AutoCompleteResult({suggestion}: any) {
                     </Badge>
                 </div>
             </div>
-             <DialogWrapper title={suggestion.label} isOpen={dialogOpen} setIsOpen={setDialogOpen}>
+            <DialogWrapper title={suggestion.label} isOpen={dialogOpen} setIsOpen={setDialogOpen}>
                 <TermViewer data={suggestion}/>
             </DialogWrapper>
         </>
