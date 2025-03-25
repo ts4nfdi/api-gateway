@@ -59,7 +59,7 @@ public abstract class AbstractEndpointService {
             try {
                 List<Map<String, Object>> collections;
                 if (data instanceof AggregatedApiResponse) {
-                    collections =  data.getCollection();
+                    collections = data.getCollection();
                 } else {
                     collections = (List<Map<String, Object>>) data;
                 }
@@ -88,6 +88,7 @@ public abstract class AbstractEndpointService {
 
             if (apiUrls.isEmpty()) {
                 String possibleValues = ontologyConfigs.stream().map(DatabaseConfig::getName).collect(Collectors.joining(","));
+                //TODO: better supporting of error showing
                 throw new IllegalArgumentException("Database not found: " + database + " . Possible values are: " + possibleValues);
             }
         }
@@ -128,7 +129,7 @@ public abstract class AbstractEndpointService {
     }
 
     protected AggregatedApiResponse singleResponse(TransformedApiResponse transformedResponse, boolean showResponseConfiguration) {
-        if(transformedResponse == null){
+        if (transformedResponse == null) {
             return new AggregatedApiResponse();
         }
 
@@ -215,7 +216,7 @@ public abstract class AbstractEndpointService {
             return aggregatedApiResponse;
         }
 
-        if(response.getPage() == 0){
+        if (response.getPage() == 0) {
             enforcePagination(response, page);
         }
 
@@ -257,7 +258,7 @@ public abstract class AbstractEndpointService {
         // TODO: update this to merge the results instead of returning only one the first one
 
         if (database != null) {
-         a = apiResponse.stream()
+            a = apiResponse.stream()
                     .filter(x -> !x.getCollection().isEmpty() && x.getCollection().get(0).getBackendType().equals(database))
                     .findFirst()
                     .orElse(null);
@@ -288,6 +289,11 @@ public abstract class AbstractEndpointService {
                 .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, true));
     }
 
+    private boolean isLocalData(String id) {
+        // update in the future if we have other local data
+        return id.equals("gnd");
+    }
+
     protected Object findUri(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor accessor) {
         String database = params.getDatabase();
         ResponseFormat format = params.getFormat();
@@ -296,9 +302,11 @@ public abstract class AbstractEndpointService {
 
         accessor = initAccessor(database, endpoint, accessor);
 
-        List<String> ids = new ArrayList<>(List.of(id.toUpperCase()));
 
-        if(uri != null && !uri.isEmpty()){
+        id = isLocalData(id) ? id : id.toUpperCase(); // GND work only if lowercase
+        List<String> ids = new ArrayList<>(List.of(id));
+
+        if (uri != null && !uri.isEmpty()) {
             String encodedUrl = URLEncoder.encode(uri, StandardCharsets.UTF_8);
             ids.add(encodedUrl);
             accessor.setUnDecodeUrl(true);

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
@@ -18,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -57,8 +55,8 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         secondPlant = findByIriAndBackendType(responseList, "https://w3id.org/biolink/vocab/Plant", "ols2");
         assertThat(secondPlant).containsAllEntriesOf(createOls2Fixture());
 
-        assertThat(responseList.stream().map(x -> x.get("backend_type")).distinct().sorted().collect(Collectors.toList()))
-                .isEqualTo(configurationLoader.getDatabaseConfigs().stream().map(DatabaseConfig::getDatabase).sorted().distinct().collect(Collectors.toList()));
+        assertThat(responseList.stream().map(x -> x.get("backend_type")).distinct().sorted().toArray())
+                .isEqualTo(new String[]{"ols", "ols2", "ontoportal", "skosmos"});
         assertThat(responseList.stream().map(x -> x.get("source_name")).distinct().sorted().toArray())
                 .isEqualTo(new String[]{"agroportal", "agrovoc", "biodivportal", "ebi", "tib"});
     }
@@ -90,6 +88,17 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         //TODO add more assertions to check to @context content
     }
 
+
+    @Test
+    public void testSearchGnd(){
+        CommonRequestParams commonRequestParams = new CommonRequestParams();
+        commonRequestParams.setDatabase("gnd");
+        AggregatedApiResponse response = (AggregatedApiResponse) searchService.performSearch("London", commonRequestParams, null, null, null, apiAccessor);
+        List<Map<String, Object>> responseList = response.getCollection();
+        assertThat(responseList).hasSize(10);
+        Map<String, Object> firstPlant = responseList.get(0);
+        assertThat(firstPlant).containsAllEntriesOf(createGndLondonFixture());
+    }
 
     private Map<String, Object> createOntoPortalPlantFixture() {
         Map<String, Object> firstPlant = new HashMap<>();
@@ -130,5 +139,19 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         return thirdPlant;
     }
 
+    private Map<String, Object> createGndLondonFixture() {
+        Map<String, Object> gndPlant = new HashMap<>();
+        gndPlant.put("iri", "https://d-nb.info/gnd/4074335-4");
+        gndPlant.put("backend_type", "gnd");
+        gndPlant.put("synonyms", List.of("Londen", "Corporation of London", "Augusta Trinobantum", "Landan", "Londres", "Londinum", "County of London", "Lundonia", "Londra", "Londyn", "Greater London", "London (Great Britain)", "Londinium", "Westminster", "Lundun"));
+        gndPlant.put("source", "https://lobid.org");
+        gndPlant.put("label", "London");
+        gndPlant.put("type", "AuthorityResource");
+        gndPlant.put("descriptions", List.of("Hauptstadt des Vereinigten Königreichs von Großbritannien und Nordirland, in Mittelsteinzeit besiedelt, 43 n. Chr. von Römern gegründet; das County of London war 1889-1965 Verwaltungsgrafschaft u. zeremonielle Grafschaft"));
+        gndPlant.put("source_url", "https://d-nb.info/gnd/4074335-4");
+        gndPlant.put("short_form", "4074335-4");
+        gndPlant.put("source_name", "gnd");
+        return gndPlant;
+    }
 
 }
