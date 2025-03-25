@@ -34,7 +34,7 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefacts(new CommonRequestParams(), null, null, apiAccessor);
         List<Map<String, Object>> responseList = response.getCollection();
 
-        assertThat(responseList.size()).isEqualTo(723);
+        assertThat(responseList.size()).isEqualTo(724);
 
         Map<String, Object> ontoportalItem = findByShortFormAndBackendType(responseList, "AGROVOC", "ontoportal");
         assertThat(ontoportalItem).containsAllEntriesOf(createOntoportalAgrovocFixture());
@@ -50,8 +50,12 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         Map<String, Object> ols2Item = findByShortFormAndBackendType(responseList, "bto", "ols2");
         assertThat(ols2Item).containsAllEntriesOf(createOls2Fixture());
 
+        Map<String, Object> gndItem = findByShortFormAndBackendType(responseList, "GND", "gnd");
+
+        assertThat(gndItem).containsAllEntriesOf(createGndFixture());
+
         assertThat(responseList.stream().map(x -> x.get("source_name")).distinct().sorted().toArray())
-                .isEqualTo(new String[]{"agroportal", "agrovoc", "ebi", "tib"});
+                .isEqualTo(new String[]{"agroportal", "agrovoc", "ebi", "gnd", "tib"});
     }
 
 

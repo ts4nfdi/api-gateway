@@ -22,6 +22,8 @@ public abstract class AggregatedResourceBody {
     @JsonIgnore
     private final Logger logger = LoggerFactory.getLogger(AggregatedResourceBody.class);
     @JsonIgnore
+    private boolean localDataValues = false;
+    @JsonIgnore
     protected Map<String, Object> originalBody;
 
     protected String iri;
@@ -64,10 +66,11 @@ public abstract class AggregatedResourceBody {
         return allFields;
     }
 
-    public void fillWithItem(Map<String, Object> item, ResponseMapping mapping) {
+    public void fillWithItem(Map<String, Object> item, ResponseMapping mapping, boolean hardcodedValuesConfig) {
         AggregatedResourceBody target = this;
         // Create a reflection-based mapping of getter methods from ResponseMapping to their values
         Map<String, String> responseMappings = mapping.toMap();
+        setLocalDataValues(hardcodedValuesConfig);
 
 
         for (Field field : this.getAllFields()) {
@@ -85,6 +88,7 @@ public abstract class AggregatedResourceBody {
 
 
             String mappingValue = responseMappings.get(fieldName);
+
 
             if (mappingValue == null) {
                 continue; // No mapping found for this field
@@ -116,9 +120,10 @@ public abstract class AggregatedResourceBody {
             DatabaseConfig config,
             String endpoint, T object) throws RuntimeException {
         ResponseMapping responseMapping = config.getResponseMapping(endpoint);
+        boolean localDataValues = config.getUrl(endpoint).endsWith("localData");
 
         object.setOriginalBody(item);
-        object.fillWithItem(item, responseMapping);
+        object.fillWithItem(item, responseMapping, localDataValues);
         object.setDefaultValues(config);
 
         if (item.containsKey("@context")) {
@@ -204,7 +209,13 @@ public abstract class AggregatedResourceBody {
     }
 
     private void setStringProperty(Map<String, Object> item, String key, Consumer<String> setter) {
-        Object value = MappingTransformer.itemValueGetter(item, key);
+        Object value;
+        if (localDataValues) {
+            value = key;
+        } else {
+            value = MappingTransformer.itemValueGetter(item, key);
+
+        }
         Optional.ofNullable(value)
                 .map(x -> {
                     if (x instanceof List<?> list) {
@@ -225,7 +236,12 @@ public abstract class AggregatedResourceBody {
     }
 
     private void setListProperty(Map<String, Object> item, String key, Consumer<List<String>> setter) {
-        Object value = MappingTransformer.itemValueGetter(item, key);
+        Object value;
+        if (localDataValues) {
+            value = key != null ? List.of(key.split(";")) : Collections.emptyList();
+        } else {
+            value = MappingTransformer.itemValueGetter(item, key);
+        }
         List<String> list = Collections.emptyList();
         if (value instanceof List) {
             list = (List<String>) value;

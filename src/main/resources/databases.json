@@ -37,6 +37,11 @@
       "type": "skosmos",
       "name": "agrovoc",
       "url": "https://agrovoc.fao.org/browse/rest/v1"
+    },
+    {
+      "type": "gnd",
+      "name": "gnd",
+      "url": "https://lobid.org"
     }
   ]
 }
