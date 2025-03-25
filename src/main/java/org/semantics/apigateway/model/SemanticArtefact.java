@@ -1,6 +1,5 @@
 package org.semantics.apigateway.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
@@ -13,11 +12,6 @@ public class SemanticArtefact extends AggregatedResourceBody {
     private String label;
     private List<String> synonyms;
     private List<String> descriptions;
-    private String ontology;
-    @JsonProperty("ontology_iri")
-    private String ontologyIri;
-    private String type;
-
 
     private String created;
     private String modified;
