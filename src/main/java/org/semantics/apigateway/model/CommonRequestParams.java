@@ -20,10 +20,6 @@ public class CommonRequestParams {
     )
     private String database = "";
 
-    @QueryParam("format")
-    @Parameter(name = "format", in = ParameterIn.QUERY, description = "Response format")
-    private ResponseFormat format;
-
     @QueryParam("targetDbSchema")
     @Parameter(name = "targetDbSchema", in = ParameterIn.QUERY, description = "Transform the response result to a specific schema")
     private TargetDbSchema targetDbSchema;

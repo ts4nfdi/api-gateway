@@ -36,7 +36,7 @@ public class ArtefactsService extends AbstractEndpointService {
         try {
             return
                     findAllArtefacts(params, collectionId, currentUser, accessor)
-                            .thenApply(data -> transformJsonLd(data, params.getFormat()))
+                            .thenApply(this::transformJsonLd)
                             .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint)).get();
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);
@@ -54,7 +54,7 @@ public class ArtefactsService extends AbstractEndpointService {
         String endpoint = "resources";
         return findAllArtefacts(params, null, null, accessor)
                 .thenApply(data -> filterOutByQuery(query, data))
-                .thenApply(data -> transformJsonLd(data, params.getFormat()))
+                .thenApply(this::transformJsonLd)
                 .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint));
     }
 
@@ -85,14 +85,13 @@ public class ArtefactsService extends AbstractEndpointService {
     private CompletableFuture<AggregatedApiResponse> findAllArtefacts(CommonRequestParams params, String collectionId, User currentUser, ApiAccessor accessor) {
         String endpoint = "resources";
         String database = params.getDatabase();
-        boolean showResponseConfiguration = params.isShowResponseConfiguration();
 
         accessor = initAccessor(database, endpoint, accessor);
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
 
         return accessor.get()
                 .thenApply(data -> this.transformApiResponses(data, endpoint))
-                .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration, collection))
+                .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                 .thenApply(data -> filterOutByCollection(collection, data));
     }
 }
