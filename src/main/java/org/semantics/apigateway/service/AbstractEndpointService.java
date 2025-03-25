@@ -30,42 +30,40 @@ public abstract class AbstractEndpointService {
     private final ResponseTransformerService responseTransformerService;
     private final CacheManager cacheManager;
     private final JsonLdTransform jsonLdTransform;
-    protected static final Logger logger = LoggerFactory.getLogger(AbstractEndpointService.class);
-
-    private final ResponseAggregatorService dynTransformResponse = new ResponseAggregatorService();
-
-
+    private final ResponseAggregatorService dynTransformResponse;
     private final List<DatabaseConfig> ontologyConfigs;
 
+    protected static final Logger logger = LoggerFactory.getLogger(AbstractEndpointService.class);
 
-    public AbstractEndpointService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService) {
+    public AbstractEndpointService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService, Class<? extends AggregatedResourceBody> clazz) {
         this.configurationLoader = configurationLoader;
         this.ontologyConfigs = configurationLoader.getDatabaseConfigs();
         this.jsonLdTransform = jsonLdTransform;
         this.responseTransformerService = responseTransformerService;
         this.cacheManager = cacheManager;
+        this.dynTransformResponse = new ResponseAggregatorService(clazz);
     }
 
     public ApiAccessor getAccessor() {
         return new ApiAccessor(this.cacheManager);
     }
 
-    protected Object transformForTargetDbSchema(Object data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
+    protected Object transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
         return transformForTargetDbSchema(data, targetDbSchemaEnum, endpoint, true);
     }
 
-    protected Object transformForTargetDbSchema(Object data, TargetDbSchema targetDbSchemaEnum, String endpoint, Boolean isList) {
+    protected Object transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint, Boolean isList) {
         String targetDbSchema = targetDbSchemaEnum == null ? "" : targetDbSchemaEnum.toString();
 
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
             try {
                 List<Map<String, Object>> collections;
                 if (data instanceof AggregatedApiResponse) {
-                    collections = ((AggregatedApiResponse) data).getCollection();
+                    collections =  data.getCollection();
                 } else {
                     collections = (List<Map<String, Object>>) data;
                 }
-                Object transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList);
+                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList);
                 logger.debug("Transformed results for database schema: {}", transformedResults);
                 return transformedResults;
             } catch (IOException e) {
@@ -97,7 +95,7 @@ public abstract class AbstractEndpointService {
         return apiUrls;
     }
 
-    protected Object transformJsonLd(AggregatedApiResponse transformedResponse, ResponseFormat formatEnum) {
+    protected AggregatedApiResponse transformJsonLd(AggregatedApiResponse transformedResponse, ResponseFormat formatEnum) {
         String format = formatEnum == null ? "" : formatEnum.toString();
 
         if (jsonLdTransform.isJsonLdFormat(format)) {
@@ -258,6 +256,7 @@ public abstract class AbstractEndpointService {
     public TransformedApiResponse selectResultsByDatabase(List<TransformedApiResponse> apiResponse, String database) {
         TransformedApiResponse a = null;
         // TODO: update this to merge the results instead of returning only one the first one
+
         if (database != null) {
          a = apiResponse.stream()
                     .filter(x -> !x.getCollection().isEmpty() && x.getCollection().get(0).getBackendType().equals(database))
@@ -316,6 +315,7 @@ public abstract class AbstractEndpointService {
                     .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, false))
                     .get();
         } catch (InterruptedException | ExecutionException e) {
+            logger.error(e.getMessage(), e);
             return null;
         }
     }

@@ -17,26 +17,29 @@ public class MetadataService {
         this.configurationLoader = configurationLoader;
     }
 
-    public Map<String, ResponseMapping> getMetadataMappings(Endpoints endpoint) {
-        Map<String, ResponseMapping> responseMappings = new HashMap<>();
+
+    public Map<String, Map<String, String>> getMetadataMappings(Endpoints endpoint) {
+        Map<String, Map<String, String>> responseMappings = new HashMap<>();
+
         Arrays.stream(BackendType.values())
                 .forEach(backendType -> {
                     ResponseMapping rp = configurationLoader.getDatabaseConfig(backendType.toString())
                             .getResponseMapping(endpoint.toString());
-                    responseMappings.put(backendType.toString(), rp);
+                    responseMappings.put(backendType.toString(), rp.toMap());
                 });
+
         return responseMappings;
     }
 
-    public Map<String,ResponseMapping> getArtefactMetadata() {
+    public Map<String, Map<String, String>> getArtefactMetadata() {
         return getMetadataMappings(Endpoints.resources);
     }
 
-    public Map<String,ResponseMapping> getTermMetadata() {
+    public Map<String, Map<String, String>> getTermMetadata() {
         return getMetadataMappings(Endpoints.concept_details);
     }
 
-    public Map<String, ResponseMapping> getSearchMetadata() {
+    public Map<String, Map<String, String>> getSearchMetadata() {
         return getMetadataMappings(Endpoints.concept_details);
     }
 }
