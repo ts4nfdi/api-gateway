@@ -34,7 +34,7 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefacts(new CommonRequestParams(), null, null, apiAccessor);
         List<Map<String, Object>> responseList = response.getCollection();
 
-        assertThat(responseList.size()).isEqualTo(723);
+        assertThat(responseList.size()).isEqualTo(724);
 
         Map<String, Object> ontoportalItem = findByShortFormAndBackendType(responseList, "AGROVOC", "ontoportal");
         assertThat(ontoportalItem).containsAllEntriesOf(createOntoportalAgrovocFixture());
@@ -50,8 +50,12 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         Map<String, Object> ols2Item = findByShortFormAndBackendType(responseList, "bto", "ols2");
         assertThat(ols2Item).containsAllEntriesOf(createOls2Fixture());
 
+        Map<String, Object> gndItem = findByShortFormAndBackendType(responseList, "GND", "gnd");
+
+        assertThat(gndItem).containsAllEntriesOf(createGndFixture());
+
         assertThat(responseList.stream().map(x -> x.get("source_name")).distinct().sorted().toArray())
-                .isEqualTo(new String[]{"agroportal", "agrovoc", "ebi", "tib"});
+                .isEqualTo(new String[]{"agroportal", "agrovoc", "ebi", "gnd", "tib"});
     }
 
 
@@ -100,4 +104,47 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         return fixture;
     }
 
+    private Map<String,Object> createGndFixture(){
+        //{rightsHolder=null, backend_type=gnd, createdWith=null, keywords=[authority data, Germany, Austria, Switzerland], contactPoint=[https://lobid.org/team], subject=null, obsolete=false, language=[de], source=https://lobid.org, type=http://www.w3.org/2002/07/owl#Ontology, descriptions=[The Common Authority File (GND) contains more than 8 million standard data sets. It is used to catalog literature in libraries, as well as archives, museums and research projects.], source_url=https://lobid.org/gnd, accrualMethod=null, wasGeneratedBy=null, contributor=null, semanticArtefactRelation=null, modified=Updated hourly, ontology_iri=null, source_name=gnd, ontology=null, versionIRI=null, coverage=null, iri=https://lobid.org/gnd, identifier=https://lobid.org/gnd, hasFormat=json;ttl;rdf/xml, competencyQuestion=null, creator=[Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen (hbz)], synonyms=[lobid GND], created=2018-07-11, landingPage=https://lobid.org/gnd, label=GDN, version=Not specified, license=CC0 1.0, includedInDataCatalog=null, short_form=GND, publisher=[Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen (hbz)], accrualPeriodicity=null, accessRights=public, bibliographicCitation=null, status=production}
+        Map<String, Object> fixture = new HashMap<>();
+        fixture.put("iri", "https://lobid.org/gnd");
+        fixture.put("backend_type", "gnd");
+        fixture.put("short_form", "GND");
+        fixture.put("label", "GDN");
+        fixture.put("source", "https://lobid.org");
+        fixture.put("source_name", "gnd");
+        fixture.put("source_url", "https://lobid.org/gnd");
+        fixture.put("descriptions", List.of("The Common Authority File (GND) contains more than 8 million standard data sets. It is used to catalog literature in libraries, as well as archives, museums and research projects."));
+        fixture.put("ontology", null);
+        fixture.put("ontology_iri", null);
+        fixture.put("synonyms", List.of("lobid GND"));
+        fixture.put("created", "2018-07-11");
+        fixture.put("obsolete", false);
+        fixture.put("version", "Not specified");
+        fixture.put("status", "production");
+        fixture.put("versionIRI", null);
+        fixture.put("accessRights", "public");
+        fixture.put("license", "CC0 1.0");
+        fixture.put("identifier", "https://lobid.org/gnd");
+        fixture.put("keywords", List.of("authority data", "Germany", "Austria", "Switzerland"));
+        fixture.put("landingPage", "https://lobid.org/gnd");
+        fixture.put("language", List.of("de"));
+        fixture.put("creator", List.of("Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen (hbz)"));
+        fixture.put("publisher", List.of("Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen (hbz)"));
+        fixture.put("createdWith", null);
+        fixture.put("contributor", null);
+        fixture.put("rightsHolder", null);
+        fixture.put("coverage", null);
+        fixture.put("hasFormat", "json;ttl;rdf/xml");
+        fixture.put("competencyQuestion", null);
+        fixture.put("semanticArtefactRelation", null);
+        fixture.put("wasGeneratedBy", null);
+        fixture.put("includedInDataCatalog", null);
+        fixture.put("accrualMethod", null);
+        fixture.put("accrualPeriodicity", null);
+        fixture.put("bibliographicCitation", null);
+        fixture.put("contactPoint", List.of("https://lobid.org/team"));
+        fixture.put("subject", null);
+        return fixture;
+    }
 }
