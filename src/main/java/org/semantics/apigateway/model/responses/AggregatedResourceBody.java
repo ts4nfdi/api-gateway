@@ -39,13 +39,11 @@ public abstract class AggregatedResourceBody {
     @JsonProperty("source_url")
     protected String sourceUrl;
 
-    @JsonProperty("@context")
-    protected String context;
-    @JsonProperty("@type")
-    protected String typeURI;
-
     @JsonProperty("backend_type")
     protected String backendType;
+
+    // TODO after updating https://github.com/ts4nfdi/terminology-service-suite/blob/main/src/model/ts4nfdi-model/Ts4nfdiSearchResult.ts#L50C3-L50C20
+    private String type;
 
 
     private void setFieldValue(Object target, Field field, Object value) {
@@ -56,6 +54,7 @@ public abstract class AggregatedResourceBody {
         }
     }
 
+    public abstract String getTypeURI();
 
     public List<Field> getAllFields() {
         Field[] declaredFields = this.getClass().getDeclaredFields();
@@ -126,12 +125,6 @@ public abstract class AggregatedResourceBody {
         object.fillWithItem(item, responseMapping, localDataValues);
         object.setDefaultValues(config);
 
-        if (item.containsKey("@context")) {
-            object.setContext(item.get("@context").toString());
-        }
-        if (item.containsKey("@type")) {
-            object.setTypeURI(item.get("@type").toString());
-        }
 
         return object;
     }
@@ -139,19 +132,25 @@ public abstract class AggregatedResourceBody {
     public void setDefaultValues(DatabaseConfig config) {
         AggregatedResourceBody newItem = this;
         if (newItem.getShortForm() == null || newItem.getShortForm().isEmpty()) {
-            String iri = newItem.getIri();
-            if (iri.contains("#")) {
-                newItem.setShortForm(iri.substring(iri.lastIndexOf("#") + 1));
-            } else if (iri.contains("/")) {
-                newItem.setShortForm(iri.substring(iri.lastIndexOf("/") + 1));
-            } else {
-                newItem.setShortForm(newItem.getIri());
-            }
+            newItem.setShortForm(getShortFormDefault());
         }
 
         newItem.setSource(config.getUrl());
         newItem.setBackendType(config.getDatabase());
         newItem.setSourceName(config.getName());
+    }
+
+    private String getShortFormDefault() {
+        if (shortForm == null || shortForm.isEmpty()) {
+            if (iri.contains("#")) {
+                shortForm = iri.substring(iri.lastIndexOf("#") + 1);
+            } else if (iri.contains("/")) {
+                shortForm = iri.substring(iri.lastIndexOf("/") + 1);
+            } else {
+                shortForm = iri;
+            }
+        }
+        return shortForm;
     }
 
     public Map<String, Object> toMap(boolean includeOriginalBody, boolean displayEmpty) {
