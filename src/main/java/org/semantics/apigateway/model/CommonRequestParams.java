@@ -27,6 +27,9 @@ public class CommonRequestParams {
     @QueryParam("showResponseConfiguration")
     private boolean showResponseConfiguration = false;
 
+    @QueryParam("displayEmptyValues")
+    private boolean displayEmptyValues = true;
+
     @QueryParam("disableCache")
     @Parameter(name = "disableCache", in = ParameterIn.QUERY, description = "Disable caching (not implemented yet)")
     private boolean disableCache = false;
