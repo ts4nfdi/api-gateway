@@ -10,7 +10,6 @@ import org.semantics.apigateway.service.artefacts.ArtefactsService;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.semantics.apigateway.service.search.SearchService;
 import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.ExecutionException;
@@ -35,7 +34,7 @@ public class SearchController {
     @Operation(summary = "Search all of the content in a catalogue.")
     @SecurityRequirement(name = "BearerAuth")
     @GetMapping(value = {"/search", "/search/content"})
-    public ResponseEntity<?> search(
+    public Object search(
             @Parameter(description = "The text to search", example = "plant")
             @RequestParam String query,
             @ParameterObject CommonRequestParams params,
@@ -45,8 +44,7 @@ public class SearchController {
             @RequestParam(required = false) String collectionId
     ) throws ExecutionException, InterruptedException {
         User user = authService.tryGetCurrentUser();
-        return searchService.performSearch(query, params, terminologies, collectionId, user, null)
-                .thenApply(ResponseEntity::ok).get();
+        return searchService.performSearch(query, params, terminologies, collectionId, user, null);
     }
 
 

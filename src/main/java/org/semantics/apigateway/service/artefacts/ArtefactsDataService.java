@@ -1,6 +1,7 @@
 package org.semantics.apigateway.service.artefacts;
 
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.service.AbstractEndpointService;
 import org.semantics.apigateway.service.ApiAccessor;
 import org.semantics.apigateway.service.JsonLdTransform;
@@ -15,7 +16,7 @@ public class ArtefactsDataService extends AbstractEndpointService {
 
 
     public ArtefactsDataService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform transform, ResponseTransformerService responseTransformerService) {
-        super(configurationLoader, cacheManager, transform, responseTransformerService);
+        super(configurationLoader, cacheManager, transform, responseTransformerService, RDFResource.class);
     }
 
     public Object getArtefactTerm(String id, String uri, CommonRequestParams params, ApiAccessor accessor) {

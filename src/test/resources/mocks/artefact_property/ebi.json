@@ -1,0 +1,167 @@
+{
+  "page": 0,
+  "numElements": 1,
+  "totalPages": 1,
+  "totalElements": 1,
+  "elements": [
+    {
+      "appearsIn": [
+        "covoc",
+        "bco",
+        "ohpi",
+        "dmba",
+        "occo",
+        "ovae",
+        "dhba",
+        "hba",
+        "clo",
+        "pride",
+        "opmi",
+        "aism",
+        "ino",
+        "mco",
+        "rbo",
+        "ado",
+        "ncbitaxon",
+        "to",
+        "obcs",
+        "pso",
+        "efo",
+        "vo",
+        "gallont",
+        "pcl",
+        "dideo",
+        "hso",
+        "nbo",
+        "pco",
+        "colao",
+        "ecto",
+        "vbo",
+        "enm",
+        "hcao",
+        "apollo_sv",
+        "fovt",
+        "ons",
+        "epio",
+        "xpo",
+        "micro",
+        "ecocore",
+        "phipo",
+        "ogg",
+        "htn",
+        "mba",
+        "iceo",
+        "cido",
+        "lepao"
+      ],
+      "curie": "has_rank",
+      "definedBy": [
+        "ncbitaxon"
+      ],
+      "definition": [
+        "A metadata relation between a class and its taxonomic rank (eg species, family)",
+        "This is an abstract class for use with the NCBI taxonomy to name the depth of the node within the tree. The link between the node term and the rank is only visible if you are using an obo 1.3 aware browser/editor; otherwise this can be ignored"
+      ],
+      "definitionProperty": [
+        "http://purl.obolibrary.org/obo/IAO_0000115",
+        "http://www.w3.org/2000/01/rdf-schema#comment"
+      ],
+      "hasDirectChildren": false,
+      "hasDirectParents": false,
+      "hasHierarchicalChildren": false,
+      "hasHierarchicalParents": false,
+      "imported": false,
+      "iri": "http://purl.obolibrary.org/obo/ncbitaxon#has_rank",
+      "isDefiningOntology": true,
+      "isObsolete": false,
+      "isPreferredRoot": false,
+      "label": [
+        "has_rank"
+      ],
+      "linkedEntities": {
+        "http://www.geneontology.org/formats/oboInOwl#hasOBONamespace": {
+          "definedBy": [
+            "oio"
+          ],
+          "numAppearsIn": 172.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "has_obo_namespace"
+          ],
+          "curie": "OIO:hasOBONamespace",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://www.w3.org/2000/01/rdf-schema#comment": {
+          "definedBy": [
+            "rdfs"
+          ],
+          "numAppearsIn": 183.0,
+          "hasLocalDefinition": false,
+          "label": [
+            "comment"
+          ],
+          "curie": "RDFS:comment",
+          "type": [
+            "property",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/IAO_0000115": {
+          "definedBy": [
+            "iao"
+          ],
+          "numAppearsIn": 226.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "definition"
+          ],
+          "curie": "IAO:0000115",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://www.w3.org/2000/01/rdf-schema#label": {
+          "definedBy": [
+            "rdfs"
+          ],
+          "numAppearsIn": 201.0,
+          "hasLocalDefinition": false,
+          "label": [
+            "label"
+          ],
+          "curie": "RDFS:label",
+          "type": [
+            "property",
+            "entity"
+          ]
+        }
+      },
+      "numDescendants": 0.0,
+      "numHierarchicalDescendants": 0.0,
+      "ontologyId": "ncbitaxon",
+      "ontologyIri": "http://purl.obolibrary.org/obo/ncbitaxon.owl",
+      "ontologyPreferredPrefix": "NCBITaxon",
+      "searchableAnnotationValues": [
+        false
+      ],
+      "shortForm": "has_rank",
+      "type": [
+        "property",
+        "annotationProperty",
+        "entity"
+      ],
+      "http://purl.obolibrary.org/obo/IAO_0000115": "A metadata relation between a class and its taxonomic rank (eg species, family)",
+      "http://www.geneontology.org/formats/oboInOwl#hasOBONamespace": "ncbi_taxonomy",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/2002/07/owl#AnnotationProperty",
+      "http://www.w3.org/2000/01/rdf-schema#comment": "This is an abstract class for use with the NCBI taxonomy to name the depth of the node within the tree. The link between the node term and the rank is only visible if you are using an obo 1.3 aware browser/editor; otherwise this can be ignored",
+      "http://www.w3.org/2000/01/rdf-schema#label": "has_rank"
+    }
+  ],
+  "facetFieldsToCounts": {}
+}
