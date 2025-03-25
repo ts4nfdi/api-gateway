@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import org.mockito.Mock;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
+import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 import org.semantics.apigateway.service.ApiAccessor;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -41,6 +43,7 @@ public abstract class ApplicationTestAbstract {
     protected Map<String, String> mockResponses = new HashMap<>();
 
     protected List<DatabaseConfig> configs;
+    protected Class<? extends AggregatedResourceBody> responseClass;
 
     protected Map<String, String> readMockedResponses(String key, List<DatabaseConfig> configs) {
         Map<String, String> mockResponses = new HashMap<>();
@@ -75,7 +78,6 @@ public abstract class ApplicationTestAbstract {
         fixture.put("label", "AGROVOC");
         fixture.put("source", "https://data.agroportal.lirmm.fr");
         fixture.put("source_name", "agroportal");
-        fixture.put("ontology", "AGROVOC");
         fixture.put("descriptions", List.of(
                 "AGROVOC is a multilingual and controlled vocabulary designed to cover concepts and terminology under FAO's areas of interest. It is a large Linked Open Data set about agriculture, available for public use, and its highest impact is through facilitating the access and visibility of data across domains and languages."
         ));
@@ -148,7 +150,6 @@ public abstract class ApplicationTestAbstract {
         fixture.put("wasGeneratedBy", Collections.emptyList());
         fixture.put("contributor", Collections.emptyList());
         fixture.put("semanticArtefactRelation", null);
-        fixture.put("ontology_iri", "http://aims.fao.org/aos/agrovoc/");
         fixture.put("versionIRI", null);
         fixture.put("identifier", null);
         fixture.put("hasFormat", null);
@@ -172,7 +173,6 @@ public abstract class ApplicationTestAbstract {
                 "https://fairsharing.org/FAIRsharing.anpj91",
                 "https://lod-cloud.net/dataset/agrovoc"
         ));
-
         return fixture;
     }
 
@@ -187,7 +187,6 @@ public abstract class ApplicationTestAbstract {
         fixture.put("short_form", "agrovoc");
         fixture.put("source", "https://agrovoc.fao.org/browse/rest/v1");
         fixture.put("source_name", "agrovoc");
-        fixture.put("ontology", "agrovoc");
         fixture.put("descriptions", List.of("AGROVOC Multilingual Thesaurus"));
         fixture.put("source_url", null);
         fixture.put("type", null);
@@ -212,7 +211,6 @@ public abstract class ApplicationTestAbstract {
         fixture.put("wasGeneratedBy", null);
         fixture.put("contributor", null);
         fixture.put("semanticArtefactRelation", null);
-        fixture.put("ontology_iri", null);
         fixture.put("versionIRI", null);
         fixture.put("identifier", null);
         fixture.put("hasFormat", null);
@@ -234,7 +232,6 @@ public abstract class ApplicationTestAbstract {
         fixture.put("short_form", "agrovoc");
         fixture.put("source", "https://semanticlookup.zbmed.de/ols/api");
         fixture.put("source_name", "zbmed");
-        fixture.put("ontology", "agrovoc");
         fixture.put("iri", "http://aims.fao.org/aos/agrovoc/");
         fixture.put("backend_type", "ols");
         fixture.put("descriptions", List.of(
@@ -263,7 +260,6 @@ public abstract class ApplicationTestAbstract {
         fixture.put("wasGeneratedBy", null);
         fixture.put("contributor", null);
         fixture.put("semanticArtefactRelation", null);
-        fixture.put("ontology_iri", null);
         fixture.put("versionIRI", null);
         fixture.put("identifier", null);
         fixture.put("hasFormat", null);
@@ -320,18 +316,56 @@ public abstract class ApplicationTestAbstract {
         return responseList.stream().filter(x -> x.get("iri").equals(iri) && x.get("backend_type").equals(backendType)).findFirst().orElse(null);
     }
 
+    protected int indexOfIriAndBackendType(List<Map<String, Object>> responseList, String iri, String backendType) {
+        return IntStream.range(0, responseList.size())
+                .filter(i -> responseList.get(i).get("iri").equals(iri) && responseList.get(i).get("backend_type").equals(backendType))
+                .findFirst()
+                .orElse(-1);
+    }
+
     protected Map<String, Object> findByShortFormAndBackendType(List<Map<String, Object>> responseList, String shortForm, String backendType) {
         return responseList.stream().filter(x -> x.get("short_form").equals(shortForm) && x.get("backend_type").equals(backendType)).findFirst().orElse(null);
     }
 
-    protected void assertMapEquality(AggregatedApiResponse expected, Map<String, Object> actual) {
-        assertThat(expected).isNotNull();
-        List<Map<String, Object>> expectedList = (List<Map<String, Object>>) expected.getCollection();
-        assertThat(expectedList).hasSize(1);
-        assertThat(actual).containsAllEntriesOf(expectedList.get(0));
+    protected int indexOfShortFormAndBackendType(List<Map<String, Object>> responseList, String shortForm, String backendType) {
+        return IntStream.range(0, responseList.size())
+                .filter(i -> responseList.get(i).get("short_form").equals(shortForm) && responseList.get(i).get("backend_type").equals(backendType))
+                .findFirst()
+                .orElse(-1);
+    }
+    protected void assertMapEquality(AggregatedApiResponse actual, Map<String, Object> expected) {
+        assertMapEquality(actual, expected, 1, 0);
+
     }
 
-    protected Map<String,Object> createGndFixture(){
+    protected void assertMapEquality(AggregatedApiResponse actual, Map<String, Object> expected, int size) {
+        assertMapEquality(actual, expected, size, 0);
+
+    }
+    protected void assertMapEquality(AggregatedApiResponse actual, Map<String, Object> expected, int size, int index) {
+        assertThat(actual).isNotNull();
+        List<Map<String, Object>> expectedList = actual.getCollection();
+        assertThat(expectedList).hasSize(size);
+        Map<String, Object> firstPlant = expectedList.get(index);
+        assertThat(firstPlant).containsAllEntriesOf(expected);
+
+        String type = null;
+        try {
+            type = responseClass.getDeclaredConstructor().newInstance().getTypeURI();
+        } catch (Exception ignored) {
+        }
+        assertValidJsonLd(firstPlant, type);
+    }
+
+    protected void assertValidJsonLd(Map<String, Object> firstPlant, String type) {
+        assertThat(firstPlant.get("@type")).isNotNull().isNotEqualTo("")
+                .isEqualTo(type);
+        assertThat(firstPlant.get("@id")).isEqualTo(firstPlant.get("iri"));
+        assertThat(firstPlant.get("@context")).isNotNull().isNotEqualTo(Collections.emptyMap());
+//        assertThat(firstPlant.containsKey("@context")).isTrue(); // TODO check context valid
+    }
+
+    protected Map<String, Object> createGndFixture() {
         Map<String, Object> fixture = new HashMap<>();
         fixture.put("iri", "https://lobid.org/gnd");
         fixture.put("backend_type", "gnd");
@@ -341,8 +375,6 @@ public abstract class ApplicationTestAbstract {
         fixture.put("source_name", "gnd");
         fixture.put("source_url", "https://lobid.org/gnd");
         fixture.put("descriptions", List.of("The Common Authority File (GND) contains more than 8 million standard data sets. It is used to catalog literature in libraries, as well as archives, museums and research projects."));
-        fixture.put("ontology", null);
-        fixture.put("ontology_iri", null);
         fixture.put("synonyms", List.of("lobid GND"));
         fixture.put("created", "2018-07-11");
         fixture.put("obsolete", false);

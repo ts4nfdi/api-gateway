@@ -3,6 +3,7 @@ package org.semantics.apigateway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.service.artefacts.ArtefactsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,32 +28,32 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
     @BeforeEach
     public void setup() {
         mockApiAccessor("artefacts", artefactsService.getAccessor());
+        this.responseClass = SemanticArtefact.class;
     }
 
     @Test
     public void testGetAllArtefacts() {
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefacts(new CommonRequestParams(), null, null, apiAccessor);
+        int index;
         List<Map<String, Object>> responseList = response.getCollection();
 
-        assertThat(responseList.size()).isEqualTo(724);
 
-        Map<String, Object> ontoportalItem = findByShortFormAndBackendType(responseList, "AGROVOC", "ontoportal");
-        assertThat(ontoportalItem).containsAllEntriesOf(createOntoportalAgrovocFixture());
+        index = indexOfShortFormAndBackendType(responseList, "AGROVOC", "ontoportal");
+        assertMapEquality(response, createOntoportalAgrovocFixture(), 724, index);
 
-        Map<String, Object> skosmosItem = findByShortFormAndBackendType(responseList, "agrovoc", "skosmos");
+        index = indexOfShortFormAndBackendType(responseList, "agrovoc", "skosmos");
         Map<String, Object> skosmosExpected = createSkosmosAgrovocFixture();
         skosmosExpected.put("iri", "agrovoc");
-        assertThat(skosmosItem).containsAllEntriesOf(skosmosExpected);
+        assertMapEquality(response, skosmosExpected, 724, index);
 
-        Map<String, Object> olsItem = findByShortFormAndBackendType(responseList, "bto", "ols");
-        assertThat(olsItem).containsAllEntriesOf(createOlsFixture());
+        index = indexOfShortFormAndBackendType(responseList, "bto", "ols");
+        assertMapEquality(response, createOlsFixture(), 724, index);
 
-        Map<String, Object> ols2Item = findByShortFormAndBackendType(responseList, "bto", "ols2");
-        assertThat(ols2Item).containsAllEntriesOf(createOls2Fixture());
+        index = indexOfShortFormAndBackendType(responseList, "bto", "ols2");
+        assertMapEquality(response, createOls2Fixture(), 724, index);
 
-        Map<String, Object> gndItem = findByShortFormAndBackendType(responseList, "GND", "gnd");
-
-        assertThat(gndItem).containsAllEntriesOf(createGndFixture());
+        index = indexOfShortFormAndBackendType(responseList, "GND", "gnd");
+        assertMapEquality(response, createGndFixture(), 724, index);
 
         assertThat(responseList.stream().map(x -> x.get("source_name")).distinct().sorted().toArray())
                 .isEqualTo(new String[]{"agroportal", "agrovoc", "ebi", "gnd", "tib"});
@@ -67,13 +68,11 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         fixture.put("short_form", "bto");
         fixture.put("label", "The BRENDA Tissue Ontology (BTO)");
         fixture.put("source_name", "tib");
-        fixture.put("ontology", "bto");
         fixture.put("synonyms", Collections.emptyList());
         fixture.put("created", null);
         fixture.put("obsolete", false);
         fixture.put("source_url", "https://service.tib.eu:443/ts4tib/api/ontologies/bto");
         fixture.put("modified", null);
-        fixture.put("ontology_iri", null);
         fixture.put("version", "2021-10-26");
         fixture.put("descriptions", List.of(
                 "A structured controlled vocabulary for the source of an enzyme comprising tissues, cell lines, cell types and cell cultures."
@@ -90,13 +89,11 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         fixture.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
         fixture.put("type", "ontology");
         fixture.put("source_name", "ebi");
-        fixture.put("ontology", "bto");
         fixture.put("synonyms", Collections.emptyList());
         fixture.put("created", null);
         fixture.put("obsolete", false);
         fixture.put("source_url", null);
         fixture.put("modified", "2025-03-16T21:34:29.847078927");
-        fixture.put("ontology_iri", "http://purl.obolibrary.org/obo/bto.owl");
         fixture.put("version", null);
         fixture.put("descriptions", List.of(
                 "A structured controlled vocabulary for the source of an enzyme comprising tissues, cell lines, cell types and cell cultures."
