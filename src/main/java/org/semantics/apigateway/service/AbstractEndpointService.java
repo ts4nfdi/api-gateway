@@ -119,8 +119,9 @@ public abstract class AbstractEndpointService {
         String type = "";
         Map<String, String> context = new HashMap<>();
         try {
-            type = this.dynTransformResponse.getClazz().getDeclaredConstructor().newInstance().getTypeURI();
-            context = this.dynTransformResponse.getClazz().getDeclaredConstructor().newInstance().generateContext(commonRequestParams.getDisplay());
+            Class<? extends AggregatedResourceBody> clazz = this.dynTransformResponse.getClazz();
+            type = jsonLdTransform.getTypeURI(clazz);
+            context = jsonLdTransform.generateContext(clazz, commonRequestParams.getDisplay());
         } catch (Exception e) {
             logger.error("Error transforming json Ld", e);
         }
