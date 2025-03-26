@@ -7,6 +7,7 @@ import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 import org.semantics.apigateway.service.ApiAccessor;
+import org.semantics.apigateway.service.JsonLdTransform;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,19 +19,20 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+import static org.semantics.apigateway.service.JsonLdTransform.DEFAULT_BASE_URI;
 
 public abstract class ApplicationTestAbstract {
     private final Logger logger = LoggerFactory.getLogger(SearchServiceTest.class);
+
+    public JsonLdTransform jsonLdTransform = new JsonLdTransform();
 
     @Mock
     protected RestTemplate restTemplate; // Mock RestTemplate
@@ -362,7 +364,22 @@ public abstract class ApplicationTestAbstract {
                 .isEqualTo(type);
         assertThat(firstPlant.get("@id")).isEqualTo(firstPlant.get("iri"));
         assertThat(firstPlant.get("@context")).isNotNull().isNotEqualTo(Collections.emptyMap());
-//        assertThat(firstPlant.containsKey("@context")).isTrue(); // TODO check context valid
+        Map<String, Object> context = (Map<String, Object>) firstPlant.get("@context");
+        List<String> keysNotInContext = List.of(new String[]{"@type", "@id", "@context"});
+        Set<String> keys = firstPlant.keySet().stream()
+                .filter(x -> !keysNotInContext.contains(x)).collect(Collectors.toSet());
+        keys.add("@base");
+
+        assertThat(context.keySet().stream().sorted()).isEqualTo(keys.stream().sorted().toList()).isNotEmpty();
+        String defaultBaseUri = DEFAULT_BASE_URI;
+        String base = jsonLdTransform.getBaseUri();
+        Map<String, String> namespaces = jsonLdTransform.getNameSpaceMap();
+        assertThat(context.get("@base")).isEqualTo(base).isNotNull();
+        assertThat(context.get("iri")).isEqualTo(defaultBaseUri+"iri");
+        assertThat(context.get("backend_type")).isEqualTo(defaultBaseUri+"backend_type");
+        assertThat(context.get("short_form")).isEqualTo(defaultBaseUri+"short_form");
+        assertThat(context.get("label")).isEqualTo(namespaces.get("skos")+"prefLabel");
+        assertThat(context.get("created")).isEqualTo(namespaces.get("dct")+"created");
     }
 
     protected Map<String, Object> createGndFixture() {
