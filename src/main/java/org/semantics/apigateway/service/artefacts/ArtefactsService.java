@@ -36,7 +36,7 @@ public class ArtefactsService extends AbstractEndpointService {
         try {
             return
                     findAllArtefacts(params, collectionId, currentUser, accessor)
-                            .thenApply(this::transformJsonLd)
+                            .thenApply(data -> transformJsonLd(data, params))
                             .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint)).get();
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);
@@ -54,7 +54,7 @@ public class ArtefactsService extends AbstractEndpointService {
         String endpoint = "resources";
         return findAllArtefacts(params, null, null, accessor)
                 .thenApply(data -> filterOutByQuery(query, data))
-                .thenApply(this::transformJsonLd)
+                .thenApply(x -> transformJsonLd(x, params))
                 .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint));
     }
 

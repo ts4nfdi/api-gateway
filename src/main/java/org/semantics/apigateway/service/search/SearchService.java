@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 
 @Service
@@ -68,9 +67,10 @@ public class SearchService extends AbstractEndpointService {
                     .thenApply(data -> filterOutByTerminologies(terminologies, data))
                     .thenApply(data -> filterOutByCollection(collection, data))
                     .thenApply(data -> reIndexResults(query, data))
-                    .thenApply(this::transformJsonLd)
+                    .thenApply(x -> transformJsonLd(x, params))
                     .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint)).get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
             return null;
         }
     }
