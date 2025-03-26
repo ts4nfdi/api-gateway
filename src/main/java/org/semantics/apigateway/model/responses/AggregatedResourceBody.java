@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.ResponseMapping;
-import org.semantics.apigateway.model.ContextBaseUri;
 import org.semantics.apigateway.model.ContextUri;
 import org.semantics.apigateway.service.MappingTransformer;
 import org.slf4j.Logger;
@@ -21,7 +20,6 @@ import java.util.function.Consumer;
 @Setter
 @NoArgsConstructor
 public abstract class AggregatedResourceBody {
-    public final static String DEFAULT_BASE_URI = "http://base4nfdi.de/ts4nfdi/schema/";
     @JsonIgnore
     private final Logger logger = LoggerFactory.getLogger(AggregatedResourceBody.class);
     @JsonIgnore
@@ -177,6 +175,8 @@ public abstract class AggregatedResourceBody {
         }
         return shortForm;
     }
+
+
 
     public Map<String, Object> toMap(boolean includeOriginalBody, boolean displayEmpty) {
         Map<String, Object> map = new HashMap<>();
