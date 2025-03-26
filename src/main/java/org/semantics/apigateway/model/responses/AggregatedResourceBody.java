@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.ResponseMapping;
+import org.semantics.apigateway.model.ContextBaseUri;
+import org.semantics.apigateway.model.ContextUri;
 import org.semantics.apigateway.service.MappingTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,7 @@ import java.util.function.Consumer;
 @Setter
 @NoArgsConstructor
 public abstract class AggregatedResourceBody {
+    public final static String DEFAULT_BASE_URI = "http://base4nfdi.de/ts4nfdi/schema/";
     @JsonIgnore
     private final Logger logger = LoggerFactory.getLogger(AggregatedResourceBody.class);
     @JsonIgnore
@@ -26,23 +29,48 @@ public abstract class AggregatedResourceBody {
     @JsonIgnore
     protected Map<String, Object> originalBody;
 
+
+
+    @ContextUri("skos:prefLabel")
+    private String label;
+    @ContextUri("skos:altLabel")
+    private List<String> synonyms;
+    @ContextUri("dct:description")
+    private List<String> descriptions;
+    @ContextUri("dct")
+    private String modified;
+    @ContextUri("dct")
+    private String created;
+    @ContextUri("owl:versionInfo")
+    private String version;
+    @ContextUri("owl:deprecated")
+    private boolean obsolete;
+
+    @ContextUri("base4nfdi")
     protected String iri;
 
     @JsonProperty("short_form")
+    @ContextUri("base4nfdi")
     protected String shortForm;
 
+    @ContextUri("base4nfdi")
     protected String source;
 
     @JsonProperty("source_name")
+    @ContextUri("base4nfdi")
     protected String sourceName;
 
     @JsonProperty("source_url")
-    protected String sourceUrl;
+    @ContextUri("base4nfdi")
 
+    protected String sourceUrl;
     @JsonProperty("backend_type")
+    @ContextUri("base4nfdi")
     protected String backendType;
 
+
     // TODO after updating https://github.com/ts4nfdi/terminology-service-suite/blob/main/src/model/ts4nfdi-model/Ts4nfdiSearchResult.ts#L50C3-L50C20
+    @ContextUri("base4nfdi")
     private String type;
 
 
@@ -62,6 +90,7 @@ public abstract class AggregatedResourceBody {
         List<Field> allFields = new ArrayList<>();
         allFields.addAll(Arrays.asList(parentFields));
         allFields.addAll(Arrays.asList(declaredFields));
+        allFields = allFields.stream().filter(x -> x.getAnnotation(JsonIgnore.class) == null).toList();
         return allFields;
     }
 
@@ -74,14 +103,10 @@ public abstract class AggregatedResourceBody {
 
         for (Field field : this.getAllFields()) {
             String fieldName = field.getName();
+            JsonIgnore jsonIgnore = field.getAnnotation(JsonIgnore.class);
 
             // Skip fields that we don't want to map automatically
-            if (fieldName.equals("originalBody") ||
-                    fieldName.equals("source") ||
-                    fieldName.equals("backendType") ||
-                    fieldName.equals("sourceName") ||
-                    fieldName.equals("context") ||
-                    fieldName.equals("typeURI")) {
+            if (jsonIgnore != null) {
                 continue;
             }
 
