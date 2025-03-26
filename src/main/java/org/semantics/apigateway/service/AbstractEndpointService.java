@@ -14,10 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -94,14 +91,41 @@ public abstract class AbstractEndpointService {
         return apiUrls;
     }
 
-    protected AggregatedApiResponse transformJsonLd(AggregatedApiResponse transformedResponse) {
+
+    protected AggregatedApiResponse filterPropertiesToDisplay(AggregatedApiResponse transformedResponse, CommonRequestParams commonRequestParams) {
+       List<String> displayFields = commonRequestParams.getDisplay();
+        if (displayFields == null || displayFields.isEmpty()) {
+            return transformedResponse;
+        }
+
+        List<Map<String, Object>> collection = transformedResponse.getCollection();
+        collection = collection.stream()
+                .map(item -> {
+                    Map<String, Object> newItem = new HashMap<>();
+                    displayFields.forEach(field -> {
+                        if (item.containsKey(field)) {
+                            newItem.put(field, item.get(field));
+                        }
+                    });
+                    return newItem;
+                })
+                .collect(Collectors.toList());
+
+        transformedResponse.setCollection(collection);
+        return transformedResponse;
+    }
+
+    protected AggregatedApiResponse transformJsonLd(AggregatedApiResponse transformedResponse, CommonRequestParams commonRequestParams) {
         String type = "";
+        Map<String, String> context = new HashMap<>();
         try {
             type = this.dynTransformResponse.getClazz().getDeclaredConstructor().newInstance().getTypeURI();
+            context = this.dynTransformResponse.getClazz().getDeclaredConstructor().newInstance().generateContext(commonRequestParams.getDisplay());
         } catch (Exception e) {
             logger.error("Error transforming json Ld", e);
         }
-        transformedResponse.setCollection(jsonLdTransform.convertToJsonLd(transformedResponse.getCollection(), type));
+        transformedResponse = filterPropertiesToDisplay(transformedResponse, commonRequestParams);
+        transformedResponse.setCollection(jsonLdTransform.convertToJsonLd(transformedResponse.getCollection(), type, context));
         return transformedResponse;
     }
 
@@ -143,9 +167,6 @@ public abstract class AbstractEndpointService {
         return flattenResponseList(List.of(data), commonRequestParams, null);
     }
 
-    protected AggregatedApiResponse flattenResponseList(List<TransformedApiResponse> data, CommonRequestParams commonRequestParams) {
-        return flattenResponseList(data, commonRequestParams, null);
-    }
 
     protected AggregatedApiResponse flattenResponseList(List<TransformedApiResponse> data,
                                                         CommonRequestParams commonRequestParams,
@@ -153,6 +174,8 @@ public abstract class AbstractEndpointService {
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
         boolean showResponseConfiguration = commonRequestParams.isShowResponseConfiguration();
         boolean displayEmptyValues = commonRequestParams.isDisplayEmptyValues();
+        List<String> displayFields = commonRequestParams.getDisplay();
+
         aggregatedApiResponse.setShowConfig(showResponseConfiguration);
         aggregatedApiResponse.setTerminologyCollection(terminologyCollection);
 
@@ -287,7 +310,7 @@ public abstract class AbstractEndpointService {
                 .thenApply(data -> this.transformApiResponses(data, endpoint, true))
                 .thenApply(data -> selectResultsByDatabase(data, database))
                 .thenApply(x -> paginate(x, params, page))
-                .thenApply(this::transformJsonLd)
+                .thenApply(x -> transformJsonLd(x, params))
                 .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, true));
     }
 
@@ -317,7 +340,7 @@ public abstract class AbstractEndpointService {
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
                     .thenApply(data -> selectResultsByDatabase(data, database))
                     .thenApply(x -> singleResponse(x, params))
-                    .thenApply(this::transformJsonLd)
+                    .thenApply(x -> transformJsonLd(x, params))
                     .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, false))
                     .get();
         } catch (InterruptedException | ExecutionException e) {

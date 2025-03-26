@@ -8,6 +8,10 @@ import jakarta.ws.rs.QueryParam;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 @Data
 @Component
@@ -37,5 +41,15 @@ public class CommonRequestParams {
     @QueryParam("display")
     @Parameter(name = "display", in = ParameterIn.QUERY, description = "Choose the attribute to display in the results (coma seperated)",
             array = @ArraySchema(schema = @Schema(type = "string")))
-    private String display;
+    private String display = "";
+
+
+    public List<String> getDisplay() {
+        List<String> result = new ArrayList<>();
+//        result.add("iri"); // TODO remove this if the TSS no more use it and instead use the @id
+        if (display != null && !display.isEmpty()) {
+            result.addAll(Arrays.asList(display.split(",")));
+        }
+        return result;
+    }
 }
