@@ -54,6 +54,11 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         params.setDatabase("gnd");
         response = (AggregatedApiResponse) artefactsService.getArtefactTerm("gnd", "4074335-4", params, apiAccessor);
         assertMapEquality(response, createGndTermFixture());
+            params = new CommonRequestParams();
+
+        params.setDatabase("jskos");
+        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("test", "http://superdatensatz.gbv.de/abc", params, apiAccessor);
+        assertMapEquality(response, createdDanteTermFixture());
     }
 
     @Test
@@ -338,6 +343,27 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         return fixture;
     }
 
+    private Map<String, Object> createdDanteTermFixture(){
+        Map<String, Object> fixture = new HashMap<>();
+        fixture.put("iri", "http://superdatensatz.gbv.de/abc");
+        fixture.put("backend_type", "jskos");
+        fixture.put("created", "2017-01-06");
+        fixture.put("descriptions", List.of("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."));
+        fixture.put("label", "superdatensatz (de)");
+        fixture.put("modified", "2024-09-21");
+        fixture.put("obsolete", false);
+        fixture.put("ontology", "Testpool");
+        fixture.put("ontology_iri", "http://uri.gbv.de/terminology/test/");
+        fixture.put("short_form", "AX_Grenzpunkt:abmarkung_Marke:2131");
+        fixture.put("source", "https://api.dante.gbv.de");
+        fixture.put("source_name", "dante");
+        fixture.put("source_url", "http://superdatensatz.gbv.de/abc");
+        fixture.put("synonyms", List.of("superdatensatz (en) (alt)"));
+        fixture.put("type", "http://www.w3.org/2004/02/skos/core#Concept");
+        fixture.put("version", null);
+
+        return fixture;
+    }
     private Map<String, Object> createGndTermFixture() {
         Map<String, Object> fixture = new HashMap<>();
         fixture.put("iri", "https://d-nb.info/gnd/4074335-4");

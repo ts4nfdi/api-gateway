@@ -1,0 +1,72 @@
+[
+  {
+    "uri": "http://superdatensatz.gbv.de/abc",
+    "type": [
+      "http://www.w3.org/2004/02/skos/core#Concept",
+      "http://vocab.getty.edu/ontology#PersonConcept",
+      "http://xmlns.com/foaf/spec/#term_Person",
+      "http://d-nb.info/standards/elementset/gnd#Person"
+    ],
+    "@context": "https://gbv.github.io/jskos/context.json",
+    "inScheme": [
+      {
+        "uri": "http://uri.gbv.de/terminology/test/",
+        "prefLabel": {
+          "de": "Testpool",
+          "en": "Testpool"
+        },
+        "type": [
+          "http://www.w3.org/2004/02/skos/core#ConceptScheme",
+          "http://w3id.org/nkos/nkostype#name_authority_list"
+        ],
+        "notation": [
+          "test"
+        ],
+        "license": [
+          {
+            "uri": "http://www.wtfpl.net/",
+            "notation": [
+              "WTFPL"
+            ],
+            "prefLabel": {
+              "en": "Do What the Fuck You Want to Public License"
+            }
+          }
+        ]
+      }
+    ],
+    "created": "2017-01-06",
+    "issued": "2017-01-06",
+    "modified": "2024-09-21",
+    "notation": [
+      "AX_Grenzpunkt:abmarkung_Marke:2131",
+      "test",
+      "11"
+    ],
+    "prefLabel": {
+      "de": "superdatensatz (de)"
+    },
+    "altLabel": {
+      "en": [
+        "superdatensatz (en) (alt)"
+      ],
+      "de": [
+        "chemie"
+      ]
+    },
+    "definition": {
+      "de": [
+        "TESTNOTE 1234"
+      ],
+      "en": [
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+      ]
+    },
+    "broader": [
+      null
+    ],
+    "narrower": [
+      null
+    ]
+  }
+]
