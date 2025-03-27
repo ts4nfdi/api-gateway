@@ -1,5 +1,18 @@
 name: jskos
 models:
+  artefact: &artefact
+    iri: uri
+    type: type
+    label: prefLabel->en|prefLabel->de|prefLabel->zxx
+    descriptions: definition->en|definition->de|definition->zxx|scopeNote->en|scopeNote->de|scopeNote->zxx
+    created: created|issued
+    modified: modified
+    publisher: publisher->prefLabel->en|publisher->prefLabel->de|publisher->prefLabel->zxx
+    hasLicense: license->uri
+    shortForm: notation
+    language: languages
+
+
   searchResult: &searchResult
     iri: uri
     type: type
@@ -20,3 +33,8 @@ endpoints:
     path: /search?query=%s&properties=+notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
     responseMapping:
       <<: *searchResult
+
+  resources:
+    path: /voc
+    responseMapping:
+      <<: *artefact
