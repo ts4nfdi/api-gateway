@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class ApiAccessor {
 
     private RestTemplate restTemplate;
-    private Map<String, String> urls;
+    private Map<String, UrlConfig> urls;
     private Logger logger;
     private boolean unDecodeUrl;
     private CacheService cacheService;
@@ -56,7 +56,7 @@ public class ApiAccessor {
                 .map(config -> CompletableFuture.supplyAsync(() -> call(config.getKey(), config.getValue(), query), customThreadPool)
                         .thenApply(response -> Map.entry(config.getKey(), response))
                 )
-                .collect(Collectors.toList());
+                .toList();
 
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
                 .thenApply(v -> futures.stream()
@@ -72,15 +72,12 @@ public class ApiAccessor {
     }
 
 
-    public ApiResponse call(String url, String apikey, String... query) {
-
-
+    public ApiResponse call(String url, UrlConfig urlConfig, String... query) {
         ApiResponse result = new ApiResponse();
         String fullUrl = url;
         result.setUrl(url);
-
         try {
-            fullUrl = constructUrl(url, apikey, query);
+            fullUrl = constructUrl(url, urlConfig, query);
 
             if (cacheService.exists(fullUrl) && cacheEnabled) {
                 logger.info("Cached result for request URL: {} and query parameters: {}", url, query);
@@ -140,8 +137,13 @@ public class ApiAccessor {
         }
     }
 
-    private String constructUrl(String url, String apikey, String... query) {
+    private String constructUrl(String url, UrlConfig config, String... query) {
+        String apikey = config.apikey();
+        boolean isCaseInSensitive = config.caseInSensitive();
         List<String> queries = new ArrayList<>(List.of(query));
+
+        if(isCaseInSensitive)
+            queries.set(0, queries.get(0).toUpperCase());
 
         queries = queries.stream().filter(x -> !x.isEmpty()).collect(Collectors.toList());
 

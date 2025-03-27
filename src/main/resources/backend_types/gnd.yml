@@ -49,6 +49,7 @@ endpoints:
       <<: *artefact
 
   concept_details:
+    caseInsensitive: false
     path: /%s/%s.json
     responseMapping:
       <<: *searchResult
