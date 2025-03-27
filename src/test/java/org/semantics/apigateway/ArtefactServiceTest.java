@@ -3,6 +3,7 @@ package org.semantics.apigateway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.service.artefacts.ArtefactsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
     @BeforeEach
     public void setup() {
         mockApiAccessor("artefact", artefactsService.getAccessor());
+        this.responseClass = SemanticArtefact.class;
     }
 
 

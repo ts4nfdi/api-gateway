@@ -2,7 +2,6 @@ package org.semantics.apigateway.service;
 
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.CommonRequestParams;
-import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.*;
 import org.semantics.apigateway.model.user.TerminologyCollection;
@@ -15,10 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -95,13 +91,42 @@ public abstract class AbstractEndpointService {
         return apiUrls;
     }
 
-    protected AggregatedApiResponse transformJsonLd(AggregatedApiResponse transformedResponse, ResponseFormat formatEnum) {
-        String format = formatEnum == null ? "" : formatEnum.toString();
 
-        if (jsonLdTransform.isJsonLdFormat(format)) {
-            transformedResponse.setCollection(jsonLdTransform.convertToJsonLd(transformedResponse.getCollection()));
+    protected AggregatedApiResponse filterPropertiesToDisplay(AggregatedApiResponse transformedResponse, CommonRequestParams commonRequestParams) {
+       List<String> displayFields = commonRequestParams.getDisplay();
+        if (displayFields == null || displayFields.isEmpty()) {
+            return transformedResponse;
         }
 
+        List<Map<String, Object>> collection = transformedResponse.getCollection();
+        collection = collection.stream()
+                .map(item -> {
+                    Map<String, Object> newItem = new HashMap<>();
+                    displayFields.forEach(field -> {
+                        if (item.containsKey(field)) {
+                            newItem.put(field, item.get(field));
+                        }
+                    });
+                    return newItem;
+                })
+                .collect(Collectors.toList());
+
+        transformedResponse.setCollection(collection);
+        return transformedResponse;
+    }
+
+    protected AggregatedApiResponse transformJsonLd(AggregatedApiResponse transformedResponse, CommonRequestParams commonRequestParams) {
+        String type = "";
+        Map<String, String> context = new HashMap<>();
+        try {
+            Class<? extends AggregatedResourceBody> clazz = this.dynTransformResponse.getClazz();
+            type = jsonLdTransform.getTypeURI(clazz);
+            context = jsonLdTransform.generateContext(clazz, commonRequestParams.getDisplay());
+        } catch (Exception e) {
+            logger.error("Error transforming json Ld", e);
+        }
+        transformedResponse = filterPropertiesToDisplay(transformedResponse, commonRequestParams);
+        transformedResponse.setCollection(jsonLdTransform.convertToJsonLd(transformedResponse.getCollection(), type, context));
         return transformedResponse;
     }
 
@@ -128,35 +153,35 @@ public abstract class AbstractEndpointService {
         return dynTransformResponse.dynTransformResponse(results, config, endpoint, paginate);
     }
 
-    protected AggregatedApiResponse singleResponse(TransformedApiResponse transformedResponse, boolean showResponseConfiguration) {
+    protected AggregatedApiResponse singleResponse(TransformedApiResponse transformedResponse, CommonRequestParams commonRequestParams) {
         if (transformedResponse == null) {
             return new AggregatedApiResponse();
         }
 
-        AggregatedApiResponse aggregatedApiResponse = flattenResponseList(transformedResponse, showResponseConfiguration);
+        AggregatedApiResponse aggregatedApiResponse = flattenResponseList(transformedResponse, commonRequestParams);
         aggregatedApiResponse.setList(false);
 
         return aggregatedApiResponse;
     }
 
-    protected AggregatedApiResponse flattenResponseList(TransformedApiResponse data, boolean showResponseConfiguration) {
-        return flattenResponseList(List.of(data), showResponseConfiguration, null);
+    protected AggregatedApiResponse flattenResponseList(TransformedApiResponse data, CommonRequestParams commonRequestParams) {
+        return flattenResponseList(List.of(data), commonRequestParams, null);
     }
 
-    protected AggregatedApiResponse flattenResponseList(List<TransformedApiResponse> data, boolean showResponseConfiguration) {
-        return flattenResponseList(data, showResponseConfiguration, null);
-    }
 
     protected AggregatedApiResponse flattenResponseList(List<TransformedApiResponse> data,
-                                                        boolean showResponseConfiguration,
+                                                        CommonRequestParams commonRequestParams,
                                                         TerminologyCollection terminologyCollection) {
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
+        boolean showResponseConfiguration = commonRequestParams.isShowResponseConfiguration();
+        boolean displayEmptyValues = commonRequestParams.isDisplayEmptyValues();
+        List<String> displayFields = commonRequestParams.getDisplay();
 
         aggregatedApiResponse.setShowConfig(showResponseConfiguration);
         aggregatedApiResponse.setTerminologyCollection(terminologyCollection);
 
         List<Map<String, Object>> aggregatedCollections = data.stream()
-                .map(x -> x.getCollection(showResponseConfiguration))
+                .map(x -> x.getCollection(showResponseConfiguration, displayEmptyValues))
                 .flatMap(List::stream)
                 .sorted((m1, m2) -> {
                     String label1 = (String) m1.getOrDefault("label", "");
@@ -208,7 +233,7 @@ public abstract class AbstractEndpointService {
         return filterOutByTerminologies(terminologiesCollection.getTerminologies().toArray(new String[0]), data);
     }
 
-    protected AggregatedApiResponse paginate(TransformedApiResponse response, boolean showResponseConfiguration, int page) {
+    protected AggregatedApiResponse paginate(TransformedApiResponse response, CommonRequestParams commonRequestParams, int page) {
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
         aggregatedApiResponse.setPaginate(true);
 
@@ -220,9 +245,12 @@ public abstract class AbstractEndpointService {
             enforcePagination(response, page);
         }
 
+        boolean showResponseConfiguration = commonRequestParams.isShowResponseConfiguration();
+        boolean displayEmpty = commonRequestParams.isDisplayEmptyValues();
+
         aggregatedApiResponse.setTotalCount(response.getTotalCollections());
         aggregatedApiResponse.setPage(response.getPage());
-        aggregatedApiResponse.setCollection(response.getCollection(showResponseConfiguration));
+        aggregatedApiResponse.setCollection(response.getCollection(showResponseConfiguration, displayEmpty));
         aggregatedApiResponse.setShowConfig(showResponseConfiguration);
         aggregatedApiResponse.setOriginalResponses(List.of(response.getOriginalResponse()));
 
@@ -275,17 +303,15 @@ public abstract class AbstractEndpointService {
 
     protected Object paginatedList(String id, String endpoint, CommonRequestParams params, Integer page, ApiAccessor accessor) {
         String database = params.getDatabase();
-        ResponseFormat format = params.getFormat();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
-        boolean showResponseConfiguration = params.isShowResponseConfiguration();
 
         accessor = initAccessor(database, endpoint, accessor);
 
         return accessor.get(id.toUpperCase(), page.toString())
                 .thenApply(data -> this.transformApiResponses(data, endpoint, true))
                 .thenApply(data -> selectResultsByDatabase(data, database))
-                .thenApply(x -> paginate(x, showResponseConfiguration, page))
-                .thenApply(data -> transformJsonLd(data, format))
+                .thenApply(x -> paginate(x, params, page))
+                .thenApply(x -> transformJsonLd(x, params))
                 .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, true));
     }
 
@@ -296,9 +322,7 @@ public abstract class AbstractEndpointService {
 
     protected Object findUri(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor accessor) {
         String database = params.getDatabase();
-        ResponseFormat format = params.getFormat();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
-        boolean showResponseConfiguration = params.isShowResponseConfiguration();
 
         accessor = initAccessor(database, endpoint, accessor);
 
@@ -316,8 +340,8 @@ public abstract class AbstractEndpointService {
             return accessor.get(ids.toArray(new String[0]))
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
                     .thenApply(data -> selectResultsByDatabase(data, database))
-                    .thenApply(x -> singleResponse(x, showResponseConfiguration))
-                    .thenApply(data -> transformJsonLd(data, format))
+                    .thenApply(x -> singleResponse(x, params))
+                    .thenApply(x -> transformJsonLd(x, params))
                     .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, false))
                     .get();
         } catch (InterruptedException | ExecutionException e) {
