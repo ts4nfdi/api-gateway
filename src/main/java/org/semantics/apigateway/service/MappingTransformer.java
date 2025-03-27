@@ -55,7 +55,7 @@ public class MappingTransformer {
                             if (value == null) {
                                 break;
                             }
-                            if (value instanceof Map) {
+                            if (value instanceof Map || (value.toString().startsWith("{") && value.toString().endsWith("}"))) {
                                 value = ((Map<?, ?>) value).get(s);
                             } else if (value instanceof List) {
                                 value = listItemValueGetter(s, value);
@@ -96,7 +96,19 @@ public class MappingTransformer {
                     Object value = map.get(key);
                     return value == null ? null : value.toString();
                 }
+            } else if (x instanceof String && x.toString().startsWith("{") && x.toString().endsWith("}")) {
+                String input = x.toString();
+                try {
+                    Map<String, String> map = Arrays.stream(
+                                    input.replaceAll("[{}]", "").split(", ")
+                            )
+                            .map(s -> s.split("="))
+                            .collect(Collectors.toMap(arr -> arr[0], arr -> arr[1]));
+                    return map.get(key);
+                } catch (Exception ignored) {
+                }
             }
+
             return null;
         }).filter(Objects::nonNull).toList();
     }
