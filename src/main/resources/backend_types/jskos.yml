@@ -38,3 +38,9 @@ endpoints:
     path: /voc
     responseMapping:
       <<: *artefact
+
+  resource_details:
+    caseInsensitive: false
+    path: /voc/%s
+    responseMapping:
+      <<: *artefact
