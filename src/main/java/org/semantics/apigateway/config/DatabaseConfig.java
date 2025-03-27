@@ -73,7 +73,7 @@ public class DatabaseConfig {
     }
 
     public UrlConfig getUrlConfig(String endpoint) {
-        return  new UrlConfig(getUrl(), getApiKey(), getEndpointConfig(endpoint).isCaseInsensitive())
+        return  new UrlConfig(getUrl(), getApiKey(), getEndpointConfig(endpoint).isCaseInsensitive());
     }
 
     public String getSearchUrl() {
