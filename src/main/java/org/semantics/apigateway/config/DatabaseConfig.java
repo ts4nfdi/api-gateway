@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.semantics.apigateway.model.Endpoints;
 import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.SemanticArtefact;
+import org.semantics.apigateway.service.UrlConfig;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -65,6 +66,14 @@ public class DatabaseConfig {
         }
 
         return this.url + '/' + path;
+    }
+
+    public EndpointConfig getEndpointConfig(String endpoint) {
+        return serviceConfig.getEndpoints().getOrDefault(endpoint, new EndpointConfig());
+    }
+
+    public UrlConfig getUrlConfig(String endpoint) {
+        return  new UrlConfig(getUrl(), getApiKey(), getEndpointConfig(endpoint).isCaseInsensitive());
     }
 
     public String getSearchUrl() {

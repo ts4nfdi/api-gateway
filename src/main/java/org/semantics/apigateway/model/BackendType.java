@@ -4,5 +4,7 @@ public enum BackendType {
     ontoportal,
     ols,
     ols2,
-    skosmos;
+    skosmos,
+    gnd,
+    jskos;
 }

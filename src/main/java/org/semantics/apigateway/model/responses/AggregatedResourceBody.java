@@ -48,7 +48,7 @@ public abstract class AggregatedResourceBody {
     protected String iri;
 
     @JsonProperty("short_form")
-    @ContextUri("base4nfdi")
+    @ContextUri("skos:notation")
     protected String shortForm;
 
     @ContextUri("base4nfdi")
