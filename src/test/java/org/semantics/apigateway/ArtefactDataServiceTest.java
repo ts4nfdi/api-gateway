@@ -120,7 +120,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         map.put("backend_type", "ols2");
         map.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
         map.put("source_name", "ebi");
-//        map.put("type", "property");
+        map.put("type", "property");
         map.put("source_url", null); //TODO: add source_url
         return map;
     }
@@ -134,7 +134,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         map.put("obsolete", false);
         map.put("source", "https://semanticlookup.zbmed.de/ols/api");
         map.put("label", "has_rank");
-//        map.put("type", null);
+        map.put("type", null); // TODO: fix this
         map.put("descriptions", List.of("A metadata relation between a class and its taxonomic rank (eg species, family)",
                 "This is an abstract class for use with the NCBI taxonomy to name the depth of the node within the tree. The link between the node term and the rank is only visible if you are using an obo 1.3 aware browser/editor; otherwise this can be ignored"));
         map.put("version", null);
@@ -152,7 +152,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         map.put("backend_type", "ols2");
         map.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
         map.put("source_name", "ebi");
-//        map.put("type", "class");
+        map.put("type", "class");
         map.put("source_url", null); //TODO: add source_url
         return map;
     }
@@ -176,7 +176,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         result.put("obsolete", false);
         result.put("source", "https://semanticlookup.zbmed.de/ols/api");
         result.put("label", "Bacteria");
-//        result.put("type", null); //TODO: fix this
+        result.put("type", null); //TODO: fix this
         result.put("descriptions", Collections.emptyList());
         result.put("version", null);
         result.put("source_url", "https://semanticlookup.zbmed.de/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2?lang=en");
@@ -197,7 +197,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         map.put("descriptions", List.of("A summary of the resource."));
         map.put("obsolete", false);
         map.put("source", "https://data.agroportal.lirmm.fr");
-//        map.put("type", "http://www.w3.org/2002/07/owl#AnnotationProperty");
+        map.put("type", "http://www.w3.org/2002/07/owl#AnnotationProperty");
         map.put("version", null); //TODO: to remove maybe
         map.put("source_url", null); //TODO: add source_url
         map.put("short_form", "abstract");
@@ -246,7 +246,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("source_url", "http://agroportal.lirmm.fr/ontologies/AGROVOC?p=classes&conceptid=http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834");
         fixture.put("version", null);
         fixture.put("ontology_iri", null); //TODO: fix this
-//        fixture.put("type", "http://www.w3.org/2004/02/skos/core#Concept"); // TODO implement default value logic
+        fixture.put("type", "http://www.w3.org/2004/02/skos/core#Concept"); // TODO implement default value logic
         return fixture;
     }
 
@@ -261,7 +261,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("ontology", "https://data.agroportal.lirmm.fr/ontologies/INRAETHES");
         fixture.put("descriptions", Collections.emptyList());
         fixture.put("synonyms", Collections.emptyList());
-//        fixture.put("type", "http://www.w3.org/2004/02/skos/core#Collection");
+        fixture.put("type", "http://www.w3.org/2004/02/skos/core#Collection");
         fixture.put("created", null);
         fixture.put("modified", null);
         fixture.put("obsolete", false);
@@ -276,7 +276,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("backend_type", "ols");
         fixture.put("source_name", "zbmed");
         fixture.put("source", "https://semanticlookup.zbmed.de/ols/api");
-//        fixture.put("type", null); //TODO: fix this
+        fixture.put("type", null); //TODO: fix this
         fixture.put("descriptions", List.of("LanguaL curation note: US FDA 1995 Code:  QR"));
         fixture.put("source_url", "https://semanticlookup.zbmed.de/ols/api/ontologies/foodon/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGAZ_00000464?lang=en");
         return fixture;
@@ -288,7 +288,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
         fixture.put("source_name", "ebi");
         fixture.put("ontology", "foodon");
-//        fixture.put("type", "individual");
+        fixture.put("type", "individual");
         fixture.put("descriptions", List.of("LanguaL curation note: US FDA 1995 Code:  QR"));
         fixture.put("ontology_iri", "http://purl.obolibrary.org/obo/foodon.owl");
         return fixture;
@@ -300,7 +300,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("source", "https://data.agroportal.lirmm.fr");
         fixture.put("source_name", "agroportal");
         fixture.put("ontology", null); //TODO: fix this
-//        fixture.put("type", "http://www.w3.org/2002/07/owl#NamedIndividual"); //TODO: harmonize with ols types
+        fixture.put("type", "http://www.w3.org/2002/07/owl#NamedIndividual"); //TODO: harmonize with ols types
         return fixture;
     }
 
@@ -331,7 +331,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("created", null);
         fixture.put("obsolete", false);
         fixture.put("source", "https://data.agroportal.lirmm.fr");
-//        fixture.put("type", "http://www.w3.org/2004/02/skos/core#ConceptScheme");
+        fixture.put("type", "http://www.w3.org/2004/02/skos/core#ConceptScheme");
         fixture.put("descriptions", Collections.emptyList());
         fixture.put("version", null);
         fixture.put("source_url", null);
@@ -351,7 +351,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("obsolete", false);
         fixture.put("source", "https://lobid.org");
         fixture.put("label", "London");
-//        fixture.put("type", "AuthorityResource");
+        fixture.put("type", "AuthorityResource");
         fixture.put("descriptions", List.of("Hauptstadt des Vereinigten Königreichs von Großbritannien und Nordirland, in Mittelsteinzeit besiedelt, 43 n. Chr. von Römern gegründet; das County of London war 1889-1965 Verwaltungsgrafschaft u. zeremonielle Grafschaft"));
         fixture.put("version", null);
         fixture.put("source_url", "https://d-nb.info/gnd/4074335-4");

@@ -87,11 +87,11 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         Map<String, Object> firstPlant = new HashMap<>();
         firstPlant.put("iri", "http://sweetontology.net/matrPlant/Plant");
         firstPlant.put("backend_type", "ontoportal");
-//        firstPlant.put("short_form", null); // TODO implement default value logic
+        firstPlant.put("short_form", "Plant");
         firstPlant.put("label", "plant");
         firstPlant.put("source", "https://data.biodivportal.gfbio.org");
-//        firstPlant.put("type", null); // TODO implement default value logic
-//        firstPlant.put("ontology", null); // TODO implement default value logic
+        firstPlant.put("type", "http://www.w3.org/2002/07/owl#Class");
+        firstPlant.put("ontology", "https://data.biodivportal.gfbio.dev/ontologies/SWEET");
         return firstPlant;
     }
 
@@ -118,8 +118,6 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         thirdPlant.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
         thirdPlant.put("@type", new RDFResource().getTypeURI()); //TODO: should be owl:Class in future
         thirdPlant.put("ontology", "biolink");
-//        assertThat(secondPlant.get("descriptions")) // TODO: check if this is correct
-//                .isEqualTo(new ArrayList<String>(List.of(new String[]{"Any living organism that typically synthesizes its food from inorganic substances, possesses cellulose cell walls, responds slowly and often permanently to a stimulus, lacks specialized sense organs and nervous system, and has no powers of locomotion. (EPA Terminology Reference System)"})));
         return thirdPlant;
     }
 
@@ -130,7 +128,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         gndPlant.put("synonyms", List.of("Londen", "Corporation of London", "Augusta Trinobantum", "Landan", "Londres", "Londinum", "County of London", "Lundonia", "Londra", "Londyn", "Greater London", "London (Great Britain)", "Londinium", "Westminster", "Lundun"));
         gndPlant.put("source", "https://lobid.org");
         gndPlant.put("label", "London");
-//        gndPlant.put("type", "AuthorityResource");
+        gndPlant.put("type", "AuthorityResource");
         gndPlant.put("descriptions", List.of("Hauptstadt des Vereinigten Königreichs von Großbritannien und Nordirland, in Mittelsteinzeit besiedelt, 43 n. Chr. von Römern gegründet; das County of London war 1889-1965 Verwaltungsgrafschaft u. zeremonielle Grafschaft"));
         gndPlant.put("source_url", "https://d-nb.info/gnd/4074335-4");
         gndPlant.put("short_form", "4074335-4");
