@@ -377,7 +377,7 @@ public abstract class ApplicationTestAbstract {
         assertThat(context.get("@base")).isEqualTo(base).isNotNull();
         assertThat(context.get("iri")).isEqualTo(defaultBaseUri+"iri");
         assertThat(context.get("backend_type")).isEqualTo(defaultBaseUri+"backend_type");
-        assertThat(context.get("short_form")).isEqualTo(defaultBaseUri+"short_form");
+        assertThat(context.get("short_form")).isEqualTo(namespaces.get("skos")+"notation");
         assertThat(context.get("label")).isEqualTo(namespaces.get("skos")+"prefLabel");
         assertThat(context.get("created")).isEqualTo(namespaces.get("dct")+"created");
     }
