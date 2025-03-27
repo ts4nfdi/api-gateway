@@ -1,0 +1,22 @@
+name: jskos
+models:
+  searchResult: &searchResult
+    iri: uri
+    type: type
+    label: prefLabel->en|prefLabel->de|prefLabel->zxx
+    synonyms: altLabel->en|altLabel->de|altLabel->zxx
+    descriptions: definition->en|definition->de|definition->zxx|scopeNote->en|scopeNote->de|scopeNote->zxx
+    shortForm: notation
+    ontology: inScheme->prefLabel->en|inScheme->prefLabel->de|inScheme->prefLabel->zxx
+    ontologyIri: inScheme->uri
+    sourceUrl: uri
+    obsolete: deprecated
+    created: created|issued|startDate
+    modified: modified|endDate
+
+
+endpoints:
+  search:
+    path: /search?query=%s&properties=+notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    responseMapping:
+      <<: *searchResult
