@@ -1,6 +1,5 @@
 package org.semantics.apigateway.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
@@ -9,49 +8,52 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@ContextBaseUri("dct")
 public class SemanticArtefact extends AggregatedResourceBody {
-    private String label;
-    private List<String> synonyms;
-    private List<String> descriptions;
-    private String ontology;
-    @JsonProperty("ontology_iri")
-    private String ontologyIri;
-    private String type;
 
-
-    private String created;
-    private String modified;
-    private String version;
-
-
-    private boolean obsolete;
-    private String status;
     private String versionIRI;
     private String accessRights;
     private String license;
     private String identifier;
-    private List<String> keywords;
-    private String landingPage;
     private List<String> language;
     private List<String> subject;
     private String accrualMethod;
     private String accrualPeriodicity;
-
     private List<String> bibliographicCitation;
-
-    private List<String> contactPoint;
     private List<String> creator;
     private List<String> contributor;
     private List<String> rightsHolder;
     private List<String> publisher;
-
     private String coverage;
     private String hasFormat;
+
+
+    @ContextUri("dcat")
+    private List<String> keywords;
+    @ContextUri("dcat")
+    private String landingPage;
+    @ContextUri("dcat")
+    private List<String> contactPoint;
+
+    @ContextUri("mod")
     private String competencyQuestion;
+    @ContextUri("mod")
     private String semanticArtefactRelation;
-    private List<String> createdWith;
+    @ContextUri("mod")
+    private String status;
+    @ContextUri("mod")
     private List<String> wasGeneratedBy;
 
+    @ContextUri("pav")
+    private List<String> createdWith;
+
+
     //TODO use this instead of source in the future
+    @ContextUri("schema")
     private List<String> includedInDataCatalog;
+
+    @Override
+    public String getTypeURI() {
+        return "https://w3id.org/mod#SemanticArtefact";
+    }
 }

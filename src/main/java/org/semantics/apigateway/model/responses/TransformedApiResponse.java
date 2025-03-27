@@ -18,7 +18,7 @@ public  class TransformedApiResponse {
     private boolean paginate;
     private ApiResponse originalResponse;
 
-    public List<Map<String, Object>> getCollection(boolean showOriginalResponse) {
-        return collection.stream().map(x -> x.toMap(showOriginalResponse, true)).toList();
+    public List<Map<String, Object>> getCollection(boolean showOriginalResponse, boolean displayEmpty) {
+        return collection.stream().map(x -> x.toMap(showOriginalResponse, displayEmpty)).toList();
     }
 }

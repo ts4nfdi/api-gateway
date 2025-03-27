@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.ResponseMapping;
+import org.semantics.apigateway.model.ContextUri;
 import org.semantics.apigateway.service.MappingTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,26 +27,49 @@ public abstract class AggregatedResourceBody {
     @JsonIgnore
     protected Map<String, Object> originalBody;
 
+
+
+    @ContextUri("skos:prefLabel")
+    private String label;
+    @ContextUri("skos:altLabel")
+    private List<String> synonyms;
+    @ContextUri("dct:description")
+    private List<String> descriptions;
+    @ContextUri("dct")
+    private String modified;
+    @ContextUri("dct")
+    private String created;
+    @ContextUri("owl:versionInfo")
+    private String version;
+    @ContextUri("owl:deprecated")
+    private boolean obsolete;
+
+    @ContextUri("base4nfdi")
     protected String iri;
 
     @JsonProperty("short_form")
+    @ContextUri("base4nfdi")
     protected String shortForm;
 
+    @ContextUri("base4nfdi")
     protected String source;
 
     @JsonProperty("source_name")
+    @ContextUri("base4nfdi")
     protected String sourceName;
 
     @JsonProperty("source_url")
+    @ContextUri("base4nfdi")
+
     protected String sourceUrl;
-
-    @JsonProperty("@context")
-    protected String context;
-    @JsonProperty("@type")
-    protected String typeURI;
-
     @JsonProperty("backend_type")
+    @ContextUri("base4nfdi")
     protected String backendType;
+
+
+    // TODO after updating https://github.com/ts4nfdi/terminology-service-suite/blob/main/src/model/ts4nfdi-model/Ts4nfdiSearchResult.ts#L50C3-L50C20
+    @ContextUri("base4nfdi")
+    private String type;
 
 
     private void setFieldValue(Object target, Field field, Object value) {
@@ -56,6 +80,7 @@ public abstract class AggregatedResourceBody {
         }
     }
 
+    public abstract String getTypeURI();
 
     public List<Field> getAllFields() {
         Field[] declaredFields = this.getClass().getDeclaredFields();
@@ -63,6 +88,7 @@ public abstract class AggregatedResourceBody {
         List<Field> allFields = new ArrayList<>();
         allFields.addAll(Arrays.asList(parentFields));
         allFields.addAll(Arrays.asList(declaredFields));
+        allFields = allFields.stream().filter(x -> x.getAnnotation(JsonIgnore.class) == null).toList();
         return allFields;
     }
 
@@ -75,14 +101,10 @@ public abstract class AggregatedResourceBody {
 
         for (Field field : this.getAllFields()) {
             String fieldName = field.getName();
+            JsonIgnore jsonIgnore = field.getAnnotation(JsonIgnore.class);
 
             // Skip fields that we don't want to map automatically
-            if (fieldName.equals("originalBody") ||
-                    fieldName.equals("source") ||
-                    fieldName.equals("backendType") ||
-                    fieldName.equals("sourceName") ||
-                    fieldName.equals("context") ||
-                    fieldName.equals("typeURI")) {
+            if (jsonIgnore != null) {
                 continue;
             }
 
@@ -126,12 +148,6 @@ public abstract class AggregatedResourceBody {
         object.fillWithItem(item, responseMapping, localDataValues);
         object.setDefaultValues(config);
 
-        if (item.containsKey("@context")) {
-            object.setContext(item.get("@context").toString());
-        }
-        if (item.containsKey("@type")) {
-            object.setTypeURI(item.get("@type").toString());
-        }
 
         return object;
     }
@@ -139,20 +155,28 @@ public abstract class AggregatedResourceBody {
     public void setDefaultValues(DatabaseConfig config) {
         AggregatedResourceBody newItem = this;
         if (newItem.getShortForm() == null || newItem.getShortForm().isEmpty()) {
-            String iri = newItem.getIri();
-            if (iri.contains("#")) {
-                newItem.setShortForm(iri.substring(iri.lastIndexOf("#") + 1));
-            } else if (iri.contains("/")) {
-                newItem.setShortForm(iri.substring(iri.lastIndexOf("/") + 1));
-            } else {
-                newItem.setShortForm(newItem.getIri());
-            }
+            newItem.setShortForm(getShortFormDefault());
         }
 
         newItem.setSource(config.getUrl());
         newItem.setBackendType(config.getDatabase());
         newItem.setSourceName(config.getName());
     }
+
+    private String getShortFormDefault() {
+        if (shortForm == null || shortForm.isEmpty()) {
+            if (iri.contains("#")) {
+                shortForm = iri.substring(iri.lastIndexOf("#") + 1);
+            } else if (iri.contains("/")) {
+                shortForm = iri.substring(iri.lastIndexOf("/") + 1);
+            } else {
+                shortForm = iri;
+            }
+        }
+        return shortForm;
+    }
+
+
 
     public Map<String, Object> toMap(boolean includeOriginalBody, boolean displayEmpty) {
         Map<String, Object> map = new HashMap<>();

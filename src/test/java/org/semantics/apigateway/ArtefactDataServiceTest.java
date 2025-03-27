@@ -1,7 +1,9 @@
 package org.semantics.apigateway;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.service.artefacts.ArtefactsDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,11 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
 
     @Autowired
     private ArtefactsDataService artefactsService;
+
+    @BeforeEach
+    public void setupClass() {
+        this.responseClass = RDFResource.class;
+    }
 
     @Test
     public void testGetTerm() {
@@ -103,8 +110,8 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         assertMapEquality(response, createOntoPortalInraeScheme());
     }
 
-    private Map<String,Object> createOls2NCBITaxonPropertyFixture(){
-        Map<String,Object> map = createOlsNCBITaxonPropertyFixture();
+    private Map<String, Object> createOls2NCBITaxonPropertyFixture() {
+        Map<String, Object> map = createOlsNCBITaxonPropertyFixture();
         map.put("backend_type", "ols2");
         map.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
         map.put("source_name", "ebi");
@@ -112,8 +119,9 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         map.put("source_url", null); //TODO: add source_url
         return map;
     }
-    private Map<String,Object> createOlsNCBITaxonPropertyFixture(){
-        Map<String,Object> map = new HashMap<>();
+
+    private Map<String, Object> createOlsNCBITaxonPropertyFixture() {
+        Map<String, Object> map = new HashMap<>();
         map.put("iri", "http://purl.obolibrary.org/obo/ncbitaxon#has_rank");
         map.put("backend_type", "ols");
         map.put("synonyms", Collections.emptyList());
@@ -121,7 +129,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         map.put("obsolete", false);
         map.put("source", "https://semanticlookup.zbmed.de/ols/api");
         map.put("label", "has_rank");
-        map.put("type", null);
+        map.put("type", null); // TODO: fix this
         map.put("descriptions", List.of("A metadata relation between a class and its taxonomic rank (eg species, family)",
                 "This is an abstract class for use with the NCBI taxonomy to name the depth of the node within the tree. The link between the node term and the rank is only visible if you are using an obo 1.3 aware browser/editor; otherwise this can be ignored"));
         map.put("version", null);
@@ -134,8 +142,8 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         return map;
     }
 
-    private Map<String,Object> createOls2NCBITaxonFixture(){
-        Map<String,Object> map = createNCBITaxonFixture();
+    private Map<String, Object> createOls2NCBITaxonFixture() {
+        Map<String, Object> map = createNCBITaxonFixture();
         map.put("backend_type", "ols2");
         map.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
         map.put("source_name", "ebi");
@@ -144,7 +152,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         return map;
     }
 
-    private Map<String, Object> createNCBITaxonFixture(){
+    private Map<String, Object> createNCBITaxonFixture() {
         Map<String, Object> result = new HashMap<>();
         result.put("iri", "http://purl.obolibrary.org/obo/NCBITaxon_2");
         result.put("backend_type", "ols");
@@ -203,17 +211,14 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("label", "activities");
         fixture.put("source", "https://agrovoc.fao.org/browse/rest/v1");
         fixture.put("source_name", "agrovoc");
-//        fixture.put("ontology", "agrovoc");
-//        fixture.put("descriptions", List.of("AGROVOC Multilingual Thesaurus"));
         fixture.put("synonyms", Collections.emptyList());
-        fixture.put("descriptions", null); //TODO: should be empty array
+        fixture.put("descriptions", null); //TODO: should be empty array or not empty
         fixture.put("created", null);
         fixture.put("modified", null);
         fixture.put("obsolete", false);
         fixture.put("source_url", null);
         fixture.put("version", null);
         fixture.put("ontology_iri", null); //TODO: fix this
-        fixture.put("type", null); // TODO implement default value logic
         fixture.put("short_form", "c_330834");
         fixture.put("ontology", null);
         return fixture;
@@ -333,7 +338,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         return fixture;
     }
 
-    private Map<String, Object> createGndTermFixture(){
+    private Map<String, Object> createGndTermFixture() {
         Map<String, Object> fixture = new HashMap<>();
         fixture.put("iri", "https://d-nb.info/gnd/4074335-4");
         fixture.put("backend_type", "gnd");
