@@ -24,7 +24,9 @@ public class JsonLdTransform {
         nestedData = nestedData.stream().peek(item -> {
             item.put("@context", context);
             item.put("@type", type); // TODO: make this a list
-            item.put("@id", item.get("iri"));
+            if(item.get("iri") != null){
+                item.put("@id", item.get("iri"));
+            }
         }).collect(Collectors.toList());
 
         return nestedData;

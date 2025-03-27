@@ -22,11 +22,6 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
     @Autowired
     private ArtefactsDataService artefactsService;
 
-    public ArtefactDataServiceTest() {
-        super();
-        this.responseClass = RDFResource.class;
-    }
-
     @BeforeEach
     public void setupClass() {
         this.responseClass = RDFResource.class;
