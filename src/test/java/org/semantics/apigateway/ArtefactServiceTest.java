@@ -35,7 +35,7 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
 
 
     @Test
-    public void testGetAretefactsSkosmos(){
+    public void testGetArtefactsSkosmos(){
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase("skosmos");
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor);
@@ -56,5 +56,14 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
         commonRequestParams.setDatabase("gnd");
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("gnd", commonRequestParams, apiAccessor);
         assertMapEquality(response, createGndFixture());
+    }
+
+
+    @Test
+    public void testGetArtefactJSkos() {
+        CommonRequestParams commonRequestParams = new CommonRequestParams();
+        commonRequestParams.setDatabase("jskos");
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("gender", commonRequestParams, apiAccessor);
+        assertMapEquality(response, createDanteFixture());
     }
 }
