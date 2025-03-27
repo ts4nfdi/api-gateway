@@ -70,17 +70,23 @@ public abstract class AbstractEndpointService {
         }
     }
 
-    protected Map<String, String> filterDatabases(String database, String endpoint) {
-        Map<String, String> apiUrls;
+    protected Map<String, UrlConfig> filterDatabases(String database, String endpoint) {
+        Map<String, UrlConfig> apiUrls;
         String[] databases = (database == null || database.isEmpty()) ? new String[0] : database.split(",");
 
         if (databases.length == 0) {
-            apiUrls = ontologyConfigs.stream().collect(Collectors.toMap(dbConfig -> dbConfig.getUrl(endpoint), DatabaseConfig::getApiKey));
+            apiUrls = ontologyConfigs.stream().collect(
+                    Collectors.toMap(
+                            dbConfig -> dbConfig.getUrl(endpoint), db -> db.getUrlConfig(endpoint)
+                    )
+            );
         } else {
 
             apiUrls = Arrays.stream(databases)
                     .flatMap(x -> ontologyConfigs.stream().filter(db -> db.getName().equals(x.toLowerCase()) || db.getType().equals(x.toLowerCase())))
-                    .collect(Collectors.toMap(dbConfig -> dbConfig.getUrl(endpoint), DatabaseConfig::getApiKey));
+                    .collect(
+                            Collectors.toMap(dbConfig -> dbConfig.getUrl(endpoint), db -> db.getUrlConfig(endpoint))
+                            );
 
             if (apiUrls.isEmpty()) {
                 String possibleValues = ontologyConfigs.stream().map(DatabaseConfig::getName).collect(Collectors.joining(","));
@@ -93,7 +99,7 @@ public abstract class AbstractEndpointService {
 
 
     protected AggregatedApiResponse filterPropertiesToDisplay(AggregatedApiResponse transformedResponse, CommonRequestParams commonRequestParams) {
-       List<String> displayFields = commonRequestParams.getDisplay();
+        List<String> displayFields = commonRequestParams.getDisplay();
         if (displayFields == null || displayFields.isEmpty()) {
             return transformedResponse;
         }
@@ -269,7 +275,7 @@ public abstract class AbstractEndpointService {
     }
 
     protected ApiAccessor initAccessor(String database, String endpoint, ApiAccessor accessor) {
-        Map<String, String> apiUrls = filterDatabases(database, endpoint);
+        Map<String, UrlConfig> apiUrls = filterDatabases(database, endpoint);
 
 
         if (accessor == null) {
@@ -323,12 +329,10 @@ public abstract class AbstractEndpointService {
     protected Object findUri(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor accessor) {
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
-
         accessor = initAccessor(database, endpoint, accessor);
 
-
-        id = isLocalData(id) ? id : id.toUpperCase(); // GND work only if lowercase
         List<String> ids = new ArrayList<>(List.of(id));
+
 
         if (uri != null && !uri.isEmpty()) {
             String encodedUrl = URLEncoder.encode(uri, StandardCharsets.UTF_8);
@@ -339,6 +343,7 @@ public abstract class AbstractEndpointService {
         try {
             return accessor.get(ids.toArray(new String[0]))
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
+                    .thenApply(x -> filterById(x, ids))
                     .thenApply(data -> selectResultsByDatabase(data, database))
                     .thenApply(x -> singleResponse(x, params))
                     .thenApply(x -> transformJsonLd(x, params))
@@ -350,5 +355,20 @@ public abstract class AbstractEndpointService {
         }
     }
 
+
+    private List<TransformedApiResponse> filterById(List<TransformedApiResponse> apiResponses, List<String> ids) {
+        if (ids == null || ids.size() > 1) {
+            return apiResponses;
+        }
+
+        String id = ids.get(0);
+        return apiResponses.stream()
+                .filter(x -> x.getCollection().stream()
+                        .anyMatch(y -> {
+                            return y.getShortForm().equalsIgnoreCase(id)
+                                    || y.getIri().equals(id);
+                        }))
+                .collect(Collectors.toList());
+    }
 
 }

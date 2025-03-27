@@ -1,0 +1,51 @@
+[
+  {
+    "uri": "http://uri.gbv.de/terminology/gender/",
+    "type": [
+      "http://www.w3.org/2004/02/skos/core#ConceptScheme",
+      "http://w3id.org/nkos/nkostype#ontology",
+      "http://w3id.org/nkos/nkostype#list"
+    ],
+    "@context": "https://gbv.github.io/jskos/context.json",
+    "created": "2016-12-13",
+    "issued": "2016-12-13",
+    "modified": "2022-11-21",
+    "publisher": [
+      {
+        "prefLabel": {
+          "de": "Verbundzentrale des GBV (VZG)"
+        }
+      }
+    ],
+    "namespace": "http://uri.gbv.de/terminology/gender/",
+    "license": [
+      {
+        "uri": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "notation": [
+          "CC0 1.0",
+          "CC0"
+        ],
+        "prefLabel": {
+          "de": "Creative Commons Public Domain Dedication",
+          "en": "Creative Commons Public Domain Dedication"
+        }
+      }
+    ],
+    "notation": [
+      "gender"
+    ],
+    "prefLabel": {
+      "de": "Geschlecht",
+      "en": "Gender"
+    },
+    "definition": {
+      "de": [
+        "Eine Liste von Geschlechtern"
+      ]
+    },
+    "languages": [
+      "de",
+      "en"
+    ]
+  }
+]

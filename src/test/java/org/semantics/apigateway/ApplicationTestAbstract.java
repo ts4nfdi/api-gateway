@@ -377,7 +377,7 @@ public abstract class ApplicationTestAbstract {
         assertThat(context.get("@base")).isEqualTo(base).isNotNull();
         assertThat(context.get("iri")).isEqualTo(defaultBaseUri+"iri");
         assertThat(context.get("backend_type")).isEqualTo(defaultBaseUri+"backend_type");
-        assertThat(context.get("short_form")).isEqualTo(defaultBaseUri+"short_form");
+        assertThat(context.get("short_form")).isEqualTo(namespaces.get("skos")+"notation");
         assertThat(context.get("label")).isEqualTo(namespaces.get("skos")+"prefLabel");
         assertThat(context.get("created")).isEqualTo(namespaces.get("dct")+"created");
     }
@@ -422,6 +422,37 @@ public abstract class ApplicationTestAbstract {
         fixture.put("subject", null);
         fixture.put("type", "http://www.w3.org/2002/07/owl#Ontology");
         fixture.put("modified", "Updated hourly");
+        return fixture;
+    }
+
+    protected Map<String, Object> createDanteFixture(){
+        Map<String, Object> fixture = new HashMap<>();
+        fixture.put("backend_type", "jskos");
+        fixture.put("keywords", null);
+        fixture.put("contactPoint", null);
+        fixture.put("language", List.of("de", "en"));
+        fixture.put("source", "https://api.dante.gbv.de");
+        fixture.put("type", "http://www.w3.org/2004/02/skos/core#ConceptScheme");
+        fixture.put("descriptions", List.of("Eine Liste von Geschlechtern"));
+        fixture.put("source_url", null);
+        fixture.put("modified", "2022-11-21");
+        fixture.put("source_name", "dante");
+        fixture.put("iri", "http://uri.gbv.de/terminology/gender/");
+        fixture.put("identifier", null);
+        fixture.put("hasFormat", null);
+        fixture.put("creator", null);
+        fixture.put("synonyms", null);
+        fixture.put("created", "2016-12-13");
+        fixture.put("landingPage", null);
+        fixture.put("label", "Gender");
+        fixture.put("version", null);
+        fixture.put("license", null);
+        fixture.put("short_form", "gender");
+        fixture.put("publisher", Collections.singletonList("Verbundzentrale des GBV (VZG)"));
+        fixture.put("accessRights", null);
+        fixture.put("status", null);
+
+
         return fixture;
     }
 }

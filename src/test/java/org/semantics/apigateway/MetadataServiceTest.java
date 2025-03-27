@@ -61,7 +61,7 @@ public class MetadataServiceTest extends ApplicationTestAbstract {
             }
 
             fields.forEach(field -> {
-                assertThat(response.containsKey(field.getName())).isTrue();
+                assertThat(response.containsKey(field.getName())).withFailMessage(field.getName() + " not found for database " + config.getDatabase() ).isTrue();
                 assertThat(response.get("iri")).isNotNull().isInstanceOf(String.class);
             });
         }

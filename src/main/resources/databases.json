@@ -42,6 +42,11 @@
       "type": "gnd",
       "name": "gnd",
       "url": "https://lobid.org"
+    },
+    {
+      "type": "jskos",
+      "name": "dante",
+      "url": "https://api.dante.gbv.de"
     }
   ]
 }
