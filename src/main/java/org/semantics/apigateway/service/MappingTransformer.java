@@ -55,7 +55,7 @@ public class MappingTransformer {
                             if (value == null) {
                                 break;
                             }
-                            if (value instanceof Map || (value.toString().startsWith("{") && value.toString().endsWith("}"))) {
+                            if (value instanceof Map) {
                                 value = ((Map<?, ?>) value).get(s);
                             } else if (value instanceof List) {
                                 value = listItemValueGetter(s, value);
