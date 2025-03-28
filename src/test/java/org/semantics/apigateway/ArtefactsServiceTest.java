@@ -59,10 +59,6 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         index = indexOfShortFormAndBackendType(responseList, "gender", "jskos");
         assertMapEquality(response, createDanteFixture(), size, index);
 
-
-        index = indexOfShortFormAndBackendType(responseList, "gender", "jskos");
-        assertMapEquality(response, createDanteFixture(), size, index);
-
         index = indexOfShortFormAndBackendType(responseList, "EuroVoc", "jskos2");
         assertMapEquality(response, createColiConc(), size, index);
 

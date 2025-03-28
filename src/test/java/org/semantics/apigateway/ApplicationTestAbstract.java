@@ -429,53 +429,6 @@ public abstract class ApplicationTestAbstract {
 
     protected Map<String, Object> createColiConc(){
         Map<String, Object> fixture = new HashMap<>();
-
-//        { "@id"="http://bartoc.org/en/node/15", "@type"="https://w3id.org/mod#SemanticArtefact", "accessRights"=null, "accrualMethod"=null, "accrualPeriodicity"=null, "backend_type"="jskos2", "bibliographicCitation"=null, "competencyQuestion"=null, "contactPoint"=null, "contributor"=["Mpaunescu", "Sabrina Gaab", "David-Benjamin Rohrer", "JakobVoss"], "coverage"=null, "created"="2013-08-14T14:05:00Z", "createdWith"=null, "creator"=null, "descriptions"=[""EuroVoc is a multilingual, multidisciplinary thesaurus covering the activities of the EU, the European Parliament in particular. It contains terms in 23 EU languages (Bulgarian, Croatian, Czech, Danish, Dutch, English, Estonian, Finnish, French, German, Greek, Hungarian, Italian, Latvian, Lithuanian, Maltese, Polish, Portuguese, Romanian, Slovak, Slovenian, Spanish and Swedish), plus in three languages of countries which are candidates for EU accession: македонски (mk), shqip (sq) and cрпски (sr).
-//
-//                It is a multi-disciplinary thesaurus covering fields which are sufficiently wide-ranging to encompass both Community and national points of view, with a certain emphasis on parliamentary activities. EuroVoc is a controlled set of vocabulary which can be used outside the EU institutions, particularly by parliaments.
-//
-//            The aim of the thesaurus is to provide the information management and dissemination services with a coherent indexing tool for the effective management of their documentary resources and to enable users to carry out documentary searches using controlled vocabulary.""], "hasFormat"=["http://bartoc.org/en/Format/Online",
-//                "http://bartoc.org/en/Format/PDF",
-//                "http://bartoc.org/en/Format/SKOS",
-//                "http://bartoc.org/en/Format/XML",
-//                "http://bartoc.org/en/Format/RDF",
-//                "http://bartoc.org/en/Format/Spreadsheet",
-//                "http://bartoc.org/en/Format/XSD",
-//                "http://bartoc.org/en/Format/Database"], "identifier"="http://publications.europa.eu/resource/dataset/eurovoc", "includedInDataCatalog"=["https://skosmos.bartoc.org/15/",
-//                "https://publications.europa.eu/webapi/rdf/sparql"], "iri"="http://bartoc.org/en/node/15", "keywords"=null, "label"="Multilingual Thesaurus of the European Union", "landingPage"=null, "language"=["bg",
-//                "ca",
-//                "hr",
-//                "cs",
-//                "da",
-//                "nl",
-//                "en",
-//                "et",
-//                "fi",
-//                "fr",
-//                "de",
-//                "el",
-//                "hu",
-//                "it",
-//                "lv",
-//                "lt",
-//                "mk",
-//                "mt",
-//                "pl",
-//                "pt",
-//                "ro",
-//                "sr",
-//                "sk",
-//                "sl",
-//                "es",
-//                "sv"], "license"="http://creativecommons.org/publicdomain/zero/1.0/", "modified"="2023-09-12T09:18:03.554Z", "obsolete"=false, "publisher"=["Publications Office of the European Union"], "rightsHolder"=null, "semanticArtefactRelation"=null, "short_form"="EuroVoc", "source"="https://coli-conc.gbv.de/api", "source_name"="coli-conc", "source_url"=null, "status"=null, "subject"=["http://dewey.info/class/0/e23/",
-//                "http://dewey.info/class/001/e23/",
-//                "http://eurovoc.europa.eu/4704",
-//                "http://eurovoc.europa.eu/1172",
-//                "http://eurovoc.europa.eu/77",
-//                "http://eurovoc.europa.eu/6894",
-//                "http://www.iskoi.org/ilc/2/class/V",
-//                "http://www.iskoi.org/ilc/2/class/tue"], "synonyms"=null, "type"="http://www.w3.org/2004/02/skos/core#ConceptScheme", "version"=null, "versionIRI"=null, "wasGeneratedBy"=null}
-
         fixture.put("iri", "http://bartoc.org/en/node/15");
         fixture.put("source_url", null);
         fixture.put("backend_type", "jskos2");
