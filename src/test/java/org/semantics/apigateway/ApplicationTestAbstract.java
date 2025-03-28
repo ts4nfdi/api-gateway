@@ -154,7 +154,7 @@ public abstract class ApplicationTestAbstract {
         fixture.put("semanticArtefactRelation", null);
         fixture.put("versionIRI", null);
         fixture.put("identifier", null);
-        fixture.put("hasFormat", null);
+        fixture.put("hasFormat", Collections.emptyList());
         fixture.put("competencyQuestion", null);
         fixture.put("creator", List.of(
                 "https://www.wikidata.org/entity/Q82151",
@@ -335,6 +335,7 @@ public abstract class ApplicationTestAbstract {
                 .findFirst()
                 .orElse(-1);
     }
+
     protected void assertMapEquality(AggregatedApiResponse actual, Map<String, Object> expected) {
         assertMapEquality(actual, expected, 1, 0);
 
@@ -344,6 +345,7 @@ public abstract class ApplicationTestAbstract {
         assertMapEquality(actual, expected, size, 0);
 
     }
+
     protected void assertMapEquality(AggregatedApiResponse actual, Map<String, Object> expected, int size, int index) {
         assertThat(actual).isNotNull();
         List<Map<String, Object>> expectedList = actual.getCollection();
@@ -375,11 +377,11 @@ public abstract class ApplicationTestAbstract {
         String base = jsonLdTransform.getBaseUri();
         Map<String, String> namespaces = jsonLdTransform.getNameSpaceMap();
         assertThat(context.get("@base")).isEqualTo(base).isNotNull();
-        assertThat(context.get("iri")).isEqualTo(defaultBaseUri+"iri");
-        assertThat(context.get("backend_type")).isEqualTo(defaultBaseUri+"backend_type");
-        assertThat(context.get("short_form")).isEqualTo(namespaces.get("skos")+"notation");
-        assertThat(context.get("label")).isEqualTo(namespaces.get("skos")+"prefLabel");
-        assertThat(context.get("created")).isEqualTo(namespaces.get("dct")+"created");
+        assertThat(context.get("iri")).isEqualTo(defaultBaseUri + "iri");
+        assertThat(context.get("backend_type")).isEqualTo(defaultBaseUri + "backend_type");
+        assertThat(context.get("short_form")).isEqualTo(namespaces.get("skos") + "notation");
+        assertThat(context.get("label")).isEqualTo(namespaces.get("skos") + "prefLabel");
+        assertThat(context.get("created")).isEqualTo(namespaces.get("dct") + "created");
     }
 
     protected Map<String, Object> createGndFixture() {
@@ -410,7 +412,7 @@ public abstract class ApplicationTestAbstract {
         fixture.put("contributor", null);
         fixture.put("rightsHolder", null);
         fixture.put("coverage", null);
-        fixture.put("hasFormat", "json;ttl;rdf/xml");
+        fixture.put("hasFormat", List.of("json", "ttl", "rdf/xml"));
         fixture.put("competencyQuestion", null);
         fixture.put("semanticArtefactRelation", null);
         fixture.put("wasGeneratedBy", null);
@@ -425,7 +427,152 @@ public abstract class ApplicationTestAbstract {
         return fixture;
     }
 
-    protected Map<String, Object> createDanteFixture(){
+    protected Map<String, Object> createColiConc(){
+        Map<String, Object> fixture = new HashMap<>();
+
+//        { "@id"="http://bartoc.org/en/node/15", "@type"="https://w3id.org/mod#SemanticArtefact", "accessRights"=null, "accrualMethod"=null, "accrualPeriodicity"=null, "backend_type"="jskos2", "bibliographicCitation"=null, "competencyQuestion"=null, "contactPoint"=null, "contributor"=["Mpaunescu", "Sabrina Gaab", "David-Benjamin Rohrer", "JakobVoss"], "coverage"=null, "created"="2013-08-14T14:05:00Z", "createdWith"=null, "creator"=null, "descriptions"=[""EuroVoc is a multilingual, multidisciplinary thesaurus covering the activities of the EU, the European Parliament in particular. It contains terms in 23 EU languages (Bulgarian, Croatian, Czech, Danish, Dutch, English, Estonian, Finnish, French, German, Greek, Hungarian, Italian, Latvian, Lithuanian, Maltese, Polish, Portuguese, Romanian, Slovak, Slovenian, Spanish and Swedish), plus in three languages of countries which are candidates for EU accession: македонски (mk), shqip (sq) and cрпски (sr).
+//
+//                It is a multi-disciplinary thesaurus covering fields which are sufficiently wide-ranging to encompass both Community and national points of view, with a certain emphasis on parliamentary activities. EuroVoc is a controlled set of vocabulary which can be used outside the EU institutions, particularly by parliaments.
+//
+//            The aim of the thesaurus is to provide the information management and dissemination services with a coherent indexing tool for the effective management of their documentary resources and to enable users to carry out documentary searches using controlled vocabulary.""], "hasFormat"=["http://bartoc.org/en/Format/Online",
+//                "http://bartoc.org/en/Format/PDF",
+//                "http://bartoc.org/en/Format/SKOS",
+//                "http://bartoc.org/en/Format/XML",
+//                "http://bartoc.org/en/Format/RDF",
+//                "http://bartoc.org/en/Format/Spreadsheet",
+//                "http://bartoc.org/en/Format/XSD",
+//                "http://bartoc.org/en/Format/Database"], "identifier"="http://publications.europa.eu/resource/dataset/eurovoc", "includedInDataCatalog"=["https://skosmos.bartoc.org/15/",
+//                "https://publications.europa.eu/webapi/rdf/sparql"], "iri"="http://bartoc.org/en/node/15", "keywords"=null, "label"="Multilingual Thesaurus of the European Union", "landingPage"=null, "language"=["bg",
+//                "ca",
+//                "hr",
+//                "cs",
+//                "da",
+//                "nl",
+//                "en",
+//                "et",
+//                "fi",
+//                "fr",
+//                "de",
+//                "el",
+//                "hu",
+//                "it",
+//                "lv",
+//                "lt",
+//                "mk",
+//                "mt",
+//                "pl",
+//                "pt",
+//                "ro",
+//                "sr",
+//                "sk",
+//                "sl",
+//                "es",
+//                "sv"], "license"="http://creativecommons.org/publicdomain/zero/1.0/", "modified"="2023-09-12T09:18:03.554Z", "obsolete"=false, "publisher"=["Publications Office of the European Union"], "rightsHolder"=null, "semanticArtefactRelation"=null, "short_form"="EuroVoc", "source"="https://coli-conc.gbv.de/api", "source_name"="coli-conc", "source_url"=null, "status"=null, "subject"=["http://dewey.info/class/0/e23/",
+//                "http://dewey.info/class/001/e23/",
+//                "http://eurovoc.europa.eu/4704",
+//                "http://eurovoc.europa.eu/1172",
+//                "http://eurovoc.europa.eu/77",
+//                "http://eurovoc.europa.eu/6894",
+//                "http://www.iskoi.org/ilc/2/class/V",
+//                "http://www.iskoi.org/ilc/2/class/tue"], "synonyms"=null, "type"="http://www.w3.org/2004/02/skos/core#ConceptScheme", "version"=null, "versionIRI"=null, "wasGeneratedBy"=null}
+
+        fixture.put("iri", "http://bartoc.org/en/node/15");
+        fixture.put("source_url", null);
+        fixture.put("backend_type", "jskos2");
+        fixture.put("short_form", "EuroVoc");
+        fixture.put("label", "Multilingual Thesaurus of the European Union");
+        fixture.put("source", "https://coli-conc.gbv.de/api");
+        fixture.put("source_name", "coli-conc");
+        fixture.put("descriptions", List.of("\"EuroVoc is a multilingual, multidisciplinary thesaurus covering the activities of the EU, the European Parliament in particular. It contains terms in 23 EU languages (Bulgarian, Croatian, Czech, Danish, Dutch, English, Estonian, Finnish, French, German, Greek, Hungarian, Italian, Latvian, Lithuanian, Maltese, Polish, Portuguese, Romanian, Slovak, Slovenian, Spanish and Swedish), plus in three languages of countries which are candidates for EU accession: македонски (mk), shqip (sq) and cрпски (sr).\n"+
+"\n"+
+"It is a multi-disciplinary thesaurus covering fields which are sufficiently wide-ranging to encompass both Community and national points of view, with a certain emphasis on parliamentary activities. EuroVoc is a controlled set of vocabulary which can be used outside the EU institutions, particularly by parliaments.\n"+
+                "\n"+
+"The aim of the thesaurus is to provide the information management and dissemination services with a coherent indexing tool for the effective management of their documentary resources and to enable users to carry out documentary searches using controlled vocabulary.\""));
+        fixture.put("type", "http://www.w3.org/2004/02/skos/core#ConceptScheme");
+        fixture.put("version", null);
+        fixture.put("publisher", List.of("Publications Office of the European Union"));
+        fixture.put("modified", "2023-09-12T09:18:03.554Z");
+        fixture.put("status", null);
+        fixture.put("accessRights", null);
+        fixture.put("accrualMethod", null);
+        fixture.put("accrualPeriodicity", null);
+        fixture.put("rightsHolder", null);
+        fixture.put("createdWith", null);
+        fixture.put("keywords", null);
+        fixture.put("contactPoint", null);
+        fixture.put("subject", List.of(
+                "http://dewey.info/class/0/e23/",
+                "http://dewey.info/class/001/e23/",
+                "http://eurovoc.europa.eu/4704",
+                "http://eurovoc.europa.eu/1172",
+                "http://eurovoc.europa.eu/77",
+                "http://eurovoc.europa.eu/6894",
+                "http://www.iskoi.org/ilc/2/class/V",
+                "http://www.iskoi.org/ilc/2/class/tue"
+        ));
+        fixture.put("obsolete", false);
+        fixture.put("language", List.of(
+                "bg",
+                "ca",
+                "hr",
+                "cs",
+                "da",
+                "nl",
+                "en",
+                "et",
+                "fi",
+                "fr",
+                "de",
+                "el",
+                "hu",
+                "it",
+                "lv",
+                "lt",
+                "mk",
+                "mt",
+                "pl",
+                "pt",
+                "ro",
+                "sr",
+                "sk",
+                "sl",
+                "es",
+                "sv"
+        ));
+        fixture.put("wasGeneratedBy", null);
+        fixture.put("contributor", List.of(
+                "Mpaunescu",
+                "Sabrina Gaab",
+                "David-Benjamin Rohrer",
+                "JakobVoss"
+        ));
+        fixture.put("semanticArtefactRelation", null);
+        fixture.put("versionIRI", null);
+        fixture.put("identifier", "http://publications.europa.eu/resource/dataset/eurovoc");
+        fixture.put("hasFormat", List.of(
+                "http://bartoc.org/en/Format/Online",
+                "http://bartoc.org/en/Format/PDF",
+                "http://bartoc.org/en/Format/SKOS",
+                "http://bartoc.org/en/Format/XML",
+                "http://bartoc.org/en/Format/RDF",
+                "http://bartoc.org/en/Format/Spreadsheet",
+                "http://bartoc.org/en/Format/XSD",
+                "http://bartoc.org/en/Format/Database"
+        ));
+        fixture.put("competencyQuestion", null);
+        fixture.put("creator", null);
+        fixture.put("synonyms", null);
+        fixture.put("created", "2013-08-14T14:05:00Z");
+        fixture.put("landingPage", null);
+        fixture.put("license", "http://creativecommons.org/publicdomain/zero/1.0/");
+        fixture.put("includedInDataCatalog", List.of(
+                "https://skosmos.bartoc.org/15/",
+                "https://publications.europa.eu/webapi/rdf/sparql"
+        ));
+
+        return fixture;
+    }
+    protected Map<String, Object> createDanteFixture() {
         Map<String, Object> fixture = new HashMap<>();
         fixture.put("backend_type", "jskos");
         fixture.put("keywords", null);
