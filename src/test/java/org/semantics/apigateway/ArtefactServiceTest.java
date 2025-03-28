@@ -66,4 +66,13 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("gender", commonRequestParams, apiAccessor);
         assertMapEquality(response, createDanteFixture());
     }
+
+
+    @Test
+    public void testGetArtefactJSkos2() {
+        CommonRequestParams commonRequestParams = new CommonRequestParams();
+        commonRequestParams.setDatabase("jskos2");
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("EuroVoc", commonRequestParams, apiAccessor);
+        assertMapEquality(response, createColiConc());
+    }
 }
