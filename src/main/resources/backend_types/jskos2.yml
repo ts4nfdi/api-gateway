@@ -52,6 +52,6 @@ endpoints:
       <<: *artefact
 
   concept_details:
-    path: /data?voc=%s&id=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    path: /concepts?voc=%s&uri=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
     responseMapping:
       <<: *searchResult
