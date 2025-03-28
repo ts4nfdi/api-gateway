@@ -47,6 +47,11 @@
       "type": "jskos",
       "name": "dante",
       "url": "https://api.dante.gbv.de"
+    },
+    {
+      "type": "jskos2",
+      "name": "coli-conc",
+      "url": "https://coli-conc.gbv.de/api"
     }
   ]
 }
