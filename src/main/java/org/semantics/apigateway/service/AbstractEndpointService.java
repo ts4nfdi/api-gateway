@@ -364,8 +364,7 @@ public abstract class AbstractEndpointService {
         String id = ids.get(0);
 
         return apiResponses.stream().map(x -> {
-                    List<AggregatedResourceBody> collection = x.getCollection();
-                    List<AggregatedResourceBody> filtered = collection.stream().filter(y -> y.getShortForm().equalsIgnoreCase(id) || y.getIri().equals(id)).toList();
+                    List<AggregatedResourceBody> filtered = x.getCollection().stream().filter(y -> y.getShortForm().equalsIgnoreCase(id) || y.getIri().equals(id)).toList();
                     x.setCollection(filtered);
                     return x;
                 })
