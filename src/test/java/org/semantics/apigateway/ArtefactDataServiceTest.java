@@ -59,6 +59,10 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         params.setDatabase("jskos");
         response = (AggregatedApiResponse) artefactsService.getArtefactTerm("test", "http://superdatensatz.gbv.de/abc", params, apiAccessor);
         assertMapEquality(response, createdDanteTermFixture());
+
+        params.setDatabase("jskos2");
+        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("DDC", "http://dewey.info/class/612.112/e23/", params, apiAccessor);
+        assertMapEquality(response, createColiConcTermFixture());
     }
 
     @Test
@@ -340,6 +344,30 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("ontology_iri", null);
         fixture.put("source_name", "agroportal");
         fixture.put("ontology", "https://data.agroportal.lirmm.fr/ontologies/INRAETHES");
+        return fixture;
+    }
+
+    private Map<String, Object> createColiConcTermFixture(){
+        Map<String, Object> fixture = new HashMap<>();
+        fixture.put("iri", "http://dewey.info/class/612.112/e23/");
+        fixture.put("backend_type", "jskos2");
+        fixture.put("created", "2000-02-02");
+        fixture.put("descriptions", Collections.emptyList());
+        fixture.put("label", "Leukozyten (Weiße Blutkörperchen)");
+        fixture.put("modified", "2018-02-15");
+        fixture.put("obsolete", false);
+        fixture.put("ontology", null);
+        fixture.put("ontology_iri", "http://bartoc.org/en/node/241");
+        fixture.put("short_form", "612.112");
+        fixture.put("source", "https://coli-conc.gbv.de/api");
+        fixture.put("source_name", "coli-conc");
+        fixture.put("source_url", "http://dewey.info/class/612.112/e23/");
+        fixture.put("synonyms", List.of("Leukozyten--Humanphysiologie",
+                "Weiße Blutkörperchen--Humanphysiologie",
+                "Leukozyten--Histologie (Mensch)",
+                "Weiße Blutkörperchen--Histologie (Mensch)"));
+        fixture.put("type", "http://www.w3.org/2004/02/skos/core#Concept");
+        fixture.put("version", null);
         return fixture;
     }
 

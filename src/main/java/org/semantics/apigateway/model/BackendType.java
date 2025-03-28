@@ -6,5 +6,6 @@ public enum BackendType {
     ols2,
     skosmos,
     gnd,
-    jskos;
+    jskos,
+    jskos2
 }

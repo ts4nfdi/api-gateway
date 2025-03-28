@@ -1,0 +1,38 @@
+[
+  {
+    "uri": "http://dewey.info/class/612.112/e23/",
+    "created": "2000-02-02",
+    "modified": "2018-02-15",
+    "altLabel": {
+      "de": [
+        "Leukozyten--Humanphysiologie",
+        "Weiße Blutkörperchen--Humanphysiologie",
+        "Leukozyten--Histologie (Mensch)",
+        "Weiße Blutkörperchen--Histologie (Mensch)"
+      ]
+    },
+    "notation": [
+      "612.112"
+    ],
+    "broader": [
+      {
+        "uri": "http://dewey.info/class/612.11/e23/"
+      }
+    ],
+    "inScheme": [
+      {
+        "uri": "http://bartoc.org/en/node/241"
+      }
+    ],
+    "prefLabel": {
+      "de": "Leukozyten (Weiße Blutkörperchen)"
+    },
+    "narrower": [
+      null
+    ],
+    "@context": "https://gbv.github.io/jskos/context.json",
+    "type": [
+      "http://www.w3.org/2004/02/skos/core#Concept"
+    ]
+  }
+]
