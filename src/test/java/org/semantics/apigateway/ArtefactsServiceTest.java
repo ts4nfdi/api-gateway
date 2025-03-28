@@ -35,7 +35,7 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
     public void testGetAllArtefacts() {
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefacts(new CommonRequestParams(), null, null, apiAccessor);
         int index;
-        int size = 1154;
+        int size = 1256;
         List<Map<String, Object>> responseList = response.getCollection();
 
 
@@ -59,8 +59,11 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         index = indexOfShortFormAndBackendType(responseList, "gender", "jskos");
         assertMapEquality(response, createDanteFixture(), size, index);
 
+        index = indexOfShortFormAndBackendType(responseList, "EuroVoc", "jskos2");
+        assertMapEquality(response, createColiConc(), size, index);
+
         assertThat(responseList.stream().map(x -> x.get("source_name")).distinct().sorted().toArray())
-                .isEqualTo(new String[]{"agroportal", "agrovoc", "dante", "ebi", "gnd", "tib"});
+                .isEqualTo(new String[]{"agroportal", "agrovoc", "coli-conc", "dante", "ebi", "gnd", "tib"});
     }
 
 

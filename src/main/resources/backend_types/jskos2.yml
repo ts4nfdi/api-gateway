@@ -1,0 +1,57 @@
+name: jskos2
+models:
+  artefact: &artefact
+    iri: uri
+    type: type
+    label: prefLabel->en|prefLabel->de|prefLabel->zxx
+    descriptions: definition->en|definition->de|definition->zxx|scopeNote->en|scopeNote->de|scopeNote->zxx
+    created: created|issued
+    modified: modified
+    publisher: publisher->prefLabel->en|publisher->prefLabel->de|publisher->prefLabel->zxx
+    hasLicense: license->uri
+    shortForm: notation
+    language: languages
+    contributor: contributor->prefLabel->en|contributor->prefLabel->de|contributor->prefLabel->zxx
+    identifier: identifier
+    license: license->uri
+    subject: subject->uri
+    hasFormat: FORMAT->uri
+    includedInDataCatalog: API->url
+
+
+  searchResult: &searchResult
+    iri: uri
+    type: type
+    label: prefLabel->en|prefLabel->de|prefLabel->zxx
+    synonyms: altLabel->en|altLabel->de|altLabel->zxx
+    descriptions: definition->en|definition->de|definition->zxx|scopeNote->en|scopeNote->de|scopeNote->zxx
+    shortForm: notation
+    ontology: inScheme->prefLabel->en|inScheme->prefLabel->de|inScheme->prefLabel->zxx
+    ontologyIri: inScheme->uri
+    sourceUrl: uri
+    obsolete: deprecated
+    created: created|issued|startDate
+    modified: modified|endDate
+
+
+endpoints:
+  search:
+    path: /concepts/search?search=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    responseMapping:
+      <<: *searchResult
+
+  resources:
+    path: /voc?limit=1000000
+    responseMapping:
+      <<: *artefact
+
+  resource_details:
+    caseInsensitive: false
+    path: /voc?limit=1000000&notation=%s # jskos v2 does not support filtering by notation only by URI
+    responseMapping:
+      <<: *artefact
+
+  concept_details:
+    path: /concepts?voc=%s&uri=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    responseMapping:
+      <<: *searchResult
