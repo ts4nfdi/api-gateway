@@ -86,7 +86,7 @@ public abstract class AbstractEndpointService {
                     .flatMap(x -> ontologyConfigs.stream().filter(db -> db.getName().equals(x.toLowerCase()) || db.getType().equals(x.toLowerCase())))
                     .collect(
                             Collectors.toMap(dbConfig -> dbConfig.getUrl(endpoint), db -> db.getUrlConfig(endpoint))
-                            );
+                    );
 
             if (apiUrls.isEmpty()) {
                 String possibleValues = ontologyConfigs.stream().map(DatabaseConfig::getName).collect(Collectors.joining(","));
@@ -362,13 +362,14 @@ public abstract class AbstractEndpointService {
         }
 
         String id = ids.get(0);
-        return apiResponses.stream()
-                .filter(x -> x.getCollection().stream()
-                        .anyMatch(y -> {
-                            return y.getShortForm().equalsIgnoreCase(id)
-                                    || y.getIri().equals(id);
-                        }))
-                .collect(Collectors.toList());
+
+        return apiResponses.stream().peek(x -> {
+                    List<AggregatedResourceBody> collection = x.getCollection();
+                    List<AggregatedResourceBody> filtered = collection.stream().filter(y -> y.getShortForm().equalsIgnoreCase(id) || y.getIri().equals(id)).toList();
+                    x.setCollection(filtered);
+                })
+                .filter(x -> !x.getCollection().isEmpty())
+                .toList();
     }
 
 }
