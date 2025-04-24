@@ -15,7 +15,7 @@ public class PaginatedResponse {
     public static int PAGE_SIZE = 50;
 
     @JsonIgnore
-    private String base = "https://example.org";
+    private String base = "https://base4nfdi.org/ts4nfdi";
 
     @JsonProperty("totalItems")
     private final Long totalCount;
@@ -25,7 +25,7 @@ public class PaginatedResponse {
     @JsonProperty("itemsPerPage")
     private final Integer pageSize = PAGE_SIZE;
 
-    private final List<Map<String, Object>> collection;
+    private final List<Map<String, Object>> member;
 
     @JsonProperty("@context")
     private final Map<String, Object> context = Map.of(
@@ -66,7 +66,7 @@ public class PaginatedResponse {
     public PaginatedResponse(AggregatedApiResponse source) {
         this.totalCount = source.getTotalCount();
         this.page = source.getPage();
-        this.collection = source.getCollection();
+        this.member = source.getCollection();
     }
 
     @JsonProperty("totalPages")
@@ -77,12 +77,12 @@ public class PaginatedResponse {
     public PaginatedResponse() {
         this.totalCount = 0L;
         this.page = 1;
-        this.collection = Collections.emptyList();
+        this.member = Collections.emptyList();
     }
 
     public PaginatedResponse(List<Map<String, Object>> collection, long totalCount, int page) {
         this.totalCount = totalCount;
         this.page = page;
-        this.collection = collection;
+        this.member = collection;
     }
 }
