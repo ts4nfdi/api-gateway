@@ -1,6 +1,7 @@
 package org.semantics.apigateway.api;
 
 import org.semantics.apigateway.config.ResponseMapping;
+import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.model.responses.PaginatedResponse;
 import org.semantics.apigateway.service.MappingTransformer;
 
@@ -43,6 +44,8 @@ public class ModTransformer implements DatabaseTransformer {
             MappingTransformer.itemValueSetter(transformedItem, transformedKey, value);
         });
 
+        transformedItem.put("URI", item.get("iri"));
+        transformedItem.put("@type", new SemanticArtefact().getTypeURI());
         return transformedItem;
     }
 
@@ -57,12 +60,13 @@ public class ModTransformer implements DatabaseTransformer {
         Map<String, Object> response = new HashMap<>();
         response.put("page", 1);
         response.put("pageCount", paginatedResponse.getTotalPages());
-        response.put("totalCount", transformedResults.size());
-        response.put("collection", transformedResults);
+        response.put("totalItems", transformedResults.size());
+        response.put("member", transformedResults);
         response.put("@context", paginatedResponse.getContext());
         response.put("@type", paginatedResponse.getType());
         response.put("links", paginatedResponse.view());
         response.put("@id", paginatedResponse.id());
+        response.put("view", paginatedResponse.view());
         return response;
     }
 }
