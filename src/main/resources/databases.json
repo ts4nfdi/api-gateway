@@ -52,6 +52,11 @@
       "type": "jskos2",
       "name": "coli-conc",
       "url": "https://coli-conc.gbv.de/api"
+    },
+    {
+      "type": "nerc",
+      "name": "nerc",
+      "url": "https://vocab.nerc.ac.uk"
     }
   ]
 }
