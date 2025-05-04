@@ -1,7 +1,8 @@
 package org.semantics.apigateway.api;
 
-import org.apache.jena.rdf.model.ResourceFactory;
 import org.semantics.apigateway.config.ResponseMapping;
+import org.semantics.apigateway.model.SemanticArtefact;
+import org.semantics.apigateway.service.MappingTransformer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,40 +17,22 @@ public class OlsTransformer implements DatabaseTransformer {
         }
 
         Map<String, Object> transformedItem = new HashMap<>();
+        if (mapping == null) {
+            return item;
+        }
 
-        // Check for null values before accessing properties
-        if (item.containsKey("iri") && item.get("iri") != null) {
-            transformedItem.put("iri", item.get("iri"));
-            // the value of the key @type in OntoPortal is saved as an IRI
-            if (item.containsKey("backend_type") && String.valueOf(item.get("backend_type")).equals("ontoportal")) {
-                transformedItem.put("short_form",
-                        ResourceFactory.createResource(String.valueOf(item.get("iri"))).getLocalName().toLowerCase());
+        mapping.inverseMapping().forEach((transformedKey, ourKey) -> {
+
+            Object value = item.get(ourKey);
+            if (value == null) {
+                value = item.get(toSnakeCaseRegex(ourKey));
             }
-        }
-        if (item.containsKey("label") && item.get("label") != null) {
-            transformedItem.put("label", item.get("label"));
-        }
-        if (item.containsKey("synonym") && item.get("synonym") != null) {
-            transformedItem.put("synonym", item.get("synonym"));
-        }
-        if (item.containsKey("short_form") && item.get("short_form") != null) {
-            transformedItem.put("short_form", item.get("short_form"));
-        }
-        if (item.containsKey("ontology") && item.get("ontology") != null) {
-             transformedItem.put("ontology_name", item.get("ontology"));
-        }
-        if (item.containsKey("description") && item.get("description") != null) {
-            transformedItem.put("description", item.get("description"));
-        }
-        if (item.containsKey("source") && item.get("source") != null) {
-            transformedItem.put("source", item.get("source"));
-        }
-        if (item.containsKey("backend_type") && item.get("backend_type") != null) {
-            transformedItem.put("backend_type", item.get("backend_type"));
-        }
-        if (item.containsKey("type") && item.get("type") != null) {
-            transformedItem.put("type", item.get("type"));
-        }
+
+            MappingTransformer.itemValueSetter(transformedItem, transformedKey, value);
+        });
+
+        transformedItem.put("URI", item.get("iri"));
+        transformedItem.put("@type", new SemanticArtefact().getTypeURI());
         return transformedItem;
     }
 

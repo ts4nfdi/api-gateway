@@ -10,19 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ModTransformer implements DatabaseTransformer {
-    public String toSnakeCaseRegex(String camelCase) {
-        if (camelCase == null || camelCase.isEmpty()) {
-            return camelCase;
-        }
-
-        // Replace uppercase letters preceded by a lowercase letter with '_' + lowercase
-
-        return camelCase.replaceAll(
-                "(?<=[a-z0-9])(?=[A-Z])",
-                "_"
-        ).toLowerCase();
-    }
-
 
     @Override
     public Map<String, Object> transformItem(Map<String, Object> item, ResponseMapping mapping) {
