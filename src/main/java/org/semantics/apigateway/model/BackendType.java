@@ -7,5 +7,7 @@ public enum BackendType {
     skosmos,
     gnd,
     jskos,
-    jskos2
+    jskos2,
+    mod,
+    nerc,
 }

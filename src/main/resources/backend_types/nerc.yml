@@ -1,0 +1,119 @@
+name: nerc
+models:
+  artefact: &artefact
+    label: title
+    iri: "@id"
+    type: "@type"
+    ontology: acronym
+    ontologyIri: URI
+    descriptions: description
+    sourceUrl: "@id"
+    created: released
+    modified: modificationDate
+    synonyms: alternative
+    version: version
+    shortForm: acronym
+    status: status
+    versionIRI: versionIRI
+    accessRights: accessRights
+    license: license
+    contactPoint: contactPoint
+    identifier: identifier
+    creator: creator
+    keywords: keyword
+    landingPage: landingPage
+    language: language
+    publisher: publisher
+    subject: subject
+    accrualMethod: accrualMethod
+    accrualPeriodicity: accrualPeriodicity
+    bibliographicCitation: bibliographicCitation
+    contributor: contributor
+    coverage: coverage
+    hasFormat: hasFormat
+    rightsHolder: rightsHolder
+    competencyQuestion: competencyQuestion
+    semanticArtefactRelation: semanticArtefactRelation
+    createdWith: createdWith
+    wasGeneratedBy: wasGeneratedBy
+    includedInDataCatalog: includedInDataCatalog
+  search: &searchResult
+    label: "sdo:name"
+    iri: "@id"
+    ontology: "sdo:inDefinedTermSet"
+    descriptions: definition
+    sourceUrl: links->ui
+    type: "@type"
+    obsolete: obsolete
+    created: created
+    modified: modified
+endpoints:
+  search:
+    path: /search/content?q=%s
+    responseMapping:
+      nestedJson: "@graph"
+      totalCount: totalItems
+      page: page
+      <<: *searchResult
+  resources:
+    path: /artefacts?pagesize=10000
+    responseMapping:
+      nestedJson: "@graph"
+      <<: *artefact
+
+  concept_details:
+    path: /artefacts/%s/concepts/%s?apikey=%s
+    responseMapping:
+      <<: *searchResult
+
+  resource_details:
+    path: /artefacts/%s?apikey=%s
+    responseMapping:
+      <<: *artefact
+
+  concepts:
+    path: /artefacts/%s/concepts?page=%s
+    responseMapping:
+      nestedJson: "@graph"
+      totalCount: totalItems
+      page: page
+      <<: *searchResult
+
+  properties:
+    path: /artefacts/%s/properties?page=%s
+    responseMapping:
+      nestedJson: member
+      totalCount: totalItems
+      page: page
+      <<: *searchResult
+
+  property_details:
+    path: /artefacts/%s/properties/%s
+    responseMapping:
+      <<: *searchResult
+
+  schemes:
+    path: /artefacts/%s/schemes?page=%s
+    responseMapping:
+      nestedJson: member
+      totalCount: totalItems
+      page: page
+      <<: *searchResult
+
+  scheme_details:
+    path: /artefacts/%s/schemes/%s
+    responseMapping:
+      <<: *searchResult
+
+  collections:
+    path: /artefacts/%s/collections?page=%s
+    responseMapping:
+      nestedJson: member
+      totalCount: totalItems
+      page: page
+      <<: *searchResult
+
+  collection_details:
+    path: /artefacts/%s/collections/%s
+    responseMapping:
+      <<: *searchResult
