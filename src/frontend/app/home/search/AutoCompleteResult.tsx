@@ -22,6 +22,21 @@ export function AutoCompleteResult({suggestion}: any) {
         }
     };
 
+    const getOntologyAcronym = (ontology: string, source: string) => {
+        let acronym = ontology?.split('/').pop();
+        if (acronym) {
+            acronym = acronym.split('#')[0];
+        }
+        if (acronym?.trim() === '') {
+            acronym = ontology;
+        }
+        if (acronym?.trim() === '') {
+            acronym = source;
+        }
+        
+        return acronym;
+    }
+
     return (
         <>
             <div className="flex flex-wrap justify-between items-center w-full" onClick={() => setDialogOpen(true)}>
@@ -38,7 +53,7 @@ export function AutoCompleteResult({suggestion}: any) {
                     <ChevronRight className="mx-1 h-4 w-4 text-gray-400"/>
 
                     <Badge className={getBadgeVariant('success')}>
-                        {suggestion.ontology.toUpperCase()}
+                        {getOntologyAcronym(suggestion.ontology)}
                     </Badge>
 
                     <ChevronRight className="mx-1 h-4 w-4 text-gray-400"/>
