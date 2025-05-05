@@ -1,17 +1,15 @@
 package org.semantics.apigateway.controller.ols;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.http.HttpStatus;
-import org.apache.jena.rdf.model.ResourceFactory;
+import jakarta.ws.rs.QueryParam;
+import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.TargetDbSchema;
+import org.semantics.apigateway.service.artefacts.ArtefactsDataService;
 import org.semantics.apigateway.service.search.SearchService;
-import org.springframework.http.ResponseEntity;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/ols")
@@ -19,9 +17,11 @@ import java.util.concurrent.CompletableFuture;
 public class OlsSearchController {
 
     private final SearchService searchService;
+    private final ArtefactsDataService artefactsService;
 
-    public OlsSearchController(SearchService searchService) {
+    public OlsSearchController(SearchService searchService, ArtefactsDataService artefactsService) {
         this.searchService = searchService;
+        this.artefactsService = artefactsService;
     }
 
     @CrossOrigin
@@ -38,30 +38,13 @@ public class OlsSearchController {
             query = "*";
         }
 
-        return searchService.performSearch(query + "*", allParams.get("database"), allParams.get("format"), "ols", false);
+        return searchService.performSearch(query + "*", allParams.get("database"),  "ols", false);
     }
 
     @CrossOrigin
     @GetMapping("/api/ontologies/{ontology}/terms")
-    public CompletableFuture<ResponseEntity<?>> getTermsInOLSTargetDBSchema(@PathVariable("ontology") String terminologyName, @RequestParam Map<String, String> allParams) {
-
-        CompletableFuture<Object> future = new CompletableFuture<>();
-        Map<String, Object> data = new HashMap<>();
-        data.put("short_form", ResourceFactory.createResource(String.valueOf(allParams.get("iri"))).getLocalName().toLowerCase());
-        data.put("ontology_name", terminologyName);
-        Map<String, List<Map>> terms = new HashMap<>();
-        List<Map> combinedData = new ArrayList<>();
-        combinedData.add(data);
-        terms.put("terms", combinedData);
-        Map<String, Object> response = new HashMap<>();
-        response.put("_embedded", terms);
-
-        future.complete(response);
-        return future.<ResponseEntity<?>>thenApply(ResponseEntity::ok).exceptionally(e -> {
-            if (e.getCause() instanceof IllegalArgumentException) {
-                return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body("Error: " + e.getCause().getMessage());
-            }
-            return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR).body("Error: An internal server error occurred");
-        });
+    public Object getTermsInOLSTargetDBSchema(@PathVariable String ontology, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
+        params.setTargetDbSchema(TargetDbSchema.ols);
+        return this.artefactsService.getArtefactTerm(ontology, iri, params,  null);
     }
 }

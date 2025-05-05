@@ -42,6 +42,21 @@
       "type": "gnd",
       "name": "gnd",
       "url": "https://lobid.org"
+    },
+    {
+      "type": "jskos",
+      "name": "dante",
+      "url": "https://api.dante.gbv.de"
+    },
+    {
+      "type": "jskos2",
+      "name": "coli-conc",
+      "url": "https://coli-conc.gbv.de/api"
+    },
+    {
+      "type": "nerc",
+      "name": "nerc",
+      "url": "https://vocab.nerc.ac.uk"
     }
   ]
 }

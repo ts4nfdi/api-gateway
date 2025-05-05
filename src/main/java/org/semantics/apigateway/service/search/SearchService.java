@@ -3,7 +3,6 @@ package org.semantics.apigateway.service.search;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.RDFResource;
-import org.semantics.apigateway.model.ResponseFormat;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.user.TerminologyCollection;
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 
 @Service
@@ -40,12 +38,10 @@ public class SearchService extends AbstractEndpointService {
         this.collectionService = collectionService;
     }
 
-    public Object performSearch(String query, String database, String format, String targetDbSchema, boolean showResponseConfiguration) {
-        ResponseFormat responseFormat = format == null ? ResponseFormat.json : ResponseFormat.valueOf(format);
+    public Object performSearch(String query, String database,  String targetDbSchema, boolean showResponseConfiguration) {
         TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase(database);
-        commonRequestParams.setFormat(responseFormat);
         commonRequestParams.setTargetDbSchema(targetDbSchemaEnum);
         commonRequestParams.setShowResponseConfiguration(showResponseConfiguration);
         return performSearch(query, commonRequestParams, null, null, null, null);
@@ -60,22 +56,21 @@ public class SearchService extends AbstractEndpointService {
             ApiAccessor accessor) {
         String endpoint = "search";
         String database = params.getDatabase();
-        ResponseFormat format = params.getFormat();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
-        boolean showResponseConfiguration = params.isShowResponseConfiguration();
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
         accessor = initAccessor(database, endpoint, accessor);
 
         try {
             return accessor.get(query)
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
-                    .thenApply(transformedData -> flattenResponseList(transformedData, showResponseConfiguration, collection))
+                    .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByTerminologies(terminologies, data))
                     .thenApply(data -> filterOutByCollection(collection, data))
                     .thenApply(data -> reIndexResults(query, data))
-                    .thenApply(data -> transformJsonLd(data, format))
+                    .thenApply(x -> transformJsonLd(x, params))
                     .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint)).get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
             return null;
         }
     }

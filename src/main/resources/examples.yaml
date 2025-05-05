@@ -6,6 +6,8 @@ data:
 
 metadata:
   "Artefacts from OLS v1": "/artefacts?database=OLS&showResponseConfiguration=true"
+  "Artefacts from NERC": "/artefacts?database=nerc&showResponseConfiguration=true"
+  "Artefacts from jskos": "/artefacts?database=jskos&showResponseConfiguration=true"
   "Artefacts from OntoPortal": "/artefacts?database=ontoportal&showResponseConfiguration=true"
   "Artefacts from EBI (ols v2)": "/artefacts?database=ebi&showResponseConfiguration=true"
   "Artefacts from SKOSMOS (AGROVOC)": "/artefacts?database=skosmos&showResponseConfiguration=true"
@@ -17,3 +19,5 @@ search:
   "Search \"cancer\" in EBI (ols v2)": "/search?query=cancer&database=ols2&showResponseConfiguration=true"
   "Search \"cancer\" in Ols v1": "/search?query=cancer&database=OLS&showResponseConfiguration=true"
   "Search \"honey\" in BiodivPortal": "/search?query=honey&database=biodivportal&showResponseConfiguration=true"
+  "Search \"chlorophyll\" in NERC": "/search?query=chlorophyll&database=nerc&showResponseConfiguration=true"
+  "Search \"chlorophyll\" in GND": "/search?query=chlorophyll&database=gnd&showResponseConfiguration=true"

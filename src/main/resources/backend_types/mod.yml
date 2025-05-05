@@ -1,14 +1,32 @@
 name: mod
+models:
+  search: &searchResult
+    label: prefLabel
+    iri: "@id"
+    synonyms: synonym
+    ontology: links->ontology
+    descriptions: definition
+    sourceUrl: links->ui
+    type: "@type"
+    obsolete: obsolete
+    created: created
+    modified: modified
+
 endpoints:
+  search:
+    path: /search?query=%s
+    responseMapping:
+      nestedJson: member
+      <<: *searchResult
   resources:
     path: /artefacts?pagesize=10000
     responseMapping:
-      nestedJson: collection
+      nestedJson: member
       label: title
       iri: "@id"
       type: "@type"
       ontology: acronym
-      ontologyIri: URI|uri
+      ontologyIri: URI
       descriptions: description
       sourceUrl: "@id"
       created: released
@@ -40,20 +58,10 @@ endpoints:
       createdWith: createdWith
       wasGeneratedBy: wasGeneratedBy
       includedInDataCatalog: includedInDataCatalog
-
   concept_details:
     path: ontologies/%s/classes/%s?apikey=%s
     responseMapping:
-      label: prefLabel
-      iri: "@id"
-      synonyms: synonym
-      ontology: links->ontology
-      descriptions: definition
-      sourceUrl: links->ui
-      type: "@type"
-      obsolete: obsolete
-      created: created
-      modified: modified
+      <<: *searchResult
   resource_details:
     path: ontologies/%s?apikey=%s
     responseMapping:
@@ -95,4 +103,63 @@ endpoints:
       wasGeneratedBy: wasGeneratedBy
       includedInDataCatalog: includedInDataCatalog
 
+  concepts:
+    path: /ontologies/%s/classes?page=%s
+    responseMapping:
+      nestedJson: member
+      totalCount: totalItems
+      page: page
+      <<: *searchResult
+
+  properties:
+    path: /ontologies/%s/properties?page=%s
+    responseMapping:
+      nestedJson: member
+      totalCount: totalItems
+      page: page
+      <<: *searchResult
+
+  property_details:
+    path: ontologies/%s/properties/%s
+    responseMapping:
+      <<: *searchResult
+
+  individuals:
+    path: /ontologies/%s/instances?page=%s
+    responseMapping:
+      nestedJson: member
+      totalCount: totalItems
+      page: page
+      <<: *searchResult
+
+  individual_details:
+    path: ontologies/%s/instances/%s
+    responseMapping:
+      <<: *searchResult
+
+  schemes:
+    path: ontologies/%s/schemes?page=%s
+    responseMapping:
+      nestedJson: member
+      totalCount: totalItems
+      page: page
+      <<: *searchResult
+
+  scheme_details:
+    path: ontologies/%s/schemes/%s
+    responseMapping:
+      <<: *searchResult
+
+  collections:
+    path: ontologies/%s/collections?page=%s
+    responseMapping:
+      nestedJson: member
+      totalCount: totalItems
+      page: page
+      <<: *searchResult
+
+  collection_details:
+    path: ontologies/%s/collections/%s
+    responseMapping:
+      <<: *searchResult
 

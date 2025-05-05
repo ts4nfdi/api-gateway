@@ -27,7 +27,7 @@ models:
     iri: id
     ontology: ontology_name
     synonyms: variantName
-    descriptions: biographicalOrHistoricalInformation
+    descriptions: biographicalOrHistoricalInformation|professionOrOccupation->label|firstComposer->label|organizerOrHost->label
     shortForm: gndIdentifier
     sourceUrl: id
     type: type
@@ -49,6 +49,7 @@ endpoints:
       <<: *artefact
 
   concept_details:
+    caseInsensitive: false
     path: /%s/%s.json
     responseMapping:
       <<: *searchResult

@@ -1,0 +1,51 @@
+name: jskos
+models:
+  artefact: &artefact
+    iri: uri
+    type: type
+    label: prefLabel->en|prefLabel->de|prefLabel->zxx
+    descriptions: definition->en|definition->de|definition->zxx|scopeNote->en|scopeNote->de|scopeNote->zxx
+    created: created|issued
+    modified: modified
+    publisher: publisher->prefLabel->en|publisher->prefLabel->de|publisher->prefLabel->zxx
+    hasLicense: license->uri
+    shortForm: notation
+    language: languages
+
+
+  searchResult: &searchResult
+    iri: uri
+    type: type
+    label: prefLabel->en|prefLabel->de|prefLabel->zxx
+    synonyms: altLabel->en|altLabel->de|altLabel->zxx
+    descriptions: definition->en|definition->de|definition->zxx|scopeNote->en|scopeNote->de|scopeNote->zxx
+    shortForm: notation
+    ontology: inScheme->prefLabel->en|inScheme->prefLabel->de|inScheme->prefLabel->zxx
+    ontologyIri: inScheme->uri
+    sourceUrl: uri
+    obsolete: deprecated
+    created: created|issued|startDate
+    modified: modified|endDate
+
+
+endpoints:
+  search:
+    path: /search?query=%s&properties=+notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    responseMapping:
+      <<: *searchResult
+
+  resources:
+    path: /voc
+    responseMapping:
+      <<: *artefact
+
+  resource_details:
+    caseInsensitive: false
+    path: /voc/%s
+    responseMapping:
+      <<: *artefact
+
+  concept_details:
+    path: /data?voc=%s&id=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    responseMapping:
+      <<: *searchResult

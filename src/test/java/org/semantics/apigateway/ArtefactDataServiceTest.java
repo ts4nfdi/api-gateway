@@ -1,7 +1,9 @@
 package org.semantics.apigateway;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.service.artefacts.ArtefactsDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,11 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
 
     @Autowired
     private ArtefactsDataService artefactsService;
+
+    @BeforeEach
+    public void setupClass() {
+        this.responseClass = RDFResource.class;
+    }
 
     @Test
     public void testGetTerm() {
@@ -47,6 +54,15 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         params.setDatabase("gnd");
         response = (AggregatedApiResponse) artefactsService.getArtefactTerm("gnd", "4074335-4", params, apiAccessor);
         assertMapEquality(response, createGndTermFixture());
+            params = new CommonRequestParams();
+
+        params.setDatabase("jskos");
+        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("test", "http://superdatensatz.gbv.de/abc", params, apiAccessor);
+        assertMapEquality(response, createdDanteTermFixture());
+
+        params.setDatabase("jskos2");
+        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("DDC", "http://dewey.info/class/612.112/e23/", params, apiAccessor);
+        assertMapEquality(response, createColiConcTermFixture());
     }
 
     @Test
@@ -103,8 +119,8 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         assertMapEquality(response, createOntoPortalInraeScheme());
     }
 
-    private Map<String,Object> createOls2NCBITaxonPropertyFixture(){
-        Map<String,Object> map = createOlsNCBITaxonPropertyFixture();
+    private Map<String, Object> createOls2NCBITaxonPropertyFixture() {
+        Map<String, Object> map = createOlsNCBITaxonPropertyFixture();
         map.put("backend_type", "ols2");
         map.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
         map.put("source_name", "ebi");
@@ -112,8 +128,9 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         map.put("source_url", null); //TODO: add source_url
         return map;
     }
-    private Map<String,Object> createOlsNCBITaxonPropertyFixture(){
-        Map<String,Object> map = new HashMap<>();
+
+    private Map<String, Object> createOlsNCBITaxonPropertyFixture() {
+        Map<String, Object> map = new HashMap<>();
         map.put("iri", "http://purl.obolibrary.org/obo/ncbitaxon#has_rank");
         map.put("backend_type", "ols");
         map.put("synonyms", Collections.emptyList());
@@ -121,7 +138,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         map.put("obsolete", false);
         map.put("source", "https://semanticlookup.zbmed.de/ols/api");
         map.put("label", "has_rank");
-        map.put("type", null);
+        map.put("type", null); // TODO: fix this
         map.put("descriptions", List.of("A metadata relation between a class and its taxonomic rank (eg species, family)",
                 "This is an abstract class for use with the NCBI taxonomy to name the depth of the node within the tree. The link between the node term and the rank is only visible if you are using an obo 1.3 aware browser/editor; otherwise this can be ignored"));
         map.put("version", null);
@@ -134,8 +151,8 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         return map;
     }
 
-    private Map<String,Object> createOls2NCBITaxonFixture(){
-        Map<String,Object> map = createNCBITaxonFixture();
+    private Map<String, Object> createOls2NCBITaxonFixture() {
+        Map<String, Object> map = createNCBITaxonFixture();
         map.put("backend_type", "ols2");
         map.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
         map.put("source_name", "ebi");
@@ -144,7 +161,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         return map;
     }
 
-    private Map<String, Object> createNCBITaxonFixture(){
+    private Map<String, Object> createNCBITaxonFixture() {
         Map<String, Object> result = new HashMap<>();
         result.put("iri", "http://purl.obolibrary.org/obo/NCBITaxon_2");
         result.put("backend_type", "ols");
@@ -203,17 +220,14 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("label", "activities");
         fixture.put("source", "https://agrovoc.fao.org/browse/rest/v1");
         fixture.put("source_name", "agrovoc");
-//        fixture.put("ontology", "agrovoc");
-//        fixture.put("descriptions", List.of("AGROVOC Multilingual Thesaurus"));
         fixture.put("synonyms", Collections.emptyList());
-        fixture.put("descriptions", null); //TODO: should be empty array
+        fixture.put("descriptions", null); //TODO: should be empty array or not empty
         fixture.put("created", null);
         fixture.put("modified", null);
         fixture.put("obsolete", false);
         fixture.put("source_url", null);
         fixture.put("version", null);
         fixture.put("ontology_iri", null); //TODO: fix this
-        fixture.put("type", null); // TODO implement default value logic
         fixture.put("short_form", "c_330834");
         fixture.put("ontology", null);
         return fixture;
@@ -333,7 +347,52 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         return fixture;
     }
 
-    private Map<String, Object> createGndTermFixture(){
+    private Map<String, Object> createColiConcTermFixture(){
+        Map<String, Object> fixture = new HashMap<>();
+        fixture.put("iri", "http://dewey.info/class/612.112/e23/");
+        fixture.put("backend_type", "jskos2");
+        fixture.put("created", "2000-02-02");
+        fixture.put("descriptions", Collections.emptyList());
+        fixture.put("label", "Leukozyten (Weiße Blutkörperchen)");
+        fixture.put("modified", "2018-02-15");
+        fixture.put("obsolete", false);
+        fixture.put("ontology", null);
+        fixture.put("ontology_iri", "http://bartoc.org/en/node/241");
+        fixture.put("short_form", "612.112");
+        fixture.put("source", "https://coli-conc.gbv.de/api");
+        fixture.put("source_name", "coli-conc");
+        fixture.put("source_url", "http://dewey.info/class/612.112/e23/");
+        fixture.put("synonyms", List.of("Leukozyten--Humanphysiologie",
+                "Weiße Blutkörperchen--Humanphysiologie",
+                "Leukozyten--Histologie (Mensch)",
+                "Weiße Blutkörperchen--Histologie (Mensch)"));
+        fixture.put("type", "http://www.w3.org/2004/02/skos/core#Concept");
+        fixture.put("version", null);
+        return fixture;
+    }
+
+    private Map<String, Object> createdDanteTermFixture(){
+        Map<String, Object> fixture = new HashMap<>();
+        fixture.put("iri", "http://superdatensatz.gbv.de/abc");
+        fixture.put("backend_type", "jskos");
+        fixture.put("created", "2017-01-06");
+        fixture.put("descriptions", List.of("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."));
+        fixture.put("label", "superdatensatz (de)");
+        fixture.put("modified", "2024-09-21");
+        fixture.put("obsolete", false);
+        fixture.put("ontology", "Testpool");
+        fixture.put("ontology_iri", "http://uri.gbv.de/terminology/test/");
+        fixture.put("short_form", "AX_Grenzpunkt:abmarkung_Marke:2131");
+        fixture.put("source", "https://api.dante.gbv.de");
+        fixture.put("source_name", "dante");
+        fixture.put("source_url", "http://superdatensatz.gbv.de/abc");
+        fixture.put("synonyms", List.of("superdatensatz (en) (alt)"));
+        fixture.put("type", "http://www.w3.org/2004/02/skos/core#Concept");
+        fixture.put("version", null);
+
+        return fixture;
+    }
+    private Map<String, Object> createGndTermFixture() {
         Map<String, Object> fixture = new HashMap<>();
         fixture.put("iri", "https://d-nb.info/gnd/4074335-4");
         fixture.put("backend_type", "gnd");

@@ -17,4 +17,5 @@ import java.util.Map;
 public class EndpointConfig {
     private String path;
     private Map<String, String> responseMapping;
+    private boolean caseInsensitive = true;
 }
