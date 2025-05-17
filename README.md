@@ -15,7 +15,7 @@ A standout feature of this service is its dynamic nature, governed by a JSON con
 - **Schema Transformation:** Convert search responses into specific TS output formats, facilitating integration with existing systems.
 
   
-  ![api gateway diagram](./api-gateway.png)
+  ![api gateway diagram](./documentation/assets/architecture.png)
 
 ## Installation
 
@@ -23,59 +23,17 @@ To set up the API-Gateway, follow these steps:
 
 1. Clone the repository to your local machine:
    `git clone https://github.com/ts4nfdi/api-gateway.git`
-2. Create an account at [biodivportal.org](https://biodivportal.gfbio.org/>)
-3. Go to your account settings 
-4. Paste the API Key into the apiKey field in the /src/main/resources/response-config.json file
 2. In your command line navigate to the project directory:
    `cd api-gateway`
-3. Build and compile the service:
-   `./gradlew clean build`
-4. Run the service:
-   `java -jar ./build/libs/api-gateway-1.0-SNAPSHOT.jar`
-5. Alternative run with Docker (requirement: have [Docker](https://docs.docker.com/get-docker/) installed and running)
-   `docker-compose --profile all up --build`. This can be configured with environment variables:
-   - `WEBPORT` where the service will be available at (8080 by default)
-
+3. Run docker-compose to start the API Gateway and its dependencies:
+   `docker compose --profile all up --build`
 The service will be accessible at `http://localhost:8080/api-gateway` by default.
 
 ## Extensibility and Customization
 
 The service's dynamic configuration approach allows for straightforward extensibility. Adding a new TS or modifying an existing one involves updating the JSON configuration file with the relevant details and mappings. This flexibility ensures that the service can adapt to evolving data sources and requirements without the need for significant code changes.
 
-### Customizing TS Output Format Mapping
-
-The mapping from the JSON response to a TS output format is hardcoded in the `DynDatabaseTransform.java` class. You can customize this mapping by following these steps:
-
-1. Locate the `DynDatabaseTransform.java` class in your project directory.
-
-2. Open the class and review the existing mapping logic. You'll find code sections responsible for mapping JSON data to the TS specific output format.
-
-3. Modify the mapping logic as needed to align with your specific TS schema requirements.
-
-4. Save your changes.
-
-5. Rebuild and compile the service using the following commands:
-   `./gradlew clean build`
-
-6. Restart the service:
-   `java -jar ./build/libs/api-gateway-1.0-SNAPSHOT.jar`
-
-Your custom TS schema mapping will now be applied to the search responses.
-
-Remember to test your changes thoroughly to ensure that the mapping accurately reflects your TS schema and that the service functions as expected.
-
-### Adding a New TS Schema
-
-To integrate a new TS schema into the API-Gateway, it's essential to not only update the JSON configuration but also to implement a new interface for handling the schema mapping. This ensures that the service can effectively communicate and translate data between the new TS and the existing system.
-
 #### Steps to Integrate a New TS Schema:
 
-1. **Update JSON Configuration:** First, update the JSON configuration file to include the new TS. This involves specifying the TS connection details and any specific parameters required for the new terminology source.
-
-2. **Modify `DatabaseTransformer` Interface:** Implement modifications in the `DatabaseTransformer` interface located in the `org.semantics.api-gateway.api` package. This interface is crucial for defining the methods used to transform and construct responses from the database items. 
-
-3. **Create a New Transformer Class:** Develop a new class that implements the `DatabaseTransformer` interface, similar to the existing `OlsTransformer` class. This class should contain the logic specific to the new database schema, handling how data items are transformed and how responses are constructed.
-
-4. **Integrate and Test:** After creating the new transformer class, integrate it into the service's workflow. Ensure that the service correctly utilizes this new class when interacting with the added database schema. Thoroughly test the implementation to verify that the mapping and data transformation are accurate and effective.
-
-5. **Documentation:** Document the specifics of the new transformer class and any relevant information about the new database schema in the project's documentation. This will assist future developers in understanding and maintaining the extended functionality.
+1. **Add a new Mapping Configuration file:** Create a new YAML file in the `src/main/resources/backend_types` directory. This file should define the mapping between the new TS schema and the API Gateway schema. See the existing mapping files for examples of how to structure this file.
+2. **Add your database URL:** edit the `src/main/resources/databases.json` file to add the new TS database URL. This file contains the connection details for all the TS databases that the API Gateway will connect to.
