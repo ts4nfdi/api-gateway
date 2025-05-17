@@ -23,19 +23,10 @@ To set up the API-Gateway, follow these steps:
 
 1. Clone the repository to your local machine:
    `git clone https://github.com/ts4nfdi/api-gateway.git`
-2. Create an account at [biodivportal.org](https://biodivportal.gfbio.org/>)
-3. Go to your account settings 
-4. Paste the API Key into the apiKey field in the /src/main/resources/response-config.json file
 2. In your command line navigate to the project directory:
    `cd api-gateway`
-3. Build and compile the service:
-   `./gradlew clean build`
-4. Run the service:
-   `java -jar ./build/libs/api-gateway-1.0-SNAPSHOT.jar`
-5. Alternative run with Docker (requirement: have [Docker](https://docs.docker.com/get-docker/) installed and running)
-   `docker-compose --profile all up --build`. This can be configured with environment variables:
-   - `WEBPORT` where the service will be available at (8080 by default)
-
+3. Run docker-compose to start the API Gateway and its dependencies:
+   `docker compose --profile all up --build`
 The service will be accessible at `http://localhost:8080/api-gateway` by default.
 
 ## Extensibility and Customization

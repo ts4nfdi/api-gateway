@@ -22,3 +22,9 @@ Dockerfile
 *.test.ts
 *.spec.js
 *.spec.ts
+
+build
+gradle
+.idea
+.github
+.gradle
