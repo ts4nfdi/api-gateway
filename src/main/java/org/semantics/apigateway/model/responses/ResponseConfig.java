@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.semantics.apigateway.model.user.TerminologyCollection;
+import org.semantics.apigateway.collections.models.TerminologyCollection;
 import org.semantics.apigateway.service.StatusService;
 
 import java.util.ArrayList;
