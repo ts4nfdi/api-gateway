@@ -228,24 +228,48 @@ public abstract class AbstractEndpointService {
         return aggregatedApiResponse;
     }
 
-    protected AggregatedApiResponse filterOutByTerminologies(String[] terminologies, AggregatedApiResponse data) {
-        if (terminologies == null || terminologies.length == 0) {
+    protected AggregatedApiResponse filterOutByTerminologies
+            (List<CollectionResource> terminologies, AggregatedApiResponse data) {
+        if (terminologies == null || terminologies.isEmpty() || data == null || data.getCollection() == null) {
             return data;
         }
 
         List<Map<String, Object>> collection = data.getCollection();
         collection = collection.stream()
-                .filter(map -> {
-                    String terminology = (String) map.get("ontology");
-                    return Arrays.stream(terminologies).map(String::toLowerCase).toList().contains(terminology.toLowerCase());
-                })
-                .collect(Collectors.toList());
+                .filter(map -> terminologies.stream().anyMatch(terminology ->
+                        matchesTerminology(map, terminology)))
+                .toList();
         data.setCollection(collection);
 
         return data;
     }
 
-    protected AggregatedApiResponse filterOutByCollection(TerminologyCollection terminologiesCollection, AggregatedApiResponse data) {
+    private boolean matchesTerminology(Map<String, Object> map, CollectionResource terminology) {
+        String sourceBaseUrl = (String) map.get("source");
+        if (!terminology.getSource().equals(sourceBaseUrl)) {
+            return false;
+        }
+
+        String ontologyIri = (String) map.get("ontology_iri");
+        String ontology = (String) map.get("ontology");
+        String shortForm = (String) map.get("short_form");
+
+
+        String terminologyUri = terminology.getUri();
+        if (terminologyUri != null && terminologyUri.equals(ontologyIri)) {
+            return true;
+        }
+
+        String terminologyLabel = terminology.getLabel();
+        if (terminologyLabel != null && terminologyLabel.equalsIgnoreCase(ontology)) {
+            return true;
+        }
+
+        return shortForm != null && shortForm.equalsIgnoreCase(terminology.getLabel());
+    }
+
+    protected AggregatedApiResponse filterOutByCollection(TerminologyCollection
+                                                                  terminologiesCollection, AggregatedApiResponse data) {
         if (terminologiesCollection == null) {
             return data;
         }
@@ -253,7 +277,8 @@ public abstract class AbstractEndpointService {
         return filterOutByTerminologies(terminologiesCollection.getTerminologies(), data);
     }
 
-    protected AggregatedApiResponse paginate(TransformedApiResponse response, CommonRequestParams commonRequestParams, int page) {
+    protected AggregatedApiResponse paginate(TransformedApiResponse response, CommonRequestParams
+            commonRequestParams, int page) {
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
         aggregatedApiResponse.setPaginate(true);
 
@@ -289,7 +314,7 @@ public abstract class AbstractEndpointService {
     }
 
     protected ApiAccessor initAccessor(String database, String endpoint, ApiAccessor accessor) {
-        Map<String, UrlConfig> apiUrls = filterDatabases(database, endpoint);
+        Map<String, UrlConfig> apiUrls = buildUrls(database, endpoint);
 
 
         if (accessor == null) {
@@ -301,7 +326,37 @@ public abstract class AbstractEndpointService {
         return accessor;
     }
 
-    public TransformedApiResponse selectResultsByDatabase(List<TransformedApiResponse> apiResponse, String database) {
+    protected ApiAccessor applyCollection(ApiAccessor accessor, TerminologyCollection collection, String endpoint) {
+        if (collection == null) {
+            return accessor;
+        }
+        Map<String, UrlConfig> urls = new HashMap<>();
+        Map<String, List<CollectionResource>> sources = collection.getTerminologies().
+                stream().collect(Collectors.groupingBy(CollectionResource::getSource));
+
+        sources.forEach((source, resources) -> {
+            DatabaseConfig config = this.configurationLoader.getConfigByBaseUrl(source);
+            String collectionKey = config.getResponseMapping(endpoint).getCollectionFilter();
+            String url = config.getUrl(endpoint);
+            String terminologies = resources.stream()
+                    .map(CollectionResource::getLabel)
+                    .collect(Collectors.joining(","));
+
+            if (url.contains("?") && collectionKey != null) {
+                url = url + "&" + collectionKey + "=" + terminologies;
+            } else if (collectionKey != null) {
+                url = url + "?" + collectionKey + "=" + terminologies;
+            }
+
+            urls.put(url, config.getUrlConfig(endpoint));
+        });
+        accessor.setUrls(urls);
+        return accessor;
+    }
+
+
+    public TransformedApiResponse selectResultsByDatabase(List<TransformedApiResponse> apiResponse, String
+            database) {
         TransformedApiResponse a = null;
         // TODO: update this to merge the results instead of returning only one the first one
 
