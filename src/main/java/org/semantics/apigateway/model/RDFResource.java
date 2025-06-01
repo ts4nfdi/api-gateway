@@ -18,4 +18,12 @@ public class RDFResource extends AggregatedResourceBody {
     public String getTypeURI(){
         return "http://www.w3.org/2000/01/rdf-schema#Resource";
     }
+
+
+    public String getOntology() {
+        if (ontology == null) {
+            ontology = ontologyIri;
+        }
+        return ontology.substring(ontology.lastIndexOf('/') + 1);
+    }
 }
