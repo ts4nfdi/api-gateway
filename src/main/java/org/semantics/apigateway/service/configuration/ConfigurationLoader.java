@@ -19,6 +19,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +116,21 @@ public class ConfigurationLoader {
     public DatabaseConfig getConfigByUrl(String url, String endpoint) {
         return databaseConfigs.stream()
                 .filter(c -> c.getUrl(endpoint).equalsIgnoreCase(url))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Config not found for URL: " + url));
+    }
+
+    public DatabaseConfig getConfigByBaseUrl(String url) {
+        return databaseConfigs.stream()
+                .filter(c -> {
+                    try {
+                        URL configUrl = new URL(c.getUrl());
+                        return configUrl.getHost().equalsIgnoreCase(new URL(url).getHost());
+                    } catch (Exception e) {
+                        logger.error("Error parsing URL: {}", e.getMessage(), e);
+                        return false;
+                    }
+                })
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Config not found for URL: " + url));
     }
