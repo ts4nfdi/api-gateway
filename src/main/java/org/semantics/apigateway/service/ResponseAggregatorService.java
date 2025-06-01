@@ -23,7 +23,7 @@ public class ResponseAggregatorService {
         this.clazz = clazz;
     }
 
-    public TransformedApiResponse dynTransformResponse(ApiResponse response, DatabaseConfig config, String endpoint, boolean paginate) {
+    public TransformedApiResponse transformResponse(ApiResponse response, DatabaseConfig config, String endpoint, boolean paginate) {
         TransformedApiResponse newResponse = new TransformedApiResponse();
         newResponse.setOriginalResponse(response);
 

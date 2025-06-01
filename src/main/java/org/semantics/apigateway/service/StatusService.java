@@ -53,6 +53,7 @@ public class StatusService {
 
     public Map<?, ?> getResultFromUrlReactive(String url) {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        String finalUrl = url;
         return webClient.get()
                 .uri(getBaseUrl(request) + url)
                 .retrieve()
@@ -61,7 +62,10 @@ public class StatusService {
                     try {
                         sink.next(new ObjectMapper().readValue(json, Map.class));
                     } catch (Exception e) {
-                        sink.error(new RuntimeException("Failed to parse JSON", e));
+                        sink.error(new RuntimeException(
+                                "Failed to parse JSON for URL: " +  getBaseUrl(request) + finalUrl + "\n" +
+                                        "Error: " + e.getMessage()
+                                , e));
                     }
                 }).block();
     }
