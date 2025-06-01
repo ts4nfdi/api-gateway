@@ -1,10 +1,11 @@
 package org.semantics.apigateway.service;
 
+import org.semantics.apigateway.collections.models.CollectionResource;
+import org.semantics.apigateway.collections.models.TerminologyCollection;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.*;
-import org.semantics.apigateway.model.user.TerminologyCollection;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,17 +13,20 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Service
 public abstract class AbstractEndpointService {
 
-    private final ConfigurationLoader configurationLoader;
+    protected final ConfigurationLoader configurationLoader;
     private final ResponseTransformerService responseTransformerService;
     private final CacheManager cacheManager;
     private final JsonLdTransform jsonLdTransform;
@@ -70,35 +74,39 @@ public abstract class AbstractEndpointService {
         }
     }
 
-    protected Map<String, UrlConfig> filterDatabases(String database, String endpoint) {
-        Map<String, UrlConfig> apiUrls;
+
+    protected Map<String, UrlConfig> buildUrls(String database, String endpoint) {
         String[] databases = (database == null || database.isEmpty()) ? new String[0] : database.split(",");
+        Stream<DatabaseConfig> configStream;
 
         if (databases.length == 0) {
-            apiUrls = ontologyConfigs.stream().collect(
-                    Collectors.toMap(
-                            dbConfig -> dbConfig.getUrl(endpoint), db -> db.getUrlConfig(endpoint)
-                    )
-            );
+            configStream = ontologyConfigs.stream();
         } else {
-
-            apiUrls = Arrays.stream(databases)
-                    .flatMap(x -> ontologyConfigs.stream().filter(db -> db.getName().equals(x.toLowerCase()) || db.getType().equals(x.toLowerCase())))
-                    .collect(
-                            Collectors.toMap(dbConfig -> dbConfig.getUrl(endpoint), db -> db.getUrlConfig(endpoint))
-                    );
-
-            if (apiUrls.isEmpty()) {
-                String possibleValues = ontologyConfigs.stream().map(DatabaseConfig::getName).collect(Collectors.joining(","));
-                //TODO: better supporting of error showing
-                throw new IllegalArgumentException("Database not found: " + database + " . Possible values are: " + possibleValues);
-            }
+            configStream = ontologyConfigs.stream()
+                    .filter(config -> Arrays.stream(databases)
+                            .map(String::toLowerCase)
+                            .anyMatch(f -> f.equals(config.getName()) || f.equals(config.getType())));
         }
+
+        Map<String, UrlConfig> apiUrls = configStream.collect(
+                Collectors.toMap(
+                        config -> config.getUrl(endpoint),
+                        config -> config.getUrlConfig(endpoint)
+                )
+        );
+
+        if (apiUrls.isEmpty()) {
+            String possible = ontologyConfigs.stream()
+                    .map(DatabaseConfig::getName)
+                    .collect(Collectors.joining(", "));
+            throw new IllegalArgumentException("Database not found: " + database + ". Possible values: " + possible);
+        }
+
         return apiUrls;
     }
 
-
-    protected AggregatedApiResponse filterPropertiesToDisplay(AggregatedApiResponse transformedResponse, CommonRequestParams commonRequestParams) {
+    protected AggregatedApiResponse filterPropertiesToDisplay(AggregatedApiResponse
+                                                                      transformedResponse, CommonRequestParams commonRequestParams) {
         List<String> displayFields = commonRequestParams.getDisplay();
         if (displayFields == null || displayFields.isEmpty()) {
             return transformedResponse;
@@ -121,7 +129,8 @@ public abstract class AbstractEndpointService {
         return transformedResponse;
     }
 
-    protected AggregatedApiResponse transformJsonLd(AggregatedApiResponse transformedResponse, CommonRequestParams commonRequestParams) {
+    protected AggregatedApiResponse transformJsonLd(AggregatedApiResponse transformedResponse, CommonRequestParams
+            commonRequestParams) {
         String type = "";
         Map<String, String> context = new HashMap<>();
         try {
@@ -136,30 +145,36 @@ public abstract class AbstractEndpointService {
         return transformedResponse;
     }
 
-    protected List<TransformedApiResponse> transformApiResponses(Map<String, ApiResponse> apiData, String endpoint) {
+    protected List<TransformedApiResponse> transformApiResponses(Map<String, ApiResponse> apiData, String
+            endpoint) {
         return transformApiResponses(apiData, endpoint, false);
     }
 
-    protected List<TransformedApiResponse> transformApiResponses(Map<String, ApiResponse> apiData, String endpoint, boolean paginate) {
+    protected List<TransformedApiResponse> transformApiResponses(Map<String, ApiResponse> apiData, String
+            endpoint, boolean paginate) {
         return apiData.entrySet().stream()
                 .map(x -> this.transformSingleApiResponse(x, endpoint, paginate))
                 .collect(Collectors.toList());
     }
 
-    protected TransformedApiResponse transformSingleApiResponse(Map.Entry<String, ApiResponse> entry, String endpoint, boolean paginate) {
+    protected TransformedApiResponse transformSingleApiResponse(Map.Entry<String, ApiResponse> entry, String
+            endpoint, boolean paginate) {
         String url = entry.getKey();
         ApiResponse results = entry.getValue();
         DatabaseConfig config = null;
         try {
-            config = this.configurationLoader.getConfigByUrl(url, endpoint);
+            URL baseUrl = new URL(url);
+            String baseUrlString = baseUrl.getProtocol() + "://" + baseUrl.getHost();
+            config = this.configurationLoader.getConfigByBaseUrl(baseUrlString);
         } catch (Exception e) {
             logger.error("Error getting config for URL: {}", url, e);
         }
 
-        return dynTransformResponse.dynTransformResponse(results, config, endpoint, paginate);
+        return dynTransformResponse.transformResponse(results, config, endpoint, paginate);
     }
 
-    protected AggregatedApiResponse singleResponse(TransformedApiResponse transformedResponse, CommonRequestParams commonRequestParams) {
+    protected AggregatedApiResponse singleResponse(TransformedApiResponse transformedResponse, CommonRequestParams
+            commonRequestParams) {
         if (transformedResponse == null) {
             return new AggregatedApiResponse();
         }
@@ -170,7 +185,8 @@ public abstract class AbstractEndpointService {
         return aggregatedApiResponse;
     }
 
-    protected AggregatedApiResponse flattenResponseList(TransformedApiResponse data, CommonRequestParams commonRequestParams) {
+    protected AggregatedApiResponse flattenResponseList(TransformedApiResponse data, CommonRequestParams
+            commonRequestParams) {
         return flattenResponseList(List.of(data), commonRequestParams, null);
     }
 
@@ -181,8 +197,6 @@ public abstract class AbstractEndpointService {
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
         boolean showResponseConfiguration = commonRequestParams.isShowResponseConfiguration();
         boolean displayEmptyValues = commonRequestParams.isDisplayEmptyValues();
-        List<String> displayFields = commonRequestParams.getDisplay();
-
         aggregatedApiResponse.setShowConfig(showResponseConfiguration);
         aggregatedApiResponse.setTerminologyCollection(terminologyCollection);
 
@@ -202,13 +216,13 @@ public abstract class AbstractEndpointService {
 
                     return label1.compareTo(label2);
                 })
-                .collect(Collectors.toList());
+                .toList();
 
         aggregatedApiResponse.setCollection(aggregatedCollections);
 
         aggregatedApiResponse.setOriginalResponses(
                 data.stream().map(TransformedApiResponse::getOriginalResponse)
-                        .collect(Collectors.toList())
+                        .toList()
         );
 
         return aggregatedApiResponse;
@@ -236,7 +250,7 @@ public abstract class AbstractEndpointService {
             return data;
         }
 
-        return filterOutByTerminologies(terminologiesCollection.getTerminologies().toArray(new String[0]), data);
+        return filterOutByTerminologies(terminologiesCollection.getTerminologies(), data);
     }
 
     protected AggregatedApiResponse paginate(TransformedApiResponse response, CommonRequestParams commonRequestParams, int page) {
@@ -307,7 +321,8 @@ public abstract class AbstractEndpointService {
         return a;
     }
 
-    protected Object paginatedList(String id, String endpoint, CommonRequestParams params, Integer page, ApiAccessor accessor) {
+    protected Object paginatedList(String id, String endpoint, CommonRequestParams params, Integer
+            page, ApiAccessor accessor) {
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
 
@@ -321,20 +336,16 @@ public abstract class AbstractEndpointService {
                 .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, true));
     }
 
-    private boolean isLocalData(String id) {
-        // update in the future if we have other local data
-        return id.equals("gnd");
-    }
-
-    protected Object findUri(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor accessor) {
+    protected Object findUri(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor
+            accessor) {
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
         accessor = initAccessor(database, endpoint, accessor);
 
         List<String> ids = new ArrayList<>(List.of(id));
 
-
         if (uri != null && !uri.isEmpty()) {
+            uri = URLDecoder.decode(uri, StandardCharsets.UTF_8);
             String encodedUrl = URLEncoder.encode(uri, StandardCharsets.UTF_8);
             ids.add(encodedUrl);
             accessor.setUnDecodeUrl(true);
@@ -355,8 +366,8 @@ public abstract class AbstractEndpointService {
         }
     }
 
-
-    private List<TransformedApiResponse> filterById(List<TransformedApiResponse> apiResponses, List<String> ids) {
+    private List<TransformedApiResponse> filterById
+            (List<TransformedApiResponse> apiResponses, List<String> ids) {
         if (ids == null || ids.size() > 1) {
             return apiResponses;
         }
