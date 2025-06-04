@@ -41,6 +41,7 @@ models:
     label: "sdo:name"
     iri: "@id"
     ontology: "sdo:inDefinedTermSet"
+    ontologyIri: "sdo:inDefinedTermSet"
     descriptions: definition
     sourceUrl: links->ui
     type: "@type"
@@ -51,14 +52,14 @@ endpoints:
   search:
     path: /search/content?q=%s
     responseMapping:
-      nestedJson: "@graph"
+      nestedJson: "member"
       totalCount: totalItems
       page: page
       <<: *searchResult
   resources:
     path: /artefacts?pagesize=10000
     responseMapping:
-      nestedJson: "@graph"
+      nestedJson: "member"
       <<: *artefact
 
   concept_details:
@@ -74,7 +75,7 @@ endpoints:
   concepts:
     path: /artefacts/%s/concepts?page=%s
     responseMapping:
-      nestedJson: "@graph"
+      nestedJson: "member"
       totalCount: totalItems
       page: page
       <<: *searchResult
