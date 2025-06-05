@@ -1,17 +1,17 @@
 package org.semantics.apigateway.service.search;
 
 import org.apache.lucene.queryparser.classic.ParseException;
+import org.semantics.apigateway.collections.CollectionService;
+import org.semantics.apigateway.collections.models.TerminologyCollection;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
-import org.semantics.apigateway.model.user.TerminologyCollection;
 import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.AbstractEndpointService;
 import org.semantics.apigateway.service.ApiAccessor;
 import org.semantics.apigateway.service.JsonLdTransform;
 import org.semantics.apigateway.service.ResponseTransformerService;
-import org.semantics.apigateway.service.auth.CollectionService;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,19 +38,18 @@ public class SearchService extends AbstractEndpointService {
         this.collectionService = collectionService;
     }
 
-    public Object performSearch(String query, String database,  String targetDbSchema, boolean showResponseConfiguration) {
+    public Object performSearch(String query, String database, String targetDbSchema, boolean showResponseConfiguration) {
         TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase(database);
         commonRequestParams.setTargetDbSchema(targetDbSchemaEnum);
         commonRequestParams.setShowResponseConfiguration(showResponseConfiguration);
-        return performSearch(query, commonRequestParams, null, null, null, null);
+        return performSearch(query, commonRequestParams, null, null, null);
     }
 
     public Object performSearch(
             String query,
             CommonRequestParams params,
-            String[] terminologies,
             String collectionId,
             User currentUser,
             ApiAccessor accessor) {
@@ -59,12 +58,12 @@ public class SearchService extends AbstractEndpointService {
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
         accessor = initAccessor(database, endpoint, accessor);
+        accessor = applyCollection(accessor, collection, endpoint);
 
         try {
             return accessor.get(query)
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
-                    .thenApply(data -> filterOutByTerminologies(terminologies, data))
                     .thenApply(data -> filterOutByCollection(collection, data))
                     .thenApply(data -> reIndexResults(query, data))
                     .thenApply(x -> transformJsonLd(x, params))
