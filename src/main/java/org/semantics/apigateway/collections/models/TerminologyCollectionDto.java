@@ -19,6 +19,7 @@ public class TerminologyCollectionDto {
     @NotNull
     String description;
     @NotNull
+    @JsonProperty("isPublic")
     boolean isPublic;
     List<CollectionCollaboratorDto> collaborators = Collections.emptyList();
     List<ResourceDto> terminologies = Collections.emptyList();
