@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -15,15 +18,36 @@ public class RDFResource extends AggregatedResourceBody {
     @JsonProperty("ontology_iri")
     private String ontologyIri;
 
-    public String getTypeURI(){
+    public String getTypeURI() {
         return "http://www.w3.org/2000/01/rdf-schema#Resource";
     }
 
 
-    public String getOntology() {
-        if (ontology == null) {
-            ontology = ontologyIri;
+    public String getOntologyIri() {
+        if (ontologyIri == null || ontologyIri.isEmpty()) {
+            ontologyIri = source;
         }
-        return ontology.substring(ontology.lastIndexOf('/') + 1);
+
+        return ontologyIri;
+    }
+
+    public String getOntology() {
+        if (ontology.contains("vocab.nerc.ac.uk")) {
+            Matcher matcher = Pattern.compile("/collection/([^/]+)/").matcher(ontology);
+            if (matcher.find()) {
+                ontology = matcher.group(1);
+            }
+        }
+
+        if (ontology == null || ontology.isEmpty()) {
+            ontology = ontologyIri.substring(ontologyIri.lastIndexOf('/') + 1);
+        }
+
+        if (ontology.isEmpty()) {
+            ontologyIri = source;
+            ontology = sourceName;
+        }
+
+        return ontology.substring(ontologyIri.lastIndexOf('/') + 1);
     }
 }
