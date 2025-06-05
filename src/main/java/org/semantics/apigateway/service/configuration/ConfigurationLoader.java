@@ -120,6 +120,13 @@ public class ConfigurationLoader {
                 .orElseThrow(() -> new RuntimeException("Config not found for URL: " + url));
     }
 
+    public DatabaseConfig getConfigByName(String sourceName){
+        return databaseConfigs.stream()
+                .filter(c -> c.getName().equalsIgnoreCase(sourceName))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Config not found for source name: " + sourceName));
+    }
+
     public DatabaseConfig getConfigByBaseUrl(String url) {
         return databaseConfigs.stream()
                 .filter(c -> {

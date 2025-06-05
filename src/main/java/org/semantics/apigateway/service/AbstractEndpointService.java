@@ -245,18 +245,23 @@ public abstract class AbstractEndpointService {
     }
 
     private boolean matchesTerminology(Map<String, Object> map, CollectionResource terminology) {
-        String sourceBaseUrl = (String) map.get("source");
+        String sourceBaseUrl = (String) map.get("source_name");
         if (!terminology.getSource().equals(sourceBaseUrl)) {
             return false;
         }
 
         String ontologyIri = (String) map.get("ontology_iri");
+        String iri = (String) map.get("iri");
         String ontology = (String) map.get("ontology");
         String shortForm = (String) map.get("short_form");
 
 
         String terminologyUri = terminology.getUri();
         if (terminologyUri != null && terminologyUri.equals(ontologyIri)) {
+            return true;
+        }
+
+        if (terminologyUri != null && terminologyUri.equals(iri)) {
             return true;
         }
 
@@ -335,7 +340,7 @@ public abstract class AbstractEndpointService {
                 stream().collect(Collectors.groupingBy(CollectionResource::getSource));
 
         sources.forEach((source, resources) -> {
-            DatabaseConfig config = this.configurationLoader.getConfigByBaseUrl(source);
+            DatabaseConfig config = this.configurationLoader.getConfigByName(source);
             String collectionKey = config.getResponseMapping(endpoint).getCollectionFilter();
             String url = config.getUrl(endpoint);
             String terminologies = resources.stream()
