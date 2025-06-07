@@ -37,7 +37,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
     @Test
     public void testSearchAllDatabases() {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
-        AggregatedApiResponse response = (AggregatedApiResponse) searchService.performSearch("plant", commonRequestParams, null, null, null, apiAccessor);
+        AggregatedApiResponse response = (AggregatedApiResponse) searchService.performSearch("plant", commonRequestParams, null, null, apiAccessor);
         int index;
         List<Map<String, Object>> responseList = response.getCollection();
 
@@ -66,7 +66,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setTargetDbSchema(TargetDbSchema.ols);
 
-        Map<String, Object> response = (Map<String, Object>) searchService.performSearch("plant", commonRequestParams, null, null, null, apiAccessor);
+        Map<String, Object> response = (Map<String, Object>) searchService.performSearch("plant", commonRequestParams, null, null, apiAccessor);
 
         assertThat(response.containsKey("response")).isTrue();
         assertThat(response.containsKey("responseHeader")).isTrue();
@@ -76,10 +76,10 @@ public class SearchServiceTest extends ApplicationTestAbstract {
     }
 
     @Test
-    public void testSearchGnd(){
+    public void testSearchGnd() {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase("gnd");
-        AggregatedApiResponse response = (AggregatedApiResponse) searchService.performSearch("London", commonRequestParams, null, null, null, apiAccessor);
+        AggregatedApiResponse response = (AggregatedApiResponse) searchService.performSearch("London", commonRequestParams, null, null, apiAccessor);
         assertMapEquality(response, createGndLondonFixture(), 10);
     }
 
@@ -91,7 +91,8 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         firstPlant.put("label", "plant");
         firstPlant.put("source", "https://data.biodivportal.gfbio.org");
         firstPlant.put("type", "http://www.w3.org/2002/07/owl#Class");
-        firstPlant.put("ontology", "https://data.biodivportal.gfbio.dev/ontologies/SWEET");
+        firstPlant.put("ontology", "SWEET");
+        firstPlant.put("ontology_iri", "https://data.biodivportal.gfbio.dev/ontologies/SWEET");
         return firstPlant;
     }
 
