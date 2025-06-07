@@ -207,9 +207,9 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         map.put("short_form", "abstract");
         map.put("created", null);
         map.put("modified", null);
-        map.put("ontology_iri", null); //TODO: add ontology_iri
         map.put("source_name", "agroportal");
-        map.put("ontology", "https://data.agroportal.lirmm.fr/ontologies/AGROVOC");
+        map.put("ontology_iri", "https://data.agroportal.lirmm.fr/ontologies/AGROVOC");
+        map.put("ontology", "AGROVOC");
         return map;
     }
 
@@ -227,9 +227,9 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("obsolete", false);
         fixture.put("source_url", null);
         fixture.put("version", null);
-        fixture.put("ontology_iri", null); //TODO: fix this
+        fixture.put("ontology_iri", "https://agrovoc.fao.org/browse/rest/v1");
         fixture.put("short_form", "c_330834");
-        fixture.put("ontology", null);
+        fixture.put("ontology", null); //TODO: should be AGROVOC
         return fixture;
     }
 
@@ -241,7 +241,6 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("label", "activities");
         fixture.put("source", "https://data.agroportal.lirmm.fr");
         fixture.put("source_name", "agroportal");
-        fixture.put("ontology", "https://data.agroportal.lirmm.fr/ontologies/AGROVOC");
         fixture.put("descriptions", List.of("http://aims.fao.org/aos/agrovoc/xDef_d8a81e42", "http://aims.fao.org/aos/agrovoc/xDef_47a14ae7"));
         fixture.put("synonyms", Collections.emptyList());
         fixture.put("created", "2008-09-25T00:00:00+00:00");
@@ -249,7 +248,8 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("obsolete", false);
         fixture.put("source_url", "http://agroportal.lirmm.fr/ontologies/AGROVOC?p=classes&conceptid=http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834");
         fixture.put("version", null);
-        fixture.put("ontology_iri", null); //TODO: fix this
+        fixture.put("ontology", "AGROVOC");
+        fixture.put("ontology_iri", "https://data.agroportal.lirmm.fr/ontologies/AGROVOC");
         fixture.put("type", "http://www.w3.org/2004/02/skos/core#Concept"); // TODO implement default value logic
         return fixture;
     }
@@ -262,7 +262,6 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("label", "coll DEFINED CONCEPTS");
         fixture.put("source", "https://data.agroportal.lirmm.fr");
         fixture.put("source_name", "agroportal");
-        fixture.put("ontology", "https://data.agroportal.lirmm.fr/ontologies/INRAETHES");
         fixture.put("descriptions", Collections.emptyList());
         fixture.put("synonyms", Collections.emptyList());
         fixture.put("type", "http://www.w3.org/2004/02/skos/core#Collection");
@@ -271,7 +270,8 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("obsolete", false);
         fixture.put("source_url", null);
         fixture.put("version", null);
-        fixture.put("ontology_iri", null); //TODO: fix this
+        fixture.put("ontology", "INRAETHES");
+        fixture.put("ontology_iri", "https://data.agroportal.lirmm.fr/ontologies/INRAETHES");
         return fixture;
     }
 
@@ -303,7 +303,8 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("backend_type", "ontoportal");
         fixture.put("source", "https://data.agroportal.lirmm.fr");
         fixture.put("source_name", "agroportal");
-        fixture.put("ontology", null); //TODO: fix this
+        fixture.put("ontology", null); //TODO: ensure this is not null for ontoportal and ols v1
+        fixture.put("ontology_iri", "https://data.agroportal.lirmm.fr");
         fixture.put("type", "http://www.w3.org/2002/07/owl#NamedIndividual"); //TODO: harmonize with ols types
         return fixture;
     }
@@ -341,9 +342,9 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("source_url", null);
         fixture.put("short_form", "mt_50");
         fixture.put("modified", null);
-        fixture.put("ontology_iri", null);
         fixture.put("source_name", "agroportal");
-        fixture.put("ontology", "https://data.agroportal.lirmm.fr/ontologies/INRAETHES");
+        fixture.put("ontology_iri", "https://data.agroportal.lirmm.fr/ontologies/INRAETHES");
+        fixture.put("ontology", "INRAETHES");
         return fixture;
     }
 
@@ -356,7 +357,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("label", "Leukozyten (Weiße Blutkörperchen)");
         fixture.put("modified", "2018-02-15");
         fixture.put("obsolete", false);
-        fixture.put("ontology", null);
+        fixture.put("ontology", null); // TODO: ensure this is not null for jskos2
         fixture.put("ontology_iri", "http://bartoc.org/en/node/241");
         fixture.put("short_form", "612.112");
         fixture.put("source", "https://coli-conc.gbv.de/api");
@@ -406,9 +407,9 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("source_url", "https://d-nb.info/gnd/4074335-4");
         fixture.put("short_form", "4074335-4");
         fixture.put("modified", null);
-        fixture.put("ontology_iri", null);
+        fixture.put("ontology_iri", "https://lobid.org");
         fixture.put("source_name", "gnd");
-        fixture.put("ontology", null);
+        fixture.put("ontology", null); // TODO: ensure this is not null for gnd
         fixture.put("synonyms", List.of("Londen",
                 "Corporation of London",
                 "Augusta Trinobantum",
