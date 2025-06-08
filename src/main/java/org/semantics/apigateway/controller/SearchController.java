@@ -12,8 +12,6 @@ import org.semantics.apigateway.service.search.SearchService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.concurrent.ExecutionException;
-
 
 @RestController
 @RequestMapping("/")
@@ -38,13 +36,11 @@ public class SearchController {
             @Parameter(description = "The text to search", example = "plant")
             @RequestParam String query,
             @ParameterObject CommonRequestParams params,
-            @Parameter(description = "The terminologies to search in (e.g agrovoc,cgo)")
-            @RequestParam(required = false) String[] terminologies,
             @Parameter(description = "Collection id to search in")
             @RequestParam(required = false) String collectionId
-    ) throws ExecutionException, InterruptedException {
+    ) {
         User user = authService.tryGetCurrentUser();
-        return searchService.performSearch(query, params, terminologies, collectionId, user, null);
+        return searchService.performSearch(query, params, collectionId, user, null);
     }
 
 

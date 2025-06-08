@@ -15,6 +15,7 @@ import java.util.*;
 @AllArgsConstructor
 public class ResponseMapping {
     private String nestedJson;
+    private String collectionFilter;
     private String key;
     private String totalCount;
     private String page;
@@ -49,6 +50,7 @@ public class ResponseMapping {
         this.setNestedJson(mappingValues.getOrDefault("nestedJson", null));
         this.setPage(mappingValues.getOrDefault("page", null));
         this.setTotalCount(mappingValues.getOrDefault("totalCount", null));
+        this.setCollectionFilter(mappingValues.getOrDefault("collectionFilter", null));
 
         return this;
     }

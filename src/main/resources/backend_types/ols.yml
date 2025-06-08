@@ -28,6 +28,7 @@ endpoints:
     path: search?q=%s
     responseMapping:
       nestedJson: response
+      collectionFilter: ontology
       key: docs
       label: label
       iri: iri

@@ -11,7 +11,6 @@ import org.semantics.apigateway.service.StatusService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 
@@ -50,7 +49,7 @@ public class StatusController {
             content = @Content(schema = @Schema(implementation = ResponseConfig.class)))
     public ResponseEntity<Map<String,Object>> runCheck(
             @Parameter(description = "Endpoint to check (e.g /artefacts)", required = true)
-            @RequestParam String endpoint) throws UnsupportedEncodingException {
+            @RequestParam String endpoint) {
         return ResponseEntity.ok(examplesService.checkEndpoint(endpoint));
     }
 }

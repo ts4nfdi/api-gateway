@@ -44,6 +44,7 @@ models:
     synonyms: synonym
     descriptions: definition
     ontology: links->ontology
+    ontologyIri: links->ontology
     sourceUrl: links->ui
     type: "@type"
     obsolete: obsolete
@@ -51,13 +52,7 @@ models:
     modified: modified
 
   searchResult: &searchResult
-    label: prefLabel
-    iri: "@id"
-    synonyms: synonym
-    descriptions: definition
-    ontology: links->ontology
-    sourceUrl: links->ui
-    type: "@type"
+    <<: *term
 
 
 endpoints:
@@ -65,6 +60,7 @@ endpoints:
     path: /search?q=%s&apikey=%s
     responseMapping:
       nestedJson: collection
+      collectionFilter: ontologies
       <<: *searchResult
 
   resources:

@@ -1,15 +1,15 @@
 package org.semantics.apigateway.service.artefacts;
 
+import org.semantics.apigateway.collections.CollectionService;
+import org.semantics.apigateway.collections.models.TerminologyCollection;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
-import org.semantics.apigateway.model.user.TerminologyCollection;
 import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.AbstractEndpointService;
 import org.semantics.apigateway.service.ApiAccessor;
 import org.semantics.apigateway.service.JsonLdTransform;
 import org.semantics.apigateway.service.ResponseTransformerService;
-import org.semantics.apigateway.service.auth.CollectionService;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
@@ -85,9 +85,10 @@ public class ArtefactsService extends AbstractEndpointService {
     private CompletableFuture<AggregatedApiResponse> findAllArtefacts(CommonRequestParams params, String collectionId, User currentUser, ApiAccessor accessor) {
         String endpoint = "resources";
         String database = params.getDatabase();
+        TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
 
         accessor = initAccessor(database, endpoint, accessor);
-        TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
+        accessor = applyCollection(accessor, collection, endpoint);
 
         return accessor.get()
                 .thenApply(data -> this.transformApiResponses(data, endpoint))

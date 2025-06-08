@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.semantics.apigateway.model.user.TerminologyCollection;
+import org.semantics.apigateway.collections.models.TerminologyCollection;
 import org.semantics.apigateway.service.StatusService;
 
 import java.io.IOException;

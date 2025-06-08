@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -26,7 +27,6 @@ public abstract class AggregatedResourceBody {
     private boolean localDataValues = false;
     @JsonIgnore
     protected Map<String, Object> originalBody;
-
 
 
     @ContextUri("skos:prefLabel")
@@ -177,7 +177,6 @@ public abstract class AggregatedResourceBody {
     }
 
 
-
     public Map<String, Object> toMap(boolean includeOriginalBody, boolean displayEmpty) {
         Map<String, Object> map = new HashMap<>();
 
@@ -207,15 +206,12 @@ public abstract class AggregatedResourceBody {
                 }
 
 
-                // Add to map if not null
-                Object value = field.get(this);
-
+                Object value = getValue(field);
                 if (isEmpty(value) && !displayEmpty) {
                     continue;
                 }
-
                 map.put(propertyName, value);
-            } catch (IllegalAccessException ignored) {
+            } catch (Exception ignored) {
             }
         }
 
@@ -226,12 +222,23 @@ public abstract class AggregatedResourceBody {
         return map;
     }
 
+
     public static boolean isEmpty(Object value) {
         return value == null ||
                 value.equals("") ||
                 (value instanceof List && ((List<?>) value).isEmpty());
     }
 
+    private Object getValue(Field field) throws IllegalAccessException {
+        // Add to map if not null
+        String getterName = "get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+        Object value = null;
+        try {
+            return  this.getClass().getMethod(getterName).invoke(this);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            return  field.get(this);
+        }
+    }
     private void setStringProperty(Map<String, Object> item, String key, Consumer<String> setter) {
         Object value;
         if (localDataValues) {
