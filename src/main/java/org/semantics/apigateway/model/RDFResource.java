@@ -32,22 +32,23 @@ public class RDFResource extends AggregatedResourceBody {
     }
 
     public String getOntology() {
-        if (ontology.contains("vocab.nerc.ac.uk")) {
+        // TODO: how to not hardcode this case of nerc vocabulary?
+        if (ontology != null && ontology.contains("vocab.nerc.ac.uk")) {
             Matcher matcher = Pattern.compile("/collection/([^/]+)/").matcher(ontology);
             if (matcher.find()) {
                 ontology = matcher.group(1);
             }
         }
 
-        if (ontology == null || ontology.isEmpty()) {
+        if ((ontology == null || ontology.isEmpty()) && ontologyIri != null && !ontologyIri.isEmpty()) {
             ontology = ontologyIri.substring(ontologyIri.lastIndexOf('/') + 1);
         }
 
-        if (ontology.isEmpty()) {
+        if (ontology == null || ontology.isEmpty()) {
             ontologyIri = source;
             ontology = sourceName;
         }
 
-        return ontology.substring(ontologyIri.lastIndexOf('/') + 1);
+        return ontology.substring(ontology.lastIndexOf('/') + 1);
     }
 }
