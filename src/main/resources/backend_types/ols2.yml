@@ -30,6 +30,7 @@ endpoints:
   search:
     path: /entities?search=%s
     responseMapping:
+      collectionFilter: ontologyId
       nestedJson: elements
       <<: *term
 
