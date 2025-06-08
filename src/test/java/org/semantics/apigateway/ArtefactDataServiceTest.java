@@ -229,7 +229,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("version", null);
         fixture.put("ontology_iri", "https://agrovoc.fao.org/browse/rest/v1");
         fixture.put("short_form", "c_330834");
-        fixture.put("ontology", null); //TODO: should be AGROVOC
+        fixture.put("ontology", "agrovoc");
         return fixture;
     }
 
@@ -303,8 +303,8 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("backend_type", "ontoportal");
         fixture.put("source", "https://data.agroportal.lirmm.fr");
         fixture.put("source_name", "agroportal");
-        fixture.put("ontology", null); //TODO: ensure this is not null for ontoportal and ols v1
-        fixture.put("ontology_iri", "https://data.agroportal.lirmm.fr");
+        fixture.put("ontology", "agroportal"); // TODO: this should be foodon
+        fixture.put("ontology_iri", "https://data.agroportal.lirmm.fr"); // TODO: this should be http://data.agroportal.lirmm.fr/ontologies/FOODON
         fixture.put("type", "http://www.w3.org/2002/07/owl#NamedIndividual"); //TODO: harmonize with ols types
         return fixture;
     }
@@ -357,7 +357,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("label", "Leukozyten (Weiße Blutkörperchen)");
         fixture.put("modified", "2018-02-15");
         fixture.put("obsolete", false);
-        fixture.put("ontology", null); // TODO: ensure this is not null for jskos2
+        fixture.put("ontology", "241");
         fixture.put("ontology_iri", "http://bartoc.org/en/node/241");
         fixture.put("short_form", "612.112");
         fixture.put("source", "https://coli-conc.gbv.de/api");
@@ -409,7 +409,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("modified", null);
         fixture.put("ontology_iri", "https://lobid.org");
         fixture.put("source_name", "gnd");
-        fixture.put("ontology", null); // TODO: ensure this is not null for gnd
+        fixture.put("ontology", "gnd");
         fixture.put("synonyms", List.of("Londen",
                 "Corporation of London",
                 "Augusta Trinobantum",
