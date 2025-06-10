@@ -9,7 +9,7 @@ export interface LoginRequest {
 export interface UserResponse {
     email?: string;
     username: string;
-    roles: Array<string>;
+    roles?: Array<string>;
 }
 
 export interface LoginResponse {
@@ -40,6 +40,9 @@ export class UserRestClient extends RestApplicationClient {
         return this.httpClient.request({method: "POST", url: 'auth/logout'});
     }
 
+    getAllUsers(): RestResponse<UserResponse[]> {
+        return this.httpClient.request({method: 'GET', url: '/users/'})
+    }
     // getSession(): RestResponse<UserResponse> {
     //     // return this.httpClient.request({method: "GET", url: 'api/auth/me'});
     // }
