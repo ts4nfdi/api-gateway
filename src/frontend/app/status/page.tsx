@@ -1,10 +1,10 @@
 'use client';
 import React, {useEffect, useState} from "react";
-import {StatusCheckResponse, statusRestClient} from "@/app/status/lib/StatusRestClient";
 import {APIResponseStats} from "@/components/ResponseStats";
 import {Loading} from "@/components/Loading";
 import {Card, CardContent} from "@/components/ui/card";
 import {TopNav} from "@/app/TopNav";
+import {StatusCheckResponse, statusRestClient} from "@/app/api/StatusRestClient";
 
 
 function APIExampleCheckResult({url}: any) {
