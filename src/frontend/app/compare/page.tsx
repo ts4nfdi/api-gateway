@@ -11,10 +11,9 @@ import {Loading} from "@/components/Loading";
 import {Badge} from "@/components/ui/badge";
 import Link from "next/link";
 import TermViewer from "@/components/TermViewer";
-import APIUrlInput from "@/components/APIUrlInput";
 import {APIResponseStats} from "@/components/ResponseStats";
-import {ExampleResponse, StatusCheckResponse, statusRestClient} from "@/app/status/lib/StatusRestClient";
 import {TopNav} from "@/app/TopNav";
+import {ExampleResponse, StatusCheckResponse, statusRestClient} from "@/app/api/StatusRestClient";
 
 const calculateCommonKeysPercentage = (data: any) => {
     if (!data || !data.originalResponse) {
@@ -229,7 +228,6 @@ export default function CompareSources() {
                     <Button onClick={() => fetchURLJson(inputValue)}>
                         Fetch URL
                     </Button>
-                    <APIUrlInput variant={'btn'} url={inputValue} />
                 </div>
 
                 <APIExamples exampleSelected={fetchExample}/>
