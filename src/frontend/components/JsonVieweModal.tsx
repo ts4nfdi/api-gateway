@@ -97,7 +97,6 @@ export function JsonViewerDialog({isOpen, setIsOpen, url}: any) {
 
 function JsonIcon() {
     return <span className={'flex space-x-2 text-xs'} title={'View JSON'}>
-        <span>JSON</span>
         <Code/>
     </span>
 }
@@ -106,8 +105,7 @@ export default function JsonViewerModalButton({url, variant}: { url: string, var
     const [dialogOpen, setDialogOpen] = useState(false);
     return (
         <div className={'flex space-x-4'}>
-            {variant == 'link' && <Badge onClick={() => setDialogOpen(true)}><JsonIcon/></Badge>}
-            {variant == 'btn' && <Button onClick={() => setDialogOpen(true)}><JsonIcon/></Button>}
+            <Badge variant={'secondary'} onClick={() => setDialogOpen(true)}><JsonIcon/></Badge>
             <JsonViewerDialog isOpen={dialogOpen} setIsOpen={setDialogOpen} url={url}/>
         </div>
 

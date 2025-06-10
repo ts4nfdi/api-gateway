@@ -1,85 +1,129 @@
-import {useEffect, useState} from "react";
+import React, {memo, useEffect, useMemo, useState} from "react";
 import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle,} from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {Textarea} from "@/components/ui/textarea";
-import {collectionRestClient} from "@/app/auth/lib/CollectionsRestClient";
+import {CollectionDetails} from "@/components/CollectionBuilder";
+import {Artefact} from "@/app/api/ArtefactsRestClient";
+import {CollectionResponse, collectionRestClient} from "@/app/api/CollectionsRestClient";
+import {ArtefactsSelectorList} from "@/components/ArtefactsSelectorList";
+import DatabaseSelector from "@/components/DatabaseSelector";
+import {getSourcesFromArtefacts} from "@/lib/utils";
 
-export default function CollectionDialog({isOpen, setIsOpen, value, onSubmit}: { value: any, isOpen: boolean, setIsOpen: any, onSubmit: any }) {
-    const [collection, setCollection] = useState(value || {
-        id: "",
-        label: "",
-        description: "",
-        terminologies: [],
-    });
+const ArtefactsSelectorListMemo = memo(({ selectedSources, selectedArtefacts, setSelectedArtefacts }: any) => {
+    return (
+        <ArtefactsSelectorList
+            selectedSources={selectedSources}
+            selectedArtefacts={selectedArtefacts}
+            setSelectedArtefacts={setSelectedArtefacts}
+        />
+    );
+});
+ArtefactsSelectorListMemo.displayName = "ArtefactsSelectorListMemo";
 
-    useEffect(() => {
-        if (value)
-            setCollection(value);
+export default function CollectionDialog({
+                                             isOpen,
+                                             setIsOpen,
+                                             value,
+                                             onSubmit,
+                                         }: any) {
+    const [collection, setCollection] = useState<CollectionResponse>(
+        value ?? {
+            id: "",
+            label: "",
+            description: "",
+            collaborators: [],
+            terminologies: [],
+            isPublic: false,
+        }
+    );
+
+
+    const [selectedArtefacts, setSelectedArtefacts] = useState<Artefact[]>([]);
+    const [selectedSources, setSelectedSources] = useState<string[]>([]);
+
+    const initialSelectedArtefacts = useMemo(() => {
+        if (!value) return [];
+        return value.terminologies.map((term: any) => ({
+            label: term.label,
+            short_form: term.label,
+            source: term.source,
+            uri: term.uri,
+        }));
     }, [value]);
 
-    const handleChange = (e: any) => {
-        const {name, value} = e.target;
-        setCollection({
-            ...collection,
-            [name]: value,
-        });
-    };
+
+    useEffect(() => {
+        if (value) {
+            setCollection(value);
+            setSelectedArtefacts(initialSelectedArtefacts);
+            setSelectedSources(getSourcesFromArtefacts(initialSelectedArtefacts));
+        }
+    }, [value, initialSelectedArtefacts]);
+
+
+    useEffect(() => {
+        collection.terminologies = selectedArtefacts.map((artefact: any) => ({
+            label: artefact.short_form,
+            source: artefact.source_name || artefact.source,
+            uri: artefact.iri || artefact.uri
+        }));
+    }, [collection, selectedArtefacts]);
 
     const handleSave = async () => {
-        console.log("Saved collection:", collection);
-        if(!(collection.terminologies instanceof Array))
-            collection.terminologies = collection.terminologies.split(",")
-        let res: any
-        if (collection.id === ""){
+        let res: any;
+        if (collection.id === "") {
             delete collection.id;
-            res = await collectionRestClient.createCollection(collection);
-        } else {
+            res = await collectionRestClient.createCollection(collection as any);
+        } else if (collection.id) {
             res = await collectionRestClient.updateCollection(collection.id, collection);
         }
 
-
-        if(res.status === 201 || res.status === 200){
-            console.log("Collection saved/updated successfully");
+        if (res.status === 201 || res.status === 200) {
             onSubmit(res.data, value.id === "");
-            setIsOpen(false); // Close the dialog after saving
+            setIsOpen(false);
         } else {
-            console.error("Failed to save/collection collection");
-            //TODO add notification
+            console.error("Failed to save/update collection");
+            // TODO add notification
         }
     };
 
-    return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Create a New Collection</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                    <Input
-                        name="label"
-                        placeholder="Enter collection label"
-                        value={collection.label}
-                        onChange={handleChange}
-                    />
-                    <Textarea
-                        name="description"
-                        placeholder="Enter collection description"
-                        value={collection.description}
-                        onChange={handleChange}
-                    />
-                    <Input
-                        name="terminologies"
-                        placeholder="Enter tags, separated by commas"
-                        value={collection.terminologies}
-                        onChange={handleChange}
-                    />
+
+    return <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="h-[70vh] w-[70vw] max-h-[90vh] max-w-[800px]">
+            <DialogHeader>
+                <DialogTitle>
+                    {collection.id ? "Edit Collection" : "Create a New Collection"}
+                </DialogTitle>
+            </DialogHeader>
+
+            <div className="space-y-6  overflow-y-auto px-1">
+                <div className="space-y-3">
+                    <CollectionDetails
+                        selectedSources={selectedSources}
+                        selectedArtefacts={selectedArtefacts}
+                        data={collection}
+                        setData={setCollection}/>
+                    <div>
+                        <h3 className="flex text-sm font-medium text-gray-700">
+                            Available Databases
+                        </h3>
+                        <DatabaseSelector selected={selectedSources} onChange={(sources: string[]) => setSelectedSources(sources)} />
+                    </div>
+                    <div className="flex flex-col">
+                        <ArtefactsSelectorListMemo selectedSources={selectedSources}
+                                               selectedArtefacts={selectedArtefacts}
+                                               setSelectedArtefacts={setSelectedArtefacts}/>
+                    </div>
                 </div>
-                <DialogFooter>
-                    <Button variant="secondary" onClick={() => setIsOpen(false)}>Cancel</Button>
-                    <Button onClick={handleSave}>Save</Button>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
-    );
+            </div>
+
+            <DialogFooter className="mt-6">
+                <Button variant="outline" onClick={() => setIsOpen(false)}>
+                    Cancel
+                </Button>
+                <Button onClick={handleSave}>
+                    {collection.id ? "Update" : "Create"} Collection
+                </Button>
+            </DialogFooter>
+        </DialogContent>
+    </Dialog>
 }
