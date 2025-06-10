@@ -1,31 +1,25 @@
 "use client";
 
-import {useEffect, useState} from "react";
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
-import {Badge} from "@/components/ui/badge";
+import {useState} from "react";
 import {Button} from "@/components/ui/button";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import {CollectionResponse, collectionRestClient} from "@/app/auth/lib/CollectionsRestClient";
-import UUIDDisplay from "@/components/CopyId";
 import CollectionDialog from "@/app/auth/profile/components/collection-dialog";
+import {CollectionResponse, collectionRestClient, useCollections} from "@/app/api/CollectionsRestClient";
+import CollectionsSelectorTable from "@/components/CollectionsSelectorTable";
+import {Loading} from "@/components/Loading";
 
 export default function CollectionsTable() {
-    const [collections, setCollections] = useState<CollectionResponse[]>([]);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [formData, setFormData] = useState<CollectionResponse>({
         id: "",
         label: "",
         description: "",
+        collaborators: [],
+        isPublic: false,
         terminologies: [],
     });
+    const {collections, error, loading, setCollections} = useCollections()
 
-    useEffect(() => {
-        const fetchCollections = async () => {
-            const res: any = await collectionRestClient.getAllCollections();
-            setCollections(res.data);
-        };
-        fetchCollections();
-    }, []);
 
     const handleAddOrEdit = (collection: CollectionResponse, addition: boolean) => {
         setCollections((prev) =>
@@ -39,25 +33,42 @@ export default function CollectionsTable() {
         )
     };
 
-
     const handleDelete = async (id: string) => {
         const res = await collectionRestClient.deleteCollection(id);
         if (res.status === 204) {
-            console.log("Collection deleted successfully");
             setCollections((prev) => prev.filter((col) => col.id !== id));
         } else {
             console.error("Failed to delete collection");
         }
     };
 
-    const openDialog = (collection: any) => {
+    const openDialog = (collection: CollectionResponse | null) => {
         if (collection === null)
-            collection = {id: "", label: "", description: "", terminologies: []};
+            collection = {
+                id: "",
+                label: "",
+                description: "",
+                collaborators: [],
+                isPublic: false,
+                terminologies: [],
+            };
 
         setFormData(collection);
         setDialogOpen(true);
     };
 
+
+    if (loading) {
+        return <Loading/>;
+    }
+
+    if (error) {
+        return (
+            <div className="text-red-500">
+                <p>Error loading collections: {error}</p>
+            </div>
+        );
+    }
 
     return (
         <>
@@ -71,52 +82,12 @@ export default function CollectionsTable() {
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>ID</TableHead>
-                                <TableHead>Label</TableHead>
-                                <TableHead>Description</TableHead>
-                                <TableHead>Tags</TableHead>
-                                <TableHead>Actions</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {collections.map((collection) => (
-                                <TableRow key={collection.id}>
-                                    <TableCell><UUIDDisplay value={collection.id}/></TableCell>
-                                    <TableCell>{collection.label}</TableCell>
-                                    <TableCell>{collection.description}</TableCell>
-                                    <TableCell>
-                                        {collection.terminologies.map((tag, index) => (
-                                            <Badge key={index} className="mr-2">
-                                                {tag}
-                                            </Badge>
-                                        ))}
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button
-                                            variant="secondary"
-                                            size="sm"
-                                            onClick={() => openDialog(collection)}>
-                                            Edit
-                                        </Button>
-                                        <Button
-                                            variant="destructive"
-                                            size="sm"
-                                            className="ml-2"
-                                            onClick={() => handleDelete(collection.id)}
-                                        >
-                                            Delete
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    <CollectionsSelectorTable collections={collections}
+                                              handleDelete={handleDelete}
+                                              handleEdit={openDialog}/>
                 </CardContent>
             </Card>
-            <CollectionDialog isOpen={dialogOpen} setIsOpen={setDialogOpen} value={formData} onSubmit={handleAddOrEdit}></CollectionDialog>
+            <CollectionDialog isOpen={dialogOpen} setIsOpen={setDialogOpen} value={formData}
+                              onSubmit={handleAddOrEdit}></CollectionDialog>
         </>)
-        ;
 }
