@@ -7,7 +7,7 @@ import {Badge} from '@/components/ui/badge';
 import {TopNav} from "@/app/TopNav";
 import {Button} from "@/components/ui/button";
 import {Loading} from "@/components/Loading";
-import {configurationRestClient} from "@/lib/ConfigurationRestClient";
+import {configurationRestClient} from "@/app/api/ConfigurationRestClient";
 
 const MetadataMappingTable = ({data, type}: any) => {
     const [activeTab, setActiveTab] = useState("all");
