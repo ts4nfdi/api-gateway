@@ -1,6 +1,6 @@
 import MultipleSelector, {SelectorOption} from "@/components/MultipleSelector";
 import React, {useState} from "react";
-import {useDatabases} from "@/lib/ConfigurationRestClient";
+import {useDatabases} from "@/app/api/ConfigurationRestClient";
 
 export default function DatabaseSelector({selected, onChange}: any) {
     const [selectedSources, setSelectedSources] = useState<string[]>(selected ?? []);
