@@ -2,8 +2,8 @@ import React from 'react';
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card';
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from '@/components/ui/table';
 import {Badge} from '@/components/ui/badge';
-import {StatusCheckResponse} from "@/app/status/lib/StatusRestClient";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
+import {StatusCheckResponse} from "@/app/api/StatusRestClient";
 
 const getDomain = (url: string | URL): string => {
     try {

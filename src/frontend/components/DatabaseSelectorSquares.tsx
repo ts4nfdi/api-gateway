@@ -1,6 +1,6 @@
-import {configurationRestClient} from "@/lib/ConfigurationRestClient";
 import {useEffect, useState} from 'react';
 import {Check, Database} from 'lucide-react';
+import {configurationRestClient} from "@/app/api/ConfigurationRestClient";
 
 interface SelectorOption {
     label: string;
