@@ -53,7 +53,7 @@ export function AutoCompleteResult({suggestion}: any) {
                     <ChevronRight className="mx-1 h-4 w-4 text-gray-400"/>
 
                     <Badge className={getBadgeVariant('success')}>
-                        {getOntologyAcronym(suggestion.ontology)}
+                        {getOntologyAcronym(suggestion.ontology, suggestion.source)}
                     </Badge>
 
                     <ChevronRight className="mx-1 h-4 w-4 text-gray-400"/>
