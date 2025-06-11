@@ -13,7 +13,9 @@ export default function DialogWrapper({children, isOpen, setIsOpen, onSubmit, ti
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>
                 </DialogHeader>
-                {children}
+                <div className={"overflow-y-auto h-full w-full min-h-[50vh] max-h-[1000px]"}>
+                    {children}
+                </div>
                 {showFooter && (
                     <DialogFooter>
                         <Button variant="secondary" onClick={() => setIsOpen(false)}>Close</Button>

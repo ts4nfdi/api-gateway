@@ -2,7 +2,6 @@ import {useAuth} from "@/lib/authGuard";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import React from "react";
-import Image from "next/image";
 
 export const LoginButton = ({isLoggedIn = false}) => {
     return (<>
@@ -34,7 +33,7 @@ export const TopNav = ({showLink = true}) => {
             <header className="border-b">
                 <div className="flex h-16 items-center px-4 container mx-auto">
                     <Link href='/' className='flex-1 flex items-center gap-2'>
-                        <Image src={'/api-gateway/logo.png'} alt="Icon" className="w-6 h-6"/>
+                        <img src={'/api-gateway/logo.png'} alt="Icon" className="w-6 h-6"/>
                         <h1 className="text-xl font-bold">TSNFDI API Gateway</h1>
                     </Link>
                     {showLink && (
