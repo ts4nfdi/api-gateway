@@ -45,7 +45,7 @@ export const useArtefacts = (sources: string[] = [], collection: CollectionRespo
 
     const fetchArtefacts = async () => {
         setLoading(true);
-        artefactsRestClient.getAllArtefacts(sources.join(','), collection.id)
+        artefactsRestClient.getAllArtefacts(sources.join(','), collection?.id)
             .then((response: any) => {
                 if (response.status !== 200) {
                     throw new Error(`Error fetching artefacts: ${response.statusText}`);

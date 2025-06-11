@@ -18,9 +18,7 @@ export default function CollectionsSelectorTable({selected, collections, handleD
     const [filteredCollections, setFilteredCollections] = React.useState<CollectionResponse[]>(collections);
 
     useEffect(() => {
-        if (!searchQuery) {
-            return;
-        }
+        console.log("Filtering collections with query:", searchQuery);
         let filtered = collections.filter((collection) => {
             return collection.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 (collection.description && collection.description.toLowerCase().includes(searchQuery.toLowerCase()));
