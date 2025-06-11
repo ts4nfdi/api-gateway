@@ -19,6 +19,18 @@
       "apiKey": "47a57aa3-7b54-4f34-b695-dbb5f5b7363e"
     },
     {
+      "type": "ontoportal",
+      "name": "ecoportal",
+      "url": "https://data.ecoportal.lifewatch.eu",
+      "apiKey": "43a437ba-a437-4bf0-affd-ab520e584719"
+    },
+    {
+      "type": "ontoportal",
+      "name": "lovportal",
+      "url": "https://data.lovportal.lirmm.fr",
+      "apiKey": "13b97ee8-cdfb-4147-9260-af66e84b4afa"
+    },
+    {
       "type": "ols2",
       "name": "ebi",
       "url": "https://www.ebi.ac.uk/ols4/api/v2"
