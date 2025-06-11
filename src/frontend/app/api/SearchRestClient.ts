@@ -13,7 +13,7 @@ export class SearchRestClient extends RestApplicationClient {
         };
 
         if (databases && databases.length > 0) {
-            params['databases'] = databases.join(',');
+            params['database'] = databases.join(',');
         }
         if (collectionId && collectionId.length > 0) {
             params["collectionId"] = collectionId;
