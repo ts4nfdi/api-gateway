@@ -1,33 +1,38 @@
 import MultipleSelector, {SelectorOption} from "@/components/MultipleSelector";
-import React, {useEffect, useState} from "react";
-import {configurationRestClient} from "@/lib/ConfigurationRestClient";
+import React, {useState} from "react";
+import {useDatabases} from "@/app/api/ConfigurationRestClient";
 
 export default function DatabaseSelector({selected, onChange}: any) {
-    const [sourceOptions, setSourceOptions] = useState<SelectorOption[]>([]);
-    const [selectedSources, setSelectedSources] = useState<string[]>(selected || []);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [selectedSources, setSelectedSources] = useState<string[]>(selected ?? []);
+    const {databases, loading, error} = useDatabases()
 
-    useEffect(() => {
-        configurationRestClient.getAllDatabases().then((x: any) => {
-            const options = x.data.map((db: any) => ({
-                label: db.name,
-                value: db.name
-            }));
-            setSourceOptions(options);
-            setIsLoading(false);
-        }).catch(error => {
-            console.error("Failed to load databases:", error);
-            setIsLoading(false);
-        });
-    }, []);
 
     const handleChanges = (e: SelectorOption[]) => {
         const values = e.map((o: any) => o.value);
         setSelectedSources(values);
-        if(onChange) onChange(values);
+        if (onChange) onChange(values);
     }
 
     // Convert any incoming selected values to SelectorOption format
+
+
+
+    if (loading) {
+        console.log("Loading databases...");
+        return <MultipleSelector
+            placeholder={"Loading databases..."}
+            emptyIndicator={
+                <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                    Loading options...
+                </p>
+            }
+        />
+    }
+
+    const sourceOptions: SelectorOption[] = databases.map((db) => ({
+        label: db.name,
+        value: db.name,
+    }))
     const selectedOptions = selectedSources
         .map(value => {
             // Check if it exists in our loaded options
@@ -38,16 +43,6 @@ export default function DatabaseSelector({selected, onChange}: any) {
             return {label: value, value};
         });
 
-    if (isLoading) {
-        return <MultipleSelector
-                placeholder={"Loading databases..."}
-                emptyIndicator={
-                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
-                       Loading options...
-                    </p>
-                }
-            />
-    }
     return (
         <div className="relative">
             <MultipleSelector

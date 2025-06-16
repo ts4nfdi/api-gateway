@@ -3,7 +3,7 @@
 import React, {createContext, useContext, useEffect, useState} from 'react'
 import {useRouter} from 'next/navigation'
 import httpClient from '@/lib/httpClient'
-import {LoginRequest, UserResponse, userRestClient} from '@/app/auth/lib/UserRestClient'
+import {LoginRequest, UserResponse, userRestClient} from "@/app/api/UserRestClient";
 
 interface AuthConfig {
     loginRedirect?: string
