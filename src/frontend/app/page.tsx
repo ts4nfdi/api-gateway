@@ -1,7 +1,7 @@
 'use client';
 
 import {QueryClient, QueryClientProvider} from "react-query";
-import {MainPage} from "@/app/MainPage";
+import {MainPage} from "@/app/home/MainPage";
 
 export default function Home() {
     const queryClient = new QueryClient();
