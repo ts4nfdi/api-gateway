@@ -1,4 +1,4 @@
-package org.semantics.apigateway.service.search;
+package org.semantics.apigateway.artefacts.search;
 
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.semantics.apigateway.collections.CollectionService;

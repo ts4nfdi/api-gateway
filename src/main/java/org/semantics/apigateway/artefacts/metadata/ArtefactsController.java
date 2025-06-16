@@ -1,4 +1,4 @@
-package org.semantics.apigateway.controller;
+package org.semantics.apigateway.artefacts.metadata;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.user.User;
-import org.semantics.apigateway.service.artefacts.ArtefactsService;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;

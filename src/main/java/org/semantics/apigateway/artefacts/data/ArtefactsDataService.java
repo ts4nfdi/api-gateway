@@ -1,4 +1,4 @@
-package org.semantics.apigateway.service.artefacts;
+package org.semantics.apigateway.artefacts.data;
 
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.RDFResource;
