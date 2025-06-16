@@ -2,10 +2,10 @@ package org.semantics.apigateway.controller.ols;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.ws.rs.QueryParam;
+import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
+import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.TargetDbSchema;
-import org.semantics.apigateway.service.artefacts.ArtefactsDataService;
-import org.semantics.apigateway.service.search.SearchService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
