@@ -2,10 +2,10 @@ package org.semantics.apigateway;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
-import org.semantics.apigateway.service.artefacts.ArtefactsDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -221,7 +221,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("source", "https://agrovoc.fao.org/browse/rest/v1");
         fixture.put("source_name", "agrovoc");
         fixture.put("synonyms", Collections.emptyList());
-        fixture.put("descriptions", null); //TODO: should be empty array or not empty
+        fixture.put("descriptions", Collections.emptyList());
         fixture.put("created", null);
         fixture.put("modified", null);
         fixture.put("obsolete", false);

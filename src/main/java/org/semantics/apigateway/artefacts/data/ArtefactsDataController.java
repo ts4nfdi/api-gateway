@@ -1,9 +1,8 @@
-package org.semantics.apigateway.controller;
+package org.semantics.apigateway.artefacts.data;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.semantics.apigateway.model.CommonRequestParams;
-import org.semantics.apigateway.service.artefacts.ArtefactsDataService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 

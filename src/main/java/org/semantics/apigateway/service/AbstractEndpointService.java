@@ -18,6 +18,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -30,7 +31,7 @@ public abstract class AbstractEndpointService {
     private final ResponseTransformerService responseTransformerService;
     private final CacheManager cacheManager;
     private final JsonLdTransform jsonLdTransform;
-    private final ResponseAggregatorService dynTransformResponse;
+    protected final ResponseAggregatorService aggregatorTransformer;
     private final List<DatabaseConfig> ontologyConfigs;
 
     protected static final Logger logger = LoggerFactory.getLogger(AbstractEndpointService.class);
@@ -41,18 +42,18 @@ public abstract class AbstractEndpointService {
         this.jsonLdTransform = jsonLdTransform;
         this.responseTransformerService = responseTransformerService;
         this.cacheManager = cacheManager;
-        this.dynTransformResponse = new ResponseAggregatorService(clazz);
+        this.aggregatorTransformer = new ResponseAggregatorService(clazz);
     }
 
     public ApiAccessor getAccessor() {
         return new ApiAccessor(this.cacheManager);
     }
 
-    protected Object transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
+    protected AggregatedApiResponse transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
         return transformForTargetDbSchema(data, targetDbSchemaEnum, endpoint, true);
     }
 
-    protected Object transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint, Boolean isList) {
+    protected AggregatedApiResponse transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint, Boolean isList) {
         String targetDbSchema = targetDbSchemaEnum == null ? "" : targetDbSchemaEnum.toString();
 
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
@@ -65,7 +66,10 @@ public abstract class AbstractEndpointService {
                 }
                 Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList);
                 logger.debug("Transformed results for database schema: {}", transformedResults);
-                return transformedResults;
+                AggregatedApiResponse transformedResponse = new AggregatedApiResponse();
+                transformedResponse.setCollection(Collections.singletonList(transformedResults));
+                transformedResponse.setList(false);
+                return transformedResponse;
             } catch (IOException e) {
                 throw new RuntimeException("Error transforming results for target database schema", e);
             }
@@ -134,7 +138,7 @@ public abstract class AbstractEndpointService {
         String type = "";
         Map<String, String> context = new HashMap<>();
         try {
-            Class<? extends AggregatedResourceBody> clazz = this.dynTransformResponse.getClazz();
+            Class<? extends AggregatedResourceBody> clazz = this.aggregatorTransformer.getClazz();
             type = jsonLdTransform.getTypeURI(clazz);
             context = jsonLdTransform.generateContext(clazz, commonRequestParams.getDisplay());
         } catch (Exception e) {
@@ -170,7 +174,7 @@ public abstract class AbstractEndpointService {
             logger.error("Error getting config for URL: {}", url, e);
         }
 
-        return dynTransformResponse.transformResponse(results, config, endpoint, paginate);
+        return aggregatorTransformer.transformResponse(results, config, endpoint, paginate);
     }
 
     protected AggregatedApiResponse singleResponse(TransformedApiResponse transformedResponse, CommonRequestParams
@@ -307,6 +311,25 @@ public abstract class AbstractEndpointService {
         return aggregatedApiResponse;
     }
 
+    protected AggregatedApiResponse listResponse(TransformedApiResponse response, CommonRequestParams
+            commonRequestParams) {
+        AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
+        aggregatedApiResponse.setPaginate(false);
+
+        if (response == null) {
+            return aggregatedApiResponse;
+        }
+
+        boolean showResponseConfiguration = commonRequestParams.isShowResponseConfiguration();
+        boolean displayEmpty = commonRequestParams.isDisplayEmptyValues();
+
+        aggregatedApiResponse.setCollection(response.getCollection(showResponseConfiguration, displayEmpty));
+        aggregatedApiResponse.setShowConfig(showResponseConfiguration);
+        aggregatedApiResponse.setOriginalResponses(List.of(response.getOriginalResponse()));
+
+        return aggregatedApiResponse;
+    }
+
     private void enforcePagination(TransformedApiResponse response, int page) {
         int pageSize = PaginatedResponse.PAGE_SIZE;
         int start = (page - 1) * pageSize;
@@ -381,14 +404,17 @@ public abstract class AbstractEndpointService {
         return a;
     }
 
-    protected Object paginatedList(String id, String endpoint, CommonRequestParams params, Integer
-            page, ApiAccessor accessor) {
+
+    protected Object paginatedList(String acronym, String uri, String endpoint, CommonRequestParams params,
+                                   Integer page, ApiAccessor accessor) {
+
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
-
         accessor = initAccessor(database, endpoint, accessor);
+        List<String> ids = getRequestIds(accessor, acronym, uri);
+        ids.add(page.toString());
 
-        return accessor.get(id.toUpperCase(), page.toString())
+        return accessor.get(ids.toArray(new String[0]))
                 .thenApply(data -> this.transformApiResponses(data, endpoint, true))
                 .thenApply(data -> selectResultsByDatabase(data, database))
                 .thenApply(x -> paginate(x, params, page))
@@ -396,21 +422,46 @@ public abstract class AbstractEndpointService {
                 .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, true));
     }
 
-    protected Object findUri(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor
-            accessor) {
+    protected Object paginatedList(String id, String endpoint, CommonRequestParams params, Integer
+            page, ApiAccessor accessor) {
+        return paginatedList(id, null, endpoint, params, page, accessor);
+    }
+
+
+    protected CompletableFuture<AggregatedApiResponse> findAll(String acronym, String uri, String endpoint, CommonRequestParams params, ApiAccessor accessor) {
         String database = params.getDatabase();
-        TargetDbSchema targetDbSchema = params.getTargetDbSchema();
         accessor = initAccessor(database, endpoint, accessor);
+        List<String> ids = getRequestIds(accessor, acronym, uri);
 
-        List<String> ids = new ArrayList<>(List.of(id));
+        return accessor.get(ids.toArray(new String[0]))
+                .thenApply(data -> this.transformApiResponses(data, endpoint))
+                .thenApply(data -> selectResultsByDatabase(data, database))
+                .thenApply(data -> listResponse(data, params))
+                .thenApply(x -> transformJsonLd(x, params));
+    }
 
+    protected CompletableFuture<AggregatedApiResponse> findAll(String id, String endpoint, CommonRequestParams params, ApiAccessor
+            accessor) {
+        return findAll(id, null, endpoint, params, accessor);
+    }
+
+    private List<String> getRequestIds(ApiAccessor accessor, String acronym, String uri) {
+        List<String> ids = new ArrayList<>(List.of(acronym));
         if (uri != null && !uri.isEmpty()) {
             uri = URLDecoder.decode(uri, StandardCharsets.UTF_8);
             String encodedUrl = URLEncoder.encode(uri, StandardCharsets.UTF_8);
             ids.add(encodedUrl);
             accessor.setUnDecodeUrl(true);
         }
+        return ids;
+    }
 
+    protected AggregatedApiResponse findUri(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor
+            accessor) {
+        String database = params.getDatabase();
+        TargetDbSchema targetDbSchema = params.getTargetDbSchema();
+        accessor = initAccessor(database, endpoint, accessor);
+        List<String> ids = getRequestIds(accessor, id, uri);
         try {
             return accessor.get(ids.toArray(new String[0]))
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
