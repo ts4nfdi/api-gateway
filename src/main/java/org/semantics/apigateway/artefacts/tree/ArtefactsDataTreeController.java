@@ -36,7 +36,7 @@ public class ArtefactsDataTreeController {
 
 
 
-    @GetMapping(value = {"/resources/classes/children", "/resources/concepts/tree"})
+    @GetMapping(value = {"/resources/classes/tree", "/resources/concepts/tree"})
     @Operation(summary = "Get a full tree of all children of a specific owl:Class or skos:Concept within an artefact.")
     public Object getConceptFullTree(@PathVariable String id, @RequestParam String uri, @ModelAttribute CommonRequestParams params) {
         uri = URLEncoder.encode(uri);
