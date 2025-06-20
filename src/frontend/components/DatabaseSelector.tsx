@@ -18,7 +18,6 @@ export default function DatabaseSelector({selected, onChange}: any) {
 
 
     if (loading) {
-        console.log("Loading databases...");
         return <MultipleSelector
             placeholder={"Loading databases..."}
             emptyIndicator={

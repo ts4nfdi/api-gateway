@@ -5,7 +5,7 @@ import {renderValue} from '@/components/TermViewer';
 export const CopyButton = ({text, size}: any) => {
     const [copied, setCopied] = useState(false);
 
-    const copyToClipboard = useCallback(async (e) => {
+    const copyToClipboard = useCallback(async (e: any) => {
         e.preventDefault();
         e.stopPropagation();
         try {
@@ -35,7 +35,10 @@ export const CopyButton = ({text, size}: any) => {
 export default function ArtefactMetadata({
                                              data,
                                              showGoToButtons = true,
-                                         }) {
+                                         }: {
+    data: Record<string, any>,
+    showGoToButtons?: boolean;
+}) {
     const [showTechnicalFields, setShowTechnicalFields] = useState(false);
 
     const toggleTechnicalFields = useCallback(() => {

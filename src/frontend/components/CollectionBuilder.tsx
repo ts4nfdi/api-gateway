@@ -215,7 +215,6 @@ export function CollectionBuilder({
         }));
         const res: any = await collectionRestClient.createCollection(collectionData);
         if (res.status === 201 || res.status === 200) {
-            console.log("Collection saved/updated successfully");
             onSave(res.data, collectionData.id === "");
         } else {
             console.error("Failed to save/update collection");

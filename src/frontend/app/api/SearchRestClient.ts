@@ -60,7 +60,7 @@ export function useSearch({databases, collection}: {
         setIsLoading(true);
         setError(null);
         setSuggestions(null);
-        searchRestClient.search(query, databases, collection.id).then((response) => {
+        searchRestClient.search(query, databases, collection.id).then((response: any) => {
             const data = response.data.collection;
             if (requestId === latestRequestRef.current) {
                 setSuggestions(data ? data.slice(0, pageSize) : []);
