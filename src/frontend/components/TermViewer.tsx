@@ -1,16 +1,19 @@
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import React from "react";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import JSONViewer from "@/components/JSONViewer";
+import {useArtefactConceptTree} from "@/app/api/ArtefactsRestClient";
+import {ArtefactTerm} from "@/app/api/SearchRestClient";
+import {Loading} from "@/components/Loading";
+import ArtefactConcepts from "@/app/home/browse/components/ArtefactConcepts";
 
-function gotToURI(uri: string, label: string) {
+export function gotToURI(uri: string, label: string) {
     if (!uri) return null;
 
     return <Button title={`Go ${uri}`}><Link target={'_blank'} href={uri}>Go to {label}</Link></Button>
 }
 
-function renderValue(value: any) {
+export function renderValue(value: any) {
     if (value === null) {
         return <span className="text-gray-400">null</span>;
     } else if (typeof value === 'boolean') {
@@ -30,50 +33,27 @@ function renderValue(value: any) {
     }
 }
 
-export default function TermViewer({data, showGotoButtons = true}: any) {
-    const keyOrder = [
-        "iri", "label", "synonyms", "descriptions",
-        '@id', 'prefLabel', 'labels', "synonym", 'description', 'definition',
-        'short_form',
-        'ontology', 'ontology_iri',
-        'created', 'modified',
-        'obsolete'
-    ];
+export default function TermViewer({data, showGotoButtons = true}: {
+    data: ArtefactTerm,
+    showGotoButtons?: boolean
+}) {
 
-    const sortedData = Object.entries(data).sort(([keyA], [keyB]) => {
-        const indexA = keyOrder.indexOf(keyA);
-        const indexB = keyOrder.indexOf(keyB);
 
-        if (indexA === -1 && indexB === -1) return keyA.localeCompare(keyB);
-        if (indexA === -1) return 1;
-        if (indexB === -1) return -1;
-        return indexA - indexB;
-    });
+    let acronym = data.ontology;
 
-    return (
-        <>
-            <Table className={'w-full'}>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-1/3">Key</TableHead>
-                        <TableHead>Value</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {sortedData.map(([key, value]: any) => (
-                        <TableRow key={key}>
-                            <TableCell className="font-medium">{key} {Array.isArray(value) ? '(array)' : ''}</TableCell>
-                            <TableCell>{renderValue(value)}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-            {showGotoButtons &&
-                <div className={'flex space-x-2 items-center'}>
-                    {gotToURI(data.iri, 'original URI')}
-                    {gotToURI(data.source_url, data.source_name)}
-                </div>
-            }
-        </>
-    );
+    const {tree, loading, error} = useArtefactConceptTree(acronym, data.iri, data.source_name);
+
+    if (!data) {
+        return <div className="p-4 text-gray-500">No data available.</div>;
+    }
+
+    if (loading) {
+        return <Loading/>
+    }
+
+    if (error) {
+        return <div className="p-4 text-red-500">Error loading data: {error}</div>;
+    }
+
+    return <ArtefactConcepts concepts={tree} selected={data} showGoToButtons={showGotoButtons} />
 }

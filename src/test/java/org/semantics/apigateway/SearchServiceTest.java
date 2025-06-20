@@ -4,11 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
-import org.semantics.apigateway.service.search.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -66,7 +66,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setTargetDbSchema(TargetDbSchema.ols);
 
-        Map<String, Object> response = (Map<String, Object>) searchService.performSearch("plant", commonRequestParams, null, null, apiAccessor);
+        Map<String, Object> response = ((AggregatedApiResponse) searchService.performSearch("plant", commonRequestParams, null, null, apiAccessor)).getCollection().get(0);
 
         assertThat(response.containsKey("response")).isTrue();
         assertThat(response.containsKey("responseHeader")).isTrue();
