@@ -1,4 +1,4 @@
-package org.semantics.apigateway.service.search;
+package org.semantics.apigateway.artefacts.search;
 
 import lombok.NoArgsConstructor;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;

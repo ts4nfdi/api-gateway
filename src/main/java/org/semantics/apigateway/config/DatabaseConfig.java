@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.semantics.apigateway.model.BackendType;
 import org.semantics.apigateway.model.Endpoints;
 import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.SemanticArtefact;
@@ -49,6 +50,18 @@ public class DatabaseConfig {
         return type;
     }
 
+    public boolean isOls() {
+        return getDatabase().equals(BackendType.ols.toString()) || getDatabase().equals(BackendType.ols2.toString());
+    }
+
+    public boolean isOls2() {
+        return getDatabase().equals(BackendType.ols2.toString());
+    }
+
+    public boolean isOntoPortal() {
+        return getDatabase().equals(BackendType.ontoportal.toString());
+    }
+
     public String getApiKey() {
         return apiKey == null ? "" : apiKey;
     }
@@ -73,7 +86,7 @@ public class DatabaseConfig {
     }
 
     public UrlConfig getUrlConfig(String endpoint) {
-        return  new UrlConfig(getUrl(), getApiKey(), getEndpointConfig(endpoint).isCaseInsensitive());
+        return new UrlConfig(getUrl(), getApiKey(), getEndpointConfig(endpoint).isCaseInsensitive());
     }
 
     public String getSearchUrl() {

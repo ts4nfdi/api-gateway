@@ -99,3 +99,27 @@ endpoints:
       nestedJson: _embedded
       key: individuals
       <<: *term
+
+  concepts_roots:
+    path: ontologies/%s/terms/roots?size=1000
+    responseMapping:
+      nestedJson: _embedded
+      key: terms
+      <<: *term
+      hasChildren: has_children
+
+  concepts_children:
+    path: ontologies/%s/terms/%s/hierarchicalChildren
+    responseMapping:
+      nestedJson: _embedded
+      key: terms
+      <<: *term
+      hasChildren: has_children
+
+  concept_tree:
+    path: ontologies/%s/terms/%s/hierarchicalAncestors
+    responseMapping:
+      nestedJson: _embedded
+      key: terms
+      <<: *term
+      hasChildren: has_children

@@ -2,11 +2,20 @@ import {CollectionResponse} from "@/app/api/CollectionsRestClient";
 import React, {useEffect} from "react";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {LockIcon} from "lucide-react";
-import UUIDDisplay from "@/components/CopyId";
 import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
+import {CopyButton} from "@/app/home/browse/components/ArtefactMetadata";
 
+
+export function UUIDDisplay({uuid}: { uuid: string }) {
+    return (
+        <div className="flex space-x-5 items-center">
+            <span>{uuid}</span>
+            <CopyButton text={uuid}/>
+        </div>
+    );
+}
 export default function CollectionsSelectorTable({selected, collections, handleDelete, handleSelection, handleEdit}: {
     selected?: CollectionResponse;
     collections: CollectionResponse[];
@@ -18,7 +27,6 @@ export default function CollectionsSelectorTable({selected, collections, handleD
     const [filteredCollections, setFilteredCollections] = React.useState<CollectionResponse[]>(collections);
 
     useEffect(() => {
-        console.log("Filtering collections with query:", searchQuery);
         let filtered = collections.filter((collection) => {
             return collection.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 (collection.description && collection.description.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -54,7 +62,7 @@ export default function CollectionsSelectorTable({selected, collections, handleD
                                     )}
                                 </div>
                                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                    <UUIDDisplay value={collection.id ?? ''}/>
+                                    <UUIDDisplay uuid={collection.id ?? ''}/>
                                 </div>
                             </div>
                         </TableCell>

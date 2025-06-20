@@ -1,15 +1,21 @@
 name: skosmos
+models:
+  term: &term
+    label: prefLabel|label
+    iri: uri
+    synonyms: altLabel
+    descriptions: scopeNote
+    ontology: vocab
+    type: type
+    hasChildren: hasDirectChildren
+
 endpoints:
   search:
     path: /search?query=%s*&lang=en&fields=scopeNote
     responseMapping:
       nestedJson: results
-      iri: uri
-      label: prefLabel
-      synonyms: altLabel
-      descriptions: scopeNote
-      ontology: vocab
-      type: type
+      <<: *term
+
   resources:
     path: /vocabularies?lang=en
     responseMapping:
@@ -24,18 +30,12 @@ endpoints:
   concepts:
     path: /agrovoc/label?acronym=%s
     responseMapping:
-      label: prefLabel
-      iri: uri
-      type: type
-      synonyms: synonym
+      <<: *term
 
   concept_details:
     path: /agrovoc/label?acronym=%s&uri=%s
     responseMapping:
-      label: prefLabel
-      iri: uri
-      type: type
-      synonyms: synonym
+      <<: *term
 
   resource_details:
     path: /agrovoc
@@ -46,3 +46,19 @@ endpoints:
       ontology: id
       descriptions: title
       shortForm: id
+
+  concepts_roots:
+    path: /%s/topConcepts?lang=en
+    caseInsensitive: false
+    responseMapping:
+      nestedJson: topconcepts
+      <<: *term
+      hasChildren: hasChildren
+
+  concepts_children:
+    path: /%s/children?uri=%s&lang=en
+    caseInsensitive: false
+    responseMapping:
+      nestedJson: narrower
+      <<: *term
+      hasChildren: hasChildren

@@ -132,3 +132,23 @@ endpoints:
     path: ontologies/%s/collections/%s?apikey=%s&lang=en
     responseMapping:
       <<: *term
+
+  concepts_roots:
+    path: ontologies/%s/classes/roots?apikey=%s&lang=en&display=prefLabel,definition,synonym,created,modified,obsolete,hasChildren
+    responseMapping:
+      <<: *term
+      hasChildren: hasChildren
+  concepts_children:
+    path: ontologies/%s/classes/%s/children?page=%s&apikey=%s&lang=en&display=prefLabel,definition,synonym,created,modified,obsolete,hasChildren
+    responseMapping:
+      nestedJson: collection
+      totalCount: totalCount
+      page: page
+      <<: *term
+      hasChildren: hasChildren
+  concept_tree:
+    path: ontologies/%s/classes/%s/tree?apikey=%s&lang=en&display=prefLabel,definition,synonym,URI,created,modified,obsolete,hasChildren,children
+    responseMapping:
+      <<: *term
+      hasChildren: hasChildren
+      children: children

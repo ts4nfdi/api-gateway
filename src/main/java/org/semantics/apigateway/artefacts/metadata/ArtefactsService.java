@@ -1,4 +1,4 @@
-package org.semantics.apigateway.service.artefacts;
+package org.semantics.apigateway.artefacts.metadata;
 
 import org.semantics.apigateway.collections.CollectionService;
 import org.semantics.apigateway.collections.models.TerminologyCollection;

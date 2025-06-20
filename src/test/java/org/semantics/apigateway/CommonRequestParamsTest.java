@@ -2,11 +2,11 @@ package org.semantics.apigateway;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.semantics.apigateway.artefacts.metadata.ArtefactsService;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
-import org.semantics.apigateway.service.artefacts.ArtefactsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;

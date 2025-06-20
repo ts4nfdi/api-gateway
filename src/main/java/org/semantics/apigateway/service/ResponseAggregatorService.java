@@ -74,7 +74,7 @@ public class ResponseAggregatorService {
     }
 
     // Transform nested data into a list of AggregatedResourceBody
-    private List<AggregatedResourceBody> transformData(Object nestedData, DatabaseConfig config, String endpoint) {
+    public List<AggregatedResourceBody> transformData(Object nestedData, DatabaseConfig config, String endpoint) {
         List<AggregatedResourceBody> result = new ArrayList<>();
         if (nestedData instanceof List && !((List) nestedData).isEmpty()) {
             processList((List<?>) nestedData, result, config, endpoint);
