@@ -44,7 +44,6 @@ function ConceptsContent({data}: { data: Artefact }) {
     if (loading) {
         return <Loading/>
     }
-    console.log("ArtefactConcepts roots:", roots);
     return <div className={'p-2'}> <ArtefactConcepts concepts={roots || []}/> </div>
 }
 

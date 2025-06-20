@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {ChevronDown, ChevronRight, FileText, Folder, FolderOpen} from "lucide-react";
 import {ArtefactTerm} from "@/app/api/SearchRestClient";
 import {useArtefactConceptChildren} from "@/app/api/ArtefactsRestClient";
@@ -25,7 +25,6 @@ const TreeExpandChildren = ({
 }) => {
     const {children, loading} = useArtefactConceptChildren(concept);
 
-    console.log("concept children", concept.iri, children);
 
     if (loading) {
         return <Loading/>;
@@ -68,9 +67,19 @@ const TreeNode = ({
     selectedConcept: ArtefactTerm | null;
     searchTerm: string;
 }) => {
-    const isExpanded = expandedNodes.has(concept.iri) || (concept.children && concept.children.length > 0);
+    const isExpanded = expandedNodes.has(concept.iri);
     const isSelected = selectedConcept?.iri === concept.iri;
     const [isHovered, setIsHovered] = useState(false);
+
+    useEffect(() => {
+        if (concept.hasChildren && concept.children && concept.children.length > 0 && !isExpanded) {
+            setExpandedNodes(prev => {
+                const newSet = new Set(prev);
+                newSet.add(concept.iri);
+                return newSet;
+            });
+        }
+    }, []);
 
     const toggleNode = useCallback((e: React.MouseEvent) => {
         e.preventDefault();
@@ -97,8 +106,6 @@ const TreeNode = ({
 
     const indentLevel = level * 16;
 
-    console.log("Rendering TreeNode for concept:", concept.label, "at level", level, "expanded:", isExpanded, "selected:", isSelected,
-        "children:", concept.children);
     return (
         <div className="w-full">
             <div
@@ -214,19 +221,19 @@ export const TreeView = ({
     }
 
     return <div className="h-full bg-white">
-            <div className="py-1" role="tree">
-                {concepts.map((concept) => (
-                    <TreeNode
-                        key={concept.iri}
-                        concept={concept}
-                        level={level}
-                        expandedNodes={expandedNodes}
-                        setExpandedNodes={setExpandedNodes}
-                        onSelect={onSelect}
-                        selectedConcept={selectedConcept}
-                        searchTerm=""
-                    />
-                ))}
-            </div>
+        <div className="py-1" role="tree">
+            {concepts.map((concept) => (
+                <TreeNode
+                    key={concept.iri}
+                    concept={concept}
+                    level={level}
+                    expandedNodes={expandedNodes}
+                    setExpandedNodes={setExpandedNodes}
+                    onSelect={onSelect}
+                    selectedConcept={selectedConcept}
+                    searchTerm=""
+                />
+            ))}
+        </div>
     </div>
 };

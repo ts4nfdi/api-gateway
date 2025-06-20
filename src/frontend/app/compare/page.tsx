@@ -10,10 +10,10 @@ import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Loading} from "@/components/Loading";
 import {Badge} from "@/components/ui/badge";
 import Link from "next/link";
-import TermViewer from "@/components/TermViewer";
 import {APIResponseStats} from "@/components/ResponseStats";
 import {TopNav} from "@/app/TopNav";
 import {ExampleResponse, StatusCheckResponse, statusRestClient} from "@/app/api/StatusRestClient";
+import ArtefactMetadata from "@/app/home/browse/components/ArtefactMetadata";
 
 const calculateCommonKeysPercentage = (data: any) => {
     if (!data || !data.originalResponse) {
@@ -137,7 +137,7 @@ const DataTable = ({data}: any) => {
                     <div className="border rounded-lg overflow-hidden">
                         <div className="bg-gray-100 p-3 font-semibold border-b">Aggregated Data</div>
                         <div className="overflow-auto max-h-96">
-                            <TermViewer showGotoButtons={false} data={Object.fromEntries(mainData || [])}/>
+                            <ArtefactMetadata showGoToButtons={false} data={Object.fromEntries(mainData || [])}/>
                         </div>
                     </div>
 
@@ -145,7 +145,7 @@ const DataTable = ({data}: any) => {
                     <div className="border rounded-lg overflow-hidden">
                         <div className="bg-gray-100 p-3 font-semibold border-b">Original Data</div>
                         <div className="overflow-auto max-h-96">
-                            <TermViewer showGotoButtons={false} data={Object.fromEntries(originalResponseData || [])}/>
+                            <ArtefactMetadata showGoToButtons={false} data={Object.fromEntries(originalResponseData || [])}/>
                         </div>
                     </div>
                 </div>
