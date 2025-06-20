@@ -5,8 +5,22 @@ import {CollectionResponse} from "@/app/api/CollectionsRestClient";
 import {ResponseConfig} from "@/app/api/ArtefactsRestClient";
 import {debounce} from "next/dist/server/utils";
 
+export type ArtefactTerm = {
+    iri: string;
+    label: string;
+    descriptions: string;
+    backend_type: string;
+    source_name: string;
+    source: string;
+    short_form: string;
+    ontology: string;
+    ontology_iri: string;
+    hasChildren?: boolean;
+    children?: ArtefactTerm[];
+}
+
 export class SearchRestClient extends RestApplicationClient {
-    search(query: string, databases: string[], collectionId: string | undefined): RestResponse<any> {
+    search(query: string, databases: string[], collectionId: string | undefined): RestResponse<ArtefactTerm[]> {
         const params: any = {
             query: query,
             showResponseConfiguration: true
