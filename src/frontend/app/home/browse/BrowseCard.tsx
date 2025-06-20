@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import SmallLink from "@/components/SmallLink";
 import {Badge} from "@/components/ui/badge";
 import DialogWrapper from "@/components/Dialog";
-import TermViewer from "@/components/TermViewer";
+import {ArtefactViewer} from "@/app/home/browse/components/ArtefactViewer";
 
 export const BrowseCard = ({artefact}: any) => {
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -34,8 +34,8 @@ export const BrowseCard = ({artefact}: any) => {
                     <Badge className="text-xs" title={artefact.source}>{artefact.source_name}</Badge>
                 </CardFooter>
             </Card>
-            <DialogWrapper title={title} isOpen={dialogOpen} setIsOpen={setDialogOpen}>
-                <TermViewer data={artefact}/>
+            <DialogWrapper title={null} isOpen={dialogOpen} setIsOpen={setDialogOpen}>
+                <ArtefactViewer artefact={artefact}/>
             </DialogWrapper>
         </>
     );
