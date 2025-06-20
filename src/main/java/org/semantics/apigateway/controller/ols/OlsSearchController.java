@@ -6,6 +6,7 @@ import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
 import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.TargetDbSchema;
+import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,8 @@ public class OlsSearchController {
             query = "*";
         }
 
-        return searchService.performSearch(query + "*", allParams.get("database"),  "ols", false);
+        AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("database"), "ols", false);
+        return response.getCollection().get(0);
     }
 
     @CrossOrigin

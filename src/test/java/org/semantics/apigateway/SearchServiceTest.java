@@ -66,7 +66,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setTargetDbSchema(TargetDbSchema.ols);
 
-        Map<String, Object> response = (Map<String, Object>) searchService.performSearch("plant", commonRequestParams, null, null, apiAccessor);
+        Map<String, Object> response = ((AggregatedApiResponse) searchService.performSearch("plant", commonRequestParams, null, null, apiAccessor)).getCollection().get(0);
 
         assertThat(response.containsKey("response")).isTrue();
         assertThat(response.containsKey("responseHeader")).isTrue();

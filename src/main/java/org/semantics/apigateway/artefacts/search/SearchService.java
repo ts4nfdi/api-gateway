@@ -38,7 +38,7 @@ public class SearchService extends AbstractEndpointService {
         this.collectionService = collectionService;
     }
 
-    public Object performSearch(String query, String database, String targetDbSchema, boolean showResponseConfiguration) {
+    public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, boolean showResponseConfiguration) {
         TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase(database);
@@ -47,7 +47,7 @@ public class SearchService extends AbstractEndpointService {
         return performSearch(query, commonRequestParams, null, null, null);
     }
 
-    public Object performSearch(
+    public AggregatedApiResponse performSearch(
             String query,
             CommonRequestParams params,
             String collectionId,
@@ -67,7 +67,8 @@ public class SearchService extends AbstractEndpointService {
                     .thenApply(data -> filterOutByCollection(collection, data))
                     .thenApply(data -> reIndexResults(query, data))
                     .thenApply(x -> transformJsonLd(x, params))
-                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint)).get();
+                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint))
+                    .get();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return null;

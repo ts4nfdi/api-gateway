@@ -221,7 +221,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("source", "https://agrovoc.fao.org/browse/rest/v1");
         fixture.put("source_name", "agrovoc");
         fixture.put("synonyms", Collections.emptyList());
-        fixture.put("descriptions", null); //TODO: should be empty array or not empty
+        fixture.put("descriptions", Collections.emptyList());
         fixture.put("created", null);
         fixture.put("modified", null);
         fixture.put("obsolete", false);
