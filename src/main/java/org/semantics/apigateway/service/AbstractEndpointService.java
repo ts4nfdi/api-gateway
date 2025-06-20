@@ -49,7 +49,7 @@ public abstract class AbstractEndpointService {
         return new ApiAccessor(this.cacheManager);
     }
 
-    protected Object transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
+    protected AggregatedApiResponse transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
         return transformForTargetDbSchema(data, targetDbSchemaEnum, endpoint, true);
     }
 
@@ -68,6 +68,7 @@ public abstract class AbstractEndpointService {
                 logger.debug("Transformed results for database schema: {}", transformedResults);
                 AggregatedApiResponse transformedResponse = new AggregatedApiResponse();
                 transformedResponse.setCollection(Collections.singletonList(transformedResults));
+                transformedResponse.setList(false);
                 return transformedResponse;
             } catch (IOException e) {
                 throw new RuntimeException("Error transforming results for target database schema", e);
