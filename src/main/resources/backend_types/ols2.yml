@@ -88,3 +88,26 @@ endpoints:
     responseMapping:
       nestedJson: elements
       <<: *term
+
+  concepts_roots:
+    path: ontologies/%s/classes?hasDirectParents=false&size=1000&lang=en&includeObsoleteEntities=false
+    responseMapping:
+      nestedJson: elements
+      <<: *term
+      hasChildren: hasDirectChildren
+
+  concepts_children:
+    path: ontologies/%s/classes/%s/hierarchicalChildren?size=1000&lang=en&includeObsoleteEntities=false
+    caseInsensitive: false
+    responseMapping:
+      nestedJson: elements
+      <<: *term
+      hasChildren: hasDirectChildren
+
+  concept_tree:
+    path: ontologies/%s/classes/%s/hierarchicalAncestors?page=0&size=10000&lang=en
+    caseInsensitive: false
+    responseMapping:
+      nestedJson: elements
+      <<: *term
+      hasChildren: hasDirectChildren
