@@ -2,7 +2,7 @@ import React, {useCallback, useMemo, useState} from 'react';
 import {Check, Copy, Eye, EyeOff} from 'lucide-react';
 import {renderValue} from '@/components/TermViewer';
 
-const CopyButton = ({text, size}: any) => {
+export const CopyButton = ({text, size}: any) => {
     const [copied, setCopied] = useState(false);
 
     const copyToClipboard = useCallback(async (e) => {
