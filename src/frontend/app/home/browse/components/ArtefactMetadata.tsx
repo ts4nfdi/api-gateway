@@ -44,7 +44,7 @@ export default function ArtefactMetadata({
 
 
     const fieldCategories = useMemo(() => {
-        const primaryFields = ['iri', 'label', '@id', 'prefLabel', 'labels'];
+        const primaryFields = ['@id', 'label', 'prefLabel', 'labels'];
         const descriptiveFields = ['synonyms', 'descriptions', 'synonym', 'description', 'definition'];
         const metadataFields = ['short_form', 'created', 'modified', 'obsolete', 'version', 'status'];
         const technicalFields = Object.keys(data).filter(key =>
@@ -67,7 +67,7 @@ export default function ArtefactMetadata({
         }
 
         return fields;
-    }, [data, fieldCategories, showTechnicalFields]);
+    }, [fieldCategories, showTechnicalFields]);
 
     return (
         <div className={"max-h-[60vh] overflow-y-auto"}>
@@ -142,16 +142,14 @@ export default function ArtefactMetadata({
                                 Go to IRI
                             </a>
                         )}
-                        {data.source_name && (
-                            <a
-                                href={`https://example.com/source/${data.source_name}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-green-700 bg-green-100 hover:bg-green-200 rounded-md transition-colors"
-                            >
-                                Go to Source
-                            </a>
-                        )}
+                        <a
+                            href={`${data.source_url || data.source}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-green-700 bg-green-100 hover:bg-green-200 rounded-md transition-colors"
+                        >
+                            Go to Source
+                        </a>
                     </div>
                 )}
             </div>
