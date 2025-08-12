@@ -41,9 +41,19 @@
       "url": "https://service.tib.eu/ts4tib/api"
     },
     {
+      "type": "skosmos",
+      "name": "zbmed-skosmos",
+      "url": "https://semanticlookup.zbmed.de/skosmos/rest/v1"
+    },
+    {
       "type": "ols",
-      "name": "zbmed",
+      "name": "zbmed-ols",
       "url": "https://semanticlookup.zbmed.de/ols/api"
+    },
+    {
+      "type": "ols",
+      "name": "berd",
+      "url": "https://ts.berd-nfdi.de/ols4/api"
     },
     {
       "type": "skosmos",
