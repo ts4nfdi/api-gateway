@@ -21,24 +21,24 @@ endpoints:
     responseMapping:
       nestedJson: vocabularies
       label: id
-      iri: conceptschemes->uri|uri
+      iri: uri
       type: type
       ontology: id
       shortForm: id
       descriptions: title
 
   concepts:
-    path: /agrovoc/label?acronym=%s
+    path: /%s/label?acronym=%s
     responseMapping:
       <<: *term
 
   concept_details:
-    path: /agrovoc/label?acronym=%s&uri=%s
+    path: /%s/label?acronym=%s&uri=%s
     responseMapping:
       <<: *term
 
   resource_details:
-    path: /agrovoc
+    path: /%s/
     responseMapping:
       label: id
       iri: conceptschemes->uri|uri
