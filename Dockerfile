@@ -1,5 +1,5 @@
 # ---- Build Stage ----
-FROM gradle:8.5-jdk17 AS build
+FROM gradle:8.5-jdk21 AS build
 WORKDIR /app
 
 # Copy only necessary files for dependency caching first
@@ -9,7 +9,7 @@ COPY . .
 RUN gradle clean build -x test
 
 # ---- Runtime Stage ----
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:21-jdk
 RUN rm -rf /usr/local/tomcat/webapps/*
 RUN mkdir -p /logs
 
