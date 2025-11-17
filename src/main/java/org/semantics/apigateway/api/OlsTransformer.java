@@ -51,24 +51,23 @@ public class OlsTransformer implements DatabaseTransformer {
 
         // Construct the "docs" list
         for (Map<String, Object> transformedResult : transformedResults) {
-            Map<String, Object> object = new HashMap<>();
-            object.putAll(transformedResult);
-            objectList.add(object);
+          Map<String, Object> object = new HashMap<>(transformedResult);
+          objectList.add(object);
         }
 
         innerResponse.put(mappingKey, objectList);
         innerResponse.put("_links", "{}"); // TODO retrieve links and add here
         innerResponse.put("page", "{}"); // TODO handle pagination and add info here
 
-        response.put("_embedded", innerResponse);
+        response.put(mappingKey.equals("docs") ? "response" : "_embedded", innerResponse);
 
-        // TODO what do we need this for (not part of OLS responses)
-        Map<String, Object> responseHeader = new HashMap<>();
-        responseHeader.put("QTime", 0);
-        responseHeader.put("status", 0);
-
-        response.put("responseHeader", responseHeader);
-
+        if (mappingKey.equals("docs")) {
+          Map<String, Object> responseHeader = new HashMap<>();
+          responseHeader.put("QTime", 0);
+          responseHeader.put("status", 0);
+          response.put("responseHeader", responseHeader);
+        }
+        
         return response;
     }
 }
