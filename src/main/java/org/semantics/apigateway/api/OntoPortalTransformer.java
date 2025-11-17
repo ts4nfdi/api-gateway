@@ -57,7 +57,7 @@ public class OntoPortalTransformer implements DatabaseTransformer {
     }
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, boolean list) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list) {
         Map<String, Object> response = new HashMap<>();
         response.put("page", 1);
         response.put("pageCount", 1);

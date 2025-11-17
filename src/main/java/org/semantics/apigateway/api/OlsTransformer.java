@@ -38,24 +38,31 @@ public class OlsTransformer implements DatabaseTransformer {
 
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, boolean list) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list) {
         Map<String, Object> response = new HashMap<>();
+        
+        if (!list) {
+          transformedResults.stream().findFirst().ifPresent(response::putAll);
+          return response;
+        }
+        
         Map<String, Object> innerResponse = new HashMap<>();
-        List<Map<String, Object>> docs = new ArrayList<>();
+        List<Map<String, Object>> objectList = new ArrayList<>();
 
         // Construct the "docs" list
         for (Map<String, Object> transformedResult : transformedResults) {
-            Map<String, Object> doc = new HashMap<>();
-            doc.putAll(transformedResult);
-            docs.add(doc);
+            Map<String, Object> object = new HashMap<>();
+            object.putAll(transformedResult);
+            objectList.add(object);
         }
 
-        innerResponse.put("docs", docs);
-        innerResponse.put("numFound", transformedResults.size());
-        innerResponse.put("start", 0);
+        innerResponse.put(mappingKey, objectList);
+        innerResponse.put("_links", "{}"); // TODO retrieve links and add here
+        innerResponse.put("page", "{}"); // TODO handle pagination and add info here
 
-        response.put("response", innerResponse);
+        response.put("_embedded", innerResponse);
 
+        // TODO what do we need this for (not part of OLS responses)
         Map<String, Object> responseHeader = new HashMap<>();
         responseHeader.put("QTime", 0);
         responseHeader.put("status", 0);

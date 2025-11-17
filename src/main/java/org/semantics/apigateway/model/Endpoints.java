@@ -8,7 +8,7 @@ package org.semantics.apigateway.model;
  */
 public enum Endpoints {
     resources,search, concepts, properties, collections, individuals, schemes,
-    concept_details,resource_details, property_details, collection_details,individual_details, scheme_details,
+    concept_details, resource_details, property_details, collection_details,individual_details, scheme_details,
     concepts_roots, concepts_children, concept_tree;
 
     @Override
