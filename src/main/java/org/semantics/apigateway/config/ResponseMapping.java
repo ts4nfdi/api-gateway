@@ -16,7 +16,12 @@ import java.util.*;
 public class ResponseMapping {
     private String nestedJson;
     private String collectionFilter;
-    private String key;
+  
+  public String getKey() {
+    return key;
+  }
+  
+  private String key;
     private String totalCount;
     private String page;
 

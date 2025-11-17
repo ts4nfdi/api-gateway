@@ -39,12 +39,13 @@ public class ResponseTransformerService {
         switch (targetDataBase) {
             case "ols":
                 OlsTransformer olsTransformer = new OlsTransformer();
+                var responseMapping = databaseConfig.getResponseMapping(endpoint);
                 List<Map<String, Object>> transformedResults = originalResponse.stream()
-                        .map(x ->  olsTransformer.transformItem(x, databaseConfig.getResponseMapping(endpoint)))
+                        .map(x ->  olsTransformer.transformItem(x, responseMapping))
                         .filter(Objects::nonNull)
                         .collect(Collectors.toList());
 
-                return olsTransformer.constructResponse(transformedResults, false);
+                return olsTransformer.constructResponse(transformedResults, responseMapping.getKey(), isList);
             case "ontoportal":
                 OntoPortalTransformer ontoPortalTransformer = new OntoPortalTransformer();
                 List<Map<String, Object>> transformedResultsOntoPortal = originalResponse.stream()
@@ -52,14 +53,14 @@ public class ResponseTransformerService {
                         .filter(Objects::nonNull)
                         .collect(Collectors.toList());
 
-                return ontoPortalTransformer.constructResponse(transformedResultsOntoPortal, false);
+                return ontoPortalTransformer.constructResponse(transformedResultsOntoPortal, null,false);
             case "skosmos":
                 SkosmosTransformer skosmosTransformer = new SkosmosTransformer();
                 List<Map<String, Object>> transformedResultsSkosmos = originalResponse.stream()
                         .map(x ->  skosmosTransformer.transformItem(x, databaseConfig.getResponseMapping(endpoint)))
                         .filter(Objects::nonNull)
                         .collect(Collectors.toList());
-                return  skosmosTransformer.constructResponse(transformedResultsSkosmos, false);
+                return  skosmosTransformer.constructResponse(transformedResultsSkosmos, null,false);
              case "mod":
                  ModTransformer modTransformer = new ModTransformer();
                     List<Map<String, Object>> transformedResultsMod = originalResponse.stream()
@@ -67,7 +68,7 @@ public class ResponseTransformerService {
                             .filter(Objects::nonNull)
                             .collect(Collectors.toList());
 
-                    return modTransformer.constructResponse(transformedResultsMod, isList);
+                    return modTransformer.constructResponse(transformedResultsMod, null, isList);
             default:
 
                 return (Map<String, Object>) new HashMap<>().put("error", "No database configuration found");

@@ -37,7 +37,7 @@ public class ModTransformer implements DatabaseTransformer {
     }
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, boolean list) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list) {
         PaginatedResponse paginatedResponse = new PaginatedResponse(
                 transformedResults,
                 transformedResults.size(),
