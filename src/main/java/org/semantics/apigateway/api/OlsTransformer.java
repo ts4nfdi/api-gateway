@@ -41,7 +41,7 @@ public class OlsTransformer implements DatabaseTransformer {
     public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list) {
         Map<String, Object> response = new HashMap<>();
         
-        if (!list) {
+        if (!list && !"terms".equals(mappingKey)) {
           transformedResults.stream().findFirst().ifPresent(response::putAll);
           return response;
         }
