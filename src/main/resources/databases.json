@@ -38,7 +38,7 @@
     {
       "type": "ols",
       "name": "tib",
-      "url": "https://service.tib.eu/ts4tib/api"
+      "url": "https://api.terminology.tib.eu/api"
     },
     {
       "type": "ols",
