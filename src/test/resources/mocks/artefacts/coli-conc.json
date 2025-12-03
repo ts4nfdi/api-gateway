@@ -678,7 +678,7 @@
       },
       {
         "type": "http://bartoc.org/api-type/webservice",
-        "url": "https://service.tib.eu/ts4tib/api/ontologies/bk"
+        "url": "https://api.terminology.tib.eu/api/ontologies/bk"
       }
     ],
     "CQLKEY": "BKL",
@@ -3936,7 +3936,7 @@
       },
       {
         "type": "http://bartoc.org/api-type/webservice",
-        "url": "https://service.tib.eu/ts4tib/api"
+        "url": "https://api.terminology.tib.eu/api"
       }
     ],
     "FORMAT": [
