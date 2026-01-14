@@ -54,14 +54,14 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/api/ontologies/{ontology}/terms")
   public Object getTermsInOLSTargetDBSchema(@PathVariable String ontology, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
-    params.setTargetDbSchema(TargetDbSchema.ols4v1);
+    params.setTargetDbSchema(TargetDbSchema.ols );
     return this.artefactsDataService.getArtefactTerm(ontology, iri, params,  null);
   }
   
   @CrossOrigin
   @GetMapping("/api/ontologies/{ontology}")
   public Object getArtefactMetadataInOLSTargetDBSchema(@PathVariable String ontology, @ParameterObject CommonRequestParams params) {
-    params.setTargetDbSchema(TargetDbSchema.ols4v1);
+    params.setTargetDbSchema(TargetDbSchema.ols);
     return this.artefactsService.getArtefact(ontology, params, null);
   }
   
@@ -69,8 +69,16 @@ public class Ols4Controller {
   @GetMapping("/api/ontologies")
   public Object getArtefactsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params,
                                                 @Parameter(description = "Collection id to browse terminologies in") @RequestParam(required = false) String collectionId) {
-    params.setTargetDbSchema(TargetDbSchema.ols4v1);
+    params.setTargetDbSchema(TargetDbSchema.ols);
     User user = authService.tryGetCurrentUser();
     return this.artefactsService.getArtefacts(params, collectionId, user, null);
   }
+  
+  @CrossOrigin
+  @GetMapping("/api/v2/ontologies/{ontology}/entities")
+  public Object getEntitiesInOLSTargetDBSchema(@PathVariable String ontology, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
+    params.setTargetDbSchema(TargetDbSchema.ols2);
+    return this.artefactsDataService.getArtefactTerm(ontology, iri, params,  null);
+  }
+  
 }
