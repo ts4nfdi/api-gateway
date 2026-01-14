@@ -8,7 +8,7 @@ models:
     descriptions: definition|description
     shortForm: ontologyId
     type: type
-    sourceUrl: _links->self->href
+    sourceUrl: linkedEntities->self->source
     obsolete: isObsolete
     modified: loaded
     ontologyIri: uri|iri
@@ -21,7 +21,7 @@ models:
     descriptions: definition->value|description->value|definition
     shortForm: shortForm
     type: type
-    sourceUrl: _links->self->href
+    sourceUrl: linkedEntities->self->source
     obsolete: isObsolete
     ontologyIri: ontologyIri
     modified: loaded
