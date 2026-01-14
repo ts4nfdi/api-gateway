@@ -75,8 +75,8 @@ public class Ols4Controller {
   }
   
   @CrossOrigin
-  @GetMapping("/api/v2/ontologies/{ontology}/entities")
-  public Object getEntitiesInOLSTargetDBSchema(@PathVariable String ontology, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
+  @GetMapping("/api/v2/ontologies/{ontology}/classes")
+  public Object getClassesInOLSTargetDBSchema(@PathVariable String ontology, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
     params.setTargetDbSchema(TargetDbSchema.ols2);
     return this.artefactsDataService.getArtefactTerm(ontology, iri, params,  null);
   }
