@@ -1,10 +1,7 @@
 package org.semantics.apigateway.service;
 
 import lombok.Getter;
-import org.semantics.apigateway.api.ModTransformer;
-import org.semantics.apigateway.api.OlsTransformer;
-import org.semantics.apigateway.api.OntoPortalTransformer;
-import org.semantics.apigateway.api.SkosmosTransformer;
+import org.semantics.apigateway.api.*;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.springframework.stereotype.Service;
@@ -37,15 +34,26 @@ public class ResponseTransformerService {
     private Map<String, Object>  transformJsonResponse(List<Map<String, Object>> originalResponse, String targetDataBase, String endpoint, Boolean isList) {
         DatabaseConfig databaseConfig = configurationLoader.getDatabaseConfig(targetDataBase);
         switch (targetDataBase) {
-            case "ols":
+            case "ols": {
                 OlsTransformer olsTransformer = new OlsTransformer();
                 var responseMapping = databaseConfig.getResponseMapping(endpoint);
                 List<Map<String, Object>> transformedResults = originalResponse.stream()
-                        .map(x ->  olsTransformer.transformItem(x, responseMapping))
+                        .map(x -> olsTransformer.transformItem(x, responseMapping))
                         .filter(Objects::nonNull)
                         .collect(Collectors.toList());
-
+                
                 return olsTransformer.constructResponse(transformedResults, responseMapping.getKey(), isList);
+            }
+            case "ols2": {
+                OlsV2Transformer olsTransformer = new OlsV2Transformer();
+                var responseMapping = databaseConfig.getResponseMapping(endpoint);
+                List<Map<String, Object>> transformedResults = originalResponse.stream()
+                        .map(x -> olsTransformer.transformItem(x, responseMapping))
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toList());
+                
+                return olsTransformer.constructResponse(transformedResults, responseMapping.getKey(), isList);
+            }
             case "ontoportal":
                 OntoPortalTransformer ontoPortalTransformer = new OntoPortalTransformer();
                 List<Map<String, Object>> transformedResultsOntoPortal = originalResponse.stream()

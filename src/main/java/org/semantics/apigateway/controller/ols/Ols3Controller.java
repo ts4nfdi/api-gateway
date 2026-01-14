@@ -33,8 +33,9 @@ public class Ols3Controller {
     this.authService = authService;
   }
   
+  // TODO
   @CrossOrigin
-  @GetMapping("/api/select")
+  @GetMapping(value = {"/api/select", "/api/search"})
   public Object performDynFederatedSearchInOLSTargetDBSchema(@RequestParam Map<String, String> allParams) {
     String query;
     if (allParams.containsKey("q") || allParams.containsKey("query")) {
@@ -47,7 +48,7 @@ public class Ols3Controller {
       query = "*";
     }
     
-    AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("database"), "ols", false);
+    AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("ontology"), "ols", false);
     return response.getCollection().getFirst();
   }
   

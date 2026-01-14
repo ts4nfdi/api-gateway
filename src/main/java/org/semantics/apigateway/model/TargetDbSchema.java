@@ -3,8 +3,7 @@ package org.semantics.apigateway.model;
 public enum TargetDbSchema {
     ontoportal,
     ols,
-    ols4v1,
-    ols4v2,
+    ols2,
     skosmos,
     mod
 }
