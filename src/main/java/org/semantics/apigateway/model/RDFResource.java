@@ -19,6 +19,10 @@ public class RDFResource extends AggregatedResourceBody {
 
     @JsonProperty("ontology_iri")
     private String ontologyIri;
+    
+    @JsonProperty("depiction")
+    @ContextUri("foaf:depiction")
+    protected String depiction;
 
     private boolean hasChildren = false;
 
