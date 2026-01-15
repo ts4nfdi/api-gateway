@@ -22,7 +22,7 @@ public class RDFResource extends AggregatedResourceBody {
     
     @JsonProperty("depiction")
     @ContextUri("foaf:depiction")
-    protected String depiction;
+    protected List<String> depiction;
 
     private boolean hasChildren = false;
 
