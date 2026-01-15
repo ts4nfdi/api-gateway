@@ -52,6 +52,7 @@ endpoints:
       <<: *artefact
 
   concept_details:
-    path: /concepts?voc=%s&uri=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    caseInsensitive: false
+    path: /concepts?voc=%s&uri=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate,depiction
     responseMapping:
       <<: *searchResult
