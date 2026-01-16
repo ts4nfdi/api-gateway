@@ -7,15 +7,16 @@ import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
 import org.semantics.apigateway.artefacts.metadata.ArtefactsService;
 import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.model.CommonRequestParams;
-import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+@Component
 @RestController
 @RequestMapping("/ols")
 @Tag(name = "OLS")
@@ -55,7 +56,6 @@ public class Ols3Controller {
   @CrossOrigin
   @GetMapping("/api/ontologies/{ontology}/terms")
   public Object getTermsInOLSTargetDBSchema(@PathVariable String ontology, @RequestParam(required = false, defaultValue = "1") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
-    params.setTargetDbSchema(TargetDbSchema.ols);
     if (iri != null) {
       return this.artefactsDataService.getArtefactTerm(ontology, iri, params, null);
     }
@@ -65,7 +65,6 @@ public class Ols3Controller {
   @CrossOrigin
   @GetMapping("/api/ontologies/{ontology}")
   public Object getArtefactMetadataInOLSTargetDBSchema(@PathVariable String ontology, @ParameterObject CommonRequestParams params) {
-    params.setTargetDbSchema(TargetDbSchema.ols);
     return this.artefactsService.getArtefact(ontology, params, null);
   }
   
@@ -73,7 +72,6 @@ public class Ols3Controller {
   @GetMapping("/api/ontologies")
   public Object getArtefactsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params,
                                                 @Parameter(description = "Collection id to browse terminologies in") @RequestParam(required = false) String collectionId) {
-    params.setTargetDbSchema(TargetDbSchema.ols);
     User user = authService.tryGetCurrentUser();
     return this.artefactsService.getArtefacts(params, collectionId, user, null);
   }
