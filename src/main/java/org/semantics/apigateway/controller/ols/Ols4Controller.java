@@ -7,15 +7,16 @@ import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
 import org.semantics.apigateway.artefacts.metadata.ArtefactsService;
 import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.model.CommonRequestParams;
-import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+@Component
 @RestController
 @RequestMapping("/ols4")
 @Tag(name = "OLS 4")
@@ -54,14 +55,12 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/api/ontologies/{ontology}/terms")
   public Object getTermsInOLSTargetDBSchema(@PathVariable String ontology, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
-    params.setTargetDbSchema(TargetDbSchema.ols );
     return this.artefactsDataService.getArtefactTerm(ontology, iri, params,  null);
   }
   
   @CrossOrigin
   @GetMapping("/api/ontologies/{ontology}")
   public Object getArtefactMetadataInOLSTargetDBSchema(@PathVariable String ontology, @ParameterObject CommonRequestParams params) {
-    params.setTargetDbSchema(TargetDbSchema.ols);
     return this.artefactsService.getArtefact(ontology, params, null);
   }
   
@@ -69,7 +68,6 @@ public class Ols4Controller {
   @GetMapping("/api/ontologies")
   public Object getArtefactsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params,
                                                 @Parameter(description = "Collection id to browse terminologies in") @RequestParam(required = false) String collectionId) {
-    params.setTargetDbSchema(TargetDbSchema.ols);
     User user = authService.tryGetCurrentUser();
     return this.artefactsService.getArtefacts(params, collectionId, user, null);
   }
@@ -77,7 +75,6 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/api/v2/ontologies/{ontology}/classes")
   public Object getClassesInOLSTargetDBSchema(@PathVariable String ontology, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
-    params.setTargetDbSchema(TargetDbSchema.ols2);
     return this.artefactsDataService.getArtefactTerm(ontology, iri, params,  null);
   }
   
