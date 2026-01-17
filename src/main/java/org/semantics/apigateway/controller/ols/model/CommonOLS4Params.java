@@ -7,9 +7,6 @@ import lombok.Data;
 @Data
 public class CommonOLS4Params {
   
-  @QueryParam("pageable")
-  private Pageable pageable = new Pageable();
-  
   @QueryParam("search")
   private String search;
   

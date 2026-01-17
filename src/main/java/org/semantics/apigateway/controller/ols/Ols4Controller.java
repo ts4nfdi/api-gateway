@@ -7,13 +7,12 @@ import org.semantics.apigateway.artefacts.metadata.ArtefactsService;
 import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.artefacts.tree.ArtefactsDataTreeService;
 import org.semantics.apigateway.controller.ols.model.CommonOLS4Params;
-import org.semantics.apigateway.controller.ols.model.Pageable;
-import org.semantics.apigateway.controller.ols.model.PageableEditor;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 @Component
@@ -35,14 +34,9 @@ public class Ols4Controller {
     this.treeService = treeService;
   }
   
-  @InitBinder
-  public void initBinder(WebDataBinder binder) {
-    binder.registerCustomEditor(Pageable.class, new PageableEditor());
-  }
-  
   @CrossOrigin
   @GetMapping("/ontologies")
-  public Object getAllOntologiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @RequestParam(required = false) String collectionId) {
+  public Object getAllOntologiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(required = false) String collectionId) {
     return artefactsService.getArtefacts(params, collectionId, authService.tryGetCurrentUser(), null);
   }
   
@@ -60,8 +54,8 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/individuals")
-  public Object getAllIndividualsForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params) {
-    return artefactsDataService.getArtefactIndividuals(onto, params, ols4Params.getPageable().getPage(), null);
+  public Object getAllIndividualsForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+    return artefactsDataService.getArtefactIndividuals(onto, params, pageable.getPageNumber(), null);
   }
   
   @CrossOrigin
@@ -72,20 +66,20 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}/individuals")
-  public Object getAllIndividualsForClassInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
+  public Object getAllIndividualsForClassInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/individuals")
-  public Object getAllIndividualsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @RequestParam(required = false) String collectionId) {
+  public Object getAllIndividualsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(required = false) String collectionId) {
     throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities")
-  public Object getAllEntitiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params) {
-    return artefactsDataService.getArtefactTerms(onto, params, ols4Params.getPageable().getPage(), null);
+  public Object getAllEntitiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+    return artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber(), null);
   }
   
   @CrossOrigin
@@ -96,27 +90,27 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities/{entity}/relatedFrom")
-  public Object getEntityRelatedFromInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String entity, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
+  public Object getEntityRelatedFromInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String entity, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/entities")
-  public Object getAllEntitiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
+  public Object getAllEntitiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     // TODO Is there a way to run a federated query over all endpoints and their respective artifacts for all entities? Improbable, solely for performance reasons.
     throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/individuals/{individual}/ancestors")
-  public Object getIndividualAncestorsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String individual, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
+  public Object getIndividualAncestorsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String individual, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes")
-  public Object getClassesInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
-    return this.artefactsDataService.getArtefactTerms(onto, params, ols4Params.getPageable().getPage(), null);
+  public Object getClassesInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+    return this.artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber(), null);
   }
   
   @CrossOrigin
@@ -127,62 +121,62 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}/relatedFrom")
-  public Object getClassRelatedFromInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
+  public Object getClassRelatedFromInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}/hierarchicalDescendants")
-  public Object getClassHierarchicalDescendantsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
+  public Object getClassHierarchicalDescendantsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}/hierarchicalChildren")
-  public Object getClassHierarchicalChildrenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
+  public Object getClassHierarchicalChildrenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}/hierarchicalAncestors")
-  public Object getClassHierarchicalAncestorsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
+  public Object getClassHierarchicalAncestorsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}/descendants")
-  public Object getClassDecendantsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
+  public Object getClassDecendantsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}/children")
-  public Object getClassChildrenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
-    return treeService.getChildren(onto, clazz, params, ols4Params.getPageable().getPage(), null);
+  public Object getClassChildrenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+    return treeService.getChildren(onto, clazz, params, pageable.getPageNumber(), null);
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}/ancestors")
-  public Object getClassAncestorsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
+  public Object getClassAncestorsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/classes")
-  public Object getAllClassesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
+  public Object getAllClassesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/properties")
-  public Object getAllPropertiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
+  public Object getAllPropertiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties")
-  public Object getPropertiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
-    return artefactsDataService.getArtefactProperties(onto, params, ols4Params.getPageable().getPage(), null);
+  public Object getPropertiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+    return artefactsDataService.getArtefactProperties(onto, params, pageable.getPageNumber(), null);
   }
   
   @CrossOrigin
@@ -193,13 +187,13 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties/{property}/children")
-  public Object getPropertyChildenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
-    return treeService.getChildren(onto, property, params, ols4Params.getPageable().getPage(), null);
+  public Object getPropertyChildenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+    return treeService.getChildren(onto, property, params, pageable.getPageNumber(), null);
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties/{property}/ancestors")
-  public Object getProperyAncestorsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params) {
+  public Object getProperyAncestorsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     throw new NotImplementedException();
   }
   
