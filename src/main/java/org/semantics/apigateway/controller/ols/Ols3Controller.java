@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Component
 @RestController
-@RequestMapping("/ols")
+@RequestMapping("/ols/api")
 @Tag(name = "OLS")
 public class Ols3Controller {
   
@@ -36,7 +36,7 @@ public class Ols3Controller {
   
   // TODO
   @CrossOrigin
-  @GetMapping(value = {"/api/select", "/api/search"})
+  @GetMapping(value = {"/select", "/search"})
   public Object performDynFederatedSearchInOLSTargetDBSchema(@RequestParam Map<String, String> allParams) {
     String query;
     if (allParams.containsKey("q") || allParams.containsKey("query")) {
@@ -54,7 +54,7 @@ public class Ols3Controller {
   }
   
   @CrossOrigin
-  @GetMapping("/api/ontologies/{ontology}/terms")
+  @GetMapping("/ontologies/{ontology}/terms")
   public Object getTermsInOLSTargetDBSchema(@PathVariable String ontology, @RequestParam(required = false, defaultValue = "1") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
     if (iri != null) {
       return this.artefactsDataService.getArtefactTerm(ontology, iri, params, null);
@@ -63,13 +63,13 @@ public class Ols3Controller {
   }
   
   @CrossOrigin
-  @GetMapping("/api/ontologies/{ontology}")
+  @GetMapping("/ontologies/{ontology}")
   public Object getArtefactMetadataInOLSTargetDBSchema(@PathVariable String ontology, @ParameterObject CommonRequestParams params) {
     return this.artefactsService.getArtefact(ontology, params, null);
   }
   
   @CrossOrigin
-  @GetMapping("/api/ontologies")
+  @GetMapping("/ontologies")
   public Object getArtefactsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params,
                                                 @Parameter(description = "Collection id to browse terminologies in") @RequestParam(required = false) String collectionId) {
     User user = authService.tryGetCurrentUser();
