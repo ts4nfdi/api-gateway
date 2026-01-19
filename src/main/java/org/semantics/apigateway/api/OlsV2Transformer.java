@@ -7,6 +7,7 @@ import org.semantics.apigateway.service.MappingTransformer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class OlsV2Transformer implements DatabaseTransformer {
     @Override
@@ -20,8 +21,11 @@ public class OlsV2Transformer implements DatabaseTransformer {
             return item;
         }
 
-        mapping.inverseMapping().forEach((transformedKey, ourKey) -> {
-
+        mapping.inverseMapping().entrySet().stream().filter(entry -> !Set.of("totalCount", "page", "nestedJson", "key").contains(entry.getValue())).forEach(entry -> {
+            
+            String transformedKey = entry.getKey();
+            String ourKey = entry.getValue();
+            
             Object value = item.get(ourKey);
             if (value == null) {
                 value = item.get(toSnakeCaseRegex(ourKey));
@@ -38,14 +42,15 @@ public class OlsV2Transformer implements DatabaseTransformer {
 
     @Override
     public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list) {
-        Map<String, Object> response = new HashMap<>();
-        
-        if (!list) {
+        if (list) {
+            Map<String, Object> response = new HashMap<>();
             response.put("elements", transformedResults);
-        } else {
-          transformedResults.stream().findFirst().ifPresent(response::putAll);
+            response.put("totalElements", transformedResults.size());
+            response.put("numElements", transformedResults.size());
+            response.put("page", 0);
+            return response;
         }
         
-        return response;
+        return transformedResults.getFirst();
     }
 }

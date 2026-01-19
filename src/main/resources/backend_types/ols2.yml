@@ -1,10 +1,10 @@
 name: ols2
 models:
   artefact: &artefact
-    label: title|label
+    label: title|http://www.w3.org/2000/01/rdf-schema#label
     iri: uri|iri
     ontology: ontologyId
-    synonyms: synonym
+    synonyms: label
     descriptions: definition|description
     shortForm: ontologyId
     type: type
@@ -36,9 +36,10 @@ endpoints:
       <<: *term
 
   resources:
-    path: ontologies?size=10000
     responseMapping:
       nestedJson: elements
+      page: page
+      totalCount: totalElements
       <<: *artefact
 
   concepts:
