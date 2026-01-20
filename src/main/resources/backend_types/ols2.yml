@@ -37,6 +37,7 @@ endpoints:
 
   resources:
     responseMapping:
+      path: ontologies?size=10000
       nestedJson: elements
       page: page
       totalCount: totalElements
