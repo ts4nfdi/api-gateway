@@ -44,7 +44,7 @@ public class UserCollectionsController {
 
     @GetMapping("/")
     public List<TerminologyCollectionDto> allCollections() {
-        List<TerminologyCollection> collections = this.collectionRepository.findAllAccessibleCollections(authService.getCurrentUser());
+        List<TerminologyCollection> collections = this.collectionRepository.findAllUserCollections(authService.getCurrentUser());
         return collections.stream().map(TerminologyCollectionDto::toDto).toList();
     }
 
