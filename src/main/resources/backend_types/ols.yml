@@ -27,6 +27,7 @@ models:
     type: type
     obsolete: is_obsolete
     ontologyIri: ontology_iri
+    depiction: depiction
 
 endpoints:
   search:

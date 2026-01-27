@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Component
 @RestController
-@RequestMapping("/ols/api/v2")
+@RequestMapping(value={"/ols/api/v2", "/ols4/api/v2"})
 @Tag(name = "OLS 4")
 @SuppressWarnings("unused")
 public class Ols4Controller {
