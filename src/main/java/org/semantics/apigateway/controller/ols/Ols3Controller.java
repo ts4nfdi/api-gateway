@@ -50,7 +50,7 @@ public class Ols3Controller {
     }
     
     AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("ontology"), "ols", false);
-    return response.getCollection().getFirst();
+    return response.getCollection().get(0);
   }
   
   @CrossOrigin
