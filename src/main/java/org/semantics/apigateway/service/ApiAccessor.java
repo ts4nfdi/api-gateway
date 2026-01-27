@@ -154,7 +154,7 @@ public class ApiAccessor {
                 Integer page = Integer.parseInt(queries.get(queries.size() - 1)) - 1 + config.pagination().getFirst();
                 queries = Stream.concat(queries.stream().limit(queries.size() - 1), Stream.of(page.toString())).collect(Collectors.toList());
             } catch (NumberFormatException e) {
-                logger.info("Pagination parameter missing for URL {} with query: {}", queries);
+                logger.info("Pagination parameter missing for URL {} with query: {}", url, queries);
             }
         }
         
