@@ -51,6 +51,6 @@ public class OlsV2Transformer implements DatabaseTransformer {
             return response;
         }
         
-        return transformedResults.getFirst();
+        return transformedResults.get(0);
     }
 }
