@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Component
 @RestController
-@RequestMapping("/ols/api")
+@RequestMapping(value={"/ols/api", "/ols4/api"})
 @Tag(name = "OLS")
 public class Ols3Controller {
   
