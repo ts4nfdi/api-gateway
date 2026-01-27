@@ -1,4 +1,9 @@
 name: ols
+
+pagination:
+  type: page
+  first: 0
+
 models:
   artefact: &artefact
     label: config->title|ontologyId

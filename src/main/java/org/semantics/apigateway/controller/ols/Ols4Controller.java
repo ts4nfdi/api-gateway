@@ -55,7 +55,7 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/individuals")
   public Object getAllIndividualsForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return artefactsDataService.getArtefactIndividuals(onto, params, pageable.getPageNumber(), null);
+    return artefactsDataService.getArtefactIndividuals(onto, params, pageable.getPageNumber() + 1, null);
   }
   
   @CrossOrigin
@@ -79,7 +79,7 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities")
   public Object getAllEntitiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber(), null);
+    return artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber() + 1, null);
   }
   
   @CrossOrigin
@@ -110,7 +110,7 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes")
   public Object getClassesInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return this.artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber(), null);
+    return this.artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber() + 1, null);
   }
   
   @CrossOrigin
@@ -152,7 +152,7 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}/children")
   public Object getClassChildrenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return treeService.getChildren(onto, clazz, params, pageable.getPageNumber(), null);
+    return treeService.getChildren(onto, clazz, params, pageable.getPageNumber() + 1, null);
   }
   
   @CrossOrigin
@@ -176,7 +176,7 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties")
   public Object getPropertiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return artefactsDataService.getArtefactProperties(onto, params, pageable.getPageNumber(), null);
+    return artefactsDataService.getArtefactProperties(onto, params, pageable.getPageNumber() + 1, null);
   }
   
   @CrossOrigin
@@ -188,7 +188,7 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties/{property}/children")
   public Object getPropertyChildenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return treeService.getChildren(onto, property, params, pageable.getPageNumber(), null);
+    return treeService.getChildren(onto, property, params, pageable.getPageNumber() + 1, null);
   }
   
   @CrossOrigin

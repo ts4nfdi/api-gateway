@@ -1,4 +1,9 @@
 name: ols2
+
+pagination:
+  type: page
+  first: 0
+
 models:
   artefact: &artefact
     label: title|http://www.w3.org/2000/01/rdf-schema#label
@@ -36,8 +41,8 @@ endpoints:
       <<: *term
 
   resources:
+    path: /ontologies?size=10000
     responseMapping:
-      path: ontologies?size=10000
       nestedJson: elements
       page: page
       totalCount: totalElements
@@ -60,19 +65,19 @@ endpoints:
       <<: *term
 
   concept_details:
-    path: ontologies/%s/classes?iri=%s
+    path: /ontologies/%s/classes?iri=%s
     responseMapping:
       nestedJson: elements
       <<: *term
 
   property_details:
-    path: ontologies/%s/properties?iri=%s
+    path: /ontologies/%s/properties?iri=%s
     responseMapping:
       nestedJson: elements
       <<: *term
 
   resource_details:
-    path: ontologies/%s
+    path: /ontologies/%s
     responseMapping:
       nestedJson: ""
       key: ""
@@ -87,20 +92,20 @@ endpoints:
       <<: *term
 
   individual_details:
-    path: ontologies/%s/individuals?iri=%s
+    path: /ontologies/%s/individuals?iri=%s
     responseMapping:
       nestedJson: elements
       <<: *term
 
   concepts_roots:
-    path: ontologies/%s/classes?hasDirectParents=false&size=1000&lang=en&includeObsoleteEntities=false
+    path: /ontologies/%s/classes?hasDirectParents=false&size=1000&lang=en&includeObsoleteEntities=false
     responseMapping:
       nestedJson: elements
       <<: *term
       hasChildren: hasDirectChildren
 
   concepts_children:
-    path: ontologies/%s/classes/%s/hierarchicalChildren?size=1000&lang=en&includeObsoleteEntities=false
+    path: /ontologies/%s/classes/%s/hierarchicalChildren?size=1000&lang=en&includeObsoleteEntities=false
     caseInsensitive: false
     responseMapping:
       nestedJson: elements
@@ -108,7 +113,7 @@ endpoints:
       hasChildren: hasDirectChildren
 
   concept_tree:
-    path: ontologies/%s/classes/%s/hierarchicalAncestors?page=0&size=10000&lang=en
+    path: /ontologies/%s/classes/%s/hierarchicalAncestors?page=0&size=10000&lang=en
     caseInsensitive: false
     responseMapping:
       nestedJson: elements

@@ -1,4 +1,9 @@
 name: mod
+
+pagination:
+  type: page
+  first: 1
+
 models:
   search: &searchResult
     label: prefLabel

@@ -38,7 +38,7 @@ public class OlsTransformer implements DatabaseTransformer {
 
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount) {
         Map<String, Object> response = new HashMap<>();
         
         if (!list && !"terms".equals(mappingKey)) {
@@ -57,7 +57,12 @@ public class OlsTransformer implements DatabaseTransformer {
 
         innerResponse.put(mappingKey, objectList);
         innerResponse.put("_links", "{}"); // TODO retrieve links and add here
-        innerResponse.put("page", "{}"); // TODO handle pagination and add info here
+        
+        var pageObject = new HashMap<String, Object>();
+        pageObject.put("size", transformedResults);
+        pageObject.put("totalElements", totalCount);
+        pageObject.put("number", page == 0 ? 0 : page - 1);
+        innerResponse.put("page", pageObject);
 
         response.put(mappingKey.equals("docs") ? "response" : "_embedded", innerResponse);
 

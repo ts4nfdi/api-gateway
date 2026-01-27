@@ -57,7 +57,7 @@ public class SkosmosTransformer implements DatabaseTransformer {
     }
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount) {
         Map<String, Object> response = new HashMap<>();
         response.put("results", transformedResults);
         response.put("@context", Collections.singletonMap("@context", ""));
