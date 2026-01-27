@@ -109,6 +109,8 @@ endpoints:
     caseInsensitive: false
     responseMapping:
       nestedJson: elements
+      totalCount: totalElements
+      page: page
       <<: *term
       hasChildren: hasDirectChildren
 
@@ -117,5 +119,7 @@ endpoints:
     caseInsensitive: false
     responseMapping:
       nestedJson: elements
+      totalCount: totalElements
+      page: page
       <<: *term
       hasChildren: hasDirectChildren
