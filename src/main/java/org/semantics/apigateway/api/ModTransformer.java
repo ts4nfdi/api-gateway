@@ -37,7 +37,7 @@ public class ModTransformer implements DatabaseTransformer {
     }
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount) {
         PaginatedResponse paginatedResponse = new PaginatedResponse(
                 transformedResults,
                 transformedResults.size(),
@@ -45,7 +45,7 @@ public class ModTransformer implements DatabaseTransformer {
         );
 
         Map<String, Object> response = new HashMap<>();
-        response.put("page", 1);
+        response.put("page", page);
         response.put("pageCount", paginatedResponse.getTotalPages());
         response.put("totalItems", transformedResults.size());
         response.put("member", transformedResults);

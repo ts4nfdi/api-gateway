@@ -1,4 +1,8 @@
 name: gnd
+
+pagination:
+  type: none
+
 models:
   artefact: &artefact
     label: GDN

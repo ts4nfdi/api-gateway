@@ -64,7 +64,7 @@ public abstract class AbstractEndpointService {
                 } else {
                     collections = (List<Map<String, Object>>) data;
                 }
-                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList);
+                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList, data.isPaginate(), data.getPage(), data.getTotalCount());
                 logger.debug("Transformed results for database schema: {}", transformedResults);
                 AggregatedApiResponse transformedResponse = new AggregatedApiResponse();
                 transformedResponse.setCollection(Collections.singletonList(transformedResults));

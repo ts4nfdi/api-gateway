@@ -41,13 +41,13 @@ public class OlsV2Transformer implements DatabaseTransformer {
 
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount) {
         if (list) {
             Map<String, Object> response = new HashMap<>();
             response.put("elements", transformedResults);
-            response.put("totalElements", transformedResults.size());
+            response.put("totalElements", totalCount);
             response.put("numElements", transformedResults.size());
-            response.put("page", 0);
+            response.put("page", page == 0 ? 0 : page - 1);
             return response;
         }
         

@@ -1,4 +1,9 @@
 name: jskos
+
+pagination:
+  type: offset
+  first: 0
+
 models:
   artefact: &artefact
     iri: uri
