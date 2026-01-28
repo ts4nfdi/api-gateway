@@ -25,7 +25,11 @@ public interface CollectionRepository extends JpaRepository<TerminologyCollectio
             "OR c.user = :user")
     List<TerminologyCollection> findAllAccessibleCollections(User user);
 
-
+    @Query("SELECT DISTINCT t FROM TerminologyCollection t " +
+            "LEFT JOIN t.collaborators c " +
+            "WHERE t.user = :user " +
+            "OR c.user = :user")
+    List<TerminologyCollection> findAllUserCollections(User user);
 
     @Query("SELECT DISTINCT t FROM TerminologyCollection t " +
             "LEFT JOIN t.collaborators c " +

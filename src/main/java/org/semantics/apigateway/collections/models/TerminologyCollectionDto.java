@@ -17,6 +17,8 @@ public class TerminologyCollectionDto {
     @NotNull
     String label;
     @NotNull
+    String creator;
+    @NotNull
     String description;
     @NotNull
     @JsonProperty("isPublic")
@@ -31,6 +33,7 @@ public class TerminologyCollectionDto {
         dto.setLabel(x.getLabel());
         dto.setDescription(x.getDescription());
         dto.setPublic(x.isPublic());
+        dto.setCreator(x.getUser().getUsername());
         dto.setCollaborators(x.getCollaborators().stream().map(c -> {
             return new CollectionCollaboratorDto(
                     c.getUser().getUsername(),
