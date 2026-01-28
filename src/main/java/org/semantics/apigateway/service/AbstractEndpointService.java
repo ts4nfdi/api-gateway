@@ -13,7 +13,6 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -59,10 +58,10 @@ public abstract class AbstractEndpointService {
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
             try {
                 List<Map<String, Object>> collections;
-                if (data instanceof AggregatedApiResponse) {
+                if (data != null) {
                     collections = data.getCollection();
                 } else {
-                    collections = (List<Map<String, Object>>) data;
+                    collections = null;
                 }
                 Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList);
                 logger.debug("Transformed results for database schema: {}", transformedResults);
@@ -167,9 +166,7 @@ public abstract class AbstractEndpointService {
         ApiResponse results = entry.getValue();
         DatabaseConfig config = null;
         try {
-            URL baseUrl = new URL(url);
-            String baseUrlString = baseUrl.getProtocol() + "://" + baseUrl.getHost();
-            config = this.configurationLoader.getConfigByBaseUrl(baseUrlString);
+            config = this.configurationLoader.getConfigByBaseUrl(url);
         } catch (Exception e) {
             logger.error("Error getting config for URL: {}", url, e);
         }
@@ -390,7 +387,7 @@ public abstract class AbstractEndpointService {
 
         if (database != null) {
             a = apiResponse.stream()
-                    .filter(x -> !x.getCollection().isEmpty() && x.getCollection().get(0).getBackendType().equals(database))
+                    .filter(x -> !x.getCollection().isEmpty() && x.getCollection().getFirst().getBackendType().equals(database))
                     .findFirst()
                     .orElse(null);
         }
@@ -483,12 +480,11 @@ public abstract class AbstractEndpointService {
             return apiResponses;
         }
 
-        String id = ids.get(0);
+        String id = ids.getFirst();
 
-        return apiResponses.stream().map(x -> {
+        return apiResponses.stream().peek(x -> {
                     List<AggregatedResourceBody> filtered = x.getCollection().stream().filter(y -> y.getShortForm().equalsIgnoreCase(id) || y.getIri().equals(id)).toList();
                     x.setCollection(filtered);
-                    return x;
                 })
                 .filter(x -> !x.getCollection().isEmpty())
                 .toList();

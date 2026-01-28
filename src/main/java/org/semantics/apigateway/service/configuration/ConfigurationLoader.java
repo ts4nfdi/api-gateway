@@ -131,8 +131,37 @@ public class ConfigurationLoader {
         return databaseConfigs.stream()
                 .filter(c -> {
                     try {
-                        URL configUrl = new URL(c.getUrl());
-                        return configUrl.getHost().equalsIgnoreCase(new URL(url).getHost());
+                        String configUrl = c.getUrl();
+                        String type = c.getType();
+                        String browserUrl;
+                        switch (type) {
+                            case "skosmos":
+
+                                browserUrl= url.substring(0,(url.lastIndexOf("/v1/") + 3));
+                                if (configUrl.equalsIgnoreCase(browserUrl)) {
+                                    return true;
+                                }
+
+                            case "ols":
+                            case "jskos2":
+
+                                browserUrl = url.substring(0,(url.lastIndexOf("/api/") + 4));
+                                if (configUrl.equalsIgnoreCase(browserUrl)) {
+                                    return true;
+                                }
+
+                            case "ols2":
+                                browserUrl = url.substring(0,( url.lastIndexOf("/api/v2") + 7));
+                                if (configUrl.equalsIgnoreCase(browserUrl)) {
+                                    return true;
+                                }
+
+                            default:
+                                URL baseUrl = new URL(url);
+                                browserUrl = baseUrl.getProtocol() + "://" + baseUrl.getHost();
+                                return configUrl.equalsIgnoreCase(browserUrl);
+                        }
+
                     } catch (Exception e) {
                         logger.error("Error parsing URL: {}", e.getMessage(), e);
                         return false;
