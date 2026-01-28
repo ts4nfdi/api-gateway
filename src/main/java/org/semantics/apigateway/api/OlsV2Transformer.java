@@ -29,6 +29,8 @@ public class OlsV2Transformer implements DatabaseTransformer {
             Object value = item.get(ourKey);
             if (value == null) {
                 value = item.get(toSnakeCaseRegex(ourKey));
+            } else if (ourKey.equals("type")) {
+                value = List.of(value.toString());
             }
 
             MappingTransformer.itemValueSetter(transformedItem, transformedKey, value);
