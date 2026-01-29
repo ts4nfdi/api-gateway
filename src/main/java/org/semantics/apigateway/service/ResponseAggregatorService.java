@@ -43,9 +43,15 @@ public class ResponseAggregatorService {
         String totalCount = config.getResponseMapping(endpoint).getTotalCount();
 
         if(getData(response.getResponseBody(), paginationKey).isPresent()) {
-            newResponse.setPage(Integer.parseInt(getData(response.getResponseBody(), paginationKey).get()));
-            newResponse.setTotalCollections(Long.parseLong(getData(response.getResponseBody(), totalCount).orElse("0")));
-            newResponse.setPaginate(true);
+          try {
+            newResponse.setPage((int)Double.parseDouble(getData(response.getResponseBody(), paginationKey).get()));
+          } catch (NumberFormatException e) {
+          }
+          try {
+            newResponse.setTotalCollections((long)Double.parseDouble(getData(response.getResponseBody(), totalCount).orElse("0")));
+          } catch (NumberFormatException e) {
+          }
+          newResponse.setPaginate(true);
         }
 
         if (nestedData == null) {
