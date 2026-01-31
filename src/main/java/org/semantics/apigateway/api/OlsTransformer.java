@@ -30,7 +30,17 @@ public class OlsTransformer implements DatabaseTransformer {
 
             MappingTransformer.itemValueSetter(transformedItem, transformedKey, value);
         });
-
+        
+        Map<String, List<String>> annotations = (Map<String, List<String>>) transformedItem.get("annotation");
+        if (annotations != null) {
+            annotations = annotations.entrySet().stream().filter(e -> e.getValue() != null && !e.getValue().isEmpty()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+            if (annotations.isEmpty()) {
+                transformedItem.remove("annotation");
+            } else {
+                transformedItem.put("annotation", annotations);
+            }
+        }
+        
         transformedItem.put("URI", item.get("iri"));
         transformedItem.put("@type", new SemanticArtefact().getTypeURI());
         return transformedItem;

@@ -7,6 +7,7 @@ import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,14 +21,13 @@ public class RDFResource extends AggregatedResourceBody {
     @JsonProperty("ontology_iri")
     private String ontologyIri;
     
-    @JsonProperty("depiction")
-    @ContextUri("foaf:depiction")
-    protected List<String> depiction;
-
     private boolean hasChildren = false;
 
     private List<RDFResource> children = new ArrayList<>();
-
+    
+    @JsonProperty("annotations")
+    private Map<String, List<String>> annotations;
+    
     public String getTypeURI() {
         return "http://www.w3.org/2000/01/rdf-schema#Resource";
     }

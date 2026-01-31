@@ -4,10 +4,7 @@ import org.semantics.apigateway.config.ResponseMapping;
 import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.service.MappingTransformer;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class OlsV2Transformer implements DatabaseTransformer {
     @Override
@@ -26,14 +23,16 @@ public class OlsV2Transformer implements DatabaseTransformer {
             String transformedKey = entry.getKey();
             String ourKey = entry.getValue();
             
-            Object value = item.get(ourKey);
+            Object value = getNestedValue(item, ourKey);
             if (value == null) {
                 value = item.get(toSnakeCaseRegex(ourKey));
             } else if (ourKey.equals("type")) {
                 value = List.of(value.toString());
             }
 
-            MappingTransformer.itemValueSetter(transformedItem, transformedKey, value);
+            if (value != null ) {
+                MappingTransformer.itemValueSetter(transformedItem, transformedKey, value);
+            }
         });
 
         transformedItem.put("URI", item.get("iri"));
@@ -54,5 +53,17 @@ public class OlsV2Transformer implements DatabaseTransformer {
         }
         
         return transformedResults.get(0);
+    }
+    
+    private Object getNestedValue(Map<String, Object> item, String key) {
+        String[] path = key.split("->");
+        Object current = item;
+        for(String pathSegment : Arrays.stream(path).limit(path.length - 1).toList()) {
+            if (!(current instanceof Map)) {
+                return null;
+            }
+            current = ((Map<String, Object>)current).get(pathSegment);
+        }
+        return ((Map<String, Object>)current).get(path[path.length - 1]);
     }
 }

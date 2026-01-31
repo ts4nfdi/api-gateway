@@ -30,7 +30,7 @@ models:
     obsolete: isObsolete
     ontologyIri: ontologyIri
     modified: loaded
-    depiction: http://xmlns.com/foaf/0.1/depiction
+    annotations->depiction: http://xmlns.com/foaf/0.1/depiction
 
 endpoints:
   search:
