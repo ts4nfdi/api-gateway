@@ -1,6 +1,7 @@
 package org.semantics.apigateway.controller.ols;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.ws.rs.QueryParam;
 import org.apache.commons.lang3.NotImplementedException;
 import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
 import org.semantics.apigateway.artefacts.metadata.ArtefactsService;
@@ -54,8 +55,8 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/individuals")
-  public Object getAllIndividualsForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return artefactsDataService.getArtefactIndividuals(onto, params, pageable.getPageNumber() + 1, null);
+  public Object getAllIndividualsForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
+    return iri == null ? artefactsDataService.getArtefactIndividuals(onto, params, pageable.getPageNumber() + 1, null) : artefactsDataService.getArtefactIndividual(onto, iri, params, null);
   }
   
   @CrossOrigin
@@ -78,14 +79,14 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities")
-  public Object getAllEntitiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber() + 1, null);
+  public Object getAllEntitiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
+    throw new NotImplementedException();
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities/{entity}")
   public Object getEntityInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String entity, @ParameterObject CommonRequestParams params) {
-    return artefactsDataService.getArtefactIndividual(onto, entity, params, null);
+    throw new NotImplementedException();
   }
   
   @CrossOrigin
@@ -109,14 +110,16 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes")
-  public Object getClassesInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return this.artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber() + 1, null);
+  public Object getClassesInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
+    Object result = iri == null ? artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber() + 1, null) : artefactsDataService.getArtefactTerm(onto, iri, params, null);
+    return result;
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}")
   public Object getClassInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params) {
-    return artefactsDataService.getArtefactTerm(onto, clazz, params, null);
+    Object result = artefactsDataService.getArtefactTerm(onto, clazz, params, null);
+    return result;
   }
   
   @CrossOrigin
@@ -175,8 +178,8 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties")
-  public Object getPropertiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return artefactsDataService.getArtefactProperties(onto, params, pageable.getPageNumber() + 1, null);
+  public Object getPropertiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
+    return iri == null ? artefactsDataService.getArtefactProperties(onto, params, pageable.getPageNumber() + 1, null) : artefactsDataService.getArtefactProperty(onto, iri, params, null);
   }
   
   @CrossOrigin
