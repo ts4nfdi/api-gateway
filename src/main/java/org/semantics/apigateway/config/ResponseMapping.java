@@ -17,11 +17,7 @@ public class ResponseMapping {
     private String nestedJson;
     private String collectionFilter;
   
-  public String getKey() {
-    return key;
-  }
-  
-  private String key;
+    private String key;
     private String totalCount;
     private String page;
 
@@ -49,6 +45,13 @@ public class ResponseMapping {
         mappedClassFields.forEach(f -> {
             String fieldName = f.getName();
             mappedClassAttributes.put(fieldName, mappingValues.getOrDefault(fieldName, null));
+        });
+        
+        mappingValues.keySet().stream().filter(mappingKey -> mappingKey.contains("->")).forEach(mappingKey -> {
+          String fieldName = mappingKey.split("->")[0];
+          if (mappedClassFields.stream().anyMatch(f -> f.getName().equals(fieldName))) {
+            mappedClassAttributes.put(mappingKey, mappingValues.get(mappingKey));
+          }
         });
 
         this.setKey(mappingValues.getOrDefault("key", null));

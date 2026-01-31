@@ -37,7 +37,7 @@ models:
     obsolete: deprecated
     created: created|issued|startDate
     modified: modified|endDate
-    depiction: depiction
+    annotations->depiction: depiction
 
 
 endpoints:

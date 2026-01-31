@@ -27,7 +27,7 @@ models:
     type: type
     obsolete: is_obsolete
     ontologyIri: ontology_iri
-    depiction: depiction
+    annotations: annotation
 
 endpoints:
   search:
@@ -42,6 +42,7 @@ endpoints:
       synonyms: synonym
       descriptions: description
       shortForm: short_form
+      annotations: annotation
       type: type
 
   resources:

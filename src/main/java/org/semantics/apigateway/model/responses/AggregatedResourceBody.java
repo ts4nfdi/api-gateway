@@ -129,12 +129,54 @@ public abstract class AggregatedResourceBody {
                 } else if (List.class.isAssignableFrom(fieldType)) {
                     setListProperty(item, mappingValue,
                             value -> setFieldValue(target, field, value));
+                } else if (Map.class.isAssignableFrom(fieldType)) {
+                    setMapProperty(item, mappingValue,
+                            value -> setFieldValue(target, field, value));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 logger.error("Filling aggregated body error {}", e.getMessage());
             }
         }
+        
+        // TODO see if this can be unified with the code above
+        responseMappings.keySet().stream().filter(mappingKey -> mappingKey.contains("->")).forEach(mappingKey -> {
+           String[] path = mappingKey.split("->");
+           String fieldName = path[0];
+           getAllFields().stream().filter(x -> x.getName().equals(fieldName)).findFirst().ifPresent(field -> {
+               if (field.getType().isAssignableFrom(Map.class)) {
+                   JsonIgnore jsonIgnore = field.getAnnotation(JsonIgnore.class);
+                   
+                   // Skip fields that we don't want to map automatically
+                   if (jsonIgnore == null) {
+                       
+                       String mappingValue = responseMappings.get(mappingKey);
+                       
+                       if (mappingValue != null) {
+                           
+                           Object value = MappingTransformer.itemValueGetter(item, mappingValue);
+                           
+                           HashMap<String, Object> rootMap = new HashMap<>();
+                           HashMap<String, Object> current = rootMap;
+                           
+                           // the following is safe because path.length >= 2 is guaranteed
+                           for (String pathSegment : Arrays.stream(path).skip(1).limit(path.length - 2).toList()) {
+                               HashMap<String, Object> map = new HashMap<>();
+                               current.put(pathSegment, map);
+                               current = map;
+                           }
+                           
+                           current.put(path[path.length - 1], value);
+                           
+                           field.setAccessible(true);
+                           setFieldValue(target, field, rootMap);
+                       }
+                   }
+               } else {
+                   logger.error("Encountered field type {} for mapping key {}, but expected java.util.Map", field.getClass(), mappingKey);
+               }
+           });
+        });
     }
 
     public static <T extends AggregatedResourceBody> T fromMap(
@@ -232,7 +274,6 @@ public abstract class AggregatedResourceBody {
     private Object getValue(Field field) throws IllegalAccessException {
         // Add to map if not null
         String getterName = "get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
-        Object value = null;
         try {
             return  this.getClass().getMethod(getterName).invoke(this);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
@@ -266,19 +307,29 @@ public abstract class AggregatedResourceBody {
         }
     }
 
-    private void setListProperty(Map<String, Object> item, String key, Consumer<List<String>> setter) {
+    private void setListProperty(Map<String, Object> item, String key, Consumer<List<Object>> setter) {
         Object value;
         if (localDataValues) {
             value = key != null ? List.of(key.split(";")) : Collections.emptyList();
         } else {
             value = MappingTransformer.itemValueGetter(item, key);
         }
-        List<String> list = Collections.emptyList();
+        List<Object> list = Collections.emptyList();
         if (value instanceof List) {
-            list = (List<String>) value;
+            list = (List<Object>) value;
         } else if (value != null) {
-            list = List.of(String.valueOf(value));
+            list = List.of(value);
         }
         setter.accept(list);
     }
+    
+    private void setMapProperty(Map<String, Object> item, String key, Consumer<Map<String, Object>> setter) {
+        Object value = MappingTransformer.itemValueGetter(item, key);
+        if (!(value instanceof Map)) {
+            setter.accept(Collections.emptyMap());
+        } else {
+            setter.accept((Map<String, Object>) value);
+        }
+    }
+    
 }

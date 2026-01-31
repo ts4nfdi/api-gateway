@@ -53,6 +53,14 @@ public class OntoPortalTransformer implements DatabaseTransformer {
                 transformedItem.put("type", item.get("type"));
             }
         }
+        if (item.containsKey("annotations") && item.get("annotations") != null && item.get("annotations") instanceof Map) {
+            Map<String, List<String>> annotations = (Map<String, List<String>>) item.get("annotations");
+            annotations.forEach((annotationProperty, annotationValues) -> {
+                if (annotationValues != null && !annotationValues.isEmpty()) {
+                    transformedItem.put(annotationProperty, annotationValues);
+                }
+            });
+        }
         return transformedItem;
     }
 
