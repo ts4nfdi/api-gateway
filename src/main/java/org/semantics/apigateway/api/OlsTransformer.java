@@ -4,10 +4,8 @@ import org.semantics.apigateway.config.ResponseMapping;
 import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.service.MappingTransformer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class OlsTransformer implements DatabaseTransformer {
     @Override
@@ -69,7 +67,7 @@ public class OlsTransformer implements DatabaseTransformer {
         innerResponse.put("_links", "{}"); // TODO retrieve links and add here
         
         var pageObject = new HashMap<String, Object>();
-        pageObject.put("size", transformedResults);
+        pageObject.put("size", transformedResults.size());
         pageObject.put("totalElements", totalCount);
         pageObject.put("number", page == 0 ? 0 : page - 1);
         innerResponse.put("page", pageObject);
