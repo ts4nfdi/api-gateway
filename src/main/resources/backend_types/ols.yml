@@ -130,3 +130,13 @@ endpoints:
       key: terms
       <<: *term
       hasChildren: has_children
+
+  suggest:
+    path: /suggest?q=%s&rows=%s&start=%s
+    responseMapping:
+      nestedJson: response
+      key: docs
+      iri: autosuggest
+      label: autosuggest
+      totalCount: response->numFound
+      page: page->start
