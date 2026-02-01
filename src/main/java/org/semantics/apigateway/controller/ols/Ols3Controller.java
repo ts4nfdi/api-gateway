@@ -3,6 +3,7 @@ package org.semantics.apigateway.controller.ols;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.ws.rs.QueryParam;
+import org.apache.commons.lang3.NotImplementedException;
 import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
 import org.semantics.apigateway.artefacts.metadata.ArtefactsService;
 import org.semantics.apigateway.artefacts.search.SearchService;
@@ -54,18 +55,31 @@ public class Ols3Controller {
   }
   
   @CrossOrigin
-  @GetMapping("/ontologies/{ontology}/terms")
-  public Object getTermsInOLSTargetDBSchema(@PathVariable String ontology, @RequestParam(required = false, defaultValue = "1") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
-    if (iri != null) {
-      return this.artefactsDataService.getArtefactTerm(ontology, iri, params, null);
-    }
-    return this.artefactsDataService.getArtefactTerms(ontology, params, page, null);
+  @GetMapping("/suggest")
+  public Object performTermSuggestInOLSTargetDBSchema(@RequestParam String q, @RequestParam(required = false, defaultValue = "") String ontology, @RequestParam(required = false, defaultValue = "10") Integer rows, @RequestParam(required = false, defaultValue = "0") Integer start, @ParameterObject CommonRequestParams params) {
+    return searchService.suggestConcepts(ontology, q, start + 1, rows, params);
   }
   
   @CrossOrigin
-  @GetMapping("/ontologies/{ontology}")
-  public Object getArtefactMetadataInOLSTargetDBSchema(@PathVariable String ontology, @ParameterObject CommonRequestParams params) {
-    return this.artefactsService.getArtefact(ontology, params, null);
+  @GetMapping("/terms")
+  public Object getAllTermsInOLSTargetDBSchema(@RequestParam(required = false, defaultValue = "0") Integer page, @ParameterObject CommonRequestParams params) {
+    // TODO Is there a way to run a federated query over all endpoints and their respective artifacts for all entities? Improbable, solely for performance reasons.
+    throw new NotImplementedException();
+  }
+  
+  @CrossOrigin
+  @GetMapping("/ontologies/{onto}/terms")
+  public Object getTermsInOLSTargetDBSchema(@PathVariable String onto, @RequestParam(required = false, defaultValue = "1") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
+    if (iri != null) {
+      return this.artefactsDataService.getArtefactTerm(onto, iri, params, null);
+    }
+    return this.artefactsDataService.getArtefactTerms(onto, params, page, null);
+  }
+  
+  @CrossOrigin
+  @GetMapping("/ontologies/{onto}")
+  public Object getArtefactMetadataInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params) {
+    return this.artefactsService.getArtefact(onto, params, null);
   }
   
   @CrossOrigin
@@ -76,3 +90,4 @@ public class Ols3Controller {
     return this.artefactsService.getArtefacts(params, collectionId, user, null);
   }
 }
+

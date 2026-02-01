@@ -13,11 +13,16 @@ public class OlsTransformer implements DatabaseTransformer {
         if (item == null) {
             return null;
         }
+      
+        if (mapping == null) {
+          return item;
+        }
+        
+        if(mapping.getMappedClassAttributes().containsValue("autosuggest")) {
+            return Map.of("autosuggest", item.get("label"));
+        }
 
         Map<String, Object> transformedItem = new HashMap<>();
-        if (mapping == null) {
-            return item;
-        }
 
         mapping.inverseMapping().forEach((transformedKey, ourKey) -> {
 
@@ -54,6 +59,8 @@ public class OlsTransformer implements DatabaseTransformer {
           return response;
         }
         
+        boolean autosuggest = transformedResults.stream().anyMatch(result -> result.containsKey("autosuggest"));
+        
         Map<String, Object> innerResponse = new HashMap<>();
         List<Map<String, Object>> objectList = new ArrayList<>();
 
@@ -64,15 +71,17 @@ public class OlsTransformer implements DatabaseTransformer {
         }
 
         innerResponse.put(mappingKey, objectList);
-        innerResponse.put("_links", "{}"); // TODO retrieve links and add here
-        
+//        innerResponse.put("_links", "{}");
+      
+      if (!autosuggest) {
         var pageObject = new HashMap<String, Object>();
         pageObject.put("size", transformedResults.size());
         pageObject.put("totalElements", totalCount);
         pageObject.put("number", page == 0 ? 0 : page - 1);
         innerResponse.put("page", pageObject);
-
-        response.put(mappingKey.equals("docs") ? "response" : "_embedded", innerResponse);
+      }
+      
+      response.put(mappingKey.equals("docs") ? "response" : "_embedded", innerResponse);
 
         if (mappingKey.equals("docs")) {
           Map<String, Object> responseHeader = new HashMap<>();

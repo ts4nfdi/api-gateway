@@ -62,3 +62,7 @@ endpoints:
     path: /concepts?voc=%s&uri=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate,depiction
     responseMapping:
       <<: *searchResult
+
+  suggest:
+    path: /suggest?search=%s&limit=%s&offset=%s
+    responseMapping:
