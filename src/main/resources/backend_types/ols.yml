@@ -53,7 +53,8 @@ endpoints:
       <<: *artefact
 
   concepts:
-    path: terms?id=%s&page=%s&size=50
+    path: terms?id=%s&size=50&page=%s
+    caseInsensitive: false
     responseMapping:
       nestedJson: _embedded
       page: page->number
@@ -62,7 +63,7 @@ endpoints:
       <<: *term
 
   properties:
-    path: properties?id=%s&page=%s&size=50
+    path: properties?id=%s&size=50&page=%s
     responseMapping:
       nestedJson: _embedded
       page: page->number
