@@ -3,7 +3,6 @@ package org.semantics.apigateway.controller.ols;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.ws.rs.QueryParam;
-import org.apache.commons.lang3.NotImplementedException;
 import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
 import org.semantics.apigateway.artefacts.metadata.ArtefactsService;
 import org.semantics.apigateway.artefacts.search.SearchService;
@@ -62,9 +61,11 @@ public class Ols3Controller {
   
   @CrossOrigin
   @GetMapping("/terms")
-  public Object getAllTermsInOLSTargetDBSchema(@RequestParam(required = false, defaultValue = "0") Integer page, @ParameterObject CommonRequestParams params) {
-    // TODO Is there a way to run a federated query over all endpoints and their respective artifacts for all entities? Improbable, solely for performance reasons.
-    throw new NotImplementedException();
+  public Object getAllTermsInOLSTargetDBSchema(@RequestParam(required = false, defaultValue = "0") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params, @RequestParam(required = false) String collectionId) {
+    if (iri != null) {
+      return this.artefactsDataService.getArtefactTerms(iri, params, page + 1, null);
+    }
+    return this.artefactsDataService.getArtefactTerms("", params, page + 1, null);
   }
   
   @CrossOrigin
@@ -73,7 +74,7 @@ public class Ols3Controller {
     if (iri != null) {
       return this.artefactsDataService.getArtefactTerm(onto, iri, params, null);
     }
-    return this.artefactsDataService.getArtefactTerms(onto, params, page, null);
+    return this.artefactsDataService.getArtefactTerms(onto, params, page + 1, null);
   }
   
   @CrossOrigin
