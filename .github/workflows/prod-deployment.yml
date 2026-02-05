@@ -1,0 +1,71 @@
+name: Deployment to production
+concurrency: production
+on:
+  workflow_dispatch:
+    inputs:
+      image_sha:
+        description: 'Image SHA ID (optional)'
+        type: string
+        required: false
+
+env:
+  KUBECONFIG: .kube/config
+  KUBECONFIG_FILE: ${{ secrets.KUBECONFIG_PROD }}
+
+jobs:
+  deploy_main:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - id: generate-image-tag
+        name: Generate Image Tag
+        run: |
+          head_ref="${GITHUB_HEAD_REF//\//-}"
+          ref_name="${head_ref:-${GITHUB_REF_NAME/main/latest}}"
+          echo "imageTag=${ref_name#v}" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v2
+
+      - name: Set up Kubernetes config
+        run: |
+          mkdir -p .kube
+          echo "${{ env.KUBECONFIG_FILE }}" > $KUBECONFIG
+
+      - name: Create Kubernetes secret for ONTOPORTAL_APIKEY
+        run: |
+          kubectl create secret generic ontoportal-secret \
+            --from-literal=ONTOPORTAL_APIKEY=${{ secrets.ONTOPORTAL_APIKEY }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create Kubernetes secret for ADMIN_PASSWORD
+        run: |
+          kubectl create secret generic admin-password \
+            --from-literal=ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create Kubernetes secret for JWT_SECRET
+        run: |
+          kubectl create secret generic jwt-secret \
+            --from-literal=JWT_SECRET=${{ secrets.JWT_SECRET }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Deploy to Kubernetes
+        uses: stefanprodan/kube-tools@v1
+        with:
+          helmv3: 3.12.0
+          command: |
+            kubectl get nodes
+            helmv3 repo add api-gateway-deployment https://ts4nfdi.github.io/api-gateway-deployment/
+            helmv3 repo update
+            helmv3 upgrade ts4nfdi \
+              --install \
+              --namespace='ts4nfdi' \
+              --set-json='ingress.dns="terminology.services.base4nfdi.de"'  \
+              --set-json='ingress.redirectDns="ts.services.base4nfdi.de"'  \
+              --set-json='images.backend="ghcr.io/${{ github.repository }}:${{ github.event.pull_request.head.sha || github.sha }}"'  \
+              --set-json='ingress.enableSSL="true"'  \
+              --set-json='ingress.certIssuer="letsencrypt-prod"'  \
+              api-gateway-deployment/api-gateway
