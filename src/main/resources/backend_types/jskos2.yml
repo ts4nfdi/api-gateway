@@ -64,5 +64,6 @@ endpoints:
       <<: *searchResult
 
   suggest:
-    path: /suggest?search=%s&limit=%s&offset=%s
+    path: /concepts/suggest?search=%s&format=jskos&limit=%s&offset=%s
     responseMapping:
+      <<: *searchResult
