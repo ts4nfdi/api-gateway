@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: CI/CD
 
 on:
   push:
@@ -10,6 +10,7 @@ on:
 env:
   KUBECONFIG: .kube/config
   KUBECONFIG_FILE: ${{ secrets.KUBECONFIG }}
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build:
@@ -75,7 +76,7 @@ jobs:
       - name: Set up Kubernetes config
         run: |
           mkdir -p .kube
-          echo "${{ secrets.KUBECONFIG }}" > $KUBECONFIG
+          echo "${{ env.KUBECONFIG_FILE }}" > $KUBECONFIG
 
       - name: Create Kubernetes secret for ONTOPORTAL_APIKEY
         run: |
@@ -109,7 +110,6 @@ jobs:
             helmv3 upgrade ts4nfdi \
               --install \
               --namespace='ts4nfdi' \
-              --set-json='images.frontend="ghcr.io/${{ github.repository }}:${{ github.event.pull_request.head.sha || github.sha }}"'  \
-              --set-json='ingress.enableSSL="true"'  \
-              --set-json='ingress.certIssuer="letsencrypt-prod"'  \
+              --set-json='ingress.dns="tsag.qa.km.k8s.zbmed.de"'  \
+              --set-json='images.backend="ghcr.io/${{ github.repository }}:${{ github.event.pull_request.head.sha || github.sha }}"'  \
               api-gateway-deployment/api-gateway
