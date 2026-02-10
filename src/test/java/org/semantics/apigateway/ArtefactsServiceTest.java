@@ -70,7 +70,7 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
     private Map<String, Object> createOlsFixture() {
         Map<String, Object> fixture = new HashMap<>();
         fixture.put("iri", "http://purl.obolibrary.org/obo/bto.owl");
-        fixture.put("source", "https://service.tib.eu/ts4tib/api");
+        fixture.put("source", "https://api.terminology.tib.eu/api");
         fixture.put("backend_type", "ols");
         fixture.put("short_form", "bto");
         fixture.put("label", "The BRENDA Tissue Ontology (BTO)");
