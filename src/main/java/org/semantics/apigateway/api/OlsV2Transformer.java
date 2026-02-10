@@ -5,6 +5,7 @@ import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.service.MappingTransformer;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class OlsV2Transformer implements DatabaseTransformer {
     @Override
@@ -44,15 +45,16 @@ public class OlsV2Transformer implements DatabaseTransformer {
     @Override
     public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount) {
         if (list) {
+            transformedResults = transformedResults.stream().filter(x -> x != null).collect(Collectors.toUnmodifiableList());
             Map<String, Object> response = new HashMap<>();
             response.put("elements", transformedResults);
-            response.put("totalElements", totalCount);
+            response.put("totalElements", transformedResults.size());
             response.put("numElements", transformedResults.size());
             response.put("page", page == 0 ? 0 : page - 1);
             return response;
         }
         
-        return transformedResults.get(0);
+        return transformedResults.isEmpty() ? null : transformedResults.get(0);
     }
     
     private Object getNestedValue(Map<String, Object> item, String key) {
