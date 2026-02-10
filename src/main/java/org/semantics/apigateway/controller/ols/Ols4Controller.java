@@ -81,8 +81,11 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/individuals")
-  public Object getAllIndividualsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(required = false) String collectionId) {
-    throw new NotImplementedException();
+  public Object getAllIndividualsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(required = false) String collectionId, @QueryParam("iri") String iri) {
+    if (iri != null) {
+      return this.artefactsDataService.getArtefactIndividuals(iri, params, pageable.getPageNumber() + 1, null);
+    }
+    return this.artefactsDataService.getArtefactIndividuals("", params, pageable.getPageNumber() + 1, null);
   }
   
   @CrossOrigin
@@ -107,9 +110,12 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/entities")
-  public Object getAllEntitiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+  public Object getAllEntitiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
     // TODO Is there a way to run a federated query over all endpoints and their respective artifacts for all entities? Improbable, solely for performance reasons.
-    throw new NotImplementedException();
+    if (iri != null) {
+      return this.artefactsDataService.getArtefactTerms(iri, params, pageable.getPageNumber() + 1, null);
+    }
+    return this.artefactsDataService.getArtefactTerms("", params, pageable.getPageNumber() + 1, null);
   }
   
   @CrossOrigin
@@ -177,14 +183,20 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/classes")
-  public Object getAllClassesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    throw new NotImplementedException();
+  public Object getAllClassesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
+    if (iri != null) {
+      return this.artefactsDataService.getArtefactTerms(iri, params, pageable.getPageNumber() + 1, null);
+    }
+    return this.artefactsDataService.getArtefactTerms("", params, pageable.getPageNumber() + 1, null);
   }
   
   @CrossOrigin
   @GetMapping("/properties")
-  public Object getAllPropertiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    throw new NotImplementedException();
+  public Object getAllPropertiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
+    if (iri != null) {
+      return this.artefactsDataService.getArtefactProperties(iri, params, pageable.getPageNumber() + 1, null);
+    }
+    return this.artefactsDataService.getArtefactProperties("", params, pageable.getPageNumber() + 1, null);
   }
   
   @CrossOrigin
