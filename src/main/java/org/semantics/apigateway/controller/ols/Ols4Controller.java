@@ -62,7 +62,9 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/individuals")
   public Object getAllIndividualsForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    return iri == null ? artefactsDataService.getArtefactIndividuals(onto, params, pageable.getPageNumber() + 1, null) : artefactsDataService.getArtefactIndividual(onto, iri, params, null);
+    if (iri == null) return artefactsDataService.getArtefactIndividuals(onto, params, pageable.getPageNumber() + 1, null);
+    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactIndividual(onto, iri, params, null);
+    return olsV2Transformer.constructResponse(response.getCollection(), "concepts", true, true, 1, response.getCollection().size());
   }
   
   @CrossOrigin
@@ -86,7 +88,9 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities")
   public Object getAllEntitiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    throw new NotImplementedException();
+    if (iri == null) return artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber() + 1, null);
+    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactTerm(onto, iri, params, null);
+    return olsV2Transformer.constructResponse(response.getCollection(), "concepts", true, true, 1, response.getCollection().size());
   }
   
   @CrossOrigin
@@ -186,7 +190,9 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties")
   public Object getPropertiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    return iri == null ? artefactsDataService.getArtefactProperties(onto, params, pageable.getPageNumber() + 1, null) : artefactsDataService.getArtefactProperty(onto, iri, params, null);
+    if (iri == null) return artefactsDataService.getArtefactProperties(onto, params, pageable.getPageNumber() + 1, null);
+    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactProperty(onto, iri, params, null);
+    return olsV2Transformer.constructResponse(response.getCollection(), "concepts", true, true, 1, response.getCollection().size());
   }
   
   @CrossOrigin
