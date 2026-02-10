@@ -36,14 +36,14 @@
       "url": "https://www.ebi.ac.uk/ols4/api/v2"
     },
     {
-      "type": "ols2",
+      "type": "ols",
       "name": "tib",
-      "url": "https://api.terminology.tib.eu/api/v2"
+      "url": "https://api.terminology.tib.eu/api"
     },
     {
-      "type": "ols2",
+      "type": "ols",
       "name": "zbmed",
-      "url": "https://semanticlookup.zbmed.de/ols/api/v2"
+      "url": "https://semanticlookup.zbmed.de/ols/api"
     },
     {
       "type": "skosmos",

@@ -102,7 +102,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         secondPlant.put("backend_type", "ols");
         secondPlant.put("short_form", "NCIT_C14258");
         secondPlant.put("label", "Plant");
-        secondPlant.put("source", "https://service.tib.eu/ts4tib/api");
+        secondPlant.put("source", "https://api.terminology.tib.eu/api");
         secondPlant.put("@type", new RDFResource().getTypeURI()); //TODO: should be owl:Class in future
         secondPlant.put("@id", secondPlant.get("iri"));
         secondPlant.put("ontology", "ncit");
