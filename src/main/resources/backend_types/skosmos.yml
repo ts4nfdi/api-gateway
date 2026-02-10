@@ -1,4 +1,9 @@
 name: skosmos
+
+pagination:
+  type: offset
+  first: 0
+
 models:
   term: &term
     label: prefLabel|label

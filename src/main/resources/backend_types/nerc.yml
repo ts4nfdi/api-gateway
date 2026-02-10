@@ -1,4 +1,9 @@
 name: nerc
+
+pagination:
+  type: page
+  first: 1
+
 models:
   artefact: &artefact
     label: title

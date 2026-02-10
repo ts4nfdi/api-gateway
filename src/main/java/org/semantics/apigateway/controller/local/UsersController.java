@@ -33,6 +33,7 @@ public class UsersController {
 
     @GetMapping("/")
     public List<Map<String, String>> getAllUsers() {
+        getCurrentUser();
         return this.userRepository.findAll().stream().map(x -> Map.of(
                 "username", x.getUsername()
         )).toList();
