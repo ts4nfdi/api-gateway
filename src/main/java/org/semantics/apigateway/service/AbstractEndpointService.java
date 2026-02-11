@@ -462,6 +462,19 @@ public abstract class AbstractEndpointService {
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
         accessor = initAccessor(database, endpoint, accessor);
         List<String> ids = getRequestIds(accessor, id, uri);
+        if(ids.get(0).startsWith("http")){
+            System.out.println("********** Ontology is iri **********");
+            String decodedUri = URLDecoder.decode(ids.get(0), StandardCharsets.UTF_8);
+            String[] urlParts = decodedUri.split("/");
+            String ontoIriPart = urlParts[urlParts.length - 1];
+            String ontoId = "";
+            if(ontoIriPart.contains(".owl")){
+                ontoId = ontoIriPart.split(".owl")[0];
+            }else{
+                ontoId = ontoIriPart;
+            }
+            ids.set(0, ontoId);
+        }
         try {
             return accessor.get(ids.toArray(new String[0]))
                     .thenApply(data -> this.transformApiResponses(data, endpoint))

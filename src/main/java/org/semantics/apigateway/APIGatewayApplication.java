@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.Collections;
 import java.util.concurrent.Executor;
@@ -45,6 +46,7 @@ import java.util.concurrent.Executor;
         scheme = "bearer",
         bearerFormat = "JWT"
 )
+@EnableScheduling
 public class APIGatewayApplication implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(APIGatewayApplication.class);
