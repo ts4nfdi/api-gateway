@@ -60,7 +60,7 @@ public class ConfigurationLoader {
     }
 
 
-    private List<ServiceConfig> loadServiceConfigurations() throws IOException {
+    public List<ServiceConfig> loadServiceConfigurations() throws IOException {
         List<ServiceConfig> services = new ArrayList<>();
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         Resource[] yamlResources = resolver.getResources("classpath:/backend_types/*.yml");
@@ -88,7 +88,7 @@ public class ConfigurationLoader {
     }
 
 
-    private List<DatabaseConfig> loadDatabaseConfigurations() throws IOException {
+    public List<DatabaseConfig> loadDatabaseConfigurations() throws IOException {
         Resource dataBasesConfigResource = resourceLoader.getResource("classpath:databases.json");
         String databaseConfigJson = StreamUtils.copyToString(dataBasesConfigResource.getInputStream(), StandardCharsets.UTF_8);
 
