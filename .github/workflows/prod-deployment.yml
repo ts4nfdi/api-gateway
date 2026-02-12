@@ -60,7 +60,7 @@ jobs:
             kubectl get nodes
             helmv3 repo add api-gateway-deployment https://ts4nfdi.github.io/api-gateway-deployment/
             helmv3 repo update
-            helmv3 upgrade ts4nfdi \
+            helmv3 upgrade ts4nfdi-api-gateway \
               --install \
               --namespace='ts4nfdi' \
               --set-json='ingress.dns="terminology.services.base4nfdi.de"'  \
