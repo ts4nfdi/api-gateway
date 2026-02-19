@@ -27,4 +27,9 @@ public class TerminologyIdUriMap {
     @NotEmpty
     @NotNull
     private String uri;
+
+    @Column(nullable = false, unique = false)
+    @NotEmpty
+    @NotNull
+    private String source;
 }

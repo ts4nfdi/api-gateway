@@ -36,9 +36,9 @@
       "url": "https://www.ebi.ac.uk/ols4/api/v2"
     },
     {
-      "type": "ols",
+      "type": "ols2",
       "name": "tib",
-      "url": "https://api.terminology.tib.eu/api"
+      "url": "https://api.terminology.tib.eu/api/v2"
     },
     {
       "type": "ols",
