@@ -97,7 +97,7 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         fixture.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
         fixture.put("type", "ontology");
         fixture.put("source_name", "ebi");
-        fixture.put("synonyms", Collections.emptyList());
+        fixture.put("synonyms", Collections.singletonList("The BRENDA Tissue Ontology (BTO)"));
         fixture.put("created", null);
         fixture.put("obsolete", false);
         fixture.put("source_url", null);

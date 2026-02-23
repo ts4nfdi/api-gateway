@@ -46,7 +46,7 @@ public class SearchService extends AbstractEndpointService {
         commonRequestParams.setShowResponseConfiguration(showResponseConfiguration);
         return performSearch(query, commonRequestParams, null, null, null);
     }
-
+    
     public AggregatedApiResponse performSearch(
             String query,
             CommonRequestParams params,
@@ -59,7 +59,7 @@ public class SearchService extends AbstractEndpointService {
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collection, endpoint);
-
+        
         try {
             return accessor.get(query)
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
@@ -74,7 +74,49 @@ public class SearchService extends AbstractEndpointService {
             return null;
         }
     }
-
+    
+    public AggregatedApiResponse suggestConcepts(
+            String id,
+            String query,
+            int offset,
+            int size,
+            CommonRequestParams params) {
+        return suggestConcepts(id, query, offset, size, params, null, null, null);
+    }
+    
+    public AggregatedApiResponse suggestConcepts(
+            String id,
+            String query,
+            int offset,
+            int size,
+            CommonRequestParams params,
+            String collectionId,
+            User currentUser,
+            ApiAccessor accessor) {
+        String endpoint = "suggest";
+        String database = params.getDatabase();
+        TargetDbSchema targetDbSchema = params.getTargetDbSchema();
+        TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
+        accessor = initAccessor(database, endpoint, accessor);
+        accessor = applyCollection(accessor, collection, endpoint);
+        
+        // TODO add ontology parameter as soon as https://github.com/ts4nfdi/api-gateway/issues/123 has been resolved.
+        
+        try {
+            return accessor.get(query, "" + size, "" + offset)
+                    .thenApply(data -> this.transformApiResponses(data, endpoint))
+                    .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
+                    .thenApply(data -> filterOutByCollection(collection, data))
+                    .thenApply(data -> reIndexResults(query, data))
+                    .thenApply(x -> transformJsonLd(x, params))
+                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint))
+                    .get();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return null;
+        }
+    }
+    
     private AggregatedApiResponse reIndexResults(String query, AggregatedApiResponse data) {
         List<Map<String, Object>> collection = data.getCollection();
         try {

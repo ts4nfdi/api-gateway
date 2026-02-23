@@ -17,6 +17,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Setter
 @AllArgsConstructor
@@ -29,7 +30,6 @@ public class ApiAccessor {
     private boolean unDecodeUrl;
     private CacheService cacheService;
     private boolean cacheEnabled;
-
 
     @Autowired
     public ApiAccessor(CacheManager cacheManager) {
@@ -146,7 +146,18 @@ public class ApiAccessor {
             queries.set(0, queries.get(0).toUpperCase());
 
         queries = queries.stream().filter(x -> !x.isEmpty()).collect(Collectors.toList());
-
+        
+        // TODO It is assumed that the last query argument is the pagination offset. This should be handled in a safer way.
+        
+        if (!queries.isEmpty()) {
+            try {
+                Integer page = Integer.parseInt(queries.get(queries.size() - 1)) - 1 + config.pagination().getFirst();
+                queries = Stream.concat(queries.stream().limit(queries.size() - 1), Stream.of(page.toString())).collect(Collectors.toList());
+            } catch (NumberFormatException e) {
+                logger.info("Pagination parameter missing for URL {} with query: {}", url, queries);
+            }
+        }
+        
         if (!apikey.isEmpty()) {
             queries.add(apikey);
         }

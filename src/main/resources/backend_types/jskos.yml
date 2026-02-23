@@ -1,4 +1,9 @@
 name: jskos
+
+pagination:
+  type: offset
+  first: 0
+
 models:
   artefact: &artefact
     iri: uri
@@ -26,6 +31,7 @@ models:
     obsolete: deprecated
     created: created|issued|startDate
     modified: modified|endDate
+    annotations->depiction: depiction
 
 
 endpoints:
