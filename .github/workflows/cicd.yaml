@@ -1,0 +1,115 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - "dev"
+    tags:
+      - "*"
+
+env:
+  KUBECONFIG: .kube/config
+  KUBECONFIG_FILE: ${{ secrets.KUBECONFIG }}
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    name: "Build Image"
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - id: generate-image-tag
+        name: Generate Image Tag
+        run: |
+          head_ref="${GITHUB_HEAD_REF//\//-}"
+          ref_name="${head_ref:-${GITHUB_REF_NAME/main/latest}}"
+          echo "imageTag=${ref_name#v}" >> $GITHUB_ENV
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Run tests
+        run: ./gradlew test
+
+      - name: Build with Gradle
+        run: ./gradlew clean build
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ env.imageTag }}
+            ghcr.io/${{ github.repository }}:${{ github.event.pull_request.head.sha || github.sha }}
+
+  deploy_main:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - id: generate-image-tag
+        name: Generate Image Tag
+        run: |
+          head_ref="${GITHUB_HEAD_REF//\//-}"
+          ref_name="${head_ref:-${GITHUB_REF_NAME/main/latest}}"
+          echo "imageTag=${ref_name#v}" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v2
+
+      - name: Set up Kubernetes config
+        run: |
+          mkdir -p .kube
+          echo "${{ env.KUBECONFIG_FILE }}" > $KUBECONFIG
+
+      - name: Create Kubernetes secret for ONTOPORTAL_APIKEY
+        run: |
+          kubectl create secret generic ontoportal-secret \
+            --from-literal=ONTOPORTAL_APIKEY=${{ secrets.ONTOPORTAL_APIKEY }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create Kubernetes secret for ADMIN_PASSWORD
+        run: |
+          kubectl create secret generic admin-password \
+            --from-literal=ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create Kubernetes secret for JWT_SECRET
+        run: |
+          kubectl create secret generic jwt-secret \
+            --from-literal=JWT_SECRET=${{ secrets.JWT_SECRET }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Deploy to Kubernetes
+        uses: stefanprodan/kube-tools@v1
+        with:
+          helmv3: 3.12.0
+          command: |
+            kubectl get nodes
+            helmv3 repo add api-gateway-deployment https://ts4nfdi.github.io/api-gateway-deployment/
+            helmv3 repo update
+            helmv3 upgrade ts4nfdi-api-gateway \
+              --install \
+              --namespace='ts4nfdi' \
+              --set-json='ingress.dns="tsag.qa.km.k8s.zbmed.de"'  \
+              --set-json='images.backend="ghcr.io/${{ github.repository }}:${{ github.event.pull_request.head.sha || github.sha }}"'  \
+              api-gateway-deployment/api-gateway
