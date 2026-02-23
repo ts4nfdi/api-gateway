@@ -41,7 +41,7 @@
       "url": "https://api.terminology.tib.eu/api/v2"
     },
     {
-      "type": "ols",
+      "type": "ols2",
       "name": "zbmed",
       "url": "https://semanticlookup.zbmed.de/ols/api"
     },
