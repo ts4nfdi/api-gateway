@@ -7,7 +7,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.RDFResource;
-import org.semantics.apigateway.model.TargetDbSchema;
+import org.semantics.apigateway.model.TargetSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -35,7 +35,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
     }
 
     @Test
-    public void testSearchAllDatabases() {
+    public void testSearchAllSources() {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         AggregatedApiResponse response = (AggregatedApiResponse) searchService.performSearch("plant", commonRequestParams, null, null, apiAccessor);
         int index;
@@ -64,7 +64,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
     @Test
     public void testSearchOlsSchema() {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
-        commonRequestParams.setTargetDbSchema(TargetDbSchema.ols);
+        commonRequestParams.setTargetSchema(TargetSchema.ols);
 
         Map<String, Object> response = ((AggregatedApiResponse) searchService.performSearch("plant", commonRequestParams, null, null, apiAccessor)).getCollection().get(0);
 
@@ -78,7 +78,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
     @Test
     public void testSearchGnd() {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
-        commonRequestParams.setDatabase("gnd");
+        commonRequestParams.setSource("gnd");
         AggregatedApiResponse response = (AggregatedApiResponse) searchService.performSearch("London", commonRequestParams, null, null, apiAccessor);
         assertMapEquality(response, createGndLondonFixture(), 10);
     }

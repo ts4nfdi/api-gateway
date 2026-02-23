@@ -3,8 +3,8 @@ package org.semantics.apigateway.service.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
-import org.semantics.apigateway.config.DatabaseConfig;
-import org.semantics.apigateway.config.DatabasesConfig;
+import org.semantics.apigateway.config.SourceConfig;
+import org.semantics.apigateway.config.SourcesConfig;
 import org.semantics.apigateway.config.ServiceConfig;
 import org.semantics.apigateway.config.ServicesConfig;
 import org.slf4j.Logger;
@@ -33,7 +33,7 @@ public class ConfigurationLoader {
     private final ResourceLoader resourceLoader;
 
     private static final Logger logger = LoggerFactory.getLogger(ConfigurationLoader.class);
-    private List<DatabaseConfig> databaseConfigs;
+    private List<SourceConfig> sourceConfigs;
     private List<ServiceConfig> serviceConfigs;
 
     public  ConfigurationLoader(ResourceLoader resourceLoader, ConfigurableEnvironment environment) {
@@ -41,18 +41,18 @@ public class ConfigurationLoader {
         this.environment = environment;
     }
 
-    // Method invoked after on server start, loads database configurations and replace environment variables
+    // Method invoked after on server start, loads source configurations and replace environment variables
     @PostConstruct
     public void loadDbConfigs() {
         try {
             this.serviceConfigs = loadServiceConfigurations();
-            this.databaseConfigs = loadDatabaseConfigurations();
+            this.sourceConfigs = loadSourceConfigurations();
 
-            for (DatabaseConfig dbConfig : databaseConfigs) {
+            for (SourceConfig dbConfig : sourceConfigs) {
                 ServicesConfig tempConfig = new ServicesConfig(serviceConfigs);
                 dbConfig.setServiceConfig(tempConfig.getService(dbConfig.getType()));
             }
-            databaseConfigs.forEach(config -> logger.info("Loaded config: {}", config));
+            sourceConfigs.forEach(config -> logger.info("Loaded config: {}", config));
         } catch (IOException e) {
             logger.error("Failed to load configurations", e);
             throw new RuntimeException("Error loading configuration files", e);
@@ -88,47 +88,47 @@ public class ConfigurationLoader {
     }
 
 
-    private List<DatabaseConfig> loadDatabaseConfigurations() throws IOException {
-        Resource dataBasesConfigResource = resourceLoader.getResource("classpath:databases.json");
-        String databaseConfigJson = StreamUtils.copyToString(dataBasesConfigResource.getInputStream(), StandardCharsets.UTF_8);
+    private List<SourceConfig> loadSourceConfigurations() throws IOException {
+        Resource sourcesConfigResource = resourceLoader.getResource("classpath:sources.json");
+        String sourcesConfigJson = StreamUtils.copyToString(sourcesConfigResource.getInputStream(), StandardCharsets.UTF_8);
 
         // Replace environment variables in the config
         for (Map.Entry<String, Object> property : environment.getSystemEnvironment().entrySet()) {
             String key = property.getKey();
             String value = String.valueOf(property.getValue());
-            databaseConfigJson = databaseConfigJson.replace("${" + key + "}", value);
+            sourcesConfigJson = sourcesConfigJson.replace("${" + key + "}", value);
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
-        DatabasesConfig dbConfig = objectMapper.readValue(databaseConfigJson, DatabasesConfig.class);
+        SourcesConfig sourcesConfig = objectMapper.readValue(sourcesConfigJson, SourcesConfig.class);
 
-        return dbConfig.getDatabases();
+        return sourcesConfig.getSources();
     }
 
-    public DatabaseConfig getDatabaseConfig(String database) {
+    public SourceConfig getSourceConfig(String source) {
         return serviceConfigs.stream()
-                .filter(c -> c.getName().equalsIgnoreCase(database))
-                .map(ServiceConfig::getDatabaseConfig)
+                .filter(c -> c.getName().equalsIgnoreCase(source))
+                .map(ServiceConfig::getSourceConfig)
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Config not found for database: " + database));
+                .orElseThrow(() -> new RuntimeException("Config not found for source: " + source));
     }
 
-    public DatabaseConfig getConfigByUrl(String url, String endpoint) {
-        return databaseConfigs.stream()
+    public SourceConfig getConfigByUrl(String url, String endpoint) {
+        return sourceConfigs.stream()
                 .filter(c -> c.getUrl(endpoint).equalsIgnoreCase(url))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Config not found for URL: " + url));
     }
 
-    public DatabaseConfig getConfigByName(String sourceName){
-        return databaseConfigs.stream()
+    public SourceConfig getConfigByName(String sourceName){
+        return sourceConfigs.stream()
                 .filter(c -> c.getName().equalsIgnoreCase(sourceName))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Config not found for source name: " + sourceName));
     }
 
-    public DatabaseConfig getConfigByBaseUrl(String url) {
-        return databaseConfigs.stream()
+    public SourceConfig getConfigByBaseUrl(String url) {
+        return sourceConfigs.stream()
                 .filter(c -> {
                     try {
                         URL configUrl = new URL(c.getUrl());

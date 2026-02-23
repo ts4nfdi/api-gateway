@@ -19,7 +19,7 @@ public class ServiceConfig {
     private Map<String, Object> models;
     private Map<String, EndpointConfig> endpoints;
 
-    public DatabaseConfig getDatabaseConfig() {
-        return new DatabaseConfig(name, "", "", "", this);
+    public SourceConfig getSourceConfig() {
+        return new SourceConfig(name, "", "", "", this);
     }
 }

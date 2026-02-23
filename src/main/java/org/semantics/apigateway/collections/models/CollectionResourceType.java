@@ -1,7 +1,7 @@
 package org.semantics.apigateway.collections.models;
 
 public enum CollectionResourceType {
-    DATABASE,
+    SOURCE,
     ARTEFACT,
     ENTITY,
 }

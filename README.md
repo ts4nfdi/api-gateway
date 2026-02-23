@@ -36,4 +36,4 @@ The service's dynamic configuration approach allows for straightforward extensib
 #### Steps to Integrate a New TS Schema:
 
 1. **Add a new Mapping Configuration file:** Create a new YAML file in the `src/main/resources/backend_types` directory. This file should define the mapping between the new TS schema and the API Gateway schema. See the existing mapping files for examples of how to structure this file.
-2. **Add your database URL:** edit the `src/main/resources/databases.json` file to add the new TS database URL. This file contains the connection details for all the TS databases that the API Gateway will connect to.
+2. **Add your database URL:** edit the `src/main/resources/sources.json` file to add the new TS database URL. This file contains the connection details for all the TS databases that the API Gateway will connect to.

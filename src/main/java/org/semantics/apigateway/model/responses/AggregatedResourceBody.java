@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.semantics.apigateway.config.DatabaseConfig;
+import org.semantics.apigateway.config.SourceConfig;
 import org.semantics.apigateway.config.ResponseMapping;
 import org.semantics.apigateway.model.ContextUri;
 import org.semantics.apigateway.service.MappingTransformer;
@@ -139,7 +139,7 @@ public abstract class AggregatedResourceBody {
 
     public static <T extends AggregatedResourceBody> T fromMap(
             Map<String, Object> item,
-            DatabaseConfig config,
+            SourceConfig config,
             String endpoint, T object) throws RuntimeException {
         ResponseMapping responseMapping = config.getResponseMapping(endpoint);
         boolean localDataValues = config.getUrl(endpoint).endsWith("localData");
@@ -152,14 +152,14 @@ public abstract class AggregatedResourceBody {
         return object;
     }
 
-    public void setDefaultValues(DatabaseConfig config) {
+    public void setDefaultValues(SourceConfig config) {
         AggregatedResourceBody newItem = this;
         if (newItem.getShortForm() == null || newItem.getShortForm().isEmpty()) {
             newItem.setShortForm(getShortFormDefault());
         }
 
         newItem.setSource(config.getUrl());
-        newItem.setBackendType(config.getDatabase());
+        newItem.setBackendType(config.getSourceType());
         newItem.setSourceName(config.getName());
     }
 

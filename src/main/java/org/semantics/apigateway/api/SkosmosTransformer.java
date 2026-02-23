@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SkosmosTransformer implements DatabaseTransformer {
+public class SkosmosTransformer implements TargetSchemaTransformer {
     @Override
     public Map<String, Object> transformItem(Map<String, Object> item, ResponseMapping mapping) {
         if (item == null) {

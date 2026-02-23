@@ -3,7 +3,7 @@ package org.semantics.apigateway;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.mockito.Mock;
-import org.semantics.apigateway.config.DatabaseConfig;
+import org.semantics.apigateway.config.SourceConfig;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 import org.semantics.apigateway.service.ApiAccessor;
@@ -44,12 +44,12 @@ public abstract class ApplicationTestAbstract {
 
     protected Map<String, String> mockResponses = new HashMap<>();
 
-    protected List<DatabaseConfig> configs;
+    protected List<SourceConfig> configs;
     protected Class<? extends AggregatedResourceBody> responseClass;
 
-    protected Map<String, String> readMockedResponses(String key, List<DatabaseConfig> configs) {
+    protected Map<String, String> readMockedResponses(String key, List<SourceConfig> configs) {
         Map<String, String> mockResponses = new HashMap<>();
-        for (DatabaseConfig config : configs) {
+        for (SourceConfig config : configs) {
             String serviceName = String.format("src/test/resources/mocks/" + key + "/%s.json", config.getName());
             String jsonResponse = "";
             try {
@@ -277,7 +277,7 @@ public abstract class ApplicationTestAbstract {
     protected void mockApiAccessor(String key, ApiAccessor apiAccessor) {
         this.apiAccessor = apiAccessor;
         apiAccessor.setRestTemplate(restTemplate);
-        this.configs = configurationLoader.getDatabaseConfigs();
+        this.configs = configurationLoader.getSourceConfigs();
         this.mockResponses = this.readMockedResponses(key, configs);
         when(restTemplate.getForEntity(
                 anyString(),
@@ -285,7 +285,7 @@ public abstract class ApplicationTestAbstract {
                 .thenAnswer(invocation -> {
                     String url = invocation.getArgument(0, String.class);
                     ResponseEntity<Map<String, Object>> response = ResponseEntity.status(404).body(new HashMap<>());
-                    for (DatabaseConfig config : configs) {
+                    for (SourceConfig config : configs) {
                         String configHost = new URL(config.getUrl()).getHost();
                         String currentURLHost = new URL(url).getHost();
 

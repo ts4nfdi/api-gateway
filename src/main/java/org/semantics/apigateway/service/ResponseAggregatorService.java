@@ -1,7 +1,7 @@
 package org.semantics.apigateway.service;
 
 import lombok.Getter;
-import org.semantics.apigateway.config.DatabaseConfig;
+import org.semantics.apigateway.config.SourceConfig;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 import org.semantics.apigateway.model.responses.ApiResponse;
 import org.semantics.apigateway.model.responses.TransformedApiResponse;
@@ -23,7 +23,7 @@ public class ResponseAggregatorService {
         this.clazz = clazz;
     }
 
-    public TransformedApiResponse transformResponse(ApiResponse response, DatabaseConfig config, String endpoint, boolean paginate) {
+    public TransformedApiResponse transformResponse(ApiResponse response, SourceConfig config, String endpoint, boolean paginate) {
         TransformedApiResponse newResponse = new TransformedApiResponse();
         newResponse.setOriginalResponse(response);
 
@@ -74,7 +74,7 @@ public class ResponseAggregatorService {
     }
 
     // Transform nested data into a list of AggregatedResourceBody
-    public List<AggregatedResourceBody> transformData(Object nestedData, DatabaseConfig config, String endpoint) {
+    public List<AggregatedResourceBody> transformData(Object nestedData, SourceConfig config, String endpoint) {
         List<AggregatedResourceBody> result = new ArrayList<>();
         if (nestedData instanceof List && !((List) nestedData).isEmpty()) {
             processList((List<?>) nestedData, result, config, endpoint);
@@ -89,13 +89,13 @@ public class ResponseAggregatorService {
     }
 
     // Extract docs key from a Map based on configuration
-    private Object extractDocsFromMap(Map<?, ?> nestedData, DatabaseConfig config, String endpoint) {
+    private Object extractDocsFromMap(Map<?, ?> nestedData, SourceConfig config, String endpoint) {
         String docsKey = getDocsKey(config, endpoint);
         return (docsKey != null && !docsKey.isEmpty()) ? nestedData.get(docsKey) : nestedData;
     }
 
     // Process the documents whether they are a List or single item
-    private void processDocs(Object docs, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint) {
+    private void processDocs(Object docs, List<AggregatedResourceBody> result, SourceConfig config, String endpoint) {
         if (docs instanceof List) {
             processList((List<?>) docs, result, config, endpoint);
         } else if (docs instanceof Map) {
@@ -110,7 +110,7 @@ public class ResponseAggregatorService {
         }
     }
 
-    private void addNewItem(Object docs, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint) {
+    private void addNewItem(Object docs, List<AggregatedResourceBody> result, SourceConfig config, String endpoint) {
         AggregatedResourceBody newItem = processItem((Map<String, Object>) docs, config, endpoint);
         if (newItem != null) {
             result.add(newItem);
@@ -118,7 +118,7 @@ public class ResponseAggregatorService {
     }
 
     // Process list of items and add valid processed items to the result list
-    private void processList(List<?> dataList, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint) {
+    private void processList(List<?> dataList, List<AggregatedResourceBody> result, SourceConfig config, String endpoint) {
         for (Object item : dataList) {
             if (item instanceof Map) {
                 addNewItem(item, result, config, endpoint);
@@ -129,7 +129,7 @@ public class ResponseAggregatorService {
     }
 
     // Process individual map items into AggregatedResourceBody
-    private AggregatedResourceBody processItem(Map<String, Object> item, DatabaseConfig config, String endpoint) {
+    private AggregatedResourceBody processItem(Map<String, Object> item, SourceConfig config, String endpoint) {
         try {
             return AggregatedResourceBody.fromMap(item, config, endpoint, getClazz().getDeclaredConstructor().newInstance());
         } catch (Exception e) {
@@ -140,12 +140,12 @@ public class ResponseAggregatorService {
     }
 
     // Helper to get the nested JSON key from config
-    private String getNestedJsonKey(DatabaseConfig config, String endpoint) {
+    private String getNestedJsonKey(SourceConfig config, String endpoint) {
         return config.getResponseMapping(endpoint).getNestedJson();
     }
 
     // Helper to get the documents key from config
-    private String getDocsKey(DatabaseConfig config, String endpoint) {
+    private String getDocsKey(SourceConfig config, String endpoint) {
         return config.getResponseMapping(endpoint).getKey();
     }
 

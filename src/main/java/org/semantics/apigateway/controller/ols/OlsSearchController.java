@@ -5,7 +5,7 @@ import jakarta.ws.rs.QueryParam;
 import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
 import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.model.CommonRequestParams;
-import org.semantics.apigateway.model.TargetDbSchema;
+import org.semantics.apigateway.model.TargetSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +27,7 @@ public class OlsSearchController {
 
     @CrossOrigin
     @GetMapping("/api/select")
-    public Object performDynFederatedSearchInOLSTargetDBSchema(@RequestParam Map<String, String> allParams) {
+    public Object performDynFederatedSearchInOLSTargetSchema(@RequestParam Map<String, String> allParams) {
         String query;
         if (allParams.containsKey("q") || allParams.containsKey("query")) {
             if (allParams.containsKey("q")) {
@@ -38,15 +38,18 @@ public class OlsSearchController {
         } else {
             query = "*";
         }
+        
+        String source = allParams.get("source");
+        if (source == null || source.isEmpty()) {source = allParams.get("database");}
 
-        AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("database"), "ols", false);
+        AggregatedApiResponse response = searchService.performSearch(query + "*", source, "ols", false);
         return response.getCollection().get(0);
     }
 
     @CrossOrigin
     @GetMapping("/api/ontologies/{ontology}/terms")
-    public Object getTermsInOLSTargetDBSchema(@PathVariable String ontology, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
-        params.setTargetDbSchema(TargetDbSchema.ols);
+    public Object getTermsInOLSTargetSchema(@PathVariable String ontology, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
+        params.setTargetSchema(TargetSchema.ols);
         return this.artefactsService.getArtefactTerm(ontology, iri, params,  null);
     }
 }

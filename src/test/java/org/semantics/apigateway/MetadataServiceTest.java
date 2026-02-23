@@ -3,7 +3,7 @@ package org.semantics.apigateway;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.semantics.apigateway.config.DatabaseConfig;
+import org.semantics.apigateway.config.SourceConfig;
 import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
@@ -54,14 +54,14 @@ public class MetadataServiceTest extends ApplicationTestAbstract {
             assert false;
         }
 
-        for (DatabaseConfig config : configurationLoader.getDatabaseConfigs()) {
-            Map<String, String> response = mappings.get(config.getDatabase());
+        for (SourceConfig config : configurationLoader.getSourceConfigs()) {
+            Map<String, String> response = mappings.get(config.getSourceType());
             if(response == null) {
                 continue;
             }
 
             fields.forEach(field -> {
-                assertThat(response.containsKey(field.getName())).withFailMessage(field.getName() + " not found for database " + config.getDatabase() ).isTrue();
+                assertThat(response.containsKey(field.getName())).withFailMessage(field.getName() + " not found for source " + config.getSourceType() ).isTrue();
                 assertThat(response.get("iri")).isNotNull().isInstanceOf(String.class);
             });
         }

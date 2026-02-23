@@ -23,7 +23,7 @@ public class MetadataService {
 
         Arrays.stream(BackendType.values())
                 .forEach(backendType -> {
-                    ResponseMapping rp = configurationLoader.getDatabaseConfig(backendType.toString())
+                    ResponseMapping rp = configurationLoader.getSourceConfig(backendType.toString())
                             .getResponseMapping(endpoint.toString());
                     responseMappings.put(backendType.toString(), rp.toMap());
                 });

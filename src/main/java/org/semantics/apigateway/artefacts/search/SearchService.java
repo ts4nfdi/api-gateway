@@ -5,7 +5,7 @@ import org.semantics.apigateway.collections.CollectionService;
 import org.semantics.apigateway.collections.models.TerminologyCollection;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.RDFResource;
-import org.semantics.apigateway.model.TargetDbSchema;
+import org.semantics.apigateway.model.TargetSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.AbstractEndpointService;
@@ -38,11 +38,11 @@ public class SearchService extends AbstractEndpointService {
         this.collectionService = collectionService;
     }
 
-    public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, boolean showResponseConfiguration) {
-        TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
+    public AggregatedApiResponse performSearch(String query, String source, String targetSchema, boolean showResponseConfiguration) {
+        TargetSchema targetSchemaEnum = targetSchema == null ? null : TargetSchema.valueOf(targetSchema);
         CommonRequestParams commonRequestParams = new CommonRequestParams();
-        commonRequestParams.setDatabase(database);
-        commonRequestParams.setTargetDbSchema(targetDbSchemaEnum);
+        commonRequestParams.setSource(source);
+        commonRequestParams.setTargetSchema(targetSchemaEnum);
         commonRequestParams.setShowResponseConfiguration(showResponseConfiguration);
         return performSearch(query, commonRequestParams, null, null, null);
     }
@@ -54,10 +54,10 @@ public class SearchService extends AbstractEndpointService {
             User currentUser,
             ApiAccessor accessor) {
         String endpoint = "search";
-        String database = params.getDatabase();
-        TargetDbSchema targetDbSchema = params.getTargetDbSchema();
+        String source = params.getSource();
+        TargetSchema targetSchema = params.getTargetSchema();
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
-        accessor = initAccessor(database, endpoint, accessor);
+        accessor = initAccessor(source, endpoint, accessor);
         accessor = applyCollection(accessor, collection, endpoint);
 
         try {
@@ -67,7 +67,7 @@ public class SearchService extends AbstractEndpointService {
                     .thenApply(data -> filterOutByCollection(collection, data))
                     .thenApply(data -> reIndexResults(query, data))
                     .thenApply(x -> transformJsonLd(x, params))
-                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint))
+                    .thenApply(data -> transformForTargetSchema(data, targetSchema, endpoint))
                     .get();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

@@ -1,6 +1,6 @@
 package org.semantics.apigateway.model;
 
-public enum TargetDbSchema {
+public enum TargetSchema {
     ontoportal,
     ols,
     skosmos,

@@ -21,7 +21,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-public class DatabaseConfig {
+public class SourceConfig {
     private String type;
     private String name;
     private String url;
@@ -46,20 +46,20 @@ public class DatabaseConfig {
     }
 
     @JsonIgnore
-    public String getDatabase() {
+    public String getSourceType() {
         return type;
     }
 
     public boolean isOls() {
-        return getDatabase().equals(BackendType.ols.toString()) || getDatabase().equals(BackendType.ols2.toString());
+        return getSourceType().equals(BackendType.ols.toString()) || getSourceType().equals(BackendType.ols2.toString());
     }
 
     public boolean isOls2() {
-        return getDatabase().equals(BackendType.ols2.toString());
+        return getSourceType().equals(BackendType.ols2.toString());
     }
 
     public boolean isOntoPortal() {
-        return getDatabase().equals(BackendType.ontoportal.toString());
+        return getSourceType().equals(BackendType.ontoportal.toString());
     }
 
     public String getApiKey() {

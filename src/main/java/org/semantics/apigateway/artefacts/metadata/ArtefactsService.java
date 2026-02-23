@@ -37,7 +37,7 @@ public class ArtefactsService extends AbstractEndpointService {
             return
                     findAllArtefacts(params, collectionId, currentUser, accessor)
                             .thenApply(data -> transformJsonLd(data, params))
-                            .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint)).get();
+                            .thenApply(data -> transformForTargetSchema(data, params.getTargetSchema(), endpoint)).get();
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);
             return null;
@@ -55,7 +55,7 @@ public class ArtefactsService extends AbstractEndpointService {
         return findAllArtefacts(params, null, null, accessor)
                 .thenApply(data -> filterOutByQuery(query, data))
                 .thenApply(x -> transformJsonLd(x, params))
-                .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint));
+                .thenApply(data -> transformForTargetSchema(data, params.getTargetSchema(), endpoint));
     }
 
     private AggregatedApiResponse filterOutByQuery(String query, AggregatedApiResponse data) {
@@ -84,10 +84,10 @@ public class ArtefactsService extends AbstractEndpointService {
 
     private CompletableFuture<AggregatedApiResponse> findAllArtefacts(CommonRequestParams params, String collectionId, User currentUser, ApiAccessor accessor) {
         String endpoint = "resources";
-        String database = params.getDatabase();
+        String source = params.getSource();
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
 
-        accessor = initAccessor(database, endpoint, accessor);
+        accessor = initAccessor(source, endpoint, accessor);
         accessor = applyCollection(accessor, collection, endpoint);
 
         return accessor.get()

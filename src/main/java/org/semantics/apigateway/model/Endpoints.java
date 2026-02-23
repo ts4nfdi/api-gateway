@@ -4,7 +4,7 @@ package org.semantics.apigateway.model;
  * Enum representing the various endpoints available in the API Gateway.
  * Each endpoint corresponds to a specific resource or operation within the system.
  * The mapping to the actual endpoint paths is handled in the configuration
- * files in backend_types for each database: ontoportal, ...
+ * files in backend_types for each source: ontoportal, ...
  */
 public enum Endpoints {
     resources,search, concepts, properties, collections, individuals, schemes,

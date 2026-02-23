@@ -23,7 +23,7 @@ public class ResponseConfig {
     private double AvgPercentageCommon = 0.0;
     private double AvgPercentageFilled = 0.0;
 
-    @JsonProperty("databases")
+    @JsonProperty("sources")
     private List<OriginalResponseStats> originalResponses;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

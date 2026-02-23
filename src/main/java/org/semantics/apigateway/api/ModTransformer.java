@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ModTransformer implements DatabaseTransformer {
+public class ModTransformer implements TargetSchemaTransformer {
 
     @Override
     public Map<String, Object> transformItem(Map<String, Object> item, ResponseMapping mapping) {

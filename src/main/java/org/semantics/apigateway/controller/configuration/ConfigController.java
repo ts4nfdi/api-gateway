@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.semantics.apigateway.config.DatabaseConfig;
+import org.semantics.apigateway.config.SourceConfig;
 import org.semantics.apigateway.config.ServiceConfig;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,21 +30,31 @@ public class ConfigController {
         this.configurationLoader = configurationLoader;
     }
 
-    @Operation(summary = "Show all current enabled databases configurations (e.g BiodivPortal, AgroPortal, EBI, TIB etc.)")
+    @Operation(summary = "Legacy endpoint for backward compatibility. Please use /sources.")
     @ApiResponses(value = @ApiResponse(
             responseCode = "200", description = "Successful retrieval of terms",
-            content = @Content(mediaType = "application/json", schema = @Schema(type = "array", implementation = DatabaseConfig.class)))
+            content = @Content(mediaType = "application/json", schema = @Schema(type = "array", implementation = SourceConfig.class)))
     )
     @GetMapping("/databases")
-    public List<DatabaseConfig> getAllDatabases() {
-        return configurationLoader.getDatabaseConfigs();
+    @Deprecated
+    public List<SourceConfig> getAllDatabases() {
+        return configurationLoader.getSourceConfigs();
     }
-
-
+    
+    @Operation(summary = "Show all current enabled source configurations (e.g BiodivPortal, AgroPortal, EBI, TIB etc.)")
+    @ApiResponses(value = @ApiResponse(
+            responseCode = "200", description = "Successful retrieval of terms",
+            content = @Content(mediaType = "application/json", schema = @Schema(type = "array", implementation = SourceConfig.class)))
+    )
+    @GetMapping("/sources")
+    public List<SourceConfig> getAllSources() {
+        return configurationLoader.getSourceConfigs();
+    }
+    
     @Operation(summary = "Show all current enabled services configurations and endpoints mappings (e.g. OLS, OntoPortal)")
     @ApiResponses(value = @ApiResponse(
             responseCode = "200", description = "Successful retrieval of terms",
-            content = @Content(mediaType = "application/json", schema = @Schema(type = "array", implementation = DatabaseConfig.class)))
+            content = @Content(mediaType = "application/json", schema = @Schema(type = "array", implementation = SourceConfig.class)))
     )
     @GetMapping("/services")
     public List<ServiceConfig> getAllServices() {
