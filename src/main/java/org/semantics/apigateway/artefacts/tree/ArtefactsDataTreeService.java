@@ -50,7 +50,7 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
         DatabaseConfig databaseConfig = configurationLoader.getConfigByName(params.getDatabase());
         accessor = initAccessor(params.getDatabase(), endpoint, accessor);
         if (databaseConfig.isOls2()) {
-            uri = URLEncoder.encode(uri); // OLS2 requires URI double encoding
+            uri = URLEncoder.encode(URLEncoder.encode(uri)); // OLS2 requires URI double encoding
         }
         return paginatedList(acronym, uri, endpoint, params, page, accessor);
     }
@@ -64,7 +64,7 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
         accessor = initAccessor(params.getDatabase(), endpoint, accessor);
         String finalUri = uri;
         if (databaseConfig.isOls2()) {
-            finalUri = URLEncoder.encode(uri); // OLS2 requires URI double encoding
+            finalUri = URLEncoder.encode(URLEncoder.encode(uri)); // OLS2 requires URI double encoding
         }
 
         return findAll(acronym, finalUri, endpoint, params, accessor)

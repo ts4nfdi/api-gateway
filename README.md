@@ -37,3 +37,37 @@ The service's dynamic configuration approach allows for straightforward extensib
 
 1. **Add a new Mapping Configuration file:** Create a new YAML file in the `src/main/resources/backend_types` directory. This file should define the mapping between the new TS schema and the API Gateway schema. See the existing mapping files for examples of how to structure this file.
 2. **Add your database URL:** edit the `src/main/resources/databases.json` file to add the new TS database URL. This file contains the connection details for all the TS databases that the API Gateway will connect to.
+
+
+## Deployment Workflow
+
+The API Gateway project follows a branch-based deployment workflow to ensure stable and testable releases, see [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow). 
+
+### Branch Overview
+- **feature** branches: Used for developing new features.
+- **dev** branch: Represents the integration and testing branch. Changes here are automatically deployed to the **QA cluster** for internal testing.**The QA cluster is available from 7 am to 7 pm CET on weekdays.**
+- **main** branch: Represents stable, production-ready code. Deployments from this branch go to the **production cluster**.
+
+### Deployment Environment
+
+| Branch | Environment | URL                                                                                        | Certificates |
+|---------|--------------|--------------------------------------------------------------------------------------------|---------------|
+| `dev` | QA (Quality Assurance) | [http://tsag.qa.km.k8s.zbmed.de/api-gateway/](http://tsag.qa.km.k8s.zbmed.de/api-gateway/) | ❌ No certificates |
+| `main` | Production | [https://terminology.services.base4nfdi.de/api-gateway/](https://terminology.services.base4nfdi.de/api-gateway/)                               | ✅ Certificates enabled |
+
+### CI/CD Pipeline
+
+Both the `dev` and `main` branches are built as part of the CI process:
+
+1. **Feature Development**
+   - Create a new feature branch from `dev`.
+   - Implement and test changes locally.
+   - Merge into `dev` when ready.
+
+2. **QA Deployment**
+   - Commits to `dev` automatically trigger a build and deployment to the QA cluster.
+   - This allows feature testing without requiring a local gateway instance.
+
+3. **Production Deployment**
+   - Once QA testing is complete, `dev` is merged into `main`.
+   - The production deployment can then be **triggered manually** from the CI/CD pipeline.

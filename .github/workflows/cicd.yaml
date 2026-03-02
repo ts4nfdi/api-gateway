@@ -3,6 +3,7 @@ name: CI/CD
 on:
   push:
     branches:
+      - "main"
       - "dev"
     tags:
       - "*"
@@ -61,7 +62,7 @@ jobs:
 
   deploy_main:
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
       - id: generate-image-tag
