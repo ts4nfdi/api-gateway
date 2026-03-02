@@ -1,7 +1,7 @@
 name: gnd
 models:
   artefact: &artefact
-    label: GDN
+    label: GND
     iri: https://lobid.org/gnd
     type: "http://www.w3.org/2002/07/owl#Ontology"
     descriptions: "The Common Authority File (GND) contains more than 8 million standard data sets. It is used to catalog literature in libraries, as well as archives, museums and research projects."
