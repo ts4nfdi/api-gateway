@@ -30,6 +30,7 @@ public class DatabaseConfig {
     @JsonIgnore
     private ServiceConfig serviceConfig;
 
+    // TODO The response mappings are constructed anew at each request-response cycle, although they should presumably remain unchanged throughout the application lifetime.
     public ResponseMapping getResponseMapping(String endpoint) {
         Class<?> mappedClass = getMappingClass(Endpoints.valueOf(endpoint));
         Map<String, String> out = serviceConfig.getEndpoints().getOrDefault(endpoint, new EndpointConfig()).getResponseMapping();
@@ -86,7 +87,7 @@ public class DatabaseConfig {
     }
 
     public UrlConfig getUrlConfig(String endpoint) {
-        return new UrlConfig(getUrl(), getApiKey(), getEndpointConfig(endpoint).isCaseInsensitive());
+        return new UrlConfig(getUrl(), getApiKey(), getEndpointConfig(endpoint).isCaseInsensitive(), serviceConfig.getPagination());
     }
 
     public String getSearchUrl() {

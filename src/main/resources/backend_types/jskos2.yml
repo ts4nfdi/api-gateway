@@ -1,4 +1,9 @@
 name: jskos2
+
+pagination:
+  type: offset
+  first: 0
+
 models:
   artefact: &artefact
     iri: uri
@@ -32,6 +37,7 @@ models:
     obsolete: deprecated
     created: created|issued|startDate
     modified: modified|endDate
+    annotations->depiction: depiction
 
 
 endpoints:
@@ -52,6 +58,12 @@ endpoints:
       <<: *artefact
 
   concept_details:
-    path: /concepts?voc=%s&uri=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    caseInsensitive: false
+    path: /concepts?voc=%s&uri=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate,depiction
+    responseMapping:
+      <<: *searchResult
+
+  suggest:
+    path: /concepts/suggest?search=%s&format=jskos&limit=%s&offset=%s
     responseMapping:
       <<: *searchResult
