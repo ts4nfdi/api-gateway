@@ -99,7 +99,7 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities/{entity}")
   public Object getEntityInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String entity, @ParameterObject CommonRequestParams params) {
-    throw new NotImplementedException();
+    return artefactsDataService.getArtefactTerm(onto, entity, params, null);
   }
   
   @CrossOrigin
@@ -135,8 +135,7 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}")
   public Object getClassInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params) {
-    Object result = artefactsDataService.getArtefactTerm(onto, clazz, params, null);
-    return result;
+    return artefactsDataService.getArtefactTerm(onto, clazz, params, null);
   }
   
   @CrossOrigin
