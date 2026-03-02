@@ -42,13 +42,16 @@ public class ResponseAggregatorService {
         String paginationKey = config.getResponseMapping(endpoint).getPage();
         String totalCount = config.getResponseMapping(endpoint).getTotalCount();
 
-
-        String paginationData = getData(response.getResponseBody(), paginationKey).orElse("0");
-        String totalData = getData(response.getResponseBody(), totalCount).orElse("0");
-        if(!paginationData.equals("0")) {
-            newResponse.setPage(Integer.parseInt(paginationData));
-            newResponse.setTotalCollections(Long.parseLong(totalData));
-            newResponse.setPaginate(true);
+        if(getData(response.getResponseBody(), paginationKey).isPresent()) {
+          try {
+            newResponse.setPage((int)Double.parseDouble(getData(response.getResponseBody(), paginationKey).get()));
+          } catch (NumberFormatException e) {
+          }
+          try {
+            newResponse.setTotalCollections((long)Double.parseDouble(getData(response.getResponseBody(), totalCount).orElse("0")));
+          } catch (NumberFormatException e) {
+          }
+          newResponse.setPaginate(true);
         }
 
         if (nestedData == null) {

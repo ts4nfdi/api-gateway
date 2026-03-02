@@ -53,11 +53,19 @@ public class SkosmosTransformer implements DatabaseTransformer {
                 transformedItem.put("type", item.get("type"));
             }
         }
+        if (item.containsKey("annotations") && item.get("annotations") != null && item.get("annotations") instanceof Map) {
+            Map<String, List<String>> annotations = (Map<String, List<String>>) item.get("annotations");
+            annotations.forEach((annotationProperty, annotationValues) -> {
+                if (annotationValues != null && !annotationValues.isEmpty()) {
+                    transformedItem.put(annotationProperty, annotationValues);
+                }
+            });
+        }
         return transformedItem;
     }
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, boolean list) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount) {
         Map<String, Object> response = new HashMap<>();
         response.put("results", transformedResults);
         response.put("@context", Collections.singletonMap("@context", ""));

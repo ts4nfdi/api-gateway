@@ -1,14 +1,19 @@
 name: ols2
+
+pagination:
+  type: page
+  first: 0
+
 models:
   artefact: &artefact
-    label: title|label
+    label: title|http://www.w3.org/2000/01/rdf-schema#label
     iri: uri|iri
     ontology: ontologyId
-    synonyms: synonym
+    synonyms: label
     descriptions: definition|description
     shortForm: ontologyId
     type: type
-    sourceUrl: _links->self->href
+    sourceUrl: linkedEntities->self->source
     obsolete: isObsolete
     modified: loaded
     ontologyIri: uri|iri
@@ -21,10 +26,11 @@ models:
     descriptions: definition->value|description->value|definition
     shortForm: shortForm
     type: type
-    sourceUrl: _links->self->href
+    sourceUrl: linkedEntities->self->source
     obsolete: isObsolete
     ontologyIri: ontologyIri
     modified: loaded
+    annotations->depiction: http://xmlns.com/foaf/0.1/depiction
 
 endpoints:
   search:
@@ -35,9 +41,11 @@ endpoints:
       <<: *term
 
   resources:
-    path: ontologies?size=10000
+    path: /ontologies?size=10000
     responseMapping:
       nestedJson: elements
+      page: page
+      totalCount: totalElements
       <<: *artefact
 
   concepts:
@@ -57,19 +65,19 @@ endpoints:
       <<: *term
 
   concept_details:
-    path: ontologies/%s/classes?iri=%s
+    path: /ontologies/%s/classes?iri=%s
     responseMapping:
       nestedJson: elements
       <<: *term
 
   property_details:
-    path: ontologies/%s/properties?iri=%s
+    path: /ontologies/%s/properties?iri=%s
     responseMapping:
       nestedJson: elements
       <<: *term
 
   resource_details:
-    path: ontologies/%s
+    path: /ontologies/%s
     responseMapping:
       nestedJson: ""
       key: ""
@@ -84,30 +92,34 @@ endpoints:
       <<: *term
 
   individual_details:
-    path: ontologies/%s/individuals?iri=%s
+    path: /ontologies/%s/individuals?iri=%s
     responseMapping:
       nestedJson: elements
       <<: *term
 
   concepts_roots:
-    path: ontologies/%s/classes?hasDirectParents=false&size=1000&lang=en&includeObsoleteEntities=false
+    path: /ontologies/%s/classes?hasDirectParents=false&size=1000&lang=en&includeObsoleteEntities=false
     responseMapping:
       nestedJson: elements
       <<: *term
       hasChildren: hasDirectChildren
 
   concepts_children:
-    path: ontologies/%s/classes/%s/hierarchicalChildren?size=1000&lang=en&includeObsoleteEntities=false
+    path: /ontologies/%s/classes/%s/hierarchicalChildren?size=1000&lang=en&includeObsoleteEntities=false
     caseInsensitive: false
     responseMapping:
       nestedJson: elements
+      totalCount: totalElements
+      page: page
       <<: *term
       hasChildren: hasDirectChildren
 
   concept_tree:
-    path: ontologies/%s/classes/%s/hierarchicalAncestors?page=0&size=10000&lang=en
+    path: /ontologies/%s/classes/%s/hierarchicalAncestors?page=0&size=10000&lang=en
     caseInsensitive: false
     responseMapping:
       nestedJson: elements
+      totalCount: totalElements
+      page: page
       <<: *term
       hasChildren: hasDirectChildren

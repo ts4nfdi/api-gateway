@@ -16,6 +16,7 @@ import java.util.Map;
 @Component
 public class ServiceConfig {
     private String name;
+    private Pagination pagination;
     private Map<String, Object> models;
     private Map<String, EndpointConfig> endpoints;
 

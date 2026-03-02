@@ -1,4 +1,9 @@
 name: ontoportal
+
+pagination:
+  type: page
+  first: 1
+
 models:
   artefact: &artefact
     label: ontology->name
