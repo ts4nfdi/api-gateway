@@ -42,8 +42,9 @@ public class DatabaseConfig {
         Map<String, String> out = serviceConfig.getEndpoints().getOrDefault(endpoint, new EndpointConfig()).getResponseMapping();
         ResponseMapping responseMapping = new ResponseMapping();
         responseMapping.setMappedClass(mappedClass);
-        responseMappings.put(endpoint, responseMapping);
-        return responseMapping.fromMap(out);
+        ResponseMapping result = responseMapping.fromMap(out);
+        responseMappings.put(endpoint, result);
+        return result;
     }
 
     public static Class<?> getMappingClass(Endpoints endpoint) {
