@@ -389,7 +389,7 @@ public abstract class ApplicationTestAbstract {
         fixture.put("iri", "https://lobid.org/gnd");
         fixture.put("backend_type", "gnd");
         fixture.put("short_form", "GND");
-        fixture.put("label", "GDN");
+        fixture.put("label", "GND");
         fixture.put("source", "https://lobid.org");
         fixture.put("source_name", "gnd");
         fixture.put("source_url", "https://lobid.org/gnd");
