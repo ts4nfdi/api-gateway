@@ -66,6 +66,11 @@
       "url": "https://coli-conc.gbv.de/api"
     },
     {
+      "type": "jskos2",
+      "name": "iconclass",
+      "url": "https://test.iconclass.org/api/jskos"
+    },
+    {
       "type": "nerc",
       "name": "nerc",
       "url": "https://vocab.nerc.ac.uk"
