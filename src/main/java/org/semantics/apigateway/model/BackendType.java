@@ -8,6 +8,7 @@ public enum BackendType {
     gnd,
     jskos,
     jskos2,
+    iconclass,
     mod,
     nerc,
 }
