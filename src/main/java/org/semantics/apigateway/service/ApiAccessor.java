@@ -6,7 +6,7 @@ import org.semantics.apigateway.model.responses.ApiResponse;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -97,8 +97,15 @@ public class ApiAccessor {
                 return result;
             }
 
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Collections.singletonList(MediaType.ALL));
+            if (url.startsWith("https://test.iconclass.org/")) {
+                headers.setBearerAuth("foobarbax");
+            }
+            HttpEntity<String> entity = new HttpEntity<>("body", headers);
+            
             logger.info("Accessing URL: {}", fullUrl);
-
+            
             long startTime = System.currentTimeMillis();
 
             ResponseEntity<?> response;
@@ -106,7 +113,8 @@ public class ApiAccessor {
             if (unDecodeUrl) {
                 restTemplate.setInterceptors(Collections.singletonList(new UriDecodingInterceptor()));
             }
-            response = restTemplate.getForEntity(uri.toString(), Object.class);
+            
+            response = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, Object.class);
 
             long endTime = System.currentTimeMillis();
             long responseTime = endTime - startTime;
