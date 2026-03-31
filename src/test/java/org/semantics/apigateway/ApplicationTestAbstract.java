@@ -12,6 +12,8 @@ import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,8 +26,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.semantics.apigateway.service.JsonLdTransform.DEFAULT_BASE_URI;
 
@@ -279,8 +280,11 @@ public abstract class ApplicationTestAbstract {
         apiAccessor.setRestTemplate(restTemplate);
         this.configs = configurationLoader.getDatabaseConfigs();
         this.mockResponses = this.readMockedResponses(key, configs);
-        when(restTemplate.getForEntity(
+        
+        when(restTemplate.exchange(
                 anyString(),
+                any(HttpMethod.class),
+                any(HttpEntity.class),
                 eq(Object.class)))
                 .thenAnswer(invocation -> {
                     String url = invocation.getArgument(0, String.class);
