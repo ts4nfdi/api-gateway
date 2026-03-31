@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       image_sha:
-        description: 'Image SHA ID (optional)'
+        description: 'Image SHA ID (optional), default is git sha'
         type: string
         required: false
 
@@ -65,7 +65,7 @@ jobs:
               --namespace='ts4nfdi' \
               --set-json='ingress.dns="terminology.services.base4nfdi.de"'  \
               --set-json='ingress.redirectDns="ts.services.base4nfdi.de"'  \
-              --set-json='images.backend="ghcr.io/${{ github.repository }}:${{ github.event.pull_request.head.sha || github.sha }}"'  \
+              --set-json='images.backend="ghcr.io/${{ github.repository }}:${{ inputs.image_sha || github.sha }}"'  \
               --set-json='ingress.enableSSL="true"'  \
               --set-json='ingress.certIssuer="letsencrypt-prod"'  \
               api-gateway-deployment/api-gateway
