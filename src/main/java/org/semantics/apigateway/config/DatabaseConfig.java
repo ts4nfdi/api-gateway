@@ -14,6 +14,7 @@ import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.service.UrlConfig;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Getter
@@ -29,13 +30,22 @@ public class DatabaseConfig {
     private String apiKey;
     @JsonIgnore
     private ServiceConfig serviceConfig;
+    @JsonIgnore
+    private final HashMap<String, ResponseMapping>  responseMappings = new HashMap<>();
 
+    // TODO The response mappings are constructed anew at each request-response cycle, although they should presumably remain unchanged throughout the application lifetime.
     public ResponseMapping getResponseMapping(String endpoint) {
+        return responseMappings.get(endpoint) == null ? createResponseMapping(endpoint) : responseMappings.get(endpoint);
+    }
+    
+    private ResponseMapping createResponseMapping(String endpoint) {
         Class<?> mappedClass = getMappingClass(Endpoints.valueOf(endpoint));
         Map<String, String> out = serviceConfig.getEndpoints().getOrDefault(endpoint, new EndpointConfig()).getResponseMapping();
         ResponseMapping responseMapping = new ResponseMapping();
         responseMapping.setMappedClass(mappedClass);
-        return responseMapping.fromMap(out);
+        ResponseMapping result = responseMapping.fromMap(out);
+        responseMappings.put(endpoint, result);
+        return result;
     }
 
     public static Class<?> getMappingClass(Endpoints endpoint) {
@@ -86,7 +96,7 @@ public class DatabaseConfig {
     }
 
     public UrlConfig getUrlConfig(String endpoint) {
-        return new UrlConfig(getUrl(), getApiKey(), getEndpointConfig(endpoint).isCaseInsensitive());
+        return new UrlConfig(getUrl(), getApiKey(), getEndpointConfig(endpoint).isCaseInsensitive(), serviceConfig.getPagination());
     }
 
     public String getSearchUrl() {

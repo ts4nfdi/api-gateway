@@ -1,4 +1,4 @@
-name: jskos
+name: iconclass
 
 pagination:
   type: offset
@@ -16,6 +16,12 @@ models:
     hasLicense: license->uri
     shortForm: notation
     language: languages
+    contributor: contributor->prefLabel->en|contributor->prefLabel->de|contributor->prefLabel->zxx
+    identifier: identifier
+    license: license->uri
+    subject: subject->uri
+    hasFormat: FORMAT->uri
+    includedInDataCatalog: API->url
 
 
   searchResult: &searchResult
@@ -36,22 +42,28 @@ models:
 
 endpoints:
   search:
-    path: /search?query=%s&properties=+notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    path: /search?search=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
     responseMapping:
       <<: *searchResult
 
   resources:
-    path: /voc
+    path: /voc?limit=1000000
     responseMapping:
       <<: *artefact
 
   resource_details:
     caseInsensitive: false
-    path: /voc/%s
+    path: /voc?limit=1000000&notation=%s # jskos v2 does not support filtering by notation only by URI
     responseMapping:
       <<: *artefact
 
   concept_details:
-    path: /data?voc=%s&id=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    caseInsensitive: false
+    path: /concepts?voc=%s&uri=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate,depiction
+    responseMapping:
+      <<: *searchResult
+
+  suggest:
+    path: /suggest?search=%s&format=jskos&limit=%s&offset=%s
     responseMapping:
       <<: *searchResult

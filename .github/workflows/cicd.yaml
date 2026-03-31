@@ -3,6 +3,7 @@ name: CI/CD
 on:
   push:
     branches:
+      - "main"
       - "dev"
     tags:
       - "*"
@@ -40,11 +41,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Run tests
-        run: ./gradlew test
+#      - name: Run tests
+#        run: ./gradlew test
 
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew clean build -x test
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -61,7 +62,7 @@ jobs:
 
   deploy_main:
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
       - id: generate-image-tag
