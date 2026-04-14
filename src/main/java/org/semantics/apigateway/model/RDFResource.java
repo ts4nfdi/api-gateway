@@ -20,7 +20,13 @@ public class RDFResource extends AggregatedResourceBody {
 
     @JsonProperty("ontology_iri")
     private String ontologyIri;
-    
+
+    @JsonProperty("match_type")
+    private String matchType;
+
+    @JsonProperty("ontology_type")
+    private String ontologyType;
+
     private boolean hasChildren = false;
 
     private List<RDFResource> children = new ArrayList<>();

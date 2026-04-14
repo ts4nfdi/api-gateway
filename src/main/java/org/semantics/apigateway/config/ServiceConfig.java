@@ -19,6 +19,7 @@ public class ServiceConfig {
     private Pagination pagination;
     private Map<String, Object> models;
     private Map<String, EndpointConfig> endpoints;
+    private Map<String, Object> context;
 
     public DatabaseConfig getDatabaseConfig() {
         return new DatabaseConfig(name, "", "", "", this);

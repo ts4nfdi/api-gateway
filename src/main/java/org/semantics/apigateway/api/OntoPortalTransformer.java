@@ -1,83 +1,177 @@
 package org.semantics.apigateway.api;
 
 import org.semantics.apigateway.config.ResponseMapping;
+import org.semantics.apigateway.model.responses.AggregatedResourceBody;
+import org.semantics.apigateway.service.JsonLdTransform;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 public class OntoPortalTransformer implements DatabaseTransformer {
+
+    private final Map<String, Object> contextConfig;
+    private final JsonLdTransform jsonLdTransform;
+
+    public OntoPortalTransformer(Map<String, Object> contextConfig, JsonLdTransform jsonLdTransform) {
+        this.contextConfig = contextConfig;
+        this.jsonLdTransform = jsonLdTransform;
+    }
+
     @Override
     public Map<String, Object> transformItem(Map<String, Object> item, ResponseMapping mapping) {
         if (item == null) {
             return null;
         }
 
-        Map<String, Object> transformedItem = new HashMap<>();
+        Map<String, Object> transformedItem = new LinkedHashMap<>();
 
-        // Check for null values before accessing properties
-        if (item.containsKey("@id") && item.get("@id") != null) {
-            transformedItem.put("iri", item.get("@id"));
+        String iri = getStringValue(item, "iri");
+        String label = getStringValue(item, "label");
+        String type = getStringValue(item, "type");
+        String ontology = getStringValue(item, "ontology");
+        String source = getStringValue(item, "source");
+        String sourceUrl = getStringValue(item, "source_url");
+
+        // Core fields
+        if (label != null) {
+            transformedItem.put("prefLabel", label);
         }
-        if (item.containsKey("label") && item.get("label") != null) {
-            transformedItem.put("prefLabel", item.get("label"));
+
+        Object synonyms = item.get("synonyms");
+        if (synonyms != null && !(synonyms instanceof List && ((List<?>) synonyms).isEmpty())) {
+            transformedItem.put("synonym", synonyms);
         }
-        if (item.containsKey("ontology") && item.get("ontology") != null) {
-            transformedItem.put("@type", item.get("ontology"));
+
+        Object definitions = item.get("descriptions");
+        if (definitions != null && !(definitions instanceof List && ((List<?>) definitions).isEmpty())) {
+            transformedItem.put("definition", definitions);
         }
-        if (item.containsKey("synonym") && item.get("synonym") != null) {
-            transformedItem.put("synonym", item.get("synonym"));
+
+        transformedItem.put("obsolete", item.getOrDefault("obsolete", false));
+
+        String matchType = getStringValue(item, "match_type");
+        if (matchType != null) {
+            transformedItem.put("matchType", matchType);
         }
-        if (item.containsKey("backend_type") && item.get("backend_type") != null) {
-            transformedItem.put("backend_type", item.get("backend_type"));
+
+        String ontologyType = getStringValue(item, "ontology_type");
+        if (ontologyType != null) {
+            transformedItem.put("ontologyType", ontologyType);
         }
-        if (item.containsKey("short_form") && item.get("short_form") != null) {
-            transformedItem.put("short_form", item.get("short_form"));
+
+        String sourceName = getStringValue(item, "source_name");
+        if(sourceName != null){
+            transformedItem.put("source", sourceName);
         }
-        if (item.containsKey("description") && item.get("description") != null) {
-            transformedItem.put("definition", item.get("description"));
+
+            if (iri != null) {
+            transformedItem.put("@id", iri);
         }
-        if (item.containsKey("source") && item.get("source") != null) {
-            transformedItem.put("source", item.get("source"));
+
+        if (type != null) {
+            transformedItem.put("@type", type);
         }
-        if (item.containsKey("type") && item.get("type") != null) {
-            // the value of the key @type in OntoPortal is saved as an IRI
-            if (item.containsKey("backend_type") && String.valueOf(item.get("backend_type")).equals("ols")) {
-                if (item.get("type").equals("class")) {
-                    transformedItem.put("type", "http://www.w3.org/2002/07/owl#Class");
-                } else {
-                    transformedItem.put("type", item.get("type"));
-                }
-            } else {
-                transformedItem.put("type", item.get("type"));
+
+        // Build links
+        if (source != null && ontology != null && iri != null) {
+            String encodedIri = URLEncoder.encode(iri, StandardCharsets.UTF_8);
+            String ontologyAcronym = ontology.contains("/") ? ontology.substring(ontology.lastIndexOf('/') + 1) : ontology;
+            String selfUrl = source + "/ontologies/" + ontologyAcronym + "/classes/" + encodedIri;
+            String ontologyUrl = source + "/ontologies/" + ontologyAcronym;
+
+            Map<String, Object> links = new LinkedHashMap<>();
+            links.put("self", selfUrl);
+            links.put("ontology", ontologyUrl);
+            links.put("children", selfUrl + "/children");
+            links.put("parents", selfUrl + "/parents");
+            links.put("descendants", selfUrl + "/descendants");
+            links.put("ancestors", selfUrl + "/ancestors");
+            links.put("instances", selfUrl + "/instances");
+            links.put("tree", selfUrl + "/tree");
+            links.put("notes", selfUrl + "/notes");
+            links.put("mappings", selfUrl + "/mappings");
+
+            if (sourceUrl != null) {
+                links.put("ui", sourceUrl);
             }
+
+            // Links @context from YAML config
+            Map<String, Object> linksContext = buildLinksContext();
+            links.put("@context", linksContext);
+
+            transformedItem.put("links", links);
         }
-        if (item.containsKey("annotations") && item.get("annotations") != null && item.get("annotations") instanceof Map) {
-            Map<String, List<String>> annotations = (Map<String, List<String>>) item.get("annotations");
-            annotations.forEach((annotationProperty, annotationValues) -> {
-                if (annotationValues != null && !annotationValues.isEmpty()) {
-                    transformedItem.put(annotationProperty, annotationValues);
-                }
-            });
-        }
+
+        // Item-level @context generated from annotations
+        Map<String, Object> context = buildItemContext();
+        transformedItem.put("@context", context);
+
         return transformedItem;
     }
 
     @Override
     public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("page", page);
-        response.put("pageCount", 1); // TODO
-        response.put("totalCount", transformedResults.size());
-        response.put("prevPage", null);
-        response.put("nextPage", null);
-        Map<String, Object> links = new HashMap<>();
-        links.put("nextPage", null);
-        links.put("prevPage", null);
-        response.put("links", links);
+        Map<String, Object> response = new LinkedHashMap<>();
+
+        response.put("totalCount", totalCount > 0 ? totalCount : transformedResults.size());
         response.put("collection", transformedResults);
-        response.put("@context", Collections.singletonMap("@vocab", ""));
+
         return response;
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map<String, Object> buildItemContext() {
+        Map<String, Object> context = new LinkedHashMap<>();
+
+        String vocab = contextConfig != null ? (String) contextConfig.get("vocab") : null;
+        String language = contextConfig != null ? (String) contextConfig.get("language") : null;
+        Map<String, String> fieldMappings = contextConfig != null ? (Map<String, String>) contextConfig.get("fieldMappings") : null;
+        Map<String, String> fieldOverrides = contextConfig != null ? (Map<String, String>) contextConfig.get("fieldOverrides") : null;
+
+        if (vocab != null) {
+            context.put("@vocab", vocab);
+        }
+
+        // Generate context from @ContextUri annotations
+        if (fieldMappings != null && jsonLdTransform != null) {
+            Map<String, String> generatedContext = jsonLdTransform.generateContext(
+                    org.semantics.apigateway.model.RDFResource.class, null);
+
+            for (Map.Entry<String, String> entry : fieldMappings.entrySet()) {
+                String ontoPortalKey = entry.getKey();    // e.g. "prefLabel"
+                String javaFieldName = entry.getValue();   // e.g. "label"
+
+                // Check for override first
+                if (fieldOverrides != null && fieldOverrides.containsKey(ontoPortalKey)) {
+                    context.put(ontoPortalKey, fieldOverrides.get(ontoPortalKey));
+                } else if (generatedContext.containsKey(javaFieldName)) {
+                    context.put(ontoPortalKey, generatedContext.get(javaFieldName));
+                }
+            }
+        }
+
+        if (language != null) {
+            context.put("@language", language);
+        }
+
+        return context;
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map<String, Object> buildLinksContext() {
+        if (contextConfig == null) {
+            return new LinkedHashMap<>();
+        }
+        Map<String, String> linksConfig = (Map<String, String>) contextConfig.get("links");
+        if (linksConfig == null) {
+            return new LinkedHashMap<>();
+        }
+        return new LinkedHashMap<>(linksConfig);
+    }
+
+    private String getStringValue(Map<String, Object> item, String key) {
+        Object value = item.get(key);
+        return value != null ? value.toString() : null;
     }
 }

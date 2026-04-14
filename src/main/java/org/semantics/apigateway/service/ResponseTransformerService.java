@@ -16,11 +16,13 @@ import java.util.stream.Collectors;
 @Service
 @Getter
 public class ResponseTransformerService {
-  
+
   private final ConfigurationLoader configurationLoader;
-  
-  public ResponseTransformerService(ConfigurationLoader configurationLoader) {
+  private final JsonLdTransform jsonLdTransform;
+
+  public ResponseTransformerService(ConfigurationLoader configurationLoader, JsonLdTransform jsonLdTransform) {
     this.configurationLoader = configurationLoader;
+    this.jsonLdTransform = jsonLdTransform;
   }
   
   
@@ -57,12 +59,13 @@ public class ResponseTransformerService {
         return olsTransformer.constructResponse(transformedResults, responseMapping.getKey(), isList, paginate, page, totalCount);
       }
       case "ontoportal":
-        OntoPortalTransformer ontoPortalTransformer = new OntoPortalTransformer();
+        Map<String, Object> contextConfig = databaseConfig.getServiceConfig().getContext();
+        OntoPortalTransformer ontoPortalTransformer = new OntoPortalTransformer(contextConfig, jsonLdTransform);
         List<Map<String, Object>> transformedResultsOntoPortal = originalResponse.stream()
                 .map(x -> ontoPortalTransformer.transformItem(x, databaseConfig.getResponseMapping(endpoint)))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-        
+
         return ontoPortalTransformer.constructResponse(transformedResultsOntoPortal, null, false, paginate, page, totalCount);
       case "skosmos":
         SkosmosTransformer skosmosTransformer = new SkosmosTransformer();
