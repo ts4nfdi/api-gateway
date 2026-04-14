@@ -17,6 +17,8 @@ import org.apache.lucene.store.Directory;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
+import org.apache.commons.text.similarity.CosineSimilarity;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,6 +28,35 @@ import java.util.stream.Collectors;
 public class SearchLocalIndexerService {
 
     public static final String INDEXED_FIELD = "label";
+
+    public List<Map<String, Object>> sortByCosineSimilarity(String query, List<Map<String, Object>> results) {
+        CosineSimilarity cosineSimilarity = new CosineSimilarity();
+        Map<CharSequence, Integer> queryVector = toCharacterVector(query.toLowerCase());
+
+        return results.stream()
+                .sorted((a, b) -> {
+                    String labelA = a.get("label") != null ? a.get("label").toString().toLowerCase() : "";
+                    String labelB = b.get("label") != null ? b.get("label").toString().toLowerCase() : "";
+
+                    Map<CharSequence, Integer> vectorA = toCharacterVector(labelA);
+                    Map<CharSequence, Integer> vectorB = toCharacterVector(labelB);
+
+                    double scoreA = cosineSimilarity.cosineSimilarity(queryVector, vectorA);
+                    double scoreB = cosineSimilarity.cosineSimilarity(queryVector, vectorB);
+
+                    return Double.compare(scoreB, scoreA);
+                })
+                .collect(Collectors.toList());
+    }
+
+    private Map<CharSequence, Integer> toCharacterVector(String text) {
+        Map<CharSequence, Integer> vector = new HashMap<>();
+        for (char c : text.toCharArray()) {
+            String key = String.valueOf(c);
+            vector.put(key, vector.getOrDefault(key, 0) + 1);
+        }
+        return vector;
+    }
 
 
     public List<Map<String, Object>> reIndexResults(String query, List<Map<String, Object>> combinedResults, Logger logger) throws IOException, ParseException {
@@ -48,7 +79,7 @@ public class SearchLocalIndexerService {
         Query q = queryBuilder(field, terms, mainQuery);
 
 
-        TopDocs resultsTopDocs = searcher.search(q, 100);
+        TopDocs resultsTopDocs = searcher.search(q, Math.max(reader.numDocs(), 1));
 
 
         List<Map<String, Object>> newResults = new ArrayList<>();
