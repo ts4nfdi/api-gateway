@@ -207,22 +207,12 @@ public abstract class AbstractEndpointService {
         List<Map<String, Object>> aggregatedCollections = data.stream()
                 .map(x -> x.getCollection(showResponseConfiguration, displayEmptyValues))
                 .flatMap(List::stream)
-                .sorted((m1, m2) -> {
-                    String label1 = (String) m1.getOrDefault("label", "");
-                    String label2 = (String) m2.getOrDefault("label", "");
-                    if (label1 == null) {
-                        label1 = "";
-                    }
-
-                    if (label2 == null) {
-                        label2 = "";
-                    }
-
-                    return label1.compareTo(label2);
-                })
                 .toList();
 
         aggregatedApiResponse.setCollection(aggregatedCollections);
+
+        long totalCount = aggregatedCollections.size();
+        aggregatedApiResponse.setTotalCount(totalCount);
 
         aggregatedApiResponse.setOriginalResponses(
                 data.stream().map(TransformedApiResponse::getOriginalResponse)
