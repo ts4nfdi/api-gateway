@@ -12,10 +12,13 @@ public class OntoPortalTransformer implements DatabaseTransformer {
 
     private final Map<String, Object> contextConfig;
     private final JsonLdTransform jsonLdTransform;
+    private final String lang;
 
-    public OntoPortalTransformer(Map<String, Object> contextConfig, JsonLdTransform jsonLdTransform) {
+    public OntoPortalTransformer(Map<String, Object> contextConfig, JsonLdTransform jsonLdTransform, String lang) {
         this.contextConfig = contextConfig;
         this.jsonLdTransform = jsonLdTransform;
+        this.lang = lang;
+
     }
 
     @Override
@@ -151,9 +154,7 @@ public class OntoPortalTransformer implements DatabaseTransformer {
             }
         }
 
-        if (language != null) {
-            context.put("@language", language);
-        }
+        context.put("@language", lang != null && !lang.isEmpty() ? lang : "en");
 
         return context;
     }

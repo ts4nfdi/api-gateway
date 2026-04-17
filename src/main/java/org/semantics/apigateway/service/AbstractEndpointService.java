@@ -49,11 +49,19 @@ public abstract class AbstractEndpointService {
         return new ApiAccessor(this.cacheManager);
     }
 
-    protected AggregatedApiResponse transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
-        return transformForTargetDbSchema(data, targetDbSchemaEnum, endpoint, true);
+    protected AggregatedApiResponse transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint, String lang) {
+        return transformForTargetDbSchema(data, targetDbSchemaEnum, endpoint, true, lang);
     }
 
-    protected AggregatedApiResponse transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint, Boolean isList) {
+    protected AggregatedApiResponse transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
+        return transformForTargetDbSchema(data, targetDbSchemaEnum, endpoint, true, null);
+    }
+
+    protected AggregatedApiResponse transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint, boolean isList) {
+        return transformForTargetDbSchema(data, targetDbSchemaEnum, endpoint, isList, null);
+    }
+
+    protected AggregatedApiResponse transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint, Boolean isList, String lang) {
         String targetDbSchema = targetDbSchemaEnum == null ? "" : targetDbSchemaEnum.toString();
 
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
@@ -64,7 +72,7 @@ public abstract class AbstractEndpointService {
                 } else {
                     collections = (List<Map<String, Object>>) data;
                 }
-                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList, data.isPaginate(), data.getPage(), data.getTotalCount());
+                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList, data.isPaginate(), data.getPage(), data.getTotalCount(), lang);
                 logger.debug("Transformed results for database schema: {}", transformedResults);
                 AggregatedApiResponse transformedResponse = new AggregatedApiResponse();
                 transformedResponse.setCollection(Collections.singletonList(transformedResults));
@@ -77,7 +85,6 @@ public abstract class AbstractEndpointService {
             return data;
         }
     }
-
 
     protected Map<String, UrlConfig> buildUrls(String database, String endpoint) {
         String[] databases = (database == null || database.isEmpty()) ? new String[0] : database.split(",");

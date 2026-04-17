@@ -28,14 +28,16 @@ public class SearchService extends AbstractEndpointService {
 
 
     private final SearchLocalIndexerService localIndexer;
+    private final SearchDeduplicationService deduplicationService;
 
     private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
     private final CollectionService collectionService;
 
-    public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService, CollectionService collectionService) {
+    public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService, CollectionService collectionService, SearchDeduplicationService deduplicationService) {
         super(configurationLoader, cacheManager, jsonLdTransform, responseTransformerService, RDFResource.class);
         this.localIndexer = localIndexer;
         this.collectionService = collectionService;
+        this.deduplicationService = deduplicationService;
     }
 
     public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, boolean showResponseConfiguration) {
@@ -61,18 +63,26 @@ public class SearchService extends AbstractEndpointService {
         accessor = applyCollection(accessor, collection, endpoint);
         
         try {
-            return accessor.get(query)
+            return accessor.get(query, params.getLang() != null ? params.getLang() :"en")
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
+                    .thenApply(this::deduplicateResults)
                     .thenApply(data -> sortResults(query, data))
                     .thenApply(x -> transformJsonLd(x, params))
-                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint))
+                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, params.getLang()))
                     .get();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return null;
         }
+    }
+
+    private AggregatedApiResponse deduplicateResults(AggregatedApiResponse data) {
+        List<Map<String, Object>> collection = deduplicationService.deduplicate(data.getCollection());
+        data.setCollection(collection);
+        data.setTotalCount(collection.size());
+        return data;
     }
 
     public AggregatedApiResponse suggestConcepts(
@@ -109,7 +119,7 @@ public class SearchService extends AbstractEndpointService {
                     .thenApply(data -> filterOutByCollection(collection, data))
                     .thenApply(data -> sortResults(query, data))
                     .thenApply(x -> transformJsonLd(x, params))
-                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint))
+                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, params.getLang()))
                     .get();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
