@@ -9,9 +9,12 @@ import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.*;
 import org.apache.lucene.queries.spans.SpanFirstQuery;
 import org.apache.lucene.queries.spans.SpanMultiTermQueryWrapper;
+import org.apache.lucene.queries.spans.SpanNearQuery;
 import org.apache.lucene.queries.spans.SpanQuery;
+import org.apache.lucene.queries.spans.SpanTermQuery;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.*;
+import org.apache.lucene.search.similarities.BM25Similarity;
 import org.apache.lucene.store.ByteBuffersDirectory;
 import org.apache.lucene.store.Directory;
 import org.slf4j.Logger;
@@ -31,15 +34,15 @@ public class SearchLocalIndexerService {
 
     public List<Map<String, Object>> sortByCosineSimilarity(String query, List<Map<String, Object>> results) {
         CosineSimilarity cosineSimilarity = new CosineSimilarity();
-        Map<CharSequence, Integer> queryVector = toCharacterVector(query.toLowerCase());
+        Map<CharSequence, Integer> queryVector = toWordVector(query.toLowerCase());
 
         return results.stream()
                 .sorted((a, b) -> {
                     String labelA = a.get("label") != null ? a.get("label").toString().toLowerCase() : "";
                     String labelB = b.get("label") != null ? b.get("label").toString().toLowerCase() : "";
 
-                    Map<CharSequence, Integer> vectorA = toCharacterVector(labelA);
-                    Map<CharSequence, Integer> vectorB = toCharacterVector(labelB);
+                    Map<CharSequence, Integer> vectorA = toWordVector(labelA);
+                    Map<CharSequence, Integer> vectorB = toWordVector(labelB);
 
                     double scoreA = cosineSimilarity.cosineSimilarity(queryVector, vectorA);
                     double scoreB = cosineSimilarity.cosineSimilarity(queryVector, vectorB);
@@ -49,11 +52,17 @@ public class SearchLocalIndexerService {
                 .collect(Collectors.toList());
     }
 
-    private Map<CharSequence, Integer> toCharacterVector(String text) {
+    private Map<CharSequence, Integer> toWordVector(String text) {
         Map<CharSequence, Integer> vector = new HashMap<>();
-        for (char c : text.toCharArray()) {
-            String key = String.valueOf(c);
-            vector.put(key, vector.getOrDefault(key, 0) + 1);
+        if (text == null || text.isEmpty()) {
+            return vector;
+        }
+        String[] words = text.toLowerCase().split("\\W+");
+        for (String word : words) {
+            if (word.isEmpty()) {
+                continue;
+            }
+            vector.put(word, vector.getOrDefault(word, 0) + 1);
         }
         return vector;
     }
@@ -72,6 +81,7 @@ public class SearchLocalIndexerService {
     private static List<Map<String, Object>> localIndexSearch(String query, Logger logger, Directory index, String field) throws IOException {
         IndexReader reader = DirectoryReader.open(index);
         IndexSearcher searcher = new IndexSearcher(reader);
+        searcher.setSimilarity(new BM25Similarity(1.2f, 0f));
         BooleanQuery.Builder mainQuery = new BooleanQuery.Builder();
 
         String[] terms = query.toLowerCase().split("\\s+");
@@ -126,19 +136,28 @@ public class SearchLocalIndexerService {
         mainQuery.add(new BoostQuery(lowerFirst, 50), BooleanClause.Occur.SHOULD);
 
         if (terms.length > 1) {
-            // 4. Exact phrase matches with query case
+            // 4a. Exact full phrase at the START of the label (highest priority)
+            SpanQuery[] spanTerms = new SpanQuery[terms.length];
+            for (int i = 0; i < terms.length; i++) {
+                spanTerms[i] = new SpanTermQuery(new Term(field, queryTerms[i]));
+            }
+            SpanNearQuery phraseSpan = new SpanNearQuery(spanTerms, 0, true);
+            SpanFirstQuery phraseFirstQuery = new SpanFirstQuery(phraseSpan, terms.length);
+            mainQuery.add(new BoostQuery(phraseFirstQuery, 1000), BooleanClause.Occur.SHOULD);
+
+            // 4b. Exact phrase matches anywhere
             PhraseQuery.Builder phraseQuery = new PhraseQuery.Builder();
             for (int i = 0; i < terms.length; i++) {
                 phraseQuery.add(new Term(field, queryTerms[i]), i);
             }
-            mainQuery.add(new BoostQuery(phraseQuery.build(), 100), BooleanClause.Occur.SHOULD);
+            mainQuery.add(new BoostQuery(phraseQuery.build(), 500), BooleanClause.Occur.SHOULD);
 
             // 5. Case-insensitive phrase matches
             PhraseQuery.Builder phraseLowerQuery = new PhraseQuery.Builder();
             for (int i = 0; i < terms.length; i++) {
                 phraseLowerQuery.add(new Term(field + ".lowercase", lowerTerms[i]), i);
             }
-            mainQuery.add(new BoostQuery(phraseLowerQuery.build(), 40), BooleanClause.Occur.SHOULD);
+            mainQuery.add(new BoostQuery(phraseLowerQuery.build(), 300), BooleanClause.Occur.SHOULD);
         }
 
         // 6. Individual term matches
@@ -159,6 +178,7 @@ public class SearchLocalIndexerService {
         Directory index = new ByteBuffersDirectory();
 
         IndexWriterConfig config = new IndexWriterConfig(new StandardAnalyzer());
+        config.setSimilarity(new BM25Similarity(1.2f, 0f));
 
         IndexWriter w = new IndexWriter(index, config);
 
