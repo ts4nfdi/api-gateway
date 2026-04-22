@@ -86,7 +86,7 @@ models:
 
 endpoints:
   search:
-    path: /search?q=%s&pagesize=150&lang=%s&apikey=%s
+    path: /search?q=%s&pagesize=150&apikey=%s
     responseMapping:
       nestedJson: collection
       collectionFilter: ontologies

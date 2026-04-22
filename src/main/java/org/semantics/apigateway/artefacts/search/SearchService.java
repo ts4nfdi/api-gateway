@@ -28,16 +28,14 @@ public class SearchService extends AbstractEndpointService {
 
 
     private final SearchLocalIndexerService localIndexer;
-    private final SearchDeduplicationService deduplicationService;
 
     private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
     private final CollectionService collectionService;
 
-    public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService, CollectionService collectionService, SearchDeduplicationService deduplicationService) {
+    public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService, CollectionService collectionService ) {
         super(configurationLoader, cacheManager, jsonLdTransform, responseTransformerService, RDFResource.class);
         this.localIndexer = localIndexer;
         this.collectionService = collectionService;
-        this.deduplicationService = deduplicationService;
     }
 
     public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, boolean showResponseConfiguration) {
@@ -61,9 +59,10 @@ public class SearchService extends AbstractEndpointService {
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collection, endpoint);
+        accessor = applyLang(accessor, params.getLang());
         
         try {
-            return accessor.get(query, params.getLang() != null ? params.getLang() :"en")
+            return accessor.get(query)
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
@@ -79,7 +78,7 @@ public class SearchService extends AbstractEndpointService {
     }
 
     private AggregatedApiResponse deduplicateResults(AggregatedApiResponse data) {
-        List<Map<String, Object>> collection = deduplicationService.deduplicate(data.getCollection());
+        List<Map<String, Object>> collection = data.getCollection();
         data.setCollection(collection);
         data.setTotalCount(collection.size());
         return data;
@@ -109,6 +108,7 @@ public class SearchService extends AbstractEndpointService {
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collection, endpoint);
+        accessor = applyLang(accessor, params.getLang());
 
         // TODO add ontology parameter as soon as https://github.com/ts4nfdi/api-gateway/issues/123 has been resolved.
 

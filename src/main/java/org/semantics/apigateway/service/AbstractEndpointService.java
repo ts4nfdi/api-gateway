@@ -351,6 +351,23 @@ public abstract class AbstractEndpointService {
         return accessor;
     }
 
+    protected ApiAccessor applyLang(ApiAccessor accessor, String lang) {
+        if (lang == null || lang.isEmpty()) {
+            return accessor;
+        }
+        Map<String, UrlConfig> updated = new LinkedHashMap<>();
+        accessor.getUrls().forEach((url, cfg) -> {
+            if (url.contains("&lang=") || url.contains("?lang=")) {
+                updated.put(url, cfg);
+            } else {
+                String sep = url.contains("?") ? "&" : "?";
+                updated.put(url + sep + "lang=" + lang, cfg);
+            }
+        });
+        accessor.setUrls(updated);
+        return accessor;
+    }
+
     protected ApiAccessor applyCollection(ApiAccessor accessor, TerminologyCollection collection, String endpoint) {
         if (collection == null) {
             return accessor;
