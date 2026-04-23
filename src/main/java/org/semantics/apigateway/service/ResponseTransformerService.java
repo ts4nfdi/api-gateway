@@ -28,14 +28,14 @@ public class ResponseTransformerService {
   
   // Method to transform and structure results based on database
   public Map<String, Object> transformAndStructureResults(List<Map<String, Object>> combinedResults, String
-          targetDbSchema, String endpoint, boolean isList, boolean paginate, int page, long totalCount) throws IOException {
-    return transformJsonResponse(combinedResults, targetDbSchema, endpoint, isList, paginate, page, totalCount);
+          targetDbSchema, String endpoint, boolean isList, boolean paginate, int page, long totalCount, String lang) throws IOException {
+    return transformJsonResponse(combinedResults, targetDbSchema, endpoint, isList, paginate, page, totalCount, lang);
   }
   
   // Method to transform the JSON response from a database into a specific format
   private Map<String, Object> transformJsonResponse(List<Map<String, Object>> originalResponse, String targetDataBase,
                                                     String endpoint, boolean isList, boolean paginate, int page,
-                                                    long totalCount) {
+                                                    long totalCount, String lang) {
     DatabaseConfig databaseConfig = configurationLoader.getDatabaseConfig(targetDataBase);
     switch (targetDataBase) {
       case "ols": {
@@ -60,7 +60,7 @@ public class ResponseTransformerService {
       }
       case "ontoportal":
         Map<String, Object> contextConfig = databaseConfig.getServiceConfig().getContext();
-        OntoPortalTransformer ontoPortalTransformer = new OntoPortalTransformer(contextConfig, jsonLdTransform);
+        OntoPortalTransformer ontoPortalTransformer = new OntoPortalTransformer(contextConfig, jsonLdTransform, lang);
         List<Map<String, Object>> transformedResultsOntoPortal = originalResponse.stream()
                 .map(x -> ontoPortalTransformer.transformItem(x, databaseConfig.getResponseMapping(endpoint)))
                 .filter(Objects::nonNull)

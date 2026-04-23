@@ -43,6 +43,10 @@ public class ApiAccessor {
         this.cacheEnabled = true;
     }
 
+    public Map<String, UrlConfig> getUrls() {
+        return urls;
+    }
+
     @Async
     public CompletableFuture<Map<String, ApiResponse>> get() {
         return get("");

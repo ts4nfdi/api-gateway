@@ -38,6 +38,10 @@ public class CommonRequestParams {
     @Parameter(name = "disableCache", in = ParameterIn.QUERY, description = "Disable caching (not implemented yet)")
     private boolean disableCache = false;
 
+    @QueryParam("lang")
+    @Parameter(name="lang", in = ParameterIn.QUERY, description ="Language code to filter results (en, fr)")
+    private String lang;
+
     @QueryParam("display")
     @Parameter(name = "display", in = ParameterIn.QUERY, description = "Choose the attribute to display in the results (coma seperated)",
             array = @ArraySchema(schema = @Schema(type = "string")))

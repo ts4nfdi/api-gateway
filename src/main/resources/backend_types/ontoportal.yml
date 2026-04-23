@@ -2,7 +2,6 @@ name: ontoportal
 
 context:
   vocab: "http://data.bioontology.org/metadata/"
-  language: "en"
   fieldMappings:
     prefLabel: label
     synonym: synonyms

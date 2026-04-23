@@ -32,7 +32,7 @@ public class SearchService extends AbstractEndpointService {
     private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
     private final CollectionService collectionService;
 
-    public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService, CollectionService collectionService) {
+    public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService, CollectionService collectionService ) {
         super(configurationLoader, cacheManager, jsonLdTransform, responseTransformerService, RDFResource.class);
         this.localIndexer = localIndexer;
         this.collectionService = collectionService;
@@ -59,20 +59,29 @@ public class SearchService extends AbstractEndpointService {
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collection, endpoint);
+        accessor = applyLang(accessor, params.getLang());
         
         try {
             return accessor.get(query)
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
+                    .thenApply(this::deduplicateResults)
                     .thenApply(data -> sortResults(query, data))
                     .thenApply(x -> transformJsonLd(x, params))
-                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint))
+                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, params.getLang()))
                     .get();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return null;
         }
+    }
+
+    private AggregatedApiResponse deduplicateResults(AggregatedApiResponse data) {
+        List<Map<String, Object>> collection = data.getCollection();
+        data.setCollection(collection);
+        data.setTotalCount(collection.size());
+        return data;
     }
 
     public AggregatedApiResponse suggestConcepts(
@@ -99,6 +108,7 @@ public class SearchService extends AbstractEndpointService {
         TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collection, endpoint);
+        accessor = applyLang(accessor, params.getLang());
 
         // TODO add ontology parameter as soon as https://github.com/ts4nfdi/api-gateway/issues/123 has been resolved.
 
@@ -109,7 +119,7 @@ public class SearchService extends AbstractEndpointService {
                     .thenApply(data -> filterOutByCollection(collection, data))
                     .thenApply(data -> sortResults(query, data))
                     .thenApply(x -> transformJsonLd(x, params))
-                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint))
+                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, params.getLang()))
                     .get();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
