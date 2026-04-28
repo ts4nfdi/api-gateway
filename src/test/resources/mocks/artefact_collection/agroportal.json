@@ -4,9 +4,9 @@
   "@id": "http://opendata.inrae.fr/thesaurusINRAE/gr_6c79e7c5",
   "@type": "http://www.w3.org/2004/02/skos/core#Collection",
   "links": {
-    "self": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/collections/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fgr_6c79e7c5",
-    "members": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES/collections/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fgr_6c79e7c5/members",
-    "ontology": "https://data.agroportal.lirmm.fr/ontologies/INRAETHES",
+    "self": "https://data.agroportal.eu/ontologies/INRAETHES/collections/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fgr_6c79e7c5",
+    "members": "https://data.agroportal.eu/ontologies/INRAETHES/collections/http%3A%2F%2Fopendata.inrae.fr%2FthesaurusINRAE%2Fgr_6c79e7c5/members",
+    "ontology": "https://data.agroportal.eu/ontologies/INRAETHES",
     "@context": {
       "self": "http://www.w3.org/2004/02/skos/core#Collection",
       "members": "http://www.w3.org/2004/02/skos/core#Concept",
