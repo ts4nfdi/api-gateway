@@ -49,3 +49,6 @@ _next/
 src/frontend/.env
 
 node_modules/
+
+# Java
+.attach_pid*

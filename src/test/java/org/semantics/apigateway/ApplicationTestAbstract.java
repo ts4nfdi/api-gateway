@@ -79,7 +79,7 @@ public abstract class ApplicationTestAbstract {
         fixture.put("backend_type", "ontoportal");
         fixture.put("short_form", "AGROVOC");
         fixture.put("label", "AGROVOC");
-        fixture.put("source", "https://data.agroportal.lirmm.fr");
+        fixture.put("source", "https://data.agroportal.eu");
         fixture.put("source_name", "agroportal");
         fixture.put("descriptions", List.of(
                 "AGROVOC is a multilingual and controlled vocabulary designed to cover concepts and terminology under FAO's areas of interest. It is a large Linked Open Data set about agriculture, available for public use, and its highest impact is through facilitating the access and visibility of data across domains and languages."
