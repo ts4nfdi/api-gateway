@@ -1,5 +1,5 @@
 {
-  "id": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions/54",
+  "id": "https://data.agroportal.eu/ontologies/AGROVOC/submissions/54",
   "submissionId": 54,
   "submissionStatus": [
     "ERROR_DIFF",
@@ -14,66 +14,66 @@
   ],
   "ontology": {
     "administeredBy": [
-      "https://data.agroportal.lirmm.fr/users/AGROVOC"
+      "https://data.agroportal.eu/users/AGROVOC"
     ],
     "acronym": "AGROVOC",
     "name": "AGROVOC",
     "group": [
-      "https://data.agroportal.lirmm.fr/groups/AGROTERMOS"
+      "https://data.agroportal.eu/groups/AGROTERMOS"
     ],
     "hasDomain": [
-      "https://data.agroportal.lirmm.fr/categories/AG-ENG",
-      "https://data.agroportal.lirmm.fr/categories/AG-RES",
-      "https://data.agroportal.lirmm.fr/categories/AGRI",
-      "https://data.agroportal.lirmm.fr/categories/CULT",
-      "https://data.agroportal.lirmm.fr/categories/EARTH",
-      "https://data.agroportal.lirmm.fr/categories/ENV",
-      "https://data.agroportal.lirmm.fr/categories/FISH",
-      "https://data.agroportal.lirmm.fr/categories/FOREST",
-      "https://data.agroportal.lirmm.fr/categories/NAT-RES"
+      "https://data.agroportal.eu/categories/AG-ENG",
+      "https://data.agroportal.eu/categories/AG-RES",
+      "https://data.agroportal.eu/categories/AGRI",
+      "https://data.agroportal.eu/categories/CULT",
+      "https://data.agroportal.eu/categories/EARTH",
+      "https://data.agroportal.eu/categories/ENV",
+      "https://data.agroportal.eu/categories/FISH",
+      "https://data.agroportal.eu/categories/FOREST",
+      "https://data.agroportal.eu/categories/NAT-RES"
     ],
     "viewingRestriction": "public",
     "viewOf": null,
     "reviews": [],
     "notes": [
-      "https://data.agroportal.lirmm.fr/notes/607f5af0-ff2f-013c-2e2d-5254006dce65",
-      "https://data.agroportal.lirmm.fr/notes/d31ed960-95e7-013c-2b2a-5254006dce65",
-      "https://data.agroportal.lirmm.fr/notes/d4e51e30-ff2f-013c-2e2d-5254006dce65"
+      "https://data.agroportal.eu/notes/607f5af0-ff2f-013c-2e2d-5254006dce65",
+      "https://data.agroportal.eu/notes/d31ed960-95e7-013c-2b2a-5254006dce65",
+      "https://data.agroportal.eu/notes/d4e51e30-ff2f-013c-2e2d-5254006dce65"
     ],
     "projects": [
-      "https://data.agroportal.lirmm.fr/projects/AGRIS",
-      "https://data.agroportal.lirmm.fr/projects/ANAEE+Semantics",
-      "https://data.agroportal.lirmm.fr/projects/C4AI-KGAP",
-      "https://data.agroportal.lirmm.fr/projects/D2KAB",
-      "https://data.agroportal.lirmm.fr/projects/FooSIN",
-      "https://data.agroportal.lirmm.fr/projects/Maggot",
-      "https://data.agroportal.lirmm.fr/projects/RDAWheat",
-      "https://data.agroportal.lirmm.fr/projects/VEST-AP"
+      "https://data.agroportal.eu/projects/AGRIS",
+      "https://data.agroportal.eu/projects/ANAEE+Semantics",
+      "https://data.agroportal.eu/projects/C4AI-KGAP",
+      "https://data.agroportal.eu/projects/D2KAB",
+      "https://data.agroportal.eu/projects/FooSIN",
+      "https://data.agroportal.eu/projects/Maggot",
+      "https://data.agroportal.eu/projects/RDAWheat",
+      "https://data.agroportal.eu/projects/VEST-AP"
     ],
-    "@id": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC",
+    "@id": "https://data.agroportal.eu/ontologies/AGROVOC",
     "@type": "http://data.bioontology.org/metadata/Ontology",
     "links": {
-      "submissions": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions",
-      "properties": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/properties",
-      "classes": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes",
-      "single_class": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/{class_id}",
-      "roots": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/classes/roots",
-      "schemes": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/schemes",
-      "collections": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/collections",
-      "xl_labels": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/skos_xl_labels",
-      "instances": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/instances",
-      "metrics": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/metrics",
-      "reviews": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/reviews",
-      "notes": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/notes",
-      "groups": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/groups",
-      "categories": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/categories",
-      "latest_submission": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/latest_submission",
-      "projects": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/projects",
-      "download": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/download",
-      "views": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/views",
-      "analytics": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/analytics",
-      "agents": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/agents",
-      "mappings": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/mappings",
+      "submissions": "https://data.agroportal.eu/ontologies/AGROVOC/submissions",
+      "properties": "https://data.agroportal.eu/ontologies/AGROVOC/properties",
+      "classes": "https://data.agroportal.eu/ontologies/AGROVOC/classes",
+      "single_class": "https://data.agroportal.eu/ontologies/AGROVOC/classes/{class_id}",
+      "roots": "https://data.agroportal.eu/ontologies/AGROVOC/classes/roots",
+      "schemes": "https://data.agroportal.eu/ontologies/AGROVOC/schemes",
+      "collections": "https://data.agroportal.eu/ontologies/AGROVOC/collections",
+      "xl_labels": "https://data.agroportal.eu/ontologies/AGROVOC/skos_xl_labels",
+      "instances": "https://data.agroportal.eu/ontologies/AGROVOC/instances",
+      "metrics": "https://data.agroportal.eu/ontologies/AGROVOC/metrics",
+      "reviews": "https://data.agroportal.eu/ontologies/AGROVOC/reviews",
+      "notes": "https://data.agroportal.eu/ontologies/AGROVOC/notes",
+      "groups": "https://data.agroportal.eu/ontologies/AGROVOC/groups",
+      "categories": "https://data.agroportal.eu/ontologies/AGROVOC/categories",
+      "latest_submission": "https://data.agroportal.eu/ontologies/AGROVOC/latest_submission",
+      "projects": "https://data.agroportal.eu/ontologies/AGROVOC/projects",
+      "download": "https://data.agroportal.eu/ontologies/AGROVOC/download",
+      "views": "https://data.agroportal.eu/ontologies/AGROVOC/views",
+      "analytics": "https://data.agroportal.eu/ontologies/AGROVOC/analytics",
+      "agents": "https://data.agroportal.eu/ontologies/AGROVOC/agents",
+      "mappings": "https://data.agroportal.eu/ontologies/AGROVOC/mappings",
       "ui": "http://agroportal.lirmm.fr/ontologies/AGROVOC",
       "@context": {
         "submissions": "http://data.bioontology.org/metadata/OntologySubmission",
@@ -125,7 +125,7 @@
     }
   },
   "metrics": {
-    "id": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions/54/metrics",
+    "id": "https://data.agroportal.eu/ontologies/AGROVOC/submissions/54/metrics",
     "classes": 34,
     "averageChildCount": 4,
     "classesWithMoreThan25Children": 0,
@@ -137,11 +137,11 @@
     "properties": 209,
     "numberOfAxioms": null,
     "entities": null,
-    "@id": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions/54/metrics",
+    "@id": "https://data.agroportal.eu/ontologies/AGROVOC/submissions/54/metrics",
     "@type": "http://data.bioontology.org/metadata/Metrics",
     "links": {
-      "ontology": "https://data.agroportal.lirmm.fr/",
-      "submission": "https://data.agroportal.lirmm.fr/",
+      "ontology": "https://data.agroportal.eu/",
+      "submission": "https://data.agroportal.eu/",
       "@context": {
         "ontology": "http://data.bioontology.org/metadata/Ontology",
         "submission": "http://data.bioontology.org/metadata/OntologySubmission"
@@ -295,7 +295,7 @@
   "pullLocation": "http://agrovoc.uniroma2.it/latestAgrovoc/agrovoc_lod.nt.zip",
   "isFormatOf": null,
   "hasFormat": [],
-  "dataDump": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/download",
+  "dataDump": "https://data.agroportal.eu/ontologies/AGROVOC/download",
   "csvDump": "http://data.agroportal.lirmm.fr/ontologies/AGROVOC/download?download_format=csv",
   "uriLookupEndpoint": "http://data.agroportal.lirmm.fr/search?ontologies=AGROVOC&require_exact_match=true&q=",
   "openSearchDescription": "http://data.agroportal.lirmm.fr/search?ontologies=AGROVOC",
@@ -335,9 +335,9 @@
     "http://data.agroportal.lirmm.fr/ontologies/NALT",
     "http://metadata.un.org/",
     "http://www.geonames.org/",
-    "https://data.agroportal.lirmm.fr/ontologies/CABT",
-    "https://data.agroportal.lirmm.fr/ontologies/GEMET",
-    "https://data.agroportal.lirmm.fr/ontologies/SDGIO"
+    "https://data.agroportal.eu/ontologies/CABT",
+    "https://data.agroportal.eu/ontologies/GEMET",
+    "https://data.agroportal.eu/ontologies/SDGIO"
   ],
   "isBackwardCompatibleWith": [],
   "isIncompatibleWith": [],
@@ -372,23 +372,23 @@
   ],
   "contact": [
     {
-      "id": "https://data.agroportal.lirmm.fr/contacts/86819aa0-1880-0135-178f-525400026749",
+      "id": "https://data.agroportal.eu/contacts/86819aa0-1880-0135-178f-525400026749",
       "email": "AGROVOC@fao.org",
       "name": "AGROVOC"
     }
   ],
   "hasCreator": [
     {
-      "id": "https://data.agroportal.lirmm.fr/Agents/48bdc460-994a-013d-f8e5-5254006dce65",
+      "id": "https://data.agroportal.eu/Agents/48bdc460-994a-013d-f8e5-5254006dce65",
       "agentType": "person",
-      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "creator": "https://data.agroportal.eu/users/AGROVOC",
       "name": null,
       "homepage": null,
       "acronym": null,
       "email": null,
       "affiliations": [],
       "identifiers": [],
-      "@id": "https://data.agroportal.lirmm.fr/Agents/48bdc460-994a-013d-f8e5-5254006dce65",
+      "@id": "https://data.agroportal.eu/Agents/48bdc460-994a-013d-f8e5-5254006dce65",
       "@type": "http://xmlns.com/foaf/0.1/Agent",
       "@context": {
         "@vocab": "http://data.bioontology.org/metadata/",
@@ -407,16 +407,16 @@
       }
     },
     {
-      "id": "https://data.agroportal.lirmm.fr/Agents/48dfd610-994a-013d-f8e5-5254006dce65",
+      "id": "https://data.agroportal.eu/Agents/48dfd610-994a-013d-f8e5-5254006dce65",
       "agentType": "person",
-      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "creator": "https://data.agroportal.eu/users/AGROVOC",
       "name": null,
       "homepage": null,
       "acronym": null,
       "email": null,
       "affiliations": [],
       "identifiers": [],
-      "@id": "https://data.agroportal.lirmm.fr/Agents/48dfd610-994a-013d-f8e5-5254006dce65",
+      "@id": "https://data.agroportal.eu/Agents/48dfd610-994a-013d-f8e5-5254006dce65",
       "@type": "http://xmlns.com/foaf/0.1/Agent",
       "@context": {
         "@vocab": "http://data.bioontology.org/metadata/",
@@ -435,16 +435,16 @@
       }
     },
     {
-      "id": "https://data.agroportal.lirmm.fr/Agents/48fbc620-994a-013d-f8e5-5254006dce65",
+      "id": "https://data.agroportal.eu/Agents/48fbc620-994a-013d-f8e5-5254006dce65",
       "agentType": "person",
-      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "creator": "https://data.agroportal.eu/users/AGROVOC",
       "name": null,
       "homepage": null,
       "acronym": null,
       "email": null,
       "affiliations": [],
       "identifiers": [],
-      "@id": "https://data.agroportal.lirmm.fr/Agents/48fbc620-994a-013d-f8e5-5254006dce65",
+      "@id": "https://data.agroportal.eu/Agents/48fbc620-994a-013d-f8e5-5254006dce65",
       "@type": "http://xmlns.com/foaf/0.1/Agent",
       "@context": {
         "@vocab": "http://data.bioontology.org/metadata/",
@@ -463,16 +463,16 @@
       }
     },
     {
-      "id": "https://data.agroportal.lirmm.fr/Agents/49180b90-994a-013d-f8e5-5254006dce65",
+      "id": "https://data.agroportal.eu/Agents/49180b90-994a-013d-f8e5-5254006dce65",
       "agentType": "person",
-      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "creator": "https://data.agroportal.eu/users/AGROVOC",
       "name": null,
       "homepage": null,
       "acronym": null,
       "email": null,
       "affiliations": [],
       "identifiers": [],
-      "@id": "https://data.agroportal.lirmm.fr/Agents/49180b90-994a-013d-f8e5-5254006dce65",
+      "@id": "https://data.agroportal.eu/Agents/49180b90-994a-013d-f8e5-5254006dce65",
       "@type": "http://xmlns.com/foaf/0.1/Agent",
       "@context": {
         "@vocab": "http://data.bioontology.org/metadata/",
@@ -491,16 +491,16 @@
       }
     },
     {
-      "id": "https://data.agroportal.lirmm.fr/Agents/49371180-994a-013d-f8e5-5254006dce65",
+      "id": "https://data.agroportal.eu/Agents/49371180-994a-013d-f8e5-5254006dce65",
       "agentType": "person",
-      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "creator": "https://data.agroportal.eu/users/AGROVOC",
       "name": null,
       "homepage": null,
       "acronym": null,
       "email": null,
       "affiliations": [],
       "identifiers": [],
-      "@id": "https://data.agroportal.lirmm.fr/Agents/49371180-994a-013d-f8e5-5254006dce65",
+      "@id": "https://data.agroportal.eu/Agents/49371180-994a-013d-f8e5-5254006dce65",
       "@type": "http://xmlns.com/foaf/0.1/Agent",
       "@context": {
         "@vocab": "http://data.bioontology.org/metadata/",
@@ -519,16 +519,16 @@
       }
     },
     {
-      "id": "https://data.agroportal.lirmm.fr/Agents/4962e8a0-994a-013d-f8e5-5254006dce65",
+      "id": "https://data.agroportal.eu/Agents/4962e8a0-994a-013d-f8e5-5254006dce65",
       "agentType": "person",
-      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "creator": "https://data.agroportal.eu/users/AGROVOC",
       "name": "https://www.wikidata.org/entity/Q82151",
       "homepage": null,
       "acronym": null,
       "email": null,
       "affiliations": [],
       "identifiers": [],
-      "@id": "https://data.agroportal.lirmm.fr/Agents/4962e8a0-994a-013d-f8e5-5254006dce65",
+      "@id": "https://data.agroportal.eu/Agents/4962e8a0-994a-013d-f8e5-5254006dce65",
       "@type": "http://xmlns.com/foaf/0.1/Agent",
       "@context": {
         "@vocab": "http://data.bioontology.org/metadata/",
@@ -547,9 +547,9 @@
       }
     },
     {
-      "id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "id": "https://data.agroportal.eu/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
       "agentType": "organization",
-      "creator": "https://data.agroportal.lirmm.fr/users/admin",
+      "creator": "https://data.agroportal.eu/users/admin",
       "name": "Food and Agriculture Organization of the United Nations",
       "homepage": "http://www.fao.org/home/en/",
       "acronym": "FAO",
@@ -557,13 +557,13 @@
       "affiliations": [],
       "identifiers": [
         {
-          "id": "https://data.agroportal.lirmm.fr/Identifiers/ROR:00pe0tf51",
+          "id": "https://data.agroportal.eu/Identifiers/ROR:00pe0tf51",
           "notation": "00pe0tf51",
-          "creator": "https://data.agroportal.lirmm.fr/users/jonquet",
+          "creator": "https://data.agroportal.eu/users/jonquet",
           "schemaAgency": "ROR"
         }
       ],
-      "@id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "@id": "https://data.agroportal.eu/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
       "@type": "http://xmlns.com/foaf/0.1/Agent",
       "@context": {
         "@vocab": "http://data.bioontology.org/metadata/",
@@ -582,16 +582,16 @@
       }
     },
     {
-      "id": "https://data.agroportal.lirmm.fr/Agents/dc180e60-7dc9-013d-a205-5254006dce65",
+      "id": "https://data.agroportal.eu/Agents/dc180e60-7dc9-013d-a205-5254006dce65",
       "agentType": "person",
-      "creator": "https://data.agroportal.lirmm.fr/users/AGROVOC",
+      "creator": "https://data.agroportal.eu/users/AGROVOC",
       "name": "Food and Agriculture Organization of the United Nations",
       "homepage": null,
       "acronym": null,
       "email": null,
       "affiliations": [],
       "identifiers": [],
-      "@id": "https://data.agroportal.lirmm.fr/Agents/dc180e60-7dc9-013d-a205-5254006dce65",
+      "@id": "https://data.agroportal.eu/Agents/dc180e60-7dc9-013d-a205-5254006dce65",
       "@type": "http://xmlns.com/foaf/0.1/Agent",
       "@context": {
         "@vocab": "http://data.bioontology.org/metadata/",
@@ -612,9 +612,9 @@
   ],
   "publisher": [
     {
-      "id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "id": "https://data.agroportal.eu/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
       "agentType": "organization",
-      "creator": "https://data.agroportal.lirmm.fr/users/admin",
+      "creator": "https://data.agroportal.eu/users/admin",
       "name": "Food and Agriculture Organization of the United Nations",
       "homepage": "http://www.fao.org/home/en/",
       "acronym": "FAO",
@@ -622,13 +622,13 @@
       "affiliations": [],
       "identifiers": [
         {
-          "id": "https://data.agroportal.lirmm.fr/Identifiers/ROR:00pe0tf51",
+          "id": "https://data.agroportal.eu/Identifiers/ROR:00pe0tf51",
           "notation": "00pe0tf51",
-          "creator": "https://data.agroportal.lirmm.fr/users/jonquet",
+          "creator": "https://data.agroportal.eu/users/jonquet",
           "schemaAgency": "ROR"
         }
       ],
-      "@id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "@id": "https://data.agroportal.eu/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
       "@type": "http://xmlns.com/foaf/0.1/Agent",
       "@context": {
         "@vocab": "http://data.bioontology.org/metadata/",
@@ -651,9 +651,9 @@
   "hasContributor": [],
   "translator": [
     {
-      "id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "id": "https://data.agroportal.eu/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
       "agentType": "organization",
-      "creator": "https://data.agroportal.lirmm.fr/users/admin",
+      "creator": "https://data.agroportal.eu/users/admin",
       "name": "Food and Agriculture Organization of the United Nations",
       "homepage": "http://www.fao.org/home/en/",
       "acronym": "FAO",
@@ -661,13 +661,13 @@
       "affiliations": [],
       "identifiers": [
         {
-          "id": "https://data.agroportal.lirmm.fr/Identifiers/ROR:00pe0tf51",
+          "id": "https://data.agroportal.eu/Identifiers/ROR:00pe0tf51",
           "notation": "00pe0tf51",
-          "creator": "https://data.agroportal.lirmm.fr/users/jonquet",
+          "creator": "https://data.agroportal.eu/users/jonquet",
           "schemaAgency": "ROR"
         }
       ],
-      "@id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "@id": "https://data.agroportal.eu/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
       "@type": "http://xmlns.com/foaf/0.1/Agent",
       "@context": {
         "@vocab": "http://data.bioontology.org/metadata/",
@@ -686,16 +686,16 @@
       }
     },
     {
-      "id": "https://data.agroportal.lirmm.fr/Agents/bc8bc970-6e14-013d-9813-5254006dce65",
+      "id": "https://data.agroportal.eu/Agents/bc8bc970-6e14-013d-9813-5254006dce65",
       "agentType": "organization",
-      "creator": "https://data.agroportal.lirmm.fr/users/milenatelles",
+      "creator": "https://data.agroportal.eu/users/milenatelles",
       "name": "Brazilian Agricultural Research Corporation",
       "homepage": "https://www.embrapa.br/en/international",
       "acronym": "Embrapa",
       "email": null,
       "affiliations": [],
       "identifiers": [],
-      "@id": "https://data.agroportal.lirmm.fr/Agents/bc8bc970-6e14-013d-9813-5254006dce65",
+      "@id": "https://data.agroportal.eu/Agents/bc8bc970-6e14-013d-9813-5254006dce65",
       "@type": "http://xmlns.com/foaf/0.1/Agent",
       "@context": {
         "@vocab": "http://data.bioontology.org/metadata/",
@@ -716,9 +716,9 @@
   ],
   "endorsedBy": [
     {
-      "id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "id": "https://data.agroportal.eu/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
       "agentType": "organization",
-      "creator": "https://data.agroportal.lirmm.fr/users/admin",
+      "creator": "https://data.agroportal.eu/users/admin",
       "name": "Food and Agriculture Organization of the United Nations",
       "homepage": "http://www.fao.org/home/en/",
       "acronym": "FAO",
@@ -726,13 +726,13 @@
       "affiliations": [],
       "identifiers": [
         {
-          "id": "https://data.agroportal.lirmm.fr/Identifiers/ROR:00pe0tf51",
+          "id": "https://data.agroportal.eu/Identifiers/ROR:00pe0tf51",
           "notation": "00pe0tf51",
-          "creator": "https://data.agroportal.lirmm.fr/users/jonquet",
+          "creator": "https://data.agroportal.eu/users/jonquet",
           "schemaAgency": "ROR"
         }
       ],
-      "@id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "@id": "https://data.agroportal.eu/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
       "@type": "http://xmlns.com/foaf/0.1/Agent",
       "@context": {
         "@vocab": "http://data.bioontology.org/metadata/",
@@ -753,9 +753,9 @@
   ],
   "fundedBy": [
     {
-      "id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "id": "https://data.agroportal.eu/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
       "agentType": "organization",
-      "creator": "https://data.agroportal.lirmm.fr/users/admin",
+      "creator": "https://data.agroportal.eu/users/admin",
       "name": "Food and Agriculture Organization of the United Nations",
       "homepage": "http://www.fao.org/home/en/",
       "acronym": "FAO",
@@ -763,13 +763,13 @@
       "affiliations": [],
       "identifiers": [
         {
-          "id": "https://data.agroportal.lirmm.fr/Identifiers/ROR:00pe0tf51",
+          "id": "https://data.agroportal.eu/Identifiers/ROR:00pe0tf51",
           "notation": "00pe0tf51",
-          "creator": "https://data.agroportal.lirmm.fr/users/jonquet",
+          "creator": "https://data.agroportal.eu/users/jonquet",
           "schemaAgency": "ROR"
         }
       ],
-      "@id": "https://data.agroportal.lirmm.fr/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
+      "@id": "https://data.agroportal.eu/Agents/91c2b7a0-7b3f-013c-7b0a-5254006dce65",
       "@type": "http://xmlns.com/foaf/0.1/Agent",
       "@context": {
         "@vocab": "http://data.bioontology.org/metadata/",
@@ -789,10 +789,10 @@
     }
   ],
   "curatedBy": [],
-  "@id": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions/54",
+  "@id": "https://data.agroportal.eu/ontologies/AGROVOC/submissions/54",
   "@type": "http://data.bioontology.org/metadata/OntologySubmission",
   "links": {
-    "metrics": "https://data.agroportal.lirmm.fr/ontologies/AGROVOC/submissions/54/metrics",
+    "metrics": "https://data.agroportal.eu/ontologies/AGROVOC/submissions/54/metrics",
     "@context": {
       "metrics": "http://data.bioontology.org/metadata/OntologySubmission"
     }
