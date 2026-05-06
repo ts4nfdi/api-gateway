@@ -113,4 +113,8 @@ jobs:
               --namespace='ts4nfdi' \
               --set-json='ingress.dns="tsag.qa.km.k8s.zbmed.de"'  \
               --set-json='images.backend="ghcr.io/${{ github.repository }}:${{ github.event.pull_request.head.sha || github.sha }}"'  \
+              --set-json='postgres.logical_backup="false"'  \
+              --set-json='postgres.number_instances_postgres="1"'  \
+              --set-json='postgres.volume_size="2Gi"'  \
+              --set-json='number_instances_backend="1"'  \
               api-gateway-deployment/api-gateway
