@@ -66,6 +66,10 @@ jobs:
               --set-json='ingress.dns="terminology.services.base4nfdi.de"'  \
               --set-json='ingress.redirectDns="ts.services.base4nfdi.de"'  \
               --set-json='images.backend="ghcr.io/${{ github.repository }}:${{ inputs.image_sha || github.sha }}"'  \
+              --set-json='postgres.logical_backup="true"'  \
+              --set-json='postgres.number_instances_postgres="2"'  \
+              --set-json='postgres.volume_size="10Gi"'  \
+              --set-json='number_instances_backend="2"'  \
               --set-json='ingress.enableSSL="true"'  \
               --set-json='ingress.certIssuer="letsencrypt-prod"'  \
               api-gateway-deployment/api-gateway
