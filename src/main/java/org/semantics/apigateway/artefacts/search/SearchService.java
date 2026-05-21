@@ -61,7 +61,7 @@ public class SearchService extends AbstractEndpointService {
         accessor = applyCollection(accessor, collection, endpoint);
         
         try {
-            return accessor.get(query)
+            return accessor.get(params.getTimeout(), query)
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
@@ -103,7 +103,7 @@ public class SearchService extends AbstractEndpointService {
         // TODO add ontology parameter as soon as https://github.com/ts4nfdi/api-gateway/issues/123 has been resolved.
         
         try {
-            return accessor.get(query, "" + size, "" + offset)
+            return accessor.get(params.getTimeout(), query, "" + size, "" + offset)
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
