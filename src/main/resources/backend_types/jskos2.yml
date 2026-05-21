@@ -6,7 +6,7 @@ pagination:
 
 models:
   artefact: &artefact
-    iri: uri
+    iri: uri|url|namespace
     type: type
     label: prefLabel->en|prefLabel->de|prefLabel->zxx
     descriptions: definition->en|definition->de|definition->zxx|scopeNote->en|scopeNote->de|scopeNote->zxx
