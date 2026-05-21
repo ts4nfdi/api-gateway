@@ -38,12 +38,13 @@ public class SearchService extends AbstractEndpointService {
         this.collectionService = collectionService;
     }
 
-    public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, boolean showResponseConfiguration) {
+    public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, boolean showResponseConfiguration, long timeoutMillis) {
         TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase(database);
         commonRequestParams.setTargetDbSchema(targetDbSchemaEnum);
         commonRequestParams.setShowResponseConfiguration(showResponseConfiguration);
+        commonRequestParams.setTimeout(timeoutMillis);
         return performSearch(query, commonRequestParams, null, null, null);
     }
     
