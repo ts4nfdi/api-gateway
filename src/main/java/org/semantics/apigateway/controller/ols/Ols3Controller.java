@@ -49,7 +49,14 @@ public class Ols3Controller {
       query = "*";
     }
     
-    AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("ontology"), "ols", false);
+    long timeout;
+    try {
+      timeout = Long.parseLong(allParams.get("timeout"));
+    } catch (Exception e) {
+      timeout = 60 * 1000;
+    }
+    
+    AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("ontology"), "ols", false, timeout);
     return response.getCollection().get(0);
   }
   
