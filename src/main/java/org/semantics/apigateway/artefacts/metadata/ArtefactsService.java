@@ -90,7 +90,7 @@ public class ArtefactsService extends AbstractEndpointService {
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collection, endpoint);
 
-        return accessor.get()
+        return accessor.get(params.getTimeout())
                 .thenApply(data -> this.transformApiResponses(data, endpoint))
                 .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                 .thenApply(data -> filterOutByCollection(collection, data));

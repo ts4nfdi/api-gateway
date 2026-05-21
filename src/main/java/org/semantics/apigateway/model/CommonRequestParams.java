@@ -43,7 +43,6 @@ public class CommonRequestParams {
             array = @ArraySchema(schema = @Schema(type = "string")))
     private String display = "";
 
-
     public List<String> getDisplay() {
         List<String> result = new ArrayList<>();
 //        result.add("iri"); // TODO remove this if the TSS no more use it and instead use the @id
@@ -52,4 +51,9 @@ public class CommonRequestParams {
         }
         return result;
     }
+    
+    @QueryParam("timeout")
+    @Parameter(name = "timeout", in = ParameterIn.QUERY, description = "Set a timeout (in milliseconds) for the operation")
+    private long timeout = 60*1000;
+    
 }
