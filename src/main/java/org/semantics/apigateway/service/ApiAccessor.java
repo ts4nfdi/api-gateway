@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,12 +45,12 @@ public class ApiAccessor {
     }
 
     @Async
-    public CompletableFuture<Map<String, ApiResponse>> get() {
-        return get("");
+    public CompletableFuture<Map<String, ApiResponse>> get(long timeoutMillis) {
+        return get(timeoutMillis, "");
     }
 
     @Async
-    public CompletableFuture<Map<String, ApiResponse>> get(String... query) {
+    public CompletableFuture<Map<String, ApiResponse>> get(long timeoutMillis, String... query) {
         ForkJoinPool customThreadPool = new ForkJoinPool(Math.max(this.urls.size(), 1));
 
         List<CompletableFuture<Map.Entry<String, ApiResponse>>> futures = this.urls.entrySet().stream()
@@ -64,7 +65,7 @@ public class ApiAccessor {
                                 future -> future.join().getKey(),
                                 future -> future.join().getValue()
                         ))
-                )
+                ).completeOnTimeout(Map.of(), timeoutMillis, TimeUnit.MILLISECONDS)
                 .exceptionally(e -> {
                     logger.error("Error processing results: {}", e.getMessage(), e);
                     return Collections.emptyMap();

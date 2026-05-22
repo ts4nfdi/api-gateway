@@ -414,7 +414,7 @@ public abstract class AbstractEndpointService {
         List<String> ids = getRequestIds(accessor, acronym, uri);
         ids.add(page.toString());
 
-        return accessor.get(ids.toArray(new String[0]))
+        return accessor.get(params.getTimeout(), ids.toArray(new String[0]))
                 .thenApply(data -> this.transformApiResponses(data, endpoint, true))
                 .thenApply(data -> selectResultsByDatabase(data, database))
                 .thenApply(x -> paginate(x, params, page))
@@ -433,7 +433,7 @@ public abstract class AbstractEndpointService {
         accessor = initAccessor(database, endpoint, accessor);
         List<String> ids = getRequestIds(accessor, acronym, uri);
 
-        return accessor.get(ids.toArray(new String[0]))
+        return accessor.get(params.getTimeout(), ids.toArray(new String[0]))
                 .thenApply(data -> this.transformApiResponses(data, endpoint))
                 .thenApply(data -> selectResultsByDatabase(data, database))
                 .thenApply(data -> listResponse(data, params))
@@ -463,7 +463,7 @@ public abstract class AbstractEndpointService {
         accessor = initAccessor(database, endpoint, accessor);
         List<String> ids = getRequestIds(accessor, id, uri);
         try {
-            return accessor.get(ids.toArray(new String[0]))
+            return accessor.get(params.getTimeout(), ids.toArray(new String[0]))
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
                     .thenApply(x -> filterById(x, ids))
                     .thenApply(data -> selectResultsByDatabase(data, database))
