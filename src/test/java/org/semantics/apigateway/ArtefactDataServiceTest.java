@@ -157,7 +157,108 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         map.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
         map.put("source_name", "ebi");
         map.put("type", "class");
-        map.put("source_url", null); //TODO: add source_url
+        map.put("source_url", null); //TODO: add source_url "https://www.ebi.ac.uk/ols4/api/v2/ontologies/NCBITAXON/classes?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCBITaxon_2"
+        map.put("synonyms", List.of(
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#genbank_common_name",
+                                "oboSynonymTypeName", "genbank common name"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "eubacteria"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#synonym",
+                                "oboSynonymTypeName", "synonym"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Bacteria (ex Cavalier-Smith 1987)"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#synonym",
+                                "oboSynonymTypeName", "synonym"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Bacteria Woese et al. 2024"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#synonym",
+                                "oboSynonymTypeName", "synonym"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Bacteriobiota"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+                                "oboSynonymTypeName", "in-part"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Monera"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+                                "oboSynonymTypeName", "in-part"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Procaryotae"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+                                "oboSynonymTypeName", "in-part"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Prokaryota"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+                                "oboSynonymTypeName", "in-part"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Prokaryotae"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#blast_name",
+                                "oboSynonymTypeName", "blast name"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "bacteria"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+                                "oboSynonymTypeName", "in-part"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "prokaryote"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+                                "oboSynonymTypeName", "in-part"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "prokaryotes"
+                )
+        ));
         return map;
     }
 
