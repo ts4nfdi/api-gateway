@@ -1,7 +1,6 @@
 package org.semantics.apigateway.artefacts.metadata;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.semantics.apigateway.model.CommonRequestParams;
@@ -30,10 +29,9 @@ public class ArtefactsController {
     @GetMapping("/artefacts")
     @Operation(summary = "Get information about all semantic artefacts.")
     @SecurityRequirement(name = "BearerAuth")
-    public Object getArtefacts(@ParameterObject CommonRequestParams params,
-                                          @Parameter(description = "Collection id to browse terminologies in") @RequestParam(required = false) String collectionId) throws ExecutionException, InterruptedException {
+    public Object getArtefacts(@ParameterObject CommonRequestParams params) {
         User user = authService.tryGetCurrentUser();
-        return this.artefactsService.getArtefacts(params, collectionId, user, null);
+        return this.artefactsService.getArtefacts(params, user, null);
     }
 
     @GetMapping("/artefacts/{id}")

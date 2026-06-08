@@ -31,11 +31,11 @@ public class ArtefactsService extends AbstractEndpointService {
     }
 
 
-    public Object getArtefacts(CommonRequestParams params, String collectionId, User currentUser, ApiAccessor accessor) {
+    public Object getArtefacts(CommonRequestParams params, User currentUser, ApiAccessor accessor) {
         String endpoint = "resources";
         try {
             return
-                    findAllArtefacts(params, collectionId, currentUser, accessor)
+                    findAllArtefacts(params, currentUser, accessor)
                             .thenApply(data -> transformJsonLd(data, params))
                             .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint)).get();
         } catch (InterruptedException | ExecutionException e) {
@@ -52,7 +52,7 @@ public class ArtefactsService extends AbstractEndpointService {
 
     public Object searchMetadata(String query, CommonRequestParams params, ApiAccessor accessor) {
         String endpoint = "resources";
-        return findAllArtefacts(params, null, null, accessor)
+        return findAllArtefacts(params, null, accessor)
                 .thenApply(data -> filterOutByQuery(query, data))
                 .thenApply(x -> transformJsonLd(x, params))
                 .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint));
@@ -82,10 +82,10 @@ public class ArtefactsService extends AbstractEndpointService {
         return data;
     }
 
-    private CompletableFuture<AggregatedApiResponse> findAllArtefacts(CommonRequestParams params, String collectionId, User currentUser, ApiAccessor accessor) {
+    private CompletableFuture<AggregatedApiResponse> findAllArtefacts(CommonRequestParams params, User currentUser, ApiAccessor accessor) {
         String endpoint = "resources";
         String database = params.getDatabase();
-        TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
+        TerminologyCollection collection = collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser);
 
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collection, endpoint);

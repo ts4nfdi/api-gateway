@@ -38,26 +38,26 @@ public class SearchService extends AbstractEndpointService {
         this.collectionService = collectionService;
     }
 
-    public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, boolean showResponseConfiguration, long timeoutMillis) {
+    public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, String collectionId, boolean showResponseConfiguration, long timeoutMillis) {
         TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase(database);
         commonRequestParams.setTargetDbSchema(targetDbSchemaEnum);
+        commonRequestParams.setCollectionId(collectionId);
         commonRequestParams.setShowResponseConfiguration(showResponseConfiguration);
         commonRequestParams.setTimeout(timeoutMillis);
-        return performSearch(query, commonRequestParams, null, null, null);
+        return  performSearch(query, commonRequestParams, null, null);
     }
     
     public AggregatedApiResponse performSearch(
             String query,
             CommonRequestParams params,
-            String collectionId,
             User currentUser,
             ApiAccessor accessor) {
         String endpoint = "search";
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
-        TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
+        TerminologyCollection collection = collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser);
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collection, endpoint);
         
@@ -82,7 +82,7 @@ public class SearchService extends AbstractEndpointService {
             int offset,
             int size,
             CommonRequestParams params) {
-        return suggestConcepts(id, query, offset, size, params, null, null, null);
+        return suggestConcepts(id, query, offset, size, params, null, null);
     }
     
     public AggregatedApiResponse suggestConcepts(
@@ -91,13 +91,12 @@ public class SearchService extends AbstractEndpointService {
             int offset,
             int size,
             CommonRequestParams params,
-            String collectionId,
             User currentUser,
             ApiAccessor accessor) {
         String endpoint = "suggest";
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
-        TerminologyCollection collection = collectionService.getCurrentUserCollection(collectionId, currentUser);
+        TerminologyCollection collection = collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser);
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collection, endpoint);
         

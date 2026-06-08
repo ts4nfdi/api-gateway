@@ -33,7 +33,7 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
 
     @Test
     public void testGetAllArtefacts() {
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefacts(new CommonRequestParams(), null, null, apiAccessor);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefacts(new CommonRequestParams(), null, apiAccessor);
         int index;
         int size = 1256;
         List<Map<String, Object>> responseList = response.getCollection();

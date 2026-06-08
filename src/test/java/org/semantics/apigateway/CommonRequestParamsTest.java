@@ -35,7 +35,7 @@ public class CommonRequestParamsTest extends ApplicationTestAbstract {
     public void testGetAllArtefactsWithDisplay() {
         CommonRequestParams params = new CommonRequestParams();
         params.setDisplay("short_form,backend_type,descriptions,synonyms,label");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefacts(params, null, null, apiAccessor);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefacts(params, null, apiAccessor);
         int index;
         List<Map<String, Object>> responseList = response.getCollection();
 
@@ -54,7 +54,7 @@ public class CommonRequestParamsTest extends ApplicationTestAbstract {
     public void testGetAllArtefactsWithNotDisplayEmptyValues() {
         CommonRequestParams params = new CommonRequestParams();
         params.setDisplayEmptyValues(false);
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefacts(params, null, null, apiAccessor);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefacts(params, null, apiAccessor);
         int index;
         List<Map<String, Object>> responseList = response.getCollection();
 

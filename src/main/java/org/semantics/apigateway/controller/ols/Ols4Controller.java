@@ -43,8 +43,8 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies")
-  public Object getAllOntologiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(required = false) String collectionId) {
-    return artefactsService.getArtefacts(params, collectionId, authService.tryGetCurrentUser(), null);
+  public Object getAllOntologiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+    return artefactsService.getArtefacts(params, authService.tryGetCurrentUser(), null);
   }
   
   @CrossOrigin
@@ -81,7 +81,7 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/individuals")
-  public Object getAllIndividualsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(required = false) String collectionId, @QueryParam("iri") String iri) {
+  public Object getAllIndividualsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
     if (iri != null) {
       return this.artefactsDataService.getArtefactIndividuals(iri, params, pageable.getPageNumber() + 1, null);
     }

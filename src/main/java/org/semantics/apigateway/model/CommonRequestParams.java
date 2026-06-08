@@ -27,6 +27,10 @@ public class CommonRequestParams {
     @QueryParam("targetDbSchema")
     @Parameter(name = "targetDbSchema", in = ParameterIn.QUERY, description = "Transform the response result to a specific schema")
     private TargetDbSchema targetDbSchema;
+    
+    @QueryParam("collectionId")
+    @Parameter(name = "collectionId", in = ParameterIn.QUERY, description = "Restrict the response to artefacts contained in a given collection")
+    private String collectionId;
 
     @QueryParam("showResponseConfiguration")
     private boolean showResponseConfiguration = false;
