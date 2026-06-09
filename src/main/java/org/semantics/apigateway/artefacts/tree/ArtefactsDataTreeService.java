@@ -1,11 +1,13 @@
 package org.semantics.apigateway.artefacts.tree;
 
+import org.semantics.apigateway.collections.CollectionService;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.Endpoints;
 import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
+import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.AbstractEndpointService;
 import org.semantics.apigateway.service.ApiAccessor;
 import org.semantics.apigateway.service.JsonLdTransform;
@@ -25,23 +27,23 @@ import java.util.Map;
 public class ArtefactsDataTreeService extends AbstractEndpointService {
 
 
-    public ArtefactsDataTreeService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform transform, ResponseTransformerService responseTransformerService) {
-        super(configurationLoader, cacheManager, transform, responseTransformerService, RDFResource.class);
+    public ArtefactsDataTreeService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform transform, ResponseTransformerService responseTransformerService, CollectionService collectionService) {
+        super(configurationLoader, cacheManager, transform, responseTransformerService, collectionService, RDFResource.class);
     }
 
-    public Object getRoots(String acronym, CommonRequestParams params, ApiAccessor accessor) {
+    public Object getRoots(String acronym, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
         if (acronym == null || acronym.isEmpty()) {
             return new AggregatedApiResponse();
         }
         String endpoint = Endpoints.concepts_roots.toString();
         accessor = initAccessor(params.getDatabase(), endpoint, accessor);
-        return findAll(acronym, endpoint, params, accessor).thenApply(x -> {
-            x.setCollection(sortChildren((List<Map<String, Object>>) x.getCollection()));
+        return findAll(acronym, endpoint, params, accessor, currentUser).thenApply(x -> {
+            x.setCollection(sortChildren(x.getCollection()));
             return x;
         });
     }
 
-    public Object getChildren(String acronym, String uri, CommonRequestParams params, Integer page, ApiAccessor accessor) {
+    public Object getChildren(String acronym, String uri, CommonRequestParams params, Integer page, ApiAccessor accessor,  User currentUser) {
         if (acronym == null || acronym.isEmpty() || uri == null || uri.isEmpty()) {
             return Collections.EMPTY_LIST;
         }
@@ -52,10 +54,10 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
         if (databaseConfig.isOls2()) {
             uri = URLEncoder.encode(URLEncoder.encode(uri)); // OLS2 requires URI double encoding
         }
-        return paginatedList(acronym, uri, endpoint, params, page, accessor);
+        return paginatedList(acronym, uri, endpoint, params, page, accessor,  currentUser);
     }
 
-    public Object getTree(String acronym, String uri, CommonRequestParams params, ApiAccessor accessor) {
+    public Object getTree(String acronym, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
         if (acronym == null || acronym.isEmpty() || uri == null || uri.isEmpty()) {
             return Collections.EMPTY_LIST;
         }
@@ -67,15 +69,15 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
             finalUri = URLEncoder.encode(URLEncoder.encode(uri)); // OLS2 requires URI double encoding
         }
 
-        return findAll(acronym, finalUri, endpoint, params, accessor)
-                .thenApply(data -> databaseConfig.isOls() ? buildOlsTree(data, acronym, uri, params) : data)
+        return findAll(acronym, finalUri, endpoint, params, accessor, currentUser)
+                .thenApply(data -> databaseConfig.isOls() ? buildOlsTree(data, acronym, uri, params, currentUser) : data)
                 .thenApply(data -> databaseConfig.isOntoPortal() ? transformAllNestedChildren(data, databaseConfig, endpoint) : data);
     }
 
-    private AggregatedApiResponse buildOlsTree(AggregatedApiResponse data, String acronym, String uri, CommonRequestParams params) {
+    private AggregatedApiResponse buildOlsTree(AggregatedApiResponse data, String acronym, String uri, CommonRequestParams params, User currentUser) {
         List<Map<String, Object>> pathToRoot = data.getCollection();
         List<Map<String, Object>> cleanedPath = new ArrayList<>();
-        Map<String, Object> leafNode = findUri(acronym, uri, Endpoints.concept_details.toString(), params, null).getCollection().get(0);
+        Map<String, Object> leafNode = findUri(acronym, uri, Endpoints.concept_details.toString(), params, null, currentUser).getCollection().get(0);
 
         for (Map<String, Object> child : pathToRoot) {
             if (child.get("iri").equals("http://www.w3.org/2002/07/owl#Thing")) {

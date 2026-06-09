@@ -23,13 +23,9 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class ArtefactsService extends AbstractEndpointService {
 
-    private final CollectionService collectionService;
-
     public ArtefactsService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform transform, ResponseTransformerService responseTransformerService, CollectionService collectionService) {
-        super(configurationLoader, cacheManager, transform, responseTransformerService, SemanticArtefact.class);
-        this.collectionService = collectionService;
+        super(configurationLoader, cacheManager, transform, responseTransformerService, collectionService, SemanticArtefact.class);
     }
-
 
     public Object getArtefacts(CommonRequestParams params, User currentUser, ApiAccessor accessor) {
         String endpoint = "resources";
@@ -45,8 +41,8 @@ public class ArtefactsService extends AbstractEndpointService {
     }
 
 
-    public Object getArtefact(String id, CommonRequestParams params, ApiAccessor accessor) {
-        return findUri(id, null, "resource_details", params, accessor);
+    public Object getArtefact(String id, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+        return findUri(id, null, "resource_details", params, accessor, currentUser);
     }
 
 

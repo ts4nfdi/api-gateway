@@ -33,7 +33,7 @@ public class SearchService extends AbstractEndpointService {
     private final CollectionService collectionService;
 
     public SearchService(ConfigurationLoader configurationLoader, SearchLocalIndexerService localIndexer, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService, CollectionService collectionService) {
-        super(configurationLoader, cacheManager, jsonLdTransform, responseTransformerService, RDFResource.class);
+        super(configurationLoader, cacheManager, jsonLdTransform, responseTransformerService, collectionService, RDFResource.class);
         this.localIndexer = localIndexer;
         this.collectionService = collectionService;
     }

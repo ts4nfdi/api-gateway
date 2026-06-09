@@ -9,8 +9,6 @@ import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.concurrent.ExecutionException;
-
 
 @RestController
 @RequestMapping("/")
@@ -37,7 +35,7 @@ public class ArtefactsController {
     @GetMapping("/artefacts/{id}")
     @Operation(summary = "Get information about a semantic artefact.")
     public Object getArtefact(@PathVariable("id") String id, @ParameterObject CommonRequestParams params) {
-        return this.artefactsService.getArtefact(id, params, null);
+        return this.artefactsService.getArtefact(id, params, null, authService.tryGetCurrentUser());
     }
 
 }

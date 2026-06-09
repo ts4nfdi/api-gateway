@@ -29,7 +29,7 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
     public void testGetArtefacts(){
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase("ontoportal");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor, null);
         assertMapEquality(response, createOntoportalAgrovocFixture());
     }
 
@@ -38,7 +38,7 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
     public void testGetArtefactsSkosmos(){
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase("skosmos");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor, null);
         assertMapEquality(response, createSkosmosAgrovocFixture());
     }
 
@@ -46,7 +46,7 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
     public void testGetArtefactsOls() {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase("ols");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor, null);
         assertMapEquality(response, createOlsAgrovocFixture());
     }
 
@@ -54,7 +54,7 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
     public void testGetArtefactGND() {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase("gnd");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("gnd", commonRequestParams, apiAccessor);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("gnd", commonRequestParams, apiAccessor, null);
         assertMapEquality(response, createGndFixture());
     }
 
@@ -63,7 +63,7 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
     public void testGetArtefactJSkos() {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase("jskos");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("gender", commonRequestParams, apiAccessor);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("gender", commonRequestParams, apiAccessor, null);
         assertMapEquality(response, createDanteFixture());
     }
 
@@ -72,7 +72,7 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
     public void testGetArtefactJSkos2() {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase("jskos2");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("EuroVoc", commonRequestParams, apiAccessor);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("EuroVoc", commonRequestParams, apiAccessor, null);
         assertMapEquality(response, createColiConc());
     }
 }

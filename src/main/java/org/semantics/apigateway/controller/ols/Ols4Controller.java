@@ -18,8 +18,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-
 @Component
 @RestController
 @RequestMapping(value={"/ols/api/v2", "/ols4/api/v2"})
@@ -32,7 +30,7 @@ public class Ols4Controller {
   private final AuthService authService;
   private final ArtefactsDataTreeService treeService;
   
-  private OlsV2Transformer olsV2Transformer = new OlsV2Transformer(); // TODO This breaks decoupling. Better pass original request through the services, so that we know how to construct the response in the transformers.
+  private final OlsV2Transformer olsV2Transformer = new OlsV2Transformer(); // TODO This breaks decoupling. Better pass original request through the services, so that we know how to construct the response in the transformers.
   
   public Ols4Controller(SearchService searchService, ArtefactsService artefactsService, ArtefactsDataService artefactsDataService, AuthService authService, ArtefactsDataTreeService treeService) {
     this.artefactsService = artefactsService;
@@ -50,7 +48,7 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}")
   public Object getOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params) {
-    return artefactsService.getArtefact(onto, params, null);
+    return artefactsService.getArtefact(onto, params, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
@@ -62,15 +60,15 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/individuals")
   public Object getAllIndividualsForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    if (iri == null) return artefactsDataService.getArtefactIndividuals(onto, params, pageable.getPageNumber() + 1, null);
-    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactIndividual(onto, iri, params, null);
+    if (iri == null) return artefactsDataService.getArtefactIndividuals(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactIndividual(onto, iri, params, null, authService.tryGetCurrentUser());
     return olsV2Transformer.constructResponse(response.getCollection(), "concepts", true, true, 1, response.getCollection().size());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/individuals/{individual}")
   public Object getIndividualForOntologyInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String individual, @ParameterObject CommonRequestParams params) {
-    return artefactsDataService.getArtefactIndividual(onto, individual, params, null);
+    return artefactsDataService.getArtefactIndividual(onto, individual, params, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
@@ -83,23 +81,23 @@ public class Ols4Controller {
   @GetMapping("/individuals")
   public Object getAllIndividualsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
     if (iri != null) {
-      return this.artefactsDataService.getArtefactIndividuals(iri, params, pageable.getPageNumber() + 1, null);
+      return this.artefactsDataService.getArtefactIndividuals(iri, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
     }
-    return this.artefactsDataService.getArtefactIndividuals("", params, pageable.getPageNumber() + 1, null);
+    return this.artefactsDataService.getArtefactIndividuals("", params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities")
   public Object getAllEntitiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    if (iri == null) return artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber() + 1, null);
-    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactTerm(onto, iri, params, null);
+    if (iri == null) return artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactTerm(onto, iri, params, null, authService.tryGetCurrentUser());
     return olsV2Transformer.constructResponse(response.getCollection(), "concepts", true, true, 1, response.getCollection().size());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities/{entity}")
   public Object getEntityInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String entity, @ParameterObject CommonRequestParams params) {
-    return artefactsDataService.getArtefactTerm(onto, entity, params, null);
+    return artefactsDataService.getArtefactTerm(onto, entity, params, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
@@ -113,9 +111,9 @@ public class Ols4Controller {
   public Object getAllEntitiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
     // TODO Is there a way to run a federated query over all endpoints and their respective artifacts for all entities? Improbable, solely for performance reasons.
     if (iri != null) {
-      return this.artefactsDataService.getArtefactTerms(iri, params, pageable.getPageNumber() + 1, null);
+      return this.artefactsDataService.getArtefactTerms(iri, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
     }
-    return this.artefactsDataService.getArtefactTerms("", params, pageable.getPageNumber() + 1, null);
+    return this.artefactsDataService.getArtefactTerms("", params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
@@ -127,15 +125,15 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes")
   public Object getClassesInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    if (iri == null) return artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber() + 1, null);
-    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactTerm(onto, iri, params, null);
+    if (iri == null) return artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactTerm(onto, iri, params, null, authService.tryGetCurrentUser());
     return olsV2Transformer.constructResponse(response.getCollection(), "concepts", true, true, 1, response.getCollection().size());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}")
   public Object getClassInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params) {
-    return artefactsDataService.getArtefactTerm(onto, clazz, params, null);
+    return artefactsDataService.getArtefactTerm(onto, clazz, params, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
@@ -171,7 +169,7 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}/children")
   public Object getClassChildrenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return treeService.getChildren(onto, clazz, params, pageable.getPageNumber() + 1, null);
+    return treeService.getChildren(onto, clazz, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
@@ -184,38 +182,38 @@ public class Ols4Controller {
   @GetMapping("/classes")
   public Object getAllClassesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
     if (iri != null) {
-      return this.artefactsDataService.getArtefactTerms(iri, params, pageable.getPageNumber() + 1, null);
+      return this.artefactsDataService.getArtefactTerms(iri, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
     }
-    return this.artefactsDataService.getArtefactTerms("", params, pageable.getPageNumber() + 1, null);
+    return this.artefactsDataService.getArtefactTerms("", params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
   @GetMapping("/properties")
   public Object getAllPropertiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
     if (iri != null) {
-      return this.artefactsDataService.getArtefactProperties(iri, params, pageable.getPageNumber() + 1, null);
+      return this.artefactsDataService.getArtefactProperties(iri, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
     }
-    return this.artefactsDataService.getArtefactProperties("", params, pageable.getPageNumber() + 1, null);
+    return this.artefactsDataService.getArtefactProperties("", params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties")
   public Object getPropertiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    if (iri == null) return artefactsDataService.getArtefactProperties(onto, params, pageable.getPageNumber() + 1, null);
-    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactProperty(onto, iri, params, null);
+    if (iri == null) return artefactsDataService.getArtefactProperties(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactProperty(onto, iri, params, null, authService.tryGetCurrentUser());
     return olsV2Transformer.constructResponse(response.getCollection(), "concepts", true, true, 1, response.getCollection().size());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties/{property}")
   public Object getPropertyInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params) {
-    return  artefactsDataService.getArtefactProperty(onto, property, params, null);
+    return  artefactsDataService.getArtefactProperty(onto, property, params, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties/{property}/children")
   public Object getPropertyChildenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return treeService.getChildren(onto, property, params, pageable.getPageNumber() + 1, null);
+    return treeService.getChildren(onto, property, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin

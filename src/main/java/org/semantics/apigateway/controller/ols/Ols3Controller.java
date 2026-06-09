@@ -69,24 +69,24 @@ public class Ols3Controller {
   @GetMapping("/terms")
   public Object getAllTermsInOLSTargetDBSchema(@RequestParam(required = false, defaultValue = "0") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
     if (iri != null) {
-      return this.artefactsDataService.getArtefactTerms(iri, params, page + 1, null);
+      return this.artefactsDataService.getArtefactTerms(iri, params, page + 1, null, authService.tryGetCurrentUser());
     }
-    return this.artefactsDataService.getArtefactTerms("", params, page + 1, null);
+    return this.artefactsDataService.getArtefactTerms("", params, page + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/terms")
   public Object getTermsInOLSTargetDBSchema(@PathVariable String onto, @RequestParam(required = false, defaultValue = "1") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
     if (iri != null) {
-      return this.artefactsDataService.getArtefactTerm(onto, iri, params, null);
+      return this.artefactsDataService.getArtefactTerm(onto, iri, params, null, authService.tryGetCurrentUser());
     }
-    return this.artefactsDataService.getArtefactTerms(onto, params, page + 1, null);
+    return this.artefactsDataService.getArtefactTerms(onto, params, page + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}")
   public Object getArtefactMetadataInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params) {
-    return this.artefactsService.getArtefact(onto, params, null);
+    return this.artefactsService.getArtefact(onto, params, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin

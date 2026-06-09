@@ -1,7 +1,9 @@
 package org.semantics.apigateway.artefacts.data;
 
+import org.semantics.apigateway.collections.CollectionService;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.RDFResource;
+import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.AbstractEndpointService;
 import org.semantics.apigateway.service.ApiAccessor;
 import org.semantics.apigateway.service.JsonLdTransform;
@@ -15,49 +17,49 @@ import org.springframework.stereotype.Service;
 public class ArtefactsDataService extends AbstractEndpointService {
 
 
-    public ArtefactsDataService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform transform, ResponseTransformerService responseTransformerService) {
-        super(configurationLoader, cacheManager, transform, responseTransformerService, RDFResource.class);
+    public ArtefactsDataService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform transform, ResponseTransformerService responseTransformerService, CollectionService collectionService) {
+        super(configurationLoader, cacheManager, transform, responseTransformerService, collectionService, RDFResource.class);
     }
 
-    public Object getArtefactTerm(String id, String uri, CommonRequestParams params, ApiAccessor accessor) {
-        return findUri(id, uri, "concept_details", params, accessor);
+    public Object getArtefactTerm(String id, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+        return findUri(id, uri, "concept_details", params, accessor, currentUser);
     }
 
-    public Object getArtefactTerms(String id,CommonRequestParams params, Integer page, ApiAccessor accessor) {
-        return paginatedList(id, "concepts", params, page, accessor);
+    public Object getArtefactTerms(String id,CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
+        return paginatedList(id, "concepts", params, page, accessor, currentUser);
     }
 
-    public Object getArtefactProperty(String id, String uri, CommonRequestParams params, ApiAccessor accessor) {
-        return findUri(id, uri, "property_details", params, accessor);
+    public Object getArtefactProperty(String id, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+        return findUri(id, uri, "property_details", params, accessor, currentUser);
     }
 
-    public Object getArtefactProperties(String id, CommonRequestParams params, Integer page, ApiAccessor accessor) {
-        return paginatedList(id, "properties", params, page, accessor);
+    public Object getArtefactProperties(String id, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
+        return paginatedList(id, "properties", params, page, accessor, currentUser);
     }
 
-    public Object getArtefactIndividual(String id, String uri, CommonRequestParams params, ApiAccessor accessor) {
-        return findUri(id, uri, "individual_details", params, accessor);
+    public Object getArtefactIndividual(String id, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+        return findUri(id, uri, "individual_details", params, accessor, currentUser);
     }
 
-    public Object getArtefactIndividuals(String id, CommonRequestParams params, Integer page, ApiAccessor accessor) {
-        return paginatedList(id, "individuals", params, page, accessor);
+    public Object getArtefactIndividuals(String id, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
+        return paginatedList(id, "individuals", params, page, accessor, currentUser);
     }
 
 
-    public Object getArtefactSchemes(String id, CommonRequestParams params, Integer page, ApiAccessor accessor) {
-        return paginatedList(id, "schemes", params, page, accessor);
+    public Object getArtefactSchemes(String id, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
+        return paginatedList(id, "schemes", params, page, accessor, currentUser);
     }
 
-    public Object getArtefactScheme(String id, String uri, CommonRequestParams params, ApiAccessor accessor) {
-        return findUri(id, uri, "scheme_details", params, accessor);
+    public Object getArtefactScheme(String id, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+        return findUri(id, uri, "scheme_details", params, accessor, currentUser);
     }
 
-    public Object getArtefactCollections(String id, CommonRequestParams params, Integer page, ApiAccessor accessor) {
-        return paginatedList(id, "collections", params, page, accessor);
+    public Object getArtefactCollections(String id, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
+        return paginatedList(id, "collections", params, page, accessor, currentUser);
     }
 
-    public Object getArtefactCollection(String id, String uri, CommonRequestParams params, ApiAccessor accessor) {
-        return findUri(id, uri, "collection_details", params, accessor);
+    public Object getArtefactCollection(String id, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+        return findUri(id, uri, "collection_details", params, accessor, currentUser);
     }
 }
 

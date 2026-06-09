@@ -1,11 +1,13 @@
 package org.semantics.apigateway.service;
 
+import org.semantics.apigateway.collections.CollectionService;
 import org.semantics.apigateway.collections.models.CollectionResource;
 import org.semantics.apigateway.collections.models.TerminologyCollection;
 import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.*;
+import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,17 +34,19 @@ public abstract class AbstractEndpointService {
     private final CacheManager cacheManager;
     private final JsonLdTransform jsonLdTransform;
     protected final ResponseAggregatorService aggregatorTransformer;
+    protected final CollectionService collectionService;
     private final List<DatabaseConfig> ontologyConfigs;
 
     protected static final Logger logger = LoggerFactory.getLogger(AbstractEndpointService.class);
 
-    public AbstractEndpointService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService, Class<? extends AggregatedResourceBody> clazz) {
+    public AbstractEndpointService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform jsonLdTransform, ResponseTransformerService responseTransformerService, CollectionService collectionService, Class<? extends AggregatedResourceBody> clazz) {
         this.configurationLoader = configurationLoader;
         this.ontologyConfigs = configurationLoader.getDatabaseConfigs();
         this.jsonLdTransform = jsonLdTransform;
         this.responseTransformerService = responseTransformerService;
         this.cacheManager = cacheManager;
         this.aggregatorTransformer = new ResponseAggregatorService(clazz);
+        this.collectionService = collectionService;
     }
 
     public ApiAccessor getAccessor() {
@@ -406,11 +410,12 @@ public abstract class AbstractEndpointService {
 
 
     protected Object paginatedList(String acronym, String uri, String endpoint, CommonRequestParams params,
-                                   Integer page, ApiAccessor accessor) {
+                                   Integer page, ApiAccessor accessor, User currentUser) {
 
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
         accessor = initAccessor(database, endpoint, accessor);
+        accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
         List<String> ids = getRequestIds(accessor, acronym, uri);
         ids.add(page.toString());
 
@@ -423,14 +428,15 @@ public abstract class AbstractEndpointService {
     }
 
     protected Object paginatedList(String id, String endpoint, CommonRequestParams params, Integer
-            page, ApiAccessor accessor) {
-        return paginatedList(id, null, endpoint, params, page, accessor);
+            page, ApiAccessor accessor,  User currentUser) {
+        return paginatedList(id, null, endpoint, params, page, accessor, currentUser);
     }
 
 
-    protected CompletableFuture<AggregatedApiResponse> findAll(String acronym, String uri, String endpoint, CommonRequestParams params, ApiAccessor accessor) {
+    protected CompletableFuture<AggregatedApiResponse> findAll(String acronym, String uri, String endpoint, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
         String database = params.getDatabase();
         accessor = initAccessor(database, endpoint, accessor);
+        accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
         List<String> ids = getRequestIds(accessor, acronym, uri);
 
         return accessor.get(params.getTimeout(), ids.toArray(new String[0]))
@@ -441,8 +447,8 @@ public abstract class AbstractEndpointService {
     }
 
     protected CompletableFuture<AggregatedApiResponse> findAll(String id, String endpoint, CommonRequestParams params, ApiAccessor
-            accessor) {
-        return findAll(id, null, endpoint, params, accessor);
+            accessor,  User currentUser) {
+        return findAll(id, null, endpoint, params, accessor,  currentUser);
     }
 
     private List<String> getRequestIds(ApiAccessor accessor, String acronym, String uri) {
@@ -457,10 +463,11 @@ public abstract class AbstractEndpointService {
     }
 
     protected AggregatedApiResponse findUri(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor
-            accessor) {
+            accessor,  User currentUser) {
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
         accessor = initAccessor(database, endpoint, accessor);
+        accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
         List<String> ids = getRequestIds(accessor, id, uri);
         try {
             return accessor.get(params.getTimeout(), ids.toArray(new String[0]))

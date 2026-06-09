@@ -3,6 +3,7 @@ package org.semantics.apigateway.artefacts.tree;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,15 +16,17 @@ import java.net.URLEncoder;
 @Tag(name = "Artefacts / Data")
 public class ArtefactsDataTreeController {
     private final ArtefactsDataTreeService artefactsService;
+    private final AuthService authService;
 
-    public ArtefactsDataTreeController(ArtefactsDataTreeService artefactsService) {
+    public ArtefactsDataTreeController(ArtefactsDataTreeService artefactsService,  AuthService authService) {
         this.artefactsService = artefactsService;
+        this.authService = authService;
     }
 
     @GetMapping(value = {"/resources/concepts/roots", "/resources/classes/roots"})
     @Operation(summary = "Get a list of all roots in an artefact.")
     public Object getArtefactRoots(@PathVariable String id, @ParameterObject CommonRequestParams params) {
-        return this.artefactsService.getRoots(id, params, null);
+        return this.artefactsService.getRoots(id, params, null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = {"/resources/classes/children", "/resources/concepts/children"})
@@ -31,7 +34,7 @@ public class ArtefactsDataTreeController {
     public Object getConceptChildren(@PathVariable String id, @RequestParam String uri, @ModelAttribute CommonRequestParams params,
                                      @RequestParam(required = false, defaultValue = "1") Integer page) {
         uri = URLEncoder.encode(uri);
-        return this.artefactsService.getChildren(id, uri, params, page, null);
+        return this.artefactsService.getChildren(id, uri, params, page, null, authService.tryGetCurrentUser());
     }
 
 
@@ -40,6 +43,6 @@ public class ArtefactsDataTreeController {
     @Operation(summary = "Get a full tree of all children of a specific owl:Class or skos:Concept within an artefact.")
     public Object getConceptFullTree(@PathVariable String id, @RequestParam String uri, @ModelAttribute CommonRequestParams params) {
         uri = URLEncoder.encode(uri);
-        return this.artefactsService.getTree(id, uri, params, null);
+        return this.artefactsService.getTree(id, uri, params, null, authService.tryGetCurrentUser());
     }
 }
