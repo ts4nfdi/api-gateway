@@ -37,7 +37,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
     @Test
     public void testSearchAllDatabases() {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
-        AggregatedApiResponse response = (AggregatedApiResponse) searchService.performSearch("plant", commonRequestParams, null, null, apiAccessor);
+        AggregatedApiResponse response = searchService.performSearch("plant", commonRequestParams, null, apiAccessor);
         int index;
         List<Map<String, Object>> responseList = response.getCollection();
 
@@ -66,7 +66,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setTargetDbSchema(TargetDbSchema.ols);
 
-        Map<String, Object> response = ((AggregatedApiResponse) searchService.performSearch("plant", commonRequestParams, null, null, apiAccessor)).getCollection().get(0);
+        Map<String, Object> response = searchService.performSearch("plant", commonRequestParams, null, apiAccessor).getCollection().get(0);
 
         assertThat(response.containsKey("response")).isTrue();
         assertThat(response.containsKey("responseHeader")).isTrue();
@@ -79,7 +79,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
     public void testSearchGnd() {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase("gnd");
-        AggregatedApiResponse response = (AggregatedApiResponse) searchService.performSearch("London", commonRequestParams, null, null, apiAccessor);
+        AggregatedApiResponse response = searchService.performSearch("London", commonRequestParams, null, apiAccessor);
         assertMapEquality(response, createGndLondonFixture(), 10);
     }
 

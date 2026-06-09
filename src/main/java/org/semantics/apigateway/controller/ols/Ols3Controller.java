@@ -1,6 +1,5 @@
 package org.semantics.apigateway.controller.ols;
 
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.ws.rs.QueryParam;
 import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
@@ -56,7 +55,7 @@ public class Ols3Controller {
       timeout = 60 * 1000;
     }
     
-    AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("ontology"), "ols", false, timeout);
+    AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("ontology"), "ols", allParams.get("collectionId"), false, timeout);
     return response.getCollection().get(0);
   }
   
@@ -68,34 +67,33 @@ public class Ols3Controller {
   
   @CrossOrigin
   @GetMapping("/terms")
-  public Object getAllTermsInOLSTargetDBSchema(@RequestParam(required = false, defaultValue = "0") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params, @RequestParam(required = false) String collectionId) {
+  public Object getAllTermsInOLSTargetDBSchema(@RequestParam(required = false, defaultValue = "0") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
     if (iri != null) {
-      return this.artefactsDataService.getArtefactTerms(iri, params, page + 1, null);
+      return this.artefactsDataService.getArtefactTerms(iri, params, page + 1, null, authService.tryGetCurrentUser());
     }
-    return this.artefactsDataService.getArtefactTerms("", params, page + 1, null);
+    return this.artefactsDataService.getArtefactTerms("", params, page + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/terms")
   public Object getTermsInOLSTargetDBSchema(@PathVariable String onto, @RequestParam(required = false, defaultValue = "1") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
     if (iri != null) {
-      return this.artefactsDataService.getArtefactTerm(onto, iri, params, null);
+      return this.artefactsDataService.getArtefactTerm(onto, iri, params, null, authService.tryGetCurrentUser());
     }
-    return this.artefactsDataService.getArtefactTerms(onto, params, page + 1, null);
+    return this.artefactsDataService.getArtefactTerms(onto, params, page + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}")
   public Object getArtefactMetadataInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params) {
-    return this.artefactsService.getArtefact(onto, params, null);
+    return this.artefactsService.getArtefact(onto, params, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies")
-  public Object getArtefactsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params,
-                                                @Parameter(description = "Collection id to browse terminologies in") @RequestParam(required = false) String collectionId) {
+  public Object getArtefactsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params) {
     User user = authService.tryGetCurrentUser();
-    return this.artefactsService.getArtefacts(params, collectionId, user, null);
+    return this.artefactsService.getArtefacts(params, user, null);
   }
 }
 

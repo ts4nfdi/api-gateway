@@ -34,12 +34,10 @@ public class SearchController {
     public Object search(
             @Parameter(description = "The text to search", example = "plant")
             @RequestParam String query,
-            @ParameterObject CommonRequestParams params,
-            @Parameter(description = "Collection id to search in")
-            @RequestParam(required = false) String collectionId
+            @ParameterObject CommonRequestParams params
     ) {
         User user = authService.tryGetCurrentUser();
-        return searchService.performSearch(query, params, collectionId, user, null);
+        return searchService.performSearch(query, params, user, null);
     }
 
 
