@@ -293,7 +293,7 @@ public abstract class AbstractEndpointService {
     protected AggregatedApiResponse addCollectionIRI(AggregatedApiResponse response, TerminologyCollection terminologyCollection) {
         response.getCollection().forEach(result -> {
             if (terminologyCollection == null)
-                result.remove("");
+                result.remove("collectionIRI");
             else
                 result.put("collectionIRI", "https://w3id.org/ts4nfdi/collection/" + terminologyCollection.getId());
         });
