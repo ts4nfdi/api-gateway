@@ -287,7 +287,17 @@ public abstract class AbstractEndpointService {
             return data;
         }
 
-        return filterOutByTerminologies(terminologiesCollection.getTerminologies(), data);
+        return addCollectionIRI(filterOutByTerminologies(terminologiesCollection.getTerminologies(), data), terminologiesCollection);
+    }
+    
+    protected AggregatedApiResponse addCollectionIRI(AggregatedApiResponse response, TerminologyCollection terminologyCollection) {
+        response.getCollection().forEach(result -> {
+            if (terminologyCollection == null)
+                result.remove("collectionIRI");
+            else
+                result.put("collectionIRI", "https://w3id.org/ts4nfdi/collection/" + terminologyCollection.getId());
+        });
+        return response;
     }
 
     protected AggregatedApiResponse paginate(TransformedApiResponse response, CommonRequestParams
@@ -467,7 +477,8 @@ public abstract class AbstractEndpointService {
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
         accessor = initAccessor(database, endpoint, accessor);
-        accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
+        TerminologyCollection terminologyCollection = collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser);
+        accessor = applyCollection(accessor, terminologyCollection, endpoint);
         List<String> ids = getRequestIds(accessor, id, uri);
         try {
             return accessor.get(params.getTimeout(), ids.toArray(new String[0]))
@@ -476,6 +487,7 @@ public abstract class AbstractEndpointService {
                     .thenApply(data -> selectResultsByDatabase(data, database))
                     .thenApply(x -> singleResponse(x, params))
                     .thenApply(x -> transformJsonLd(x, params))
+                    .thenApply(x -> addCollectionIRI(x, terminologyCollection))
                     .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, false))
                     .get();
         } catch (InterruptedException | ExecutionException e) {
