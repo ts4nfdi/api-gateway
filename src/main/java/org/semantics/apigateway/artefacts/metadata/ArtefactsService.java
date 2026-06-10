@@ -33,6 +33,7 @@ public class ArtefactsService extends AbstractEndpointService {
             return
                     findAllArtefacts(params, currentUser, accessor)
                             .thenApply(data -> transformJsonLd(data, params))
+                            .thenApply(data -> filterOutArtefactsWithoutProperIri(data, params))
                             .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint)).get();
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);
@@ -75,6 +76,16 @@ public class ArtefactsService extends AbstractEndpointService {
 
         data.setCollection(filtered);
 
+        return data;
+    }
+    
+    private AggregatedApiResponse filterOutArtefactsWithoutProperIri(AggregatedApiResponse data, CommonRequestParams params) {
+        if (params.isOmitArtefactsWithoutIri()) {
+            data.setCollection(data.getCollection().stream().filter(result ->
+                    result.get("iri").toString().startsWith("https://") ||
+                            result.get("iri").toString().startsWith("http://")
+            ).toList());
+        }
         return data;
     }
 
