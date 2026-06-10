@@ -45,29 +45,26 @@ The API Gateway project follows a branch-based deployment workflow to ensure sta
 
 ### Branch Overview
 - **feature** branches: Used for developing new features.
-- **dev** branch: Represents the integration and testing branch. Changes here are automatically deployed to the **QA cluster** for internal testing.**The QA cluster is available from 7 am to 7 pm CET on weekdays.**
-- **main** branch: Represents stable, production-ready code. Deployments from this branch go to the **production cluster**.
+- <del>**dev** branch</del> **main** branch: Represents the integration and testing branch and also the production-ready code. Changes here are automatically deployed to the **QA cluster** for internal testing. **The QA cluster is available from 7 am to 7 pm CET on weekdays.** Manual Deployments from this branch go to the **production cluster**.
 
 ### Deployment Environment
 
 | Branch | Environment | URL                                                                                        | Certificates |
 |---------|--------------|--------------------------------------------------------------------------------------------|---------------|
-| `dev` | QA (Quality Assurance) | [http://tsag.qa.km.k8s.zbmed.de/api-gateway/](http://tsag.qa.km.k8s.zbmed.de/api-gateway/) | ❌ No certificates |
+| `main` | QA (Quality Assurance) | [http://tsag.qa.km.k8s.zbmed.de/api-gateway/](http://tsag.qa.km.k8s.zbmed.de/api-gateway/) | ❌ No certificates |
 | `main` | Production | [https://terminology.services.base4nfdi.de/api-gateway/](https://terminology.services.base4nfdi.de/api-gateway/)                               | ✅ Certificates enabled |
 
 ### CI/CD Pipeline
 
-Both the `dev` and `main` branches are built as part of the CI process:
+Only the `main` branch is built as part of the CI process:
 
 1. **Feature Development**
-   - Create a new feature branch from `dev`.
+   - Create a new feature branch from `main`.
    - Implement and test changes locally.
-   - Merge into `dev` when ready.
 
 2. **QA Deployment**
-   - Commits to `dev` automatically trigger a build and deployment to the QA cluster.
+   - Commits to `main` automatically trigger a build and deployment to the QA cluster.
    - This allows feature testing without requiring a local gateway instance.
 
 3. **Production Deployment**
-   - Once QA testing is complete, `dev` is merged into `main`.
-   - The production deployment can then be **triggered manually** from the CI/CD pipeline.
+   - The production deployment can be **triggered manually** from the CI/CD pipeline.
