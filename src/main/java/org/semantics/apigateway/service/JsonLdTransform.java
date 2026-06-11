@@ -46,8 +46,8 @@ public class JsonLdTransform {
     }
 
 
-    public String getBaseUri() {
-        ContextBaseUri baseUri = getClass().getAnnotation(ContextBaseUri.class);
+    public String getBaseUri(Class<? extends AggregatedResourceBody> clazz) {
+        ContextBaseUri baseUri = clazz.getAnnotation(ContextBaseUri.class);
         String baseUriString = DEFAULT_BASE_URI;
         if (baseUri != null) {
             baseUriString = getNameSpaceMap().getOrDefault(baseUri.value(), baseUri.value());
@@ -75,7 +75,7 @@ public class JsonLdTransform {
 
         Map<String, String> namespaceMap = getNameSpaceMap();
         Map<String, String> contextMap = new HashMap<>();
-        String baseUriString = getBaseUri();
+        String baseUriString = getBaseUri(clazz);
 
         contextMap.put("@base", baseUriString);
 

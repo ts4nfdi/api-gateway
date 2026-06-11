@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.mockito.Mock;
 import org.semantics.apigateway.config.DatabaseConfig;
+import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 import org.semantics.apigateway.service.ApiAccessor;
@@ -378,7 +379,7 @@ public abstract class ApplicationTestAbstract {
 
         assertThat(context.keySet().stream().sorted()).isEqualTo(keys.stream().sorted().toList()).isNotEmpty();
         String defaultBaseUri = DEFAULT_BASE_URI;
-        String base = jsonLdTransform.getBaseUri();
+        String base = jsonLdTransform.getBaseUri(RDFResource.class);
         Map<String, String> namespaces = jsonLdTransform.getNameSpaceMap();
         assertThat(context.get("@base")).isEqualTo(base).isNotNull();
         assertThat(context.get("iri")).isEqualTo(defaultBaseUri + "iri");
