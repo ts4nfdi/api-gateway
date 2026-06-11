@@ -33,7 +33,6 @@ public class ArtefactsService extends AbstractEndpointService {
             return
                     findAllArtefacts(params, currentUser, accessor)
                             .thenApply(data -> transformJsonLd(data, params))
-                            .thenApply(data -> filterOutArtefactsWithoutProperIri(data, params))
                             .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint)).get();
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);
@@ -43,7 +42,8 @@ public class ArtefactsService extends AbstractEndpointService {
 
 
     public Object getArtefact(String id, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
-        return findUri(id, null, "resource_details", params, accessor, currentUser);
+        AggregatedApiResponse result = findUri(id, null, "resource_details", params, accessor, currentUser);
+        return result == null ? null : filterOutArtefactsWithoutProperIri(result, params);
     }
 
 
@@ -82,8 +82,8 @@ public class ArtefactsService extends AbstractEndpointService {
     private AggregatedApiResponse filterOutArtefactsWithoutProperIri(AggregatedApiResponse data, CommonRequestParams params) {
         if (params.isOmitArtefactsWithoutIri()) {
             data.setCollection(data.getCollection().stream().filter(result ->
-                    result.get("iri").toString().startsWith("https://") ||
-                            result.get("iri").toString().startsWith("http://")
+                    result.get("@id").toString().startsWith("https://") ||
+                            result.get("@id").toString().startsWith("http://")
             ).toList());
         }
         return data;
@@ -100,6 +100,7 @@ public class ArtefactsService extends AbstractEndpointService {
         return accessor.get(params.getTimeout())
                 .thenApply(data -> this.transformApiResponses(data, endpoint))
                 .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
+                .thenApply(data -> filterOutArtefactsWithoutProperIri(data, params))
                 .thenApply(data -> filterOutByCollection(collection, data));
     }
 }
