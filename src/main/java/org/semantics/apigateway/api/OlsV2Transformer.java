@@ -29,7 +29,11 @@ public class OlsV2Transformer implements DatabaseTransformer {
                 value = item.get(toSnakeCaseRegex(ourKey));
             } else if (ourKey.equals("type")) {
                 value = List.of(value.toString());
-            }
+            } else if (ourKey.equals("synonyms")) {
+                value = transformNestedValue(value);
+            } else if (ourKey.equals("descriptions")) {
+                value = transformNestedValue(value);
+                }
 
             if (value != null ) {
                 MappingTransformer.itemValueSetter(transformedItem, transformedKey, value);
@@ -68,4 +72,24 @@ public class OlsV2Transformer implements DatabaseTransformer {
         }
         return ((Map<String, Object>)current).get(path[path.length - 1]);
     }
+
+    private Object transformNestedValue(Object value) {
+        if (value instanceof String s) {
+            return List.of(s);
+        } else if (value instanceof List<?> list) {
+            return list.stream()
+                    .map(item -> {
+                        if (item instanceof Map<?, ?> itemMap) {
+                            return new HashMap<>((Map<String, Object>) itemMap);
+                        } else if (item instanceof String itemString) {
+                            return itemString;
+                        }
+                        return Map.of("value", item.toString());
+                    })
+                    .toList();
+        } else {
+            return List.of();
+        }
+    }
+
 }
