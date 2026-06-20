@@ -6,7 +6,7 @@ pagination:
 
 models:
   artefact: &artefact
-    label: title|http://www.w3.org/2000/01/rdf-schema#label
+    label: label|title|http://www.w3.org/2000/01/rdf-schema#label
     iri: uri|iri
     ontology: ontologyId
     synonyms: label

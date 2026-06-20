@@ -11,7 +11,7 @@ export const BrowseCard = ({artefact}: any) => {
 
     if (!artefact) return null;
 
-    const title = `${artefact.label} (${artefact.short_form})`
+    const title = artefact.label == null ? `${artefact.short_form}` : `${artefact.label} (${artefact.short_form})`
 
     return (
         <>
