@@ -8,8 +8,10 @@ import org.semantics.apigateway.model.responses.SuccessResponse;
 import org.semantics.apigateway.model.user.*;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.semantics.apigateway.service.auth.JwtUtil;
+import org.semantics.apigateway.service.auth.TokenExchangeService;
 import org.semantics.apigateway.service.auth.UserRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
 
 @CrossOrigin
 @RestController
@@ -34,6 +37,7 @@ public class AuthController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthService authService;
+    private final TokenExchangeService tokenExchangeService;
 
 
     @PostMapping("/register")
@@ -73,5 +77,10 @@ public class AuthController {
     @GetMapping("/me")
     public User getCurrentUser() {
         return this.authService.getCurrentUser();
+    }
+    
+    @PostMapping(path ="/token", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public @ResponseBody CompletableFuture<TokenResponse> getToken(TokenRequest tokenRequest) {
+       return tokenExchangeService.exchangeTokenForCode(tokenRequest);
     }
 }
