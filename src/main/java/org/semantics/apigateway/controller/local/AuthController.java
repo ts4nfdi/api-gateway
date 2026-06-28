@@ -45,7 +45,7 @@ public class AuthController {
     public SuccessResponse registerUser(@Valid @RequestBody RegisterRequest user) {
         User newUser = new User();
         newUser.setUsername(user.getUsername());
-        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        newUser.setOidcSubjectIdentifier(user.getOidcSubjectIdentifier());
         newUser.setRoles(Collections.singleton(Role.USER));
         userRepository.save(newUser);
 
@@ -65,7 +65,6 @@ public class AuthController {
         Date expiration = jwtUtil.extractExpiration(token);
         GrantedAuthority role = userDetails.getAuthorities().stream().findFirst().orElse(null);
         return new AuthResponse(token, loginRequest.getUsername(), role != null ? role.getAuthority() : "", expiration);
-
     }
 
     @GetMapping("/logout")

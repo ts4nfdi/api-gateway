@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class RegisterRequest {
     String username;
-    String password;
+    String oidcSubjectIdentifier;
 }
