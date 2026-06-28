@@ -73,7 +73,14 @@ export default function LoginPage() {
                         <Button type="submit" variant="default" className="w-full">
                             Log In
                         </Button>
+                        <div className="mt-2 pt-2">
+                            <p className="text-sm text-center text-gray-500 mb-4">Sign in with</p>
+                            <div className="grid grid-cols-1 gap-3">
+                                <SsoSignin/>
+                            </div>
+                        </div>
                     </form>
+
                 </CardContent>
                 <CardFooter className="text-sm space-x-1 text-gray-500">
                     <span>Don&#39;t have an account? </span>
@@ -85,4 +92,29 @@ export default function LoginPage() {
             </Card>
         </div>
     );
+}
+
+const SsoSignin = () => {
+    // const {data: session} = useSession()
+    // if (session) {
+    //     return (
+    //         <div>
+    //             <h1>Welcome, {session.user?.email}</h1>
+    //                 <button onClick={() => signOut()}>Sign Out</button>
+    //         </div>
+    //     )
+    // }
+
+    return (
+        <button
+            // onClick={() => signIn("iam4nfdi", { callbackUrl: 'http://localhost:3000/auth/profile' })}
+            className="flex flex-col items-center justify-center p-5 border border-gray-200 rounded-xl hover:shadow-md hover:bg-gray-50 transition text-sm font-semibold text-gray-700 bg-white">
+            <img src="/api-gateway/media/logos/iam4nfdi.png"
+                 className="w-24 h-24 object-contain mb-3"
+                 alt="IAM4NFDI Infrastructure Proxy"/>
+            <span>IAM4NFDI Infrastructure Proxy</span>
+        </button>
+    )
+
+
 }
