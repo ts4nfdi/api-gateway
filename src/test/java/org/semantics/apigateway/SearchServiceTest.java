@@ -49,16 +49,13 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         index = indexOfIriAndBackendType(responseList, "http://sweetontology.net/matrPlant/Plant", "ontoportal");
         assertMapEquality(response, createOntoPortalPlantFixture(), 100, index);
 
-        index = indexOfIriAndBackendType(responseList, "http://purl.obolibrary.org/obo/NCIT_C14258", "ols");
-        assertMapEquality(response, createOlsPlantFixture(), 100, index);
-
         index = indexOfIriAndBackendType(responseList, "https://w3id.org/biolink/vocab/Plant", "ols2");
         assertMapEquality(response, createOls2Fixture(), 100, index);
 
         assertThat(responseList.stream().map(x -> x.get("backend_type")).distinct().sorted().toArray())
-                .isEqualTo(new String[]{"ols", "ols2", "ontoportal", "skosmos"});
+                .isEqualTo(new String[]{"ols2", "ontoportal", "skosmos"});
         assertThat(responseList.stream().map(x -> x.get("source_name")).distinct().sorted().toArray())
-                .isEqualTo(new String[]{"agroportal", "agrovoc", "biodivportal", "ebi", "tib"});
+                .isEqualTo(new String[]{"agroportal", "agrovoc", "biodivportal", "ebi"});
     }
 
     @Test

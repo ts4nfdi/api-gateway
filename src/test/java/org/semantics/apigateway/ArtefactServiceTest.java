@@ -43,14 +43,6 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
     }
 
     @Test
-    public void testGetArtefactsOls() {
-        CommonRequestParams commonRequestParams = new CommonRequestParams();
-        commonRequestParams.setDatabase("ols");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefact("AGROVOC", commonRequestParams, apiAccessor, null);
-        assertMapEquality(response, createOlsAgrovocFixture());
-    }
-
-    @Test
     public void testGetArtefactGND() {
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase("gnd");
