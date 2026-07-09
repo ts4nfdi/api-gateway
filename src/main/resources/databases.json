@@ -46,6 +46,11 @@
       "url": "https://semanticlookup.zbmed.de/ols/api"
     },
     {
+      "type": "ols2",
+      "name": "berd",
+      "url": "https://ts.berd-nfdi.de/ols4/api/v2"
+    },
+    {
       "type": "skosmos",
       "name": "agrovoc",
       "url": "https://agrovoc.fao.org/browse/rest/v1"
