@@ -171,9 +171,7 @@ public abstract class AbstractEndpointService {
         ApiResponse results = entry.getValue();
         DatabaseConfig config = null;
         try {
-            URL baseUrl = new URL(url);
-            String baseUrlString = baseUrl.getProtocol() + "://" + baseUrl.getHost();
-            config = this.configurationLoader.getConfigByBaseUrl(baseUrlString);
+            config = this.configurationLoader.findBestMatchingConfig(url);
         } catch (Exception e) {
             logger.error("Error getting config for URL: {}", url, e);
         }

@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,7 @@ public class ConfigurationLoader {
     private static final Logger logger = LoggerFactory.getLogger(ConfigurationLoader.class);
     private List<DatabaseConfig> databaseConfigs;
     private List<ServiceConfig> serviceConfigs;
+    private List<DatabaseConfig> databaseConfigsSorted;
 
     public  ConfigurationLoader(ResourceLoader resourceLoader, ConfigurableEnvironment environment) {
         this.resourceLoader = resourceLoader;
@@ -52,6 +54,13 @@ public class ConfigurationLoader {
                 ServicesConfig tempConfig = new ServicesConfig(serviceConfigs);
                 dbConfig.setServiceConfig(tempConfig.getService(dbConfig.getType()));
             }
+
+            this.databaseConfigsSorted = databaseConfigs.stream()
+                    .sorted(Comparator.comparingInt(
+                                    (DatabaseConfig c) -> c.getUrl().length())
+                            .reversed())
+                    .toList();
+
             databaseConfigs.forEach(config -> logger.info("Loaded config: {}", config));
         } catch (IOException e) {
             logger.error("Failed to load configurations", e);
@@ -140,6 +149,17 @@ public class ConfigurationLoader {
                 })
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Config not found for URL: " + url));
+    }
+
+    public DatabaseConfig findBestMatchingConfig(String url) {
+
+        for (DatabaseConfig c : databaseConfigsSorted) {
+            if (url.startsWith(c.getUrl())) {
+                return c;
+            }
+        }
+
+        throw new RuntimeException("Config not found for URL: " + url);
     }
 
 }
