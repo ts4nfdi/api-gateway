@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.semantics.apigateway.model.user.TokenRequest;
 import org.semantics.apigateway.model.user.TokenResponse;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -15,21 +17,26 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 @Service
-public class TokenExchangeService {
+public class OidcAuthService {
   
   private final URI oidcTokenEndpointUri;
   
-  @Value("${oidc.client.secret}")
+  @Value("${oidc.client-secret}")
   private String oidcClientSecret;
+  
+  private final JwtDecoder jwtDecoder;
   
   private final HttpClient httpClient;
   private final ObjectMapper objectMapper = new ObjectMapper();
   
-  public TokenExchangeService(@Value("${oidc.server.token-endpoint}") String oidcTokenEndpoint) throws URISyntaxException {
+  public OidcAuthService(@Value("${oidc.token-endpoint}") String oidcTokenEndpoint, JwtDecoder jwtDecoder) throws URISyntaxException {
     oidcTokenEndpointUri = new URI(oidcTokenEndpoint);
+    this.jwtDecoder = jwtDecoder;
     httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).build();
   }
   
@@ -37,8 +44,8 @@ public class TokenExchangeService {
     HttpRequest request = HttpRequest.newBuilder()
             .uri(oidcTokenEndpointUri)
             .headers(
-                    "Content-Type",  "application/x-www-form-urlencoded",
-                    "accept",  "application/json")
+                    "Content-Type", "application/x-www-form-urlencoded",
+                    "accept", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(getFormUrlEncodedBody(tokenRequest)))
             .build();
     return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
@@ -54,28 +61,28 @@ public class TokenExchangeService {
   }
   
   private String getFormUrlEncodedBody(TokenRequest tokenRequest) {
-    StringBuilder formBodyBuilder = new StringBuilder();
-    
-    appendFormUrlEncodedEntry(formBodyBuilder, "client_id", tokenRequest.getClient_id());
-    formBodyBuilder.append("&");
-    appendFormUrlEncodedEntry(formBodyBuilder, "client_secret", oidcClientSecret);
-    formBodyBuilder.append("&");
-    appendFormUrlEncodedEntry(formBodyBuilder, "code", tokenRequest.getCode());
-    formBodyBuilder.append("&");
-    appendFormUrlEncodedEntry(formBodyBuilder, "code_verifier", tokenRequest.getCode_verifier());
-    formBodyBuilder.append("&");
-    appendFormUrlEncodedEntry(formBodyBuilder, "grant_type", tokenRequest.getGrant_type());
-    formBodyBuilder.append("&");
-    appendFormUrlEncodedEntry(formBodyBuilder, "redirect_uri", tokenRequest.getRedirect_uri());
-
-    return formBodyBuilder.toString();
+    return String.join("&", Stream.of(
+            formUrlEncodedEntry("client_id", tokenRequest.getClient_id()),
+            formUrlEncodedEntry("client_secret", oidcClientSecret),
+            formUrlEncodedEntry("code", tokenRequest.getCode()),
+            formUrlEncodedEntry("grant_type", tokenRequest.getGrant_type()),
+            formUrlEncodedEntry("redirect_uri", tokenRequest.getRedirect_uri())
+    ).flatMap(o -> o.isPresent() ? Stream.of(o.get()) : Stream.empty()).toList());
   }
   
-  private static void appendFormUrlEncodedEntry(StringBuilder formBodyBuilder, String key, String value) {
-    if (value != null) {
-      formBodyBuilder.append(URLEncoder.encode(key, StandardCharsets.UTF_8));
-      formBodyBuilder.append("=");
-      formBodyBuilder.append(URLEncoder.encode(value, StandardCharsets.UTF_8));
+  private static Optional<String> formUrlEncodedEntry(String key, String value) {
+    if (value == null) {
+      return Optional.empty();
     }
+    
+    StringBuilder b = new StringBuilder();
+    b.append(URLEncoder.encode(key, StandardCharsets.UTF_8));
+    b.append("=");
+    b.append(URLEncoder.encode(value, StandardCharsets.UTF_8));
+    return Optional.of(b.toString());
+  }
+  
+  public Jwt verifyToken(String rawAccessToken) {
+    return jwtDecoder.decode(rawAccessToken);
   }
 }

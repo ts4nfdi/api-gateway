@@ -1,6 +1,6 @@
 "use client";
 
-import {useState} from "react";
+import React, {useState} from "react";
 import {Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card";
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
@@ -28,7 +28,6 @@ export default function LoginPage() {
             credentials: {username: username, password: password},
             onError: error => setError(error || '')
         })
-
     };
 
     return (
@@ -73,13 +72,17 @@ export default function LoginPage() {
                         <Button type="submit" variant="default" className="w-full">
                             Log In
                         </Button>
-                        <div className="mt-2 pt-2">
-                            <p className="text-sm text-center text-gray-500 mb-4">Sign in with</p>
-                            <div className="grid grid-cols-1 gap-3">
-                                <SsoSignin/>
-                            </div>
-                        </div>
                     </form>
+                    <div
+                        className="mt-8 py-3 flex items-center text-sm text-stone-800 before:flex-1 before:border-t before:border-stone-200 before:me-6 after:flex-1 after:border-t after:border-stone-200 after:ms-6 dark:text-neutral-200 dark:before:border-neutral-600 dark:after:border-neutral-600">or
+                    </div>
+
+                    <div className="mt-4 pt-2">
+                        <p className="text-sm text-center text-gray-500 mb-4">Sign in with</p>
+                        <div className="grid grid-cols-1 gap-3">
+                            <SsoSignin/>
+                        </div>
+                    </div>
 
                 </CardContent>
                 <CardFooter className="text-sm space-x-1 text-gray-500">
@@ -95,19 +98,16 @@ export default function LoginPage() {
 }
 
 const SsoSignin = () => {
-    // const {data: session} = useSession()
-    // if (session) {
-    //     return (
-    //         <div>
-    //             <h1>Welcome, {session.user?.email}</h1>
-    //                 <button onClick={() => signOut()}>Sign Out</button>
-    //         </div>
-    //     )
-    // }
+    const {ssoAuthorize} = useAuth();
+
+    const handleSsoAuthorization = async (e: any) => {
+        e.preventDefault();
+        await ssoAuthorize();
+    }
 
     return (
         <button
-            // onClick={() => signIn("iam4nfdi", { callbackUrl: 'http://localhost:3000/auth/profile' })}
+            onClick={handleSsoAuthorization}
             className="flex flex-col items-center justify-center p-5 border border-gray-200 rounded-xl hover:shadow-md hover:bg-gray-50 transition text-sm font-semibold text-gray-700 bg-white">
             <img src="/api-gateway/media/logos/iam4nfdi.png"
                  className="w-24 h-24 object-contain mb-3"
@@ -115,6 +115,5 @@ const SsoSignin = () => {
             <span>IAM4NFDI Infrastructure Proxy</span>
         </button>
     )
-
 
 }
