@@ -7,6 +7,7 @@ export interface LoginRequest {
 }
 
 export interface SsoLoginRequest {
+    id_token: string;
     access_token: string;
 }
 

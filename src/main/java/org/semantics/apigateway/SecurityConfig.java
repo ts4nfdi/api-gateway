@@ -1,12 +1,9 @@
 package org.semantics.apigateway;
 
-import com.nimbusds.jose.JOSEObjectType;
-import com.nimbusds.jose.proc.DefaultJOSEObjectTypeVerifier;
 import jakarta.servlet.http.HttpServletResponse;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.semantics.apigateway.service.auth.JwtAuthenticationFilter;
 import org.semantics.apigateway.service.auth.TokenBlacklist;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,8 +14,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -75,11 +70,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
   
-    @Bean
-    public JwtDecoder jwtDecoder(OAuth2ResourceServerProperties properties) {
-      return NimbusJwtDecoder.withJwkSetUri(properties.getJwt().getJwkSetUri())
-              .jwtProcessorCustomizer(customizer ->
-                      customizer.setJWSTypeVerifier(new DefaultJOSEObjectTypeVerifier<>(new JOSEObjectType("at+jwt"))))
-              .build();
-    }
 }

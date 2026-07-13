@@ -21,10 +21,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.time.Instant;
 import java.util.Collections;
 import java.util.Date;
 import java.util.concurrent.CompletableFuture;
@@ -102,7 +104,7 @@ public class AuthController {
     
     RedirectView response = new RedirectView(authorizationEndpoint);
     response.addStaticAttribute("response_type", "code");
-    response.addStaticAttribute("scope", "openid");
+    response.addStaticAttribute("scope", "openid email profile");
     response.addStaticAttribute("client_id", clientId);
     response.addStaticAttribute("redirect_uri", redirect_uri);
     if (state != null)
@@ -120,11 +122,21 @@ public class AuthController {
   
   @PostMapping("/sso/login")
   public AuthResponse loginSsoUser(@RequestBody SsoLoginRequest loginRequest, @RequestParam(required = false) String redirect_url) {
-    Jwt verifiedJwt = oidcAuthService.verifyToken(loginRequest.getAccess_token());
-    String subject = verifiedJwt.getSubject();
+    Jwt verifiedIdToken = oidcAuthService.verifyIdToken(loginRequest.getId_token());
+    String subject = verifiedIdToken.getSubject();
+    
+    Jwt verifiedAccessToken = oidcAuthService.verifyAccessToken(loginRequest.getAccess_token());
     
     // TODO add orcid claim as soon as supported by IDP
-    Object openidClaim = verifiedJwt.getClaim("openid");
+    Object orcidClaim = verifiedIdToken.getClaim("orcid");
+    
+    if (verifiedIdToken.getExpiresAt().isBefore(Instant.now())) {
+      throw new OAuth2AuthenticationException("Token expired");
+    }
+    
+    if (!verifiedIdToken.getAudience().get(0).equals(clientId)) {
+      throw new OAuth2AuthenticationException("Invalid audience");
+    }
 
     User user = userRepository.findByOidcSubjectIdentifier(subject).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     UserDetails userDetails = authService.loadUserByUsername(user.getUsername());

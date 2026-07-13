@@ -3,11 +3,15 @@ package org.semantics.apigateway.service.auth;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nimbusds.jose.JOSEObjectType;
+import com.nimbusds.jose.proc.DefaultJOSEObjectTypeVerifier;
 import org.semantics.apigateway.model.user.TokenRequest;
 import org.semantics.apigateway.model.user.TokenResponse;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -29,14 +33,30 @@ public class OidcAuthService {
   @Value("${oidc.client-secret}")
   private String oidcClientSecret;
   
-  private final JwtDecoder jwtDecoder;
+  // This is the default JWT decoder.
+  // It can handle JWT tokens where the "typ" header parameter is missing
+  // (as is the case in the NFDI InfraProxy's *id_tokens*),
+  // but it cannot handle at+jwt tokens.
+  private final JwtDecoder defaultJwtDecoder;
+  
+  // This is a JWTDecoder specifically configured to handle at+jwt tokens
+  // (which is the object type of *access_tokens* returned by the NFDI InfraProxy).
+  // Once a specific type verifier has been added, the decoder loses its
+  // ability to decode JWT tokens without a "typ" header parameter.
+  // So, unfortunately, we need the two separate JWTDecoders.
+  private final JwtDecoder atJwtDecoder;
   
   private final HttpClient httpClient;
   private final ObjectMapper objectMapper = new ObjectMapper();
   
-  public OidcAuthService(@Value("${oidc.token-endpoint}") String oidcTokenEndpoint, JwtDecoder jwtDecoder) throws URISyntaxException {
+  public OidcAuthService(@Value("${oidc.token-endpoint}") String oidcTokenEndpoint, JwtDecoder defaultJwtDecoder, OAuth2ResourceServerProperties properties) throws URISyntaxException {
     oidcTokenEndpointUri = new URI(oidcTokenEndpoint);
-    this.jwtDecoder = jwtDecoder;
+    this.defaultJwtDecoder = defaultJwtDecoder;
+    this.atJwtDecoder = NimbusJwtDecoder.withJwkSetUri(properties.getJwt().getJwkSetUri())
+            .jwtProcessorCustomizer(customizer ->
+                    customizer.setJWSTypeVerifier(new DefaultJOSEObjectTypeVerifier<>(
+                            new JOSEObjectType("at+jwt"))))
+            .build();
     httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).build();
   }
   
@@ -82,7 +102,11 @@ public class OidcAuthService {
     return Optional.of(b.toString());
   }
   
-  public Jwt verifyToken(String rawAccessToken) {
-    return jwtDecoder.decode(rawAccessToken);
+  public Jwt verifyIdToken(String rawIdToken) {
+    return defaultJwtDecoder.decode(rawIdToken);
+  }
+  
+  public Jwt verifyAccessToken(String rawAccessToken) {
+    return atJwtDecoder.decode(rawAccessToken);
   }
 }

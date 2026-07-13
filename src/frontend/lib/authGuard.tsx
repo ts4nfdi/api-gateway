@@ -103,8 +103,11 @@ export function AuthProvider({children, config = {}}: AuthProviderProps) {
         redirect?: string
     }) => {
         try {
-            const accessTokenResponse = await userRestClient.ssoExchangeToken(authCode)
-            const response = await userRestClient.ssoLogin({access_token: accessTokenResponse.data.access_token})
+            const tokenResponse = await userRestClient.ssoExchangeToken(authCode)
+            const response = await userRestClient.ssoLogin({
+                id_token: tokenResponse.data.id_token,
+                access_token: tokenResponse.data.access_token
+            })
             localStorage.setItem('token', response.data.token)
             const userResponse = await httpClient.get<UserResponse>('/auth/me')
             setUser(userResponse.data)
