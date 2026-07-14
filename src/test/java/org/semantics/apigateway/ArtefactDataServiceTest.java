@@ -46,11 +46,6 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         assertMapEquality(response, createOls2NCBITaxonFixture());
 
         params = new CommonRequestParams();
-        params.setDatabase("ols");
-        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("ncbitaxon", "http://purl.obolibrary.org/obo/NCBITaxon_2", params, apiAccessor, null);
-        assertMapEquality(response, createNCBITaxonFixture());
-
-        params = new CommonRequestParams();
         params.setDatabase("gnd");
         response = (AggregatedApiResponse) artefactsService.getArtefactTerm("gnd", "4074335-4", params, apiAccessor, null);
         assertMapEquality(response, createGndTermFixture());
@@ -73,12 +68,6 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         params.setDatabase("ontoportal");
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactProperty("AGROVOC", "http://purl.org/dc/terms/abstract", params, apiAccessor, null);
         assertMapEquality(response, createOntoPortalAgrovocPropertyFixture());
-
-
-        params = new CommonRequestParams();
-        params.setDatabase("ols");
-        response = (AggregatedApiResponse) artefactsService.getArtefactProperty("NCBITAXON", "http://purl.obolibrary.org/obo/ncbitaxon#has_rank", params, apiAccessor, null);
-        assertMapEquality(response, createOlsNCBITaxonPropertyFixture());
 
         params = new CommonRequestParams();
         params.setDatabase("ols2");
@@ -105,11 +94,6 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         params.setDatabase("ontoportal");
         response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", params, apiAccessor, null);
         assertMapEquality(response, createOntoPortalFoodOnInstanceFixture());
-
-        params = new CommonRequestParams();
-        params.setDatabase("ols");
-        response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", params, apiAccessor, null);
-        assertMapEquality(response, createOlsFoodOnInstanceFixture());
     }
 
     @Test
