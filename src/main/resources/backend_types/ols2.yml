@@ -22,8 +22,8 @@ models:
     label: label
     iri: iri
     ontology: ontologyId
-    synonyms: synonym->value|synonym
-    descriptions: definition->value|description->value|definition
+    synonyms: synonym|synonym->value
+    descriptions: definition|description|definition->value|description->value
     shortForm: shortForm
     type: type
     sourceUrl: linkedEntities->self->source
