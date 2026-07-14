@@ -60,4 +60,7 @@ public class CommonRequestParams {
     @Parameter(name = "timeout", in = ParameterIn.QUERY, description = "Set a timeout (in milliseconds) for the operation")
     private long timeout = 60*1000;
     
+    @QueryParam("omitArtefactsWithoutIri")
+    @Parameter(name = "omitArtefactsWithoutIri", in = ParameterIn.QUERY, description = "If true, artefact queries will only return artefacts that have a proper IRI as their identifier (and filter out all that don't).")
+    private boolean omitArtefactsWithoutIri = false;
 }
