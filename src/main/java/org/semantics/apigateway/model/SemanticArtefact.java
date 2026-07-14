@@ -52,9 +52,6 @@ public class SemanticArtefact extends AggregatedResourceBody {
     //TODO use this instead of source in the future
     @ContextUri("schema")
     private List<String> includedInDataCatalog;
-    
-    @ContextUri("base4nfdi")
-    private String collectionIRI;
 
     @Override
     public String getTypeURI() {

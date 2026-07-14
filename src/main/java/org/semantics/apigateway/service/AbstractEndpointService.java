@@ -287,21 +287,9 @@ public abstract class AbstractEndpointService {
             return data;
         }
 
-        return addCollectionIRI(filterOutByTerminologies(terminologiesCollection.getTerminologies(), data), terminologiesCollection);
+        return filterOutByTerminologies(terminologiesCollection.getTerminologies(), data);
     }
     
-    protected AggregatedApiResponse addCollectionIRI(AggregatedApiResponse response, TerminologyCollection terminologyCollection) {
-        response.getCollection().forEach(result -> {
-            if (terminologyCollection == null) {
-                result.remove("collectionIRI");
-                ((Map<String, Object>) result.get("@context")).remove("collectionIRI");
-            }
-            else
-                result.put("collectionIRI", "https://w3id.org/ts4nfdi/collection/" + terminologyCollection.getId());
-        });
-        return response;
-    }
-
     protected AggregatedApiResponse paginate(TransformedApiResponse response, CommonRequestParams
             commonRequestParams, int page) {
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
@@ -489,7 +477,6 @@ public abstract class AbstractEndpointService {
                     .thenApply(data -> selectResultsByDatabase(data, database))
                     .thenApply(x -> singleResponse(x, params))
                     .thenApply(x -> transformJsonLd(x, params))
-                    .thenApply(x -> addCollectionIRI(x, terminologyCollection))
                     .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, false))
                     .get();
         } catch (InterruptedException | ExecutionException e) {
@@ -506,10 +493,9 @@ public abstract class AbstractEndpointService {
 
         String id = ids.get(0);
 
-        return apiResponses.stream().map(x -> {
+        return apiResponses.stream().peek(x -> {
                     List<AggregatedResourceBody> filtered = x.getCollection().stream().filter(y -> y.getShortForm().equalsIgnoreCase(id) || y.getIri().equals(id)).toList();
                     x.setCollection(filtered);
-                    return x;
                 })
                 .filter(x -> !x.getCollection().isEmpty())
                 .toList();
