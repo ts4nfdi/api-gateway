@@ -3,10 +3,7 @@ package org.semantics.apigateway.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.semantics.apigateway.model.BackendType;
 import org.semantics.apigateway.model.Endpoints;
 import org.semantics.apigateway.model.RDFResource;
@@ -22,6 +19,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
+@ToString(exclude = {"apiKey", "serviceConfig", "responseMappings"})
 public class DatabaseConfig {
     private String type;
     private String name;
