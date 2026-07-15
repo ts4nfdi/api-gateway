@@ -1,11 +1,8 @@
 package org.semantics.apigateway.collections;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import ioinformarics.oss.jackson.module.jsonld.JsonldModule;
 import lombok.AllArgsConstructor;
 import org.semantics.apigateway.collections.models.TerminologyCollection;
 import org.semantics.apigateway.collections.models.TerminologyCollectionDto;
@@ -29,16 +26,8 @@ public class CollectionsController {
     private final CollectionRepository collectionRepository;
     private final AuthService authService;
     
-    private static final ObjectMapper objectMapper;
-    
-    static {
-        objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JsonldModule());
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-    }
-
-    @GetMapping("/")
-    public String allCollections() throws JsonProcessingException {
+    @GetMapping(value = "/", produces = CollectionsJsonLdMessageConverter.MEDIA_TYPE_APPLICATION_LD_JSON_VALUE)
+    public List<TerminologyCollectionDto> allCollections() {
         User user = authService.tryGetCurrentUser();
         List<TerminologyCollection> collections;
         if(user != null) {
@@ -46,7 +35,7 @@ public class CollectionsController {
         } else {
             collections = this.collectionRepository.findByIsPublicTrue();
         }
-        return objectMapper.writeValueAsString(collections.stream().map(TerminologyCollectionDto::toDto).toList());
+        return collections.stream().map(TerminologyCollectionDto::toDto).toList();
     }
 
 }
