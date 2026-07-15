@@ -287,7 +287,7 @@ public abstract class AbstractEndpointService {
 
         return filterOutByTerminologies(terminologiesCollection.getTerminologies(), data);
     }
-
+    
     protected AggregatedApiResponse paginate(TransformedApiResponse response, CommonRequestParams
             commonRequestParams, int page) {
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
@@ -465,7 +465,8 @@ public abstract class AbstractEndpointService {
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
         accessor = initAccessor(database, endpoint, accessor);
-        accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
+        TerminologyCollection terminologyCollection = collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser);
+        accessor = applyCollection(accessor, terminologyCollection, endpoint);
         List<String> ids = getRequestIds(accessor, id, uri);
         try {
             return accessor.get(params.getTimeout(), ids.toArray(new String[0]))
@@ -490,10 +491,9 @@ public abstract class AbstractEndpointService {
 
         String id = ids.get(0);
 
-        return apiResponses.stream().map(x -> {
+        return apiResponses.stream().peek(x -> {
                     List<AggregatedResourceBody> filtered = x.getCollection().stream().filter(y -> y.getShortForm().equalsIgnoreCase(id) || y.getIri().equals(id)).toList();
                     x.setCollection(filtered);
-                    return x;
                 })
                 .filter(x -> !x.getCollection().isEmpty())
                 .toList();

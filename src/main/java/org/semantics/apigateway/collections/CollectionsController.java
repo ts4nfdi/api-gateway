@@ -1,5 +1,6 @@
 package org.semantics.apigateway.collections;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -24,8 +25,8 @@ public class CollectionsController {
 
     private final CollectionRepository collectionRepository;
     private final AuthService authService;
-
-    @GetMapping("/")
+    
+    @GetMapping(value = "/", produces = CollectionsJsonLdMessageConverter.MEDIA_TYPE_APPLICATION_LD_JSON_VALUE)
     public List<TerminologyCollectionDto> allCollections() {
         User user = authService.tryGetCurrentUser();
         List<TerminologyCollection> collections;
