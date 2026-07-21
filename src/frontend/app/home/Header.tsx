@@ -201,7 +201,7 @@ export const Banner = () => {
                     <CardDescription className="flex mt-5 flex-wrap">
                         <div className={'text-xl text-white/80 w-1/2 space-y-4 flex flex-col'}>
                             <p className={'text-justify'}>
-                                The TS4NFDI Federated Service is an advanced, dynamic solution designed to perform
+                                The TS4NFDI Federated Service is your central one-stop shop when it comes to performing
                                 federated
                                 calls across multiple Terminology Services (TS) within NFDI. It is particularly tailored
                                 for
