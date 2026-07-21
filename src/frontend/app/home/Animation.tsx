@@ -10,7 +10,7 @@ const steps = [
     'Retrieving SKOSMOS data...',
     // 'Processing JSKOS data...',
     // 'Retrieving GND data...',
-    'Processing and merging data into an unified model based on MOD...'
+    'Processing and merging data into a unified model based on MOD...'
 ]
 const ProgressBars = ({step}: any) => {
     return <div className="mt-8 flex justify-center gap-2">
