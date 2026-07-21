@@ -49,18 +49,8 @@ public class AuthController {
   private final String clientId;
   @Value("${oidc.client-secret}")
   private final String clientSecret;
-  @Value("${oidc.authority}")
-  private final String authority;
-  @Value("${oidc.issuer}")
-  private final String issuer;
   @Value("${oidc.authorization-endpoint}")
   private final String authorizationEndpoint;
-  @Value("${oidc.token-endpoint}")
-  private final String tokenEndpoint;
-  @Value("${oidc.userinfo-endpoint}")
-  private final String userinfoEndpoint;
-  @Value("${oidc.end-session-endpoint}")
-  private final String endSessionEndpoint;
   
   @PostMapping("/register")
   @ResponseStatus(HttpStatus.CREATED)
