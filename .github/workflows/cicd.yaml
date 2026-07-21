@@ -111,56 +111,56 @@ jobs:
       - name: Create Kubernetes configmap for OIDC_CLIENT_ID
         run: |
           kubectl create configmap oidc-client-id \
-            --from-literal=OIDC_CLIENT_ID=${{ env.OIDC_CLIENT_ID }} \
+            --from-literal=OIDC_CLIENT_ID=${{ vars.OIDC_CLIENT_ID }} \
             --namespace='ts4nfdi' \
             --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Create Kubernetes configmap for OIDC_AUTHORITY
         run: |
           kubectl create configmap oidc-authority \
-            --from-literal=OIDC_AUTHORITY=${{ env.OIDC_AUTHORITY }} \
+            --from-literal=OIDC_AUTHORITY=${{ vars.OIDC_AUTHORITY }} \
             --namespace='ts4nfdi' \
             --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Create Kubernetes configmap for OIDC_ISSUER
         run: |
           kubectl create configmap oidc-issuer \
-            --from-literal=OIDC_ISSUER=${{ env.OIDC_ISSUER }} \
+            --from-literal=OIDC_ISSUER=${{ vars.OIDC_ISSUER }} \
             --namespace='ts4nfdi' \
             --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Create Kubernetes configmap for OIDC_AUTHORIZATION_ENDPOINT
         run: |
           kubectl create configmap oidc-authorization-endpoint \
-            --from-literal=OIDC_AUTHORIZATION_ENDPOINT=${{ env.OIDC_AUTHORIZATION_ENDPOINT }} \
+            --from-literal=OIDC_AUTHORIZATION_ENDPOINT=${{ vars.OIDC_AUTHORIZATION_ENDPOINT }} \
             --namespace='ts4nfdi' \
             --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Create Kubernetes configmap for OIDC_TOKEN_ENDPOINT
         run: |
           kubectl create configmap oidc-token-endpoint \
-            --from-literal=OIDC_TOKEN_ENDPOINT=${{ env.OIDC_TOKEN_ENDPOINT }} \
+            --from-literal=OIDC_TOKEN_ENDPOINT=${{ vars.OIDC_TOKEN_ENDPOINT }} \
             --namespace='ts4nfdi' \
             --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Create Kubernetes configmap for OIDC_USERINFO_ENDPOINT
         run: |
           kubectl create configmap oidc-userinfo-endpoint \
-            --from-literal=OIDC_USERINFO_ENDPOINT=${{ env.OIDC_USERINFO_ENDPOINT }} \
+            --from-literal=OIDC_USERINFO_ENDPOINT=${{ vars.OIDC_USERINFO_ENDPOINT }} \
             --namespace='ts4nfdi' \
             --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Create Kubernetes configmap for OIDC_END_SESSION_ENDPOINT
         run: |
           kubectl create configmap oidc-end-session-endpoint \
-            --from-literal=OIDC_END_SESSION_ENDPOINT=${{ env.OIDC_END_SESSION_ENDPOINT }} \
+            --from-literal=OIDC_END_SESSION_ENDPOINT=${{ vars.OIDC_END_SESSION_ENDPOINT }} \
             --namespace='ts4nfdi' \
             --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Create Kubernetes configmap for OIDC_JWK_SET_URI
         run: |
           kubectl create configmap oidc-jwk-set-uri \
-            --from-literal=OIDC_JWK_SET_URI=${{ env.OIDC_JWK_SET_URI }} \
+            --from-literal=OIDC_JWK_SET_URI=${{ vars.OIDC_JWK_SET_URI }} \
             --namespace='ts4nfdi' \
             --dry-run=client -o yaml | kubectl apply -f -
 
