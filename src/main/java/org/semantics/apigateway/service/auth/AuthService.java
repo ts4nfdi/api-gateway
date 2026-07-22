@@ -24,7 +24,7 @@ public class AuthService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())
-                .password(user.getPassword())
+                .password(user.getPassword() == null ? "" : user.getPassword())
                 .roles(user.getRoles().stream().map(Enum::toString).toArray(String[]::new))
                 .build();
     }

@@ -111,7 +111,7 @@ public class AuthController {
   }
   
   @PostMapping("/sso/login")
-  public AuthResponse loginSsoUser(@RequestBody SsoLoginRequest loginRequest, @RequestParam(required = false) String redirect_url) {
+  public AuthResponse loginSsoUser(@RequestBody SsoLoginRequest loginRequest) {
     Jwt verifiedIdToken = oidcAuthService.verifyIdToken(loginRequest.getId_token());
     String subject = verifiedIdToken.getSubject();
     
@@ -129,7 +129,11 @@ public class AuthController {
     }
 
     User user = userRepository.findByOidcSubjectIdentifier(subject).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    UserDetails userDetails = authService.loadUserByUsername(user.getUsername());
+    UserDetails userDetails = org.springframework.security.core.userdetails.User.builder()
+            .username(user.getUsername())
+            .password("")
+            .roles(user.getRoles().stream().map(Enum::toString).toArray(String[]::new))
+            .build();
     
     String token = jwtUtil.generateToken(userDetails.getUsername());
     Date expiration = jwtUtil.extractExpiration(token);
