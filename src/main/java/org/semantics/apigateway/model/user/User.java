@@ -26,7 +26,7 @@ public class User {
     @NotEmpty
     private String username;
 
-    @Column(nullable = false)
+    @Column
     @JsonIgnore
     private String password;
 
