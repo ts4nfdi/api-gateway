@@ -34,14 +34,14 @@ models:
 
 endpoints:
   search:
-    path: /entities?search=%s
+    path: /v2/entities?search=%s
     responseMapping:
       collectionFilter: ontologyId
       nestedJson: elements
       <<: *term
 
   resources:
-    path: /ontologies?size=10000
+    path: /v2/ontologies?size=10000
     responseMapping:
       nestedJson: elements
       page: page
@@ -49,7 +49,7 @@ endpoints:
       <<: *artefact
 
   concepts:
-    path: /ontologies/%s/classes?page=%s&size=50
+    path: /v2/ontologies/%s/classes?page=%s&size=50
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -57,7 +57,7 @@ endpoints:
       <<: *term
 
   properties:
-    path: /ontologies/%s/properties?page=%s&size=50
+    path: /v2/ontologies/%s/properties?page=%s&size=50
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -65,26 +65,26 @@ endpoints:
       <<: *term
 
   concept_details:
-    path: /ontologies/%s/classes?iri=%s
+    path: /v2/ontologies/%s/classes?iri=%s
     responseMapping:
       nestedJson: elements
       <<: *term
 
   property_details:
-    path: /ontologies/%s/properties?iri=%s
+    path: /v2/ontologies/%s/properties?iri=%s
     responseMapping:
       nestedJson: elements
       <<: *term
 
   resource_details:
-    path: /ontologies/%s
+    path: /v2/ontologies/%s
     responseMapping:
       nestedJson: ""
       key: ""
       <<: *artefact
 
   individuals:
-    path: /ontologies/%s/individuals?page=%s&size=50
+    path: /v2/ontologies/%s/individuals?page=%s&size=50
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -92,20 +92,20 @@ endpoints:
       <<: *term
 
   individual_details:
-    path: /ontologies/%s/individuals?iri=%s
+    path: /v2/ontologies/%s/individuals?iri=%s
     responseMapping:
       nestedJson: elements
       <<: *term
 
   concepts_roots:
-    path: /ontologies/%s/classes?hasDirectParents=false&size=1000&lang=en&includeObsoleteEntities=false
+    path: /v2/ontologies/%s/classes?hasDirectParents=false&size=1000&lang=en&includeObsoleteEntities=false
     responseMapping:
       nestedJson: elements
       <<: *term
       hasChildren: hasDirectChildren
 
   concepts_children:
-    path: /ontologies/%s/classes/%s/hierarchicalChildren?size=1000&lang=en&includeObsoleteEntities=false
+    path: /v2/ontologies/%s/classes/%s/hierarchicalChildren?size=1000&lang=en&includeObsoleteEntities=false
     caseInsensitive: false
     responseMapping:
       nestedJson: elements
@@ -115,7 +115,7 @@ endpoints:
       hasChildren: hasDirectChildren
 
   concept_tree:
-    path: /ontologies/%s/classes/%s/hierarchicalAncestors?page=0&size=10000&lang=en
+    path: /v2/ontologies/%s/classes/%s/hierarchicalAncestors?page=0&size=10000&lang=en
     caseInsensitive: false
     responseMapping:
       nestedJson: elements
@@ -123,3 +123,14 @@ endpoints:
       page: page
       <<: *term
       hasChildren: hasDirectChildren
+
+  suggest:
+    path: /select?q=%s&fieldList=iri&fieldList=label&fieldList=ontology_name&rows=%s&start=%s
+    responseMapping:
+      nestedJson: response
+      key: docs
+      iri: iri
+      label: label
+      ontologyIri: ontology_name
+      totalCount: response->numFound
+      page: page->start

@@ -106,7 +106,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
     private Map<String, Object> createOls2NCBITaxonPropertyFixture() {
         Map<String, Object> map = createOlsNCBITaxonPropertyFixture();
         map.put("backend_type", "ols2");
-        map.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
+        map.put("source", "https://www.ebi.ac.uk/ols4/api");
         map.put("source_name", "ebi");
         map.put("type", "property");
         map.put("source_url", null); //TODO: add source_url
@@ -138,7 +138,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
     private Map<String, Object> createOls2NCBITaxonFixture() {
         Map<String, Object> map = createNCBITaxonFixture();
         map.put("backend_type", "ols2");
-        map.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
+        map.put("source", "https://www.ebi.ac.uk/ols4/api");
         map.put("source_name", "ebi");
         map.put("type", "class");
         map.put("source_url", null); //TODO: add source_url "https://www.ebi.ac.uk/ols4/api/v2/ontologies/NCBITAXON/classes?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCBITaxon_2"
@@ -374,7 +374,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
     private Map<String, Object> createOls2FoodOnInstanceFixture() {
         Map<String, Object> fixture = createFoodOnInstanceFixture();
         fixture.put("backend_type", "ols2");
-        fixture.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
+        fixture.put("source", "https://www.ebi.ac.uk/ols4/api");
         fixture.put("source_name", "ebi");
         fixture.put("ontology", "foodon");
         fixture.put("type", "individual");

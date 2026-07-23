@@ -113,7 +113,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         thirdPlant.put("backend_type", "ols2");
         thirdPlant.put("short_form", "Plant");
         thirdPlant.put("label", "plant");
-        thirdPlant.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
+        thirdPlant.put("source", "https://www.ebi.ac.uk/ols4/api");
         thirdPlant.put("@type", new RDFResource().getTypeURI()); //TODO: should be owl:Class in future
         thirdPlant.put("ontology", "biolink");
         return thirdPlant;

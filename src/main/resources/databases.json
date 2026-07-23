@@ -33,22 +33,22 @@
     {
       "type": "ols2",
       "name": "ebi",
-      "url": "https://www.ebi.ac.uk/ols4/api/v2"
+      "url": "https://www.ebi.ac.uk/ols4/api"
     },
     {
       "type": "ols2",
       "name": "tib",
-      "url": "https://api.terminology.tib.eu/api/v2"
+      "url": "https://api.terminology.tib.eu/api"
     },
     {
       "type": "ols2",
       "name": "zbmed",
-      "url": "https://semanticlookup.zbmed.de/ols/api/v2"
+      "url": "https://semanticlookup.zbmed.de/ols/api"
     },
     {
       "type": "ols2",
       "name": "berd",
-      "url": "https://ts.berd-nfdi.de/ols4/api/v2"
+      "url": "https://ts.berd-nfdi.de/ols4/api"
     },
     {
       "type": "skosmos",
