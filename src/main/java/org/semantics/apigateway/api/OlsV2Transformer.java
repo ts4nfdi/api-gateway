@@ -40,6 +40,14 @@ public class OlsV2Transformer implements DatabaseTransformer {
             }
         });
 
+        Map<String, Object> provider = new HashMap<>();
+        if (item.get("backend_type") != null) provider.put("provider_type", item.get("backend_type"));
+        if (item.get("source") != null) provider.put("provider_api", item.get("source"));
+        if (item.get("source_name") != null) provider.put("provider_name", item.get("source_name"));
+        if (!provider.isEmpty()) {
+            transformedItem.put("provider", provider);
+        }
+
         transformedItem.put("URI", item.get("iri"));
         transformedItem.put("@type", new SemanticArtefact().getTypeURI());
         return transformedItem;
@@ -60,7 +68,7 @@ public class OlsV2Transformer implements DatabaseTransformer {
         
         return transformedResults.isEmpty() ? null : transformedResults.get(0);
     }
-    
+
     private Object getNestedValue(Map<String, Object> item, String key) {
         String[] path = key.split("->");
         Object current = item;
