@@ -103,6 +103,27 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         assertMapEquality(response, createOntoPortalInraeScheme());
     }
 
+    @Test
+    public void testGetEntity() {
+        mockApiAccessor("artefact_entity", "zbmed", artefactsService.getAccessor(), Map.of(
+                "classes", "class.json",
+                "properties", "property.json",
+                "individuals", "individual.json"));
+        CommonRequestParams params = new CommonRequestParams();
+        params.setDatabase("ols2");
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactEntity("NCIT", "http://purl.obolibrary.org/obo/NCIT_C2985", params, apiAccessor, null);
+        assertMapEquality(response, createOls2NcitEntityFixture());
+    }
+
+    private Map<String, Object> createOls2NcitEntityFixture() {
+        Map<String, Object> element = new HashMap<>();
+        element.put("iri", "http://purl.obolibrary.org/obo/NCIT_C2985");
+        element.put("label", "Diabetes Mellitus");
+        element.put("ontology", "ncit");
+        element.put("short_form", "NCIT_C2985");
+        return element;
+    }
+
     private Map<String, Object> createOls2NCBITaxonPropertyFixture() {
         Map<String, Object> map = createOlsNCBITaxonPropertyFixture();
         map.put("backend_type", "ols2");
