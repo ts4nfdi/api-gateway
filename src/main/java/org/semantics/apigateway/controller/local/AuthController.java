@@ -55,9 +55,11 @@ public class AuthController {
   @PostMapping("/register")
   @ResponseStatus(HttpStatus.CREATED)
   public SuccessResponse registerUser(@Valid @RequestBody RegisterRequest user) {
+    Jwt idTokenVerified = oidcAuthService.verifyIdToken(user.getId_token());
+    
     User newUser = new User();
     newUser.setUsername(user.getUsername());
-    newUser.setOidcSubjectIdentifier(user.getOidcSubjectIdentifier());
+    newUser.setOidcSubjectIdentifier(idTokenVerified.getSubject());
     newUser.setRoles(Collections.singleton(Role.USER));
     userRepository.save(newUser);
     
