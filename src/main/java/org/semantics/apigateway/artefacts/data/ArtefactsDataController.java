@@ -7,8 +7,6 @@ import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.concurrent.ExecutionException;
-
 
 @RestController
 @RequestMapping("/artefacts/{id}")
@@ -41,6 +39,12 @@ public class ArtefactsDataController {
         return this.artefactsService.getArtefactIndividuals(id, params, page, null, authService.tryGetCurrentUser());
     }
 
+    @GetMapping(value = {"/resources/entities"})
+    @Operation(summary = "Get a list of all owl:Classes, owl:Instance and rdf:Property")
+    public Object getEntities(@PathVariable String id, @ModelAttribute CommonRequestParams params, @RequestParam(required = false, defaultValue = "1") Integer page) {
+        return this.artefactsService.getArtefactEntities(id, params, page, null, authService.tryGetCurrentUser());
+    }
+
     @GetMapping(value = { "/resources/classes/{uri}", "/resources/concepts/{uri}"})
     @Operation(summary = "Get a list of all owl:Classes or skos:Concepts within an artefact.")
     public Object getArtefactTerms(@PathVariable String id, @PathVariable String uri, @ParameterObject CommonRequestParams params) {
@@ -57,6 +61,12 @@ public class ArtefactsDataController {
     @Operation(summary = "Get an owl:Instance details")
     public Object getIndividualDetails(@PathVariable String id, @PathVariable String uri, @ParameterObject CommonRequestParams params) {
         return this.artefactsService.getArtefactIndividual(id, uri, params, null, authService.tryGetCurrentUser());
+    }
+
+    @GetMapping(value = {"/resources/entities/{uri}"})
+    @Operation(summary = "Get an owl:Classes or rdf:Property or owl:Instance details")
+    public Object getEntityDetails(@PathVariable String id, @PathVariable String uri, @ParameterObject CommonRequestParams params) {
+        return this.artefactsService.getArtefactEntity(id, uri, params, null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = { "/resources/schemes"})

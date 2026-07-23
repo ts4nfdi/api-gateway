@@ -89,15 +89,15 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities")
   public Object getAllEntitiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    if (iri == null) return artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactTerm(onto, iri, params, null, authService.tryGetCurrentUser());
+    if (iri == null) return artefactsDataService.getArtefactEntities(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactEntity(onto, iri, params, null, authService.tryGetCurrentUser());
     return olsV2Transformer.constructResponse(response.getCollection(), "concepts", true, true, 1, response.getCollection().size());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities/{entity}")
   public Object getEntityInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String entity, @ParameterObject CommonRequestParams params) {
-    return artefactsDataService.getArtefactTerm(onto, entity, params, null, authService.tryGetCurrentUser());
+    return artefactsDataService.getArtefactEntity(onto, entity, params, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
@@ -111,9 +111,9 @@ public class Ols4Controller {
   public Object getAllEntitiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
     // TODO Is there a way to run a federated query over all endpoints and their respective artifacts for all entities? Improbable, solely for performance reasons.
     if (iri != null) {
-      return this.artefactsDataService.getArtefactTerms(iri, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+      return this.artefactsDataService.getArtefactEntities(iri, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
     }
-    return this.artefactsDataService.getArtefactTerms("", params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    return this.artefactsDataService.getArtefactEntities("", params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
