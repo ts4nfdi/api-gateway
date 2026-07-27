@@ -8,10 +8,7 @@ import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.user.User;
-import org.semantics.apigateway.service.AbstractEndpointService;
-import org.semantics.apigateway.service.ApiAccessor;
-import org.semantics.apigateway.service.JsonLdTransform;
-import org.semantics.apigateway.service.ResponseTransformerService;
+import org.semantics.apigateway.service.*;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +59,7 @@ public class SearchService extends AbstractEndpointService {
         accessor = applyCollection(accessor, collection, endpoint);
         
         try {
-            return accessor.get(params.getTimeout(), query)
+            return accessor.get(params.getTimeout(), Map.of(RequestParameter.query, query))
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
@@ -77,16 +74,16 @@ public class SearchService extends AbstractEndpointService {
     }
     
     public AggregatedApiResponse suggestConcepts(
-            String id,
+            String artifactId,
             String query,
             int offset,
             int size,
             CommonRequestParams params) {
-        return suggestConcepts(id, query, offset, size, params, null, null);
+        return suggestConcepts(artifactId, query, offset, size, params, null, null);
     }
     
     public AggregatedApiResponse suggestConcepts(
-            String id,
+            String artifactId,
             String query,
             int offset,
             int size,
@@ -102,8 +99,15 @@ public class SearchService extends AbstractEndpointService {
         
         // TODO add ontology parameter as soon as https://github.com/ts4nfdi/api-gateway/issues/123 has been resolved.
         
+        Map<RequestParameter, String> requestParameters = Map.of(
+                RequestParameter.artefact, artifactId,
+                RequestParameter.query, query,
+                RequestParameter.size, "" + size,
+                RequestParameter.offset, "" + offset
+        );
+        
         try {
-            return accessor.get(params.getTimeout(), query, "" + size, "" + offset)
+            return accessor.get(params.getTimeout(), requestParameters)
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))

@@ -15,7 +15,6 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -407,17 +406,18 @@ public abstract class AbstractEndpointService {
     }
 
 
-    protected Object paginatedList(String acronym, String uri, String endpoint, CommonRequestParams params,
+    protected Object paginatedList(String artefactId, String resourceUri, String endpoint, CommonRequestParams params,
                                    Integer page, ApiAccessor accessor, User currentUser) {
 
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
-        List<String> ids = getRequestIds(accessor, acronym, uri);
-        ids.add(page.toString());
+        
+        Map<RequestParameter, String> apiParameters = getRequestIds(accessor, artefactId, resourceUri);
+        apiParameters.put(RequestParameter.page, "" + page);
 
-        return accessor.get(params.getTimeout(), ids.toArray(new String[0]))
+        return accessor.get(params.getTimeout(), apiParameters)
                 .thenApply(data -> this.transformApiResponses(data, endpoint, true))
                 .thenApply(data -> selectResultsByDatabase(data, database))
                 .thenApply(x -> paginate(x, params, page))
@@ -431,13 +431,13 @@ public abstract class AbstractEndpointService {
     }
 
 
-    protected CompletableFuture<AggregatedApiResponse> findAll(String acronym, String uri, String endpoint, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+    protected CompletableFuture<AggregatedApiResponse> findAll(String artefactId, String resourceUri, String endpoint, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
         String database = params.getDatabase();
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
-        List<String> ids = getRequestIds(accessor, acronym, uri);
+        Map<RequestParameter, String> requestParameters = getRequestIds(accessor, artefactId, resourceUri);
 
-        return accessor.get(params.getTimeout(), ids.toArray(new String[0]))
+        return accessor.get(params.getTimeout(), requestParameters)
                 .thenApply(data -> this.transformApiResponses(data, endpoint))
                 .thenApply(data -> selectResultsByDatabase(data, database))
                 .thenApply(data -> listResponse(data, params))
@@ -449,28 +449,31 @@ public abstract class AbstractEndpointService {
         return findAll(id, null, endpoint, params, accessor,  currentUser);
     }
 
-    private List<String> getRequestIds(ApiAccessor accessor, String acronym, String uri) {
-        List<String> ids = new ArrayList<>(List.of(acronym));
-        if (uri != null && !uri.isEmpty()) {
-            uri = URLDecoder.decode(uri, StandardCharsets.UTF_8);
-            String encodedUrl = URLEncoder.encode(uri, StandardCharsets.UTF_8);
-            ids.add(encodedUrl);
+    private Map<RequestParameter, String> getRequestIds(ApiAccessor accessor, String artefactId, String resourceUri) {
+        HashMap<RequestParameter, String> result = new HashMap<>();
+        result.put(RequestParameter.artefact, artefactId);
+        
+        if (resourceUri != null && !resourceUri.isEmpty()) {
+            resourceUri = URLDecoder.decode(resourceUri, StandardCharsets.UTF_8);
+            String encodedUrl = URLEncoder.encode(resourceUri, StandardCharsets.UTF_8);
+            result.put(RequestParameter.resourceUri, encodedUrl);
             accessor.setUnDecodeUrl(true);
         }
-        return ids;
+        
+        return result;
     }
 
-    protected AggregatedApiResponse findUri(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor
+    protected AggregatedApiResponse findUri(String id, String resourceUri, String endpoint, CommonRequestParams params, ApiAccessor
             accessor,  User currentUser) {
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
-        List<String> ids = getRequestIds(accessor, id, uri);
+        Map<RequestParameter, String> requestParameters = getRequestIds(accessor, id, resourceUri);
         try {
-            return accessor.get(params.getTimeout(), ids.toArray(new String[0]))
+            return accessor.get(params.getTimeout(), requestParameters)
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
-                    .thenApply(x -> filterById(x, ids))
+                    .thenApply(x -> filterById(x, requestParameters))
                     .thenApply(data -> selectResultsByDatabase(data, database))
                     .thenApply(x -> singleResponse(x, params))
                     .thenApply(x -> transformJsonLd(x, params))
@@ -483,13 +486,14 @@ public abstract class AbstractEndpointService {
     }
 
     private List<TransformedApiResponse> filterById
-            (List<TransformedApiResponse> apiResponses, List<String> ids) {
-        if (ids == null || ids.size() > 1) {
+            (List<TransformedApiResponse> apiResponses, Map<RequestParameter, String> ids) {
+
+        String id = ids.get(RequestParameter.resourceUri);
+        
+        if (id == null) {
             return apiResponses;
         }
-
-        String id = ids.get(0);
-
+        
         return apiResponses.stream().map(x -> {
                     List<AggregatedResourceBody> filtered = x.getCollection().stream().filter(y -> y.getShortForm().equalsIgnoreCase(id) || y.getIri().equals(id)).toList();
                     x.setCollection(filtered);

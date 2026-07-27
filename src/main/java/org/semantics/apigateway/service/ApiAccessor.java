@@ -2,6 +2,7 @@ package org.semantics.apigateway.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import org.semantics.apigateway.config.EndpointParameterMapping;
 import org.semantics.apigateway.model.responses.ApiResponse;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Setter
 @AllArgsConstructor
@@ -46,15 +47,15 @@ public class ApiAccessor {
 
     @Async
     public CompletableFuture<Map<String, ApiResponse>> get(long timeoutMillis) {
-        return get(timeoutMillis, "");
+        return get(timeoutMillis, Map.of());
     }
 
     @Async
-    public CompletableFuture<Map<String, ApiResponse>> get(long timeoutMillis, String... query) {
+    public CompletableFuture<Map<String, ApiResponse>> get(long timeoutMillis, Map<RequestParameter, String> queryParams) {
         ForkJoinPool customThreadPool = new ForkJoinPool(Math.max(this.urls.size(), 1));
 
         List<CompletableFuture<Map.Entry<String, ApiResponse>>> futures = this.urls.entrySet().stream()
-                .map(config -> CompletableFuture.supplyAsync(() -> call(config.getKey(), config.getValue(), query), customThreadPool)
+                .map(config -> CompletableFuture.supplyAsync(() -> call(config.getKey(), config.getValue(), queryParams), customThreadPool)
                         .thenApply(response -> Map.entry(config.getKey(), response))
                 )
                 .toList();
@@ -73,15 +74,15 @@ public class ApiAccessor {
     }
 
 
-    public ApiResponse call(String url, UrlConfig urlConfig, String... query) {
+    public ApiResponse call(String url, UrlConfig urlConfig, Map<RequestParameter, String> queryParams) {
         ApiResponse result = new ApiResponse();
         String fullUrl = url;
         result.setUrl(url);
         try {
-            fullUrl = constructUrl(url, urlConfig, query);
+            fullUrl = constructUrl(url, urlConfig, queryParams);
 
             if (cacheService.exists(fullUrl) && cacheEnabled) {
-                logger.info("Cached result for request URL: {} and query parameters: {}", url, query);
+                logger.info("Cached result for request URL: {} and query parameters: {}", url, queryParams);
                 return (ApiResponse) cacheService.read(fullUrl);
             }
 
@@ -133,7 +134,7 @@ public class ApiAccessor {
                 } else {
                     result.setResponseBody((Map<String, Object>) response.getBody());
                 }
-                logger.info("Write cache for request URL: {} and query parameters: {}", url, query);
+                logger.info("Write cache for request URL: {} and query parameters: {}", url, queryParams);
                 cacheService.write(fullUrl, result);
                 return result;
             } else {
@@ -146,36 +147,69 @@ public class ApiAccessor {
         }
     }
 
-    private String constructUrl(String url, UrlConfig config, String... query) {
+    private String constructUrl(String url, UrlConfig config, Map<RequestParameter, String> requestParameters) {
         String apikey = config.apikey();
+        
+        // TODO What is the purpose of caseInsensitive?
+        // The places it is explicitly set appear to be completely random.
+        // Wherever it is explicitly set, it is set to false, which is the default value anyway.
         boolean isCaseInSensitive = config.caseInSensitive();
-        List<String> queries = new ArrayList<>(List.of(query));
-
-        if(isCaseInSensitive)
-            queries.set(0, queries.get(0).toUpperCase());
-
-        queries = queries.stream().filter(x -> !x.isEmpty()).collect(Collectors.toList());
         
-        // TODO It is assumed that the last query argument is the pagination offset. This should be handled in a safer way.
+        if(isCaseInSensitive && requestParameters.get(RequestParameter.artefact) != null)
+            requestParameters.put(RequestParameter.query, (requestParameters.get(RequestParameter.artefact)).toUpperCase());
+
         
-        if (!queries.isEmpty()) {
-            try {
-                Integer page = Integer.parseInt(queries.get(queries.size() - 1)) - 1 + config.pagination().getFirst();
-                queries = Stream.concat(queries.stream().limit(queries.size() - 1), Stream.of(page.toString())).collect(Collectors.toList());
-            } catch (NumberFormatException e) {
-                logger.info("Pagination parameter missing for URL {} with query: {}", url, queries);
-            }
+        try {
+            requestParameters.put(RequestParameter.page, "" + (Integer.parseInt(requestParameters.get(RequestParameter.page)) + config.pagination().getFirst()));
+        } catch (NumberFormatException e) {
+            logger.info("Pagination parameter missing for URL {} with query: {}", url, requestParameters);
         }
         
         if (!apikey.isEmpty()) {
-            queries.add(apikey);
+            requestParameters.put(RequestParameter.apiKey, apikey);
         }
 
-        if (queries.isEmpty()) {
+        if (requestParameters.isEmpty()) {
             return url;
         } else {
-            return String.format(url, queries.toArray());
+            return formatUrl(url, config, requestParameters);
         }
-
     }
+    
+    private final static Pattern pathParamPattern = Pattern.compile("\\{.*?}");
+    
+    private String formatUrl(String urlTemplate, UrlConfig config, Map<RequestParameter, String> queryParams) {
+        String url = pathParamPattern.matcher(urlTemplate).replaceAll(match -> {
+            String paramKey = match.group();
+            String paramValue = queryParams.get(RequestParameter.valueOf(paramKey));
+            if (paramValue == null) {
+                logger.error("No value for path parameter '{}' for url {}", paramKey, urlTemplate);
+                return "";
+            }
+            return paramValue;
+        });
+        
+        for (Map.Entry<RequestParameter, EndpointParameterMapping> entry : config.parameterMappings().entrySet()) {
+            RequestParameter key = entry.getKey();
+            EndpointParameterMapping mapping = entry.getValue();
+            String paramValue = queryParams.get(key);
+            if (paramValue != null) {
+                url = appendQueryParam(url, mapping.serializeParameter(paramValue));
+            } else if (!mapping.isOptional()) {
+                logger.error("No value for query parameter '{}' for url {}", key, urlTemplate);
+            }
+        }
+        
+        return url;
+    }
+    
+    private String appendQueryParam(String url, String param) {
+        if (url.contains("?")) {
+            url = url + "&" + param;
+        } else  {
+            url = url + "?" + param;
+        }
+        return url;
+    }
+    
 }

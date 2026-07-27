@@ -16,7 +16,14 @@ models:
 
 endpoints:
   search:
-    path: /search?query=%s*&lang=en&fields=scopeNote
+    path: /search?lang=en&fields=scopeNote
+    parameters:
+      query:
+        name: query
+        type: stringAsterisk
+      childrenOf:
+        name: children
+        type: string
     responseMapping:
       nestedJson: results
       <<: *term
@@ -33,12 +40,23 @@ endpoints:
       descriptions: title
 
   concepts:
-    path: /agrovoc/label?acronym=%s
+    path: /agrovoc/label
+    parameters:
+      artefact:
+        name: acronym
+        type: string
     responseMapping:
       <<: *term
 
   concept_details:
-    path: /agrovoc/label?acronym=%s&uri=%s
+    path: /agrovoc/label
+    parameters:
+      artefact:
+        name: acronym
+        type: string
+      resourceUri:
+        name: uri
+        type: string
     responseMapping:
       <<: *term
 
@@ -53,7 +71,7 @@ endpoints:
       shortForm: id
 
   concepts_roots:
-    path: /%s/topConcepts?lang=en
+    path: /{artefact}/topConcepts?lang=en
     caseInsensitive: false
     responseMapping:
       nestedJson: topconcepts
@@ -61,7 +79,11 @@ endpoints:
       hasChildren: hasChildren
 
   concepts_children:
-    path: /%s/children?uri=%s&lang=en
+    path: /{artefact}/children?lang=en
+    parameters:
+      resourceUri:
+        name: uri
+        type: string
     caseInsensitive: false
     responseMapping:
       nestedJson: narrower
