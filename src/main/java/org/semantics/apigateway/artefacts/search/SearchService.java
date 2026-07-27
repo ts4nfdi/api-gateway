@@ -16,6 +16,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +60,7 @@ public class SearchService extends AbstractEndpointService {
         accessor = applyCollection(accessor, collection, endpoint);
         
         try {
-            return accessor.get(params.getTimeout(), Map.of(RequestParameter.query, query))
+            return accessor.get(params.getTimeout(), new HashMap<>(Map.of(RequestParameter.query, query)))
                     .thenApply(data -> this.transformApiResponses(data, endpoint))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
@@ -99,12 +100,12 @@ public class SearchService extends AbstractEndpointService {
         
         // TODO add ontology parameter as soon as https://github.com/ts4nfdi/api-gateway/issues/123 has been resolved.
         
-        Map<RequestParameter, String> requestParameters = Map.of(
+        Map<RequestParameter, String> requestParameters = new HashMap<>(Map.of(
                 RequestParameter.artefact, artifactId,
                 RequestParameter.query, query,
                 RequestParameter.size, "" + size,
                 RequestParameter.offset, "" + offset
-        );
+        ));
         
         try {
             return accessor.get(params.getTimeout(), requestParameters)

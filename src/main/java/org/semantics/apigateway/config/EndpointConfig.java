@@ -18,6 +18,6 @@ import java.util.Map;
 public class EndpointConfig {
     private String path;
     private Map<String, String> responseMapping;
-    private Map<RequestParameter, EndpointParameterMapping> parameters;
+    private Map<RequestParameter, EndpointParameterMapping> parameters = Map.of();
     private boolean caseInsensitive = true;
 }

@@ -47,7 +47,7 @@ public class ApiAccessor {
 
     @Async
     public CompletableFuture<Map<String, ApiResponse>> get(long timeoutMillis) {
-        return get(timeoutMillis, Map.of());
+        return get(timeoutMillis, new HashMap<>());
     }
 
     @Async
@@ -150,17 +150,13 @@ public class ApiAccessor {
     private String constructUrl(String url, UrlConfig config, Map<RequestParameter, String> requestParameters) {
         String apikey = config.apikey();
         
-        // TODO What is the purpose of caseInsensitive?
-        // The places it is explicitly set appear to be completely random.
-        // Wherever it is explicitly set, it is set to false, which is the default value anyway.
-        boolean isCaseInSensitive = config.caseInSensitive();
+        boolean isCaseInsensitive = config.caseInSensitive();
         
-        if(isCaseInSensitive && requestParameters.get(RequestParameter.artefact) != null)
+        if(isCaseInsensitive && requestParameters.get(RequestParameter.artefact) != null)
             requestParameters.put(RequestParameter.query, (requestParameters.get(RequestParameter.artefact)).toUpperCase());
-
         
         try {
-            requestParameters.put(RequestParameter.page, "" + (Integer.parseInt(requestParameters.get(RequestParameter.page)) + config.pagination().getFirst()));
+            requestParameters.put(RequestParameter.page, "" + (Integer.parseInt(Optional.ofNullable(requestParameters.get(RequestParameter.page)).orElse("0")) + config.pagination().getFirst()));
         } catch (NumberFormatException e) {
             logger.info("Pagination parameter missing for URL {} with query: {}", url, requestParameters);
         }
@@ -176,11 +172,11 @@ public class ApiAccessor {
         }
     }
     
-    private final static Pattern pathParamPattern = Pattern.compile("\\{.*?}");
+    private final static Pattern pathParamPattern = Pattern.compile("\\{(.*?)}");
     
     private String formatUrl(String urlTemplate, UrlConfig config, Map<RequestParameter, String> queryParams) {
         String url = pathParamPattern.matcher(urlTemplate).replaceAll(match -> {
-            String paramKey = match.group();
+            String paramKey = match.group(1);
             String paramValue = queryParams.get(RequestParameter.valueOf(paramKey));
             if (paramValue == null) {
                 logger.error("No value for path parameter '{}' for url {}", paramKey, urlTemplate);

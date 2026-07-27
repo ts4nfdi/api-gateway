@@ -488,11 +488,15 @@ public abstract class AbstractEndpointService {
     private List<TransformedApiResponse> filterById
             (List<TransformedApiResponse> apiResponses, Map<RequestParameter, String> ids) {
 
-        String id = ids.get(RequestParameter.resourceUri);
+        String resourceUri = ids.get(RequestParameter.resourceUri);
+        String artefactId = ids.get(RequestParameter.artefact);
         
-        if (id == null) {
+        if (artefactId == null && resourceUri == null
+        || artefactId != null && resourceUri != null) {
             return apiResponses;
         }
+        
+        String id = artefactId == null ? resourceUri : artefactId;
         
         return apiResponses.stream().map(x -> {
                     List<AggregatedResourceBody> filtered = x.getCollection().stream().filter(y -> y.getShortForm().equalsIgnoreCase(id) || y.getIri().equals(id)).toList();

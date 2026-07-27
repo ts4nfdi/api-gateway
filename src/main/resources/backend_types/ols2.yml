@@ -34,15 +34,11 @@ models:
 
 endpoints:
   search:
-    path: /entities/search
+    path: /entities
     parameters:
       query:
-        name: q
+        name: search
         type: string
-      childrenOf:
-        name: childrenOf
-        type: repeatedKeyList
-        optional: true
     responseMapping:
       collectionFilter: ontologyId
       nestedJson: elements
