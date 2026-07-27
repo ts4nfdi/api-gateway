@@ -82,7 +82,7 @@ public class ArtefactsDataService extends AbstractEndpointService {
 
         return CompletableFuture.allOf(termsF, propsF, indivF)
                 .thenApply(v -> mergeAggregatedResponses(termsF.join(), propsF.join(), indivF.join()))
-                .thenApply(merged -> transformForTargetDbSchema(merged, targetDbSchema, "entities", true));
+                .thenApply(merged -> transformForTargetDbSchema(merged, targetDbSchema, "concepts", true));
     }
 
     public Object getArtefactEntity(String id, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
@@ -98,7 +98,7 @@ public class ArtefactsDataService extends AbstractEndpointService {
         try {
             return CompletableFuture.allOf(conceptF, propF, indivF)
                     .thenApply(v -> mergeAggregatedResponses(conceptF.join(), propF.join(), indivF.join()))
-                    .thenApply(merged -> transformForTargetDbSchema(merged, targetDbSchema, "entity_details", false))
+                    .thenApply(merged -> transformForTargetDbSchema(merged, targetDbSchema, "concept_details", false))
                     .get();
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);
