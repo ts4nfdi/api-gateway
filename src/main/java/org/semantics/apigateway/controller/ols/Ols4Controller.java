@@ -1,5 +1,6 @@
 package org.semantics.apigateway.controller.ols;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.ws.rs.QueryParam;
 import org.apache.commons.lang3.NotImplementedException;
@@ -15,6 +16,7 @@ import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,13 +79,11 @@ public class Ols4Controller {
     throw new NotImplementedException();
   }
   
+  @Hidden
   @CrossOrigin
   @GetMapping("/individuals")
   public Object getAllIndividualsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    if (iri != null) {
-      return this.artefactsDataService.getArtefactIndividuals(iri, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    }
-    return this.artefactsDataService.getArtefactIndividuals("", params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    return HttpStatus.NOT_FOUND;
   }
   
   @CrossOrigin
@@ -106,14 +106,15 @@ public class Ols4Controller {
     throw new NotImplementedException();
   }
   
+  @Hidden
   @CrossOrigin
   @GetMapping("/entities")
   public Object getAllEntitiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    // TODO Is there a way to run a federated query over all endpoints and their respective artifacts for all entities? Improbable, solely for performance reasons.
-    if (iri != null) {
-      return this.artefactsDataService.getArtefactTerms(iri, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    }
-    return this.artefactsDataService.getArtefactTerms("", params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    // Disabled as global retrieval of entities (i.e., without specifying an associated semantic artefact) is not a
+    // feature of the API gateway.
+    // Might be revisited if a use case for it arises.
+    // See discussion at https://github.com/ts4nfdi/api-gateway/issues/198
+    return HttpStatus.NOT_FOUND;
   }
   
   @CrossOrigin
@@ -178,6 +179,7 @@ public class Ols4Controller {
     throw new NotImplementedException();
   }
   
+  @Hidden
   @CrossOrigin
   @GetMapping("/classes")
   public Object getAllClassesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
@@ -187,13 +189,11 @@ public class Ols4Controller {
     return this.artefactsDataService.getArtefactTerms("", params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
   }
   
+  @Hidden
   @CrossOrigin
   @GetMapping("/properties")
   public Object getAllPropertiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    if (iri != null) {
-      return this.artefactsDataService.getArtefactProperties(iri, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    }
-    return this.artefactsDataService.getArtefactProperties("", params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    return HttpStatus.NOT_FOUND;
   }
   
   @CrossOrigin
@@ -212,16 +212,17 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties/{property}/children")
-  public Object getPropertyChildenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+  public Object getPropertyChildrenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     return treeService.getChildren(onto, property, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties/{property}/ancestors")
-  public Object getProperyAncestorsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+  public Object getPropertyAncestorsInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable) {
     throw new NotImplementedException();
   }
   
+  @Hidden
   @CrossOrigin
   @GetMapping("/defined-fields")
   public Object getDefinedFieldsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params) {
