@@ -40,7 +40,7 @@ endpoints:
       descriptions: title
 
   concepts:
-    path: /agrovoc/label
+    path: /{artefact}/label
     parameters:
       artefact:
         name: acronym
@@ -49,7 +49,7 @@ endpoints:
       <<: *term
 
   concept_details:
-    path: /agrovoc/label
+    path: /{artefact}/label
     parameters:
       artefact:
         name: acronym
@@ -61,7 +61,7 @@ endpoints:
       <<: *term
 
   resource_details:
-    path: /agrovoc
+    path: /{artefact}
     responseMapping:
       label: id
       iri: conceptschemes->uri|uri
