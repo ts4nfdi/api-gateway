@@ -153,7 +153,7 @@ public class ApiAccessor {
         boolean isCaseInsensitive = config.caseInSensitive();
         
         if(isCaseInsensitive && requestParameters.get(RequestParameter.artefact) != null)
-            requestParameters.put(RequestParameter.query, (requestParameters.get(RequestParameter.artefact)).toUpperCase());
+            requestParameters.put(RequestParameter.artefact, (requestParameters.get(RequestParameter.artefact)).toUpperCase());
         
         try {
             requestParameters.put(RequestParameter.page, "" + (Integer.parseInt(Optional.ofNullable(requestParameters.get(RequestParameter.page)).orElse("0")) + config.pagination().getFirst()));
