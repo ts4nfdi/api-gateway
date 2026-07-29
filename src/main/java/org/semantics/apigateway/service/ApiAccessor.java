@@ -132,7 +132,13 @@ public class ApiAccessor {
                     out.put("collection", response.getBody());
                     result.setResponseBody(out);
                 } else {
-                    result.setResponseBody((Map<String, Object>) response.getBody());
+                    Map<String, Object> resultMap = (Map<String, Object>) response.getBody();
+                    if (resultMap.containsKey("error")) {
+                        logger.error("Backend returned an error message processing the request {}: {}", fullUrl, resultMap.get("error"));
+                    } else {
+                        result.setResponseBody(resultMap);
+                    }
+                    return result;
                 }
                 logger.info("Write cache for request URL: {} and query parameters: {}", url, queryParams);
                 cacheService.write(fullUrl, result);
