@@ -1,6 +1,13 @@
 package org.semantics.apigateway.service;
 
+import com.jayway.jsonpath.JsonPath;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -33,6 +40,11 @@ import java.util.stream.Collectors;
  * </pre>
  */
 public class MappingTransformer {
+    
+    private static final Logger logger = LoggerFactory.getLogger(MappingTransformer.class);
+    
+    private final static Pattern pathParamPattern = Pattern.compile("\\{(.*?)}");
+    
     /**
      * Retrieves a value from a nested map or list structure based on a flexible key path.
      *
@@ -40,10 +52,26 @@ public class MappingTransformer {
      * data.put("user", Map.of("name", "John Doe"));
      * Object value = itemValueGetter(data, "user->name"); // Returns "John Doe"
      */
-    public static Object itemValueGetter(Map<String, Object> item, String key) {
-        if (key == null) {
+    public static Object itemValueGetter(Map<String, Object> item, String keyWithPlaceholders, Map<RequestParameter, String> originalQueryParameters) {
+        if (keyWithPlaceholders == null) {
             return null;
         }
+        
+        String key = pathParamPattern.matcher(keyWithPlaceholders).replaceAll(match -> {
+            String paramKey = match.group(1);
+            String paramValue = originalQueryParameters.get(RequestParameter.valueOf(paramKey));
+            if (paramValue == null) {
+                logger.error("No value for path parameter '{}' for mapping key {}", paramKey, keyWithPlaceholders);
+                return "";
+            }
+            return URLDecoder.decode(paramValue, StandardCharsets.UTF_8);
+        });
+        
+        if (key.startsWith("$")) {
+            // This is a JsonPath key
+            return JsonPath.read(item, key);
+        }
+        
         String[] options = key.split("\\|");
         // Use findFirst to return the first non-null value found
         return Arrays.stream(options)
@@ -75,14 +103,14 @@ public class MappingTransformer {
                 .findFirst()
                 .orElse(null);
     }
-
-    /**
-     * Retrieves a value from a list based on an index or key.
-     *
-     * @param key  The index or key to retrieve
-     * @param list The source list
-     * @return The value at the specified index or null
-     */
+    
+        /**
+         * Retrieves a value from a list based on an index or key.
+         *
+         * @param key  The index or key to retrieve
+         * @param list The source list
+         * @return The value at the specified index or null
+         */
     public static List<String> listItemValueGetter(String key, Object list) {
         if (!(list instanceof List)) {
             return null;
@@ -199,12 +227,13 @@ public class MappingTransformer {
      */
     public static Map<String, Object> transform(
             Map<String, Object> source,
-            Map<String, String> mappings
+            Map<String, String> mappings,
+            Map<RequestParameter, String> originalQueryParameters
     ) {
         return mappings.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
-                        entry -> itemValueGetter(source, entry.getValue()),
+                        entry -> itemValueGetter(source, entry.getValue(), originalQueryParameters),
                         (v1, v2) -> v1,  // In case of duplicate keys, keep first value
                         HashMap::new
                 ));

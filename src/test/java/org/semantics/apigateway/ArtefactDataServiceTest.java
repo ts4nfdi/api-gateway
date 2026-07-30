@@ -32,12 +32,12 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         mockApiAccessor("artefact_term", artefactsService.getAccessor());
         CommonRequestParams params = new CommonRequestParams();
         params.setDatabase("skosmos");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactTerm("AGROVOC", "http://aims.fao.org/aos/agrovoc/c_330834", params, apiAccessor, null);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactTerm("agrovoc", "http://aims.fao.org/aos/agrovoc/c_330834", params, apiAccessor, null);
         assertMapEquality(response, createSkosmosAgrovocTerm());
 
         params = new CommonRequestParams();
         params.setDatabase("ontoportal");
-        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("AGROVOC", "http://aims.fao.org/aos/agrovoc/c_330834", params, apiAccessor, null);
+        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("agrovoc", "http://aims.fao.org/aos/agrovoc/c_330834", params, apiAccessor, null);
         assertMapEquality(response, createOntoPortalAgrovocTermFixture());
 
         params = new CommonRequestParams();
@@ -327,13 +327,13 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("source", "https://agrovoc.fao.org/browse/rest/v1");
         fixture.put("source_name", "agrovoc");
         fixture.put("synonyms", Collections.emptyList());
-        fixture.put("descriptions", Collections.emptyList());
+        fixture.put("descriptions", List.of("A sequence of actions organized towards a specific goal."));
         fixture.put("created", null);
         fixture.put("modified", null);
         fixture.put("obsolete", false);
         fixture.put("source_url", null);
         fixture.put("version", null);
-        fixture.put("ontology_iri", "https://agrovoc.fao.org/browse/rest/v1");
+        fixture.put("ontology_iri", "http://aims.fao.org/aos/agrovoc");
         fixture.put("short_form", "c_330834");
         fixture.put("ontology", "agrovoc");
         return fixture;

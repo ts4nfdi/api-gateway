@@ -13,6 +13,14 @@ models:
     ontology: vocab
     type: type
     hasChildren: hasDirectChildren
+  graph: &graph
+    label: "$.graph[?(@.uri=='{resourceUri}')].prefLabel[?(@.lang=='en')].value"
+    iri: "$.graph[?(@.uri=='{resourceUri}')].uri"
+    synonyms: "$.graph[?(@.uri=='{resourceUri}')].altLabel[?(@.lang=='en')].value"
+    descriptions: "$.graph[?(@.uri in $.graph[?(@.uri=='{resourceUri}')]['skos:definition'][*].uri)]['http://www.w3.org/1999/02/22-rdf-syntax-ns#value'][?(@.lang=='en')].value"
+    ontologyIri: "$.graph[?(@.uri=='{resourceUri}')].inScheme.uri"
+    type: "$.graph[?(@.uri=='{resourceUri}')].type"
+    hasChildren: "$.graph[?(@.uri=='{resourceUri}')].narrower"
 
 endpoints:
   search:
@@ -50,17 +58,17 @@ endpoints:
       <<: *term
 
   concept_details:
-    path: /{artefact}/label
+    path: /{artefact}/data?format=application%2Fld%2Bjson
     caseInsensitive: false
     parameters:
       artefact:
-        name: acronym
+        name: vocid
         type: string
       resourceUri:
         name: uri
         type: string
     responseMapping:
-      <<: *term
+      <<: *graph
 
   resource_details:
     path: /{artefact}
