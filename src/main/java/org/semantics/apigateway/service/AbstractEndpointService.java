@@ -406,32 +406,8 @@ public abstract class AbstractEndpointService {
         return a;
     }
 
-
-    protected Object paginatedList(String acronym, String uri, String endpoint, CommonRequestParams params,
+    protected CompletableFuture<AggregatedApiResponse> paginatedListBase(String acronym, String uri, String endpoint, CommonRequestParams params,
                                    Integer page, ApiAccessor accessor, User currentUser) {
-
-        String database = params.getDatabase();
-        TargetDbSchema targetDbSchema = params.getTargetDbSchema();
-        accessor = initAccessor(database, endpoint, accessor);
-        accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
-        List<String> ids = getRequestIds(accessor, acronym, uri);
-        ids.add(page.toString());
-
-        return accessor.get(params.getTimeout(), ids.toArray(new String[0]))
-                .thenApply(data -> this.transformApiResponses(data, endpoint, true))
-                .thenApply(data -> selectResultsByDatabase(data, database))
-                .thenApply(x -> paginate(x, params, page))
-                .thenApply(x -> transformJsonLd(x, params))
-                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, true));
-    }
-
-    protected Object paginatedList(String id, String endpoint, CommonRequestParams params, Integer
-            page, ApiAccessor accessor,  User currentUser) {
-        return paginatedList(id, null, endpoint, params, page, accessor, currentUser);
-    }
-
-    protected CompletableFuture<AggregatedApiResponse> paginatedListRaw(String acronym, String uri, String endpoint,
-                                                                        CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
 
         String database = params.getDatabase();
         accessor = initAccessor(database, endpoint, accessor);
@@ -444,6 +420,26 @@ public abstract class AbstractEndpointService {
                 .thenApply(data -> selectResultsByDatabase(data, database))
                 .thenApply(x -> paginate(x, params, page))
                 .thenApply(x -> transformJsonLd(x, params));
+    }
+
+    protected Object paginatedList(String acronym, String uri, String endpoint, CommonRequestParams params,
+                                   Integer page, ApiAccessor accessor, User currentUser) {
+
+        TargetDbSchema targetDbSchema = params.getTargetDbSchema();
+
+        return paginatedListBase(acronym, uri, endpoint, params, page, accessor, currentUser)
+                .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, true));
+    }
+
+    protected Object paginatedList(String id, String endpoint, CommonRequestParams params, Integer
+            page, ApiAccessor accessor,  User currentUser) {
+        return paginatedList(id, null, endpoint, params, page, accessor, currentUser);
+    }
+
+    protected CompletableFuture<AggregatedApiResponse> paginatedListRaw(String acronym, String uri, String endpoint,
+                                                                        CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
+
+        return paginatedListBase(acronym, uri, endpoint, params, page, accessor, currentUser);
     }
 
     protected CompletableFuture<AggregatedApiResponse> findAll(String acronym, String uri, String endpoint, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
@@ -475,30 +471,8 @@ public abstract class AbstractEndpointService {
         return ids;
     }
 
-    protected AggregatedApiResponse findUri(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor
+    protected CompletableFuture<AggregatedApiResponse> findUriBase(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor
             accessor,  User currentUser) {
-        String database = params.getDatabase();
-        TargetDbSchema targetDbSchema = params.getTargetDbSchema();
-        accessor = initAccessor(database, endpoint, accessor);
-        accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
-        List<String> ids = getRequestIds(accessor, id, uri);
-        try {
-            return accessor.get(params.getTimeout(), ids.toArray(new String[0]))
-                    .thenApply(data -> this.transformApiResponses(data, endpoint))
-                    .thenApply(x -> filterById(x, ids))
-                    .thenApply(data -> selectResultsByDatabase(data, database))
-                    .thenApply(x -> singleResponse(x, params))
-                    .thenApply(x -> transformJsonLd(x, params))
-                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, false))
-                    .get();
-        } catch (InterruptedException | ExecutionException e) {
-            logger.error(e.getMessage(), e);
-            return null;
-        }
-    }
-
-    protected CompletableFuture<AggregatedApiResponse> findUriRaw(String id, String uri, String endpoint,
-                                                                  CommonRequestParams params, ApiAccessor accessor, User currentUser) {
         String database = params.getDatabase();
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
@@ -510,6 +484,25 @@ public abstract class AbstractEndpointService {
                 .thenApply(data -> selectResultsByDatabase(data, database))
                 .thenApply(x -> singleResponse(x, params))
                 .thenApply(x -> transformJsonLd(x, params));
+    }
+
+    protected AggregatedApiResponse findUri(String id, String uri, String endpoint, CommonRequestParams params, ApiAccessor
+            accessor,  User currentUser) {
+        TargetDbSchema targetDbSchema = params.getTargetDbSchema();
+        try {
+            return findUriBase(id, uri, endpoint, params, accessor, currentUser)
+                    .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, false))
+                    .get();
+        } catch (InterruptedException | ExecutionException e) {
+            logger.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+    protected CompletableFuture<AggregatedApiResponse> findUriRaw(String id, String uri, String endpoint,
+                                                                  CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+
+        return findUriBase(id, uri, endpoint, params, accessor, currentUser);
     }
 
     private List<TransformedApiResponse> filterById
