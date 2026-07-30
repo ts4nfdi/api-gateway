@@ -34,7 +34,11 @@ models:
 
 endpoints:
   search:
-    path: /entities?search=%s
+    path: /entities
+    parameters:
+      query:
+        name: search
+        type: string
     responseMapping:
       collectionFilter: ontologyId
       nestedJson: elements
@@ -49,7 +53,12 @@ endpoints:
       <<: *artefact
 
   concepts:
-    path: /ontologies/%s/classes?page=%s&size=50
+    path: /ontologies/{artefact}/classes?size=50
+    parameters:
+      page:
+        name: page
+        type: string
+        optional: true
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -57,7 +66,12 @@ endpoints:
       <<: *term
 
   properties:
-    path: /ontologies/%s/properties?page=%s&size=50
+    path: /ontologies/{artefact}/properties?size=50
+    parameters:
+      page:
+        name: page
+        type: string
+        optional: true
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -65,26 +79,39 @@ endpoints:
       <<: *term
 
   concept_details:
-    path: /ontologies/%s/classes?iri=%s
+    path: /ontologies/{artefact}/classes
+    parameters:
+      resourceUri:
+        name: iri
+        type: string
     responseMapping:
       nestedJson: elements
       <<: *term
 
   property_details:
-    path: /ontologies/%s/properties?iri=%s
+    path: /ontologies/{artefact}/properties
+    parameters:
+      resourceUri:
+        name: iri
+        type: string
     responseMapping:
       nestedJson: elements
       <<: *term
 
   resource_details:
-    path: /ontologies/%s
+    path: /ontologies/{artefact}
     responseMapping:
       nestedJson: ""
       key: ""
       <<: *artefact
 
   individuals:
-    path: /ontologies/%s/individuals?page=%s&size=50
+    path: /ontologies/{artefact}/individuals?size=50
+    parameters:
+      page:
+        name: page
+        type: string
+        optional: true
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -92,20 +119,24 @@ endpoints:
       <<: *term
 
   individual_details:
-    path: /ontologies/%s/individuals?iri=%s
+    path: /ontologies/{artefact}/individuals
+    parameters:
+      resourceUri:
+        name: iri
+        type: string
     responseMapping:
       nestedJson: elements
       <<: *term
 
   concepts_roots:
-    path: /ontologies/%s/classes?hasDirectParents=false&size=1000&lang=en&includeObsoleteEntities=false
+    path: /ontologies/{artefact}/classes?hasDirectParents=false&size=1000&lang=en&includeObsoleteEntities=false
     responseMapping:
       nestedJson: elements
       <<: *term
       hasChildren: hasDirectChildren
 
   concepts_children:
-    path: /ontologies/%s/classes/%s/hierarchicalChildren?size=1000&lang=en&includeObsoleteEntities=false
+    path: /ontologies/{artefact}/classes/{resourceUri}/hierarchicalChildren?size=1000&lang=en&includeObsoleteEntities=false
     caseInsensitive: false
     responseMapping:
       nestedJson: elements
@@ -115,7 +146,7 @@ endpoints:
       hasChildren: hasDirectChildren
 
   concept_tree:
-    path: /ontologies/%s/classes/%s/hierarchicalAncestors?page=0&size=10000&lang=en
+    path: /ontologies/{artefact}/classes/{resourceUri}/hierarchicalAncestors?page=0&size=10000&lang=en
     caseInsensitive: false
     responseMapping:
       nestedJson: elements
