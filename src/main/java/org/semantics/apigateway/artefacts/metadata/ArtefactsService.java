@@ -14,6 +14,7 @@ import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -98,7 +99,7 @@ public class ArtefactsService extends AbstractEndpointService {
         accessor = applyCollection(accessor, collection, endpoint);
 
         return accessor.get(params.getTimeout())
-                .thenApply(data -> this.transformApiResponses(data, endpoint))
+                .thenApply(data -> this.transformApiResponses(data, endpoint, new HashMap<>()))
                 .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                 .thenApply(data -> filterOutArtefactsWithoutProperIri(data, params))
                 .thenApply(data -> filterOutByCollection(collection, data));

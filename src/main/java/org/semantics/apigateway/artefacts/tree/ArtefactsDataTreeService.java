@@ -8,19 +8,13 @@ import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 import org.semantics.apigateway.model.user.User;
-import org.semantics.apigateway.service.AbstractEndpointService;
-import org.semantics.apigateway.service.ApiAccessor;
-import org.semantics.apigateway.service.JsonLdTransform;
-import org.semantics.apigateway.service.ResponseTransformerService;
+import org.semantics.apigateway.service.*;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -71,7 +65,7 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
 
         return findAll(artefactId, finalUri, endpoint, params, accessor, currentUser)
                 .thenApply(data -> databaseConfig.isOls() ? buildOlsTree(data, artefactId, resourceUri, params, currentUser) : data)
-                .thenApply(data -> databaseConfig.isOntoPortal() ? transformAllNestedChildren(data, databaseConfig, endpoint) : data);
+                .thenApply(data -> databaseConfig.isOntoPortal() ? transformAllNestedChildren(data, databaseConfig, endpoint, new HashMap<>()) : data);
     }
 
     private AggregatedApiResponse buildOlsTree(AggregatedApiResponse data, String artefactId, String resourceUri, CommonRequestParams params, User currentUser) {
@@ -92,17 +86,17 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
         return data;
     }
 
-    private AggregatedApiResponse transformAllNestedChildren(AggregatedApiResponse data, DatabaseConfig databaseConfig, String endpoint) {
+    private AggregatedApiResponse transformAllNestedChildren(AggregatedApiResponse data, DatabaseConfig databaseConfig, String endpoint, Map<RequestParameter, String> originalQueryParameters) {
         List<Map<String, Object>> items = data.getCollection();
         items.forEach(item -> {
-            List<Map<String, Object>> transformedChildren = transformNestedChildren((List<Map<String, Object>>) item.get("children"), databaseConfig, endpoint);
+            List<Map<String, Object>> transformedChildren = transformNestedChildren((List<Map<String, Object>>) item.get("children"), databaseConfig, endpoint, originalQueryParameters);
             item.put("children", transformedChildren);
         });
         data.setCollection(items);
         return data;
     }
 
-    private List<Map<String, Object>> transformNestedChildren(List<Map<String, Object>> children, DatabaseConfig databaseConfig, String endpoint) {
+    private List<Map<String, Object>> transformNestedChildren(List<Map<String, Object>> children, DatabaseConfig databaseConfig, String endpoint, Map<RequestParameter, String> originalQueryParameters) {
         if (children == null || children.isEmpty()) {
             return Collections.emptyList();
         }
@@ -110,13 +104,13 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
 
         children.forEach(child -> {
 
-            List<AggregatedResourceBody> transformedData = aggregatorTransformer.transformData(child, databaseConfig, endpoint);
+            List<AggregatedResourceBody> transformedData = aggregatorTransformer.transformData(child, databaseConfig, endpoint, originalQueryParameters);
             if (transformedData == null || transformedData.isEmpty()) {
                 return;
             }
 
             Map<String, Object> transformedChild = transformedData.get(0).toMap(false, true);
-            transformedChild.put("children", transformNestedChildren((List<Map<String, Object>>) transformedChild.get("children"), databaseConfig, endpoint));
+            transformedChild.put("children", transformNestedChildren((List<Map<String, Object>>) transformedChild.get("children"), databaseConfig, endpoint,  originalQueryParameters));
             transformedChildren.add(transformedChild);
         });
 
