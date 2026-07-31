@@ -115,6 +115,27 @@ jobs:
             --namespace='ts4nfdi' \
             --dry-run=client -o yaml | kubectl apply -f -
 
+      - name: Create Kubernetes configmap for MATOMO_ENABLED
+        run: |
+          kubectl create configmap matomo-enabled \
+            --from-literal=MATOMO_ENABLED=${{ vars.MATOMO_ENABLED }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create Kubernetes configmap for MATOMO_URL
+        run: |
+          kubectl create configmap matomo-url \
+            --from-literal=MATOMO_URL=${{ vars.MATOMO_URL }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create Kubernetes configmap for MATOMO_SITE_ID
+        run: |
+          kubectl create configmap matomo-site-id \
+            --from-literal=MATOMO_SITE_ID=${{ vars.MATOMO_SITE_ID }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
       - name: Deploy to Kubernetes
         uses: stefanprodan/kube-tools@v1
         with:
