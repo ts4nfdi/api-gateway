@@ -182,10 +182,7 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/classes")
   public Object getAllClassesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @ParameterObject @PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(name = "iri", required = false) String iri) {
-    if (iri != null) {
-      return this.artefactsDataService.getArtefactTerms(iri, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    }
-    return this.artefactsDataService.getArtefactTerms("", params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    return HttpStatus.NOT_FOUND;
   }
   
   @Hidden
