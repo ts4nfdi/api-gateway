@@ -41,6 +41,7 @@ endpoints:
 
   concepts:
     path: /{artefact}/label
+    caseInsensitive: false
     parameters:
       artefact:
         name: acronym
@@ -50,6 +51,7 @@ endpoints:
 
   concept_details:
     path: /{artefact}/label
+    caseInsensitive: false
     parameters:
       artefact:
         name: acronym
@@ -62,6 +64,7 @@ endpoints:
 
   resource_details:
     path: /{artefact}
+    caseInsensitive: false
     responseMapping:
       label: id
       iri: conceptschemes->uri|uri
