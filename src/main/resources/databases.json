@@ -56,6 +56,11 @@
       "url": "https://agrovoc.fao.org/browse/rest/v1"
     },
     {
+      "type": "skosmos",
+      "name": "zbmed-skosmos",
+      "url": "https://semanticlookup.zbmed.de/skosmos/rest/v1"
+    },
+    {
       "type": "gnd",
       "name": "gnd",
       "url": "https://lobid.org"
