@@ -4,31 +4,31 @@
       "type": "ontoportal",
       "name": "agroportal",
       "url": "https://data.agroportal.eu",
-      "apiKey": "1de0a270-29c5-4dda-b043-7c3580628cd5"
+      "apiKey": "${AGROPORTAL_API_KEY}"
     },
     {
       "type": "ontoportal",
       "name": "earthportal",
       "url": "https://data.earthportal.eu",
-      "apiKey": "c9147279-954f-41bd-b068-da9b0c441288"
+      "apiKey": "${EARTHPORTAL_API_KEY}"
     },
     {
       "type": "ontoportal",
       "name": "biodivportal",
       "url": "https://data.biodivportal.gfbio.org",
-      "apiKey": "47a57aa3-7b54-4f34-b695-dbb5f5b7363e"
+      "apiKey": "${BIODIVPORTAL_API_KEY}"
     },
     {
       "type": "ontoportal",
       "name": "ecoportal",
       "url": "https://data.ecoportal.lifewatch.eu",
-      "apiKey": "43a437ba-a437-4bf0-affd-ab520e584719"
+      "apiKey": "${ECOPORTAL_API_KEY}"
     },
     {
       "type": "ontoportal",
       "name": "lovportal",
       "url": "https://data.lovportal.lirmm.fr",
-      "apiKey": "13b97ee8-cdfb-4147-9260-af66e84b4afa"
+      "apiKey": "${LOVPORTAL_API_KEY}"
     },
     {
       "type": "ols2",
