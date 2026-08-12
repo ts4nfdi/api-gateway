@@ -87,7 +87,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         mockApiAccessor("artefact_individual", artefactsService.getAccessor());
         CommonRequestParams params = new CommonRequestParams();
         params.setDatabase("ols2");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", new CommonRequestParams(), apiAccessor, null);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", params, apiAccessor, null);
         assertMapEquality(response, createOls2FoodOnInstanceFixture());
 
         params = new CommonRequestParams();
@@ -101,6 +101,27 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         mockApiAccessor("artefact_scheme", artefactsService.getAccessor());
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactScheme("INRAETHES", "http://opendata.inrae.fr/thesaurusINRAE/mt_50", new CommonRequestParams(), apiAccessor, null);
         assertMapEquality(response, createOntoPortalInraeScheme());
+    }
+
+    @Test
+    public void testGetEntity() {
+        mockApiAccessor("artefact_entity", "zbmed", artefactsService.getAccessor(), Map.of(
+                "classes", "class.json",
+                "properties", "property.json",
+                "individuals", "individual.json"));
+        CommonRequestParams params = new CommonRequestParams();
+        params.setDatabase("ols2");
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactEntity("NCIT", "http://purl.obolibrary.org/obo/NCIT_C2985", params, apiAccessor, null);
+        assertMapEquality(response, createOls2NcitEntityFixture());
+    }
+
+    private Map<String, Object> createOls2NcitEntityFixture() {
+        Map<String, Object> element = new HashMap<>();
+        element.put("iri", "http://purl.obolibrary.org/obo/NCIT_C2985");
+        element.put("label", "Diabetes Mellitus");
+        element.put("ontology", "ncit");
+        element.put("short_form", "NCIT_C2985");
+        return element;
     }
 
     private Map<String, Object> createOls2NCBITaxonPropertyFixture() {

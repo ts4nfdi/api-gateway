@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class RegisterRequest {
     String username;
-    String oidcSubjectIdentifier;
+    String id_token;
 }

@@ -38,7 +38,17 @@ models:
 
 endpoints:
   search:
-    path: /gnd/search?q=%s&format=json
+    path: /gnd/search?format=json
+    parameters:
+      query:
+        name: q
+        type: string
+      offset:
+        name: from
+        type: string
+      size:
+        name: size
+        type: string
     responseMapping:
       nestedJson: member
       <<: *searchResult
@@ -54,6 +64,6 @@ endpoints:
 
   concept_details:
     caseInsensitive: false
-    path: /%s/%s.json
+    path: /{artefact}/{resourceUri}.json
     responseMapping:
       <<: *searchResult

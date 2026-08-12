@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.Type;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -275,6 +276,12 @@ public abstract class ApplicationTestAbstract {
         return fixture;
     }
 
+    /**
+     * Mock every configured backend at once, routing by URL host to a single mock file per backend.
+     *
+     * @param key          mock scheme/directory under src/test/resources/mocks
+     * @param apiAccessor  accessor whose RestTemplate is replaced with the mock
+     */
     protected void mockApiAccessor(String key, ApiAccessor apiAccessor) {
         this.apiAccessor = apiAccessor;
         apiAccessor.setRestTemplate(restTemplate);
@@ -317,6 +324,94 @@ public abstract class ApplicationTestAbstract {
                 });
     }
 
+    /**
+     * Mock a single backend host, routing by URL substring to per-endpoint mock files.
+     *
+     * @param key              mock scheme/directory under src/test/resources/mocks
+     * @param hostName         config name of the single backend to mock
+     * @param apiAccessor      accessor whose RestTemplate is replaced with the mock
+     * @param endpointMockFiles map of URL substring (e.g. "classes") to mock file name; supply
+     *                          one, two, or three (any number) to mock only those endpoints.
+     *                          Unmapped endpoints fall through to 404. Iteration order is
+     *                          preserved, so pass a LinkedHashMap if substrings overlap.
+     */
+    protected void mockApiAccessor(String key, String hostName, ApiAccessor apiAccessor,
+                                   Map<String, String> endpointMockFiles) {
+        this.apiAccessor = apiAccessor;
+        apiAccessor.setRestTemplate(restTemplate);
+        this.configs = configurationLoader.getDatabaseConfigs();
+
+        DatabaseConfig matchedConfig = configs.stream()
+                .filter(config -> config.getName().equalsIgnoreCase(hostName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No config found for name: " + hostName));
+
+        String configName = matchedConfig.getName();
+
+        String actualHost;
+        try {
+            actualHost = new URL(matchedConfig.getUrl()).getHost();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Invalid URL in config: " + matchedConfig.getUrl(), e);
+        }
+
+        // Preserve caller-provided ordering so URL substring matching is deterministic
+        Map<String, String> endpointMocks = new LinkedHashMap<>();
+        endpointMockFiles.forEach((endpoint, mockFile) ->
+                endpointMocks.put(endpoint, readMockedResponse(key, configName, mockFile)));
+
+        when(restTemplate.exchange(
+                anyString(),
+                any(HttpMethod.class),
+                any(HttpEntity.class),
+                eq(Object.class)))
+                .thenAnswer(invocation -> {
+                    String url = invocation.getArgument(0, String.class);
+                    String currentHost = new URL(url).getHost();
+
+                    if (!currentHost.equalsIgnoreCase(actualHost)) {
+                        return ResponseEntity.status(404).body(new HashMap<>());
+                    }
+
+                    String matchedEndpoint = endpointMocks.keySet().stream()
+                            .filter(url::contains)
+                            .findFirst()
+                            .orElse(null);
+
+                    if (matchedEndpoint == null) {
+                        logger.info("No mock matched for URL: {}", url);
+                        return ResponseEntity.status(404).body(new HashMap<>());
+                    }
+
+                    String jsonResponse = endpointMocks.get(matchedEndpoint);
+                    Gson gson = new Gson();
+                    Type mapType = new TypeToken<Object>() {}.getType();
+                    Object parsed = gson.fromJson(jsonResponse, mapType);
+
+                    if (parsed instanceof List) {
+                        Map<String, Object> out = new HashMap<>();
+                        out.put("collection", parsed);
+                        return ResponseEntity.status(200).body(out);
+                    } else {
+                        return ResponseEntity.status(200).body((Map<String, Object>) parsed);
+                    }
+                });
+    }
+
+    protected String readMockedResponse(String mockScheme, String name, String mockFileName) {
+        String cleanFileName = mockFileName.endsWith(".json")
+                ? mockFileName.substring(0, mockFileName.length() - ".json".length())
+                : mockFileName;
+        String path = String.format("src/test/resources/mocks/%s/%s/%s.json", mockScheme, name, cleanFileName);
+        try {
+            String jsonResponse = new String(Files.readAllBytes(Paths.get(path)));
+            logger.info("Mocking file: {}", path);
+            return jsonResponse;
+        } catch (Exception e) {
+            logger.info("File: {} not found so not mocking", path);
+            return "{}";
+        }
+    }
 
     protected Map<String, Object> findByIriAndBackendType(List<Map<String, Object>> responseList, String iri, String backendType) {
         return responseList.stream().filter(x -> x.get("iri").equals(iri) && x.get("backend_type").equals(backendType)).findFirst().orElse(null);
