@@ -2,6 +2,7 @@ package org.semantics.apigateway.controller.ols;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.ws.rs.QueryParam;
 import org.apache.commons.lang3.NotImplementedException;
 import org.semantics.apigateway.api.OlsV2Transformer;
 import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
