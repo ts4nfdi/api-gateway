@@ -20,7 +20,7 @@ public class EndpointParameterMapping {
   public enum Type {
     path(x -> x.value),
     string(x -> x.name + "=" + x.value),
-    stringAsterisk(x -> x.name + "*"),
+    stringAsterisk(x -> x.name + "=" + x.value + "*"),
     integer(x -> x.name + "=" + x.value),
     commaList(x -> x.name + "=" + String.join(",", x.value.split(","))),
     pipeList(x -> x.name + "=" + String.join("|", x.value.split(","))),
