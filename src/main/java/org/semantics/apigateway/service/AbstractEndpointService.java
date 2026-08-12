@@ -405,7 +405,7 @@ public abstract class AbstractEndpointService {
         return a;
     }
 
-    protected CompletableFuture<AggregatedApiResponse> paginatedListBase(String acronym, String uri, String endpoint, CommonRequestParams params,
+    protected CompletableFuture<AggregatedApiResponse> paginatedListBase(String artefactId, String resourceUri, String endpoint, CommonRequestParams params,
                                    Integer page, ApiAccessor accessor, User currentUser) {
 
         String database = params.getDatabase();
@@ -479,11 +479,11 @@ public abstract class AbstractEndpointService {
         String database = params.getDatabase();
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
-        List<String> ids = getRequestIds(accessor, id, uri);
+        Map<RequestParameter, String> requestParameters = getRequestIds(accessor, id, uri);
 
-        return accessor.get(params.getTimeout(), ids.toArray(new String[0]))
+        return accessor.get(params.getTimeout(), requestParameters)
                 .thenApply(data -> this.transformApiResponses(data, endpoint))
-                .thenApply(x -> filterById(x, ids))
+                .thenApply(x -> filterById(x, requestParameters))
                 .thenApply(data -> selectResultsByDatabase(data, database))
                 .thenApply(x -> singleResponse(x, params))
                 .thenApply(x -> transformJsonLd(x, params));
