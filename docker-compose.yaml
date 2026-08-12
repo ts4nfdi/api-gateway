@@ -16,6 +16,12 @@ services:
       SPRING_DATASOURCE_USERNAME: developer
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      AGROPORTAL_API_KEY:
+      BIODIVPORTAL_API_KEY:
+      BIOPORTAL_API_KEY:
+      EARTHPORTAL_API_KEY:
+      ECOPORTAL_API_KEY:
+      LOVPORTAL_API_KEY:
 
   postgres:
     image: postgres

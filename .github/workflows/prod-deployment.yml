@@ -136,6 +136,48 @@ jobs:
             --namespace='ts4nfdi' \
             --dry-run=client -o yaml | kubectl apply -f -
 
+      - name: Create Kubernetes secret for AGROPORTAL_API_KEY
+        run: |
+          kubectl create secret generic agroportal-api-key \
+            --from-literal=AGROPORTAL_API_KEY=${{ vars.AGROPORTAL_API_KEY }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create Kubernetes secret for BIOPORTAL_API_KEY
+        run: |
+          kubectl create secret generic bioportal-api-key \
+            --from-literal=BIOPORTAL_API_KEY=${{ vars.BIOPORTAL_API_KEY }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create Kubernetes secret for BIODIVPORTAL_API_KEY
+        run: |
+          kubectl create secret generic biodivportal-api-key \
+            --from-literal=BIODIVPORTAL_API_KEY=${{ vars.BIODIVPORTAL_API_KEY }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create Kubernetes secret for EARTHPORTAL_API_KEY
+        run: |
+          kubectl create secret generic earthportal-api-key \
+            --from-literal=EARTHPORTAL_API_KEY=${{ vars.EARTHPORTAL_API_KEY }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -   
+
+      - name: Create Kubernetes secret for ECOPORTAL_API_KEY
+        run: |
+          kubectl create secret generic ecoportal-api-key \
+            --from-literal=ECOPORTAL_API_KEY=${{ vars.ECOPORTAL_API_KEY }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create Kubernetes secret for LOVPORTAL_API_KEY
+        run: |
+          kubectl create secret generic lovportal-api-key \
+            --from-literal=LOVPORTAL_API_KEY=${{ vars.LOVPORTAL_API_KEY }} \
+            --namespace='ts4nfdi' \
+            --dry-run=client -o yaml | kubectl apply -f -
+
       - name: Deploy to Kubernetes
         uses: stefanprodan/kube-tools@v1
         with:
