@@ -91,7 +91,7 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         fixture.put("backend_type", "ols2");
         fixture.put("short_form", "bto");
         fixture.put("label", "BRENDA tissue / enzyme source");
-        fixture.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
+        fixture.put("source", "https://www.ebi.ac.uk/ols4/api");
         fixture.put("type", "ontology");
         fixture.put("source_name", "ebi");
         fixture.put("synonyms", Collections.singletonList("The BRENDA Tissue Ontology (BTO)"));
