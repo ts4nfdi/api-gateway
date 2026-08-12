@@ -2,6 +2,7 @@ package org.semantics.apigateway.controller.ols;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.ws.rs.QueryParam;
 import org.apache.commons.lang3.NotImplementedException;
 import org.semantics.apigateway.api.OlsV2Transformer;
 import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
@@ -87,16 +88,16 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities")
-  public Object getAllEntitiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @ParameterObject @PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(name = "iri", required = false) String iri) {
-    if (iri == null) return artefactsDataService.getArtefactTerms(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactTerm(onto, iri, params, null, authService.tryGetCurrentUser());
+  public Object getAllEntitiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
+    if (iri == null) return artefactsDataService.getArtefactEntities(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactEntity(onto, iri, params, null, authService.tryGetCurrentUser());
     return olsV2Transformer.constructResponse(response.getCollection(), "concepts", true, true, 1, response.getCollection().size());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities/{entity}")
   public Object getEntityInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String entity, @ParameterObject CommonRequestParams params) {
-    return artefactsDataService.getArtefactTerm(onto, entity, params, null, authService.tryGetCurrentUser());
+    return artefactsDataService.getArtefactEntity(onto, entity, params, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
@@ -108,12 +109,12 @@ public class Ols4Controller {
   @Hidden
   @CrossOrigin
   @GetMapping("/entities")
-  public Object getAllEntitiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @ParameterObject @PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(name = "iri", required = false) String iri) {
-    // Disabled as global retrieval of entities (i.e., without specifying an associated semantic artefact) is not a
-    // feature of the API gateway.
-    // Might be revisited if a use case for it arises.
-    // See discussion at https://github.com/ts4nfdi/api-gateway/issues/198
-    return HttpStatus.NOT_FOUND;
+  public Object getAllEntitiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
+    // TODO Is there a way to run a federated query over all endpoints and their respective artifacts for all entities? Improbable, solely for performance reasons.
+    if (iri != null) {
+      return this.artefactsDataService.getArtefactEntities(iri, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    }
+    return this.artefactsDataService.getArtefactEntities("", params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin

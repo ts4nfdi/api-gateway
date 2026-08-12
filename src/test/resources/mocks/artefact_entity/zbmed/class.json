@@ -1,0 +1,1625 @@
+{
+  "page": 0,
+  "numElements": 1,
+  "totalPages": 1,
+  "totalElements": 1,
+  "elements": [
+    {
+      "appearsIn": [
+        "ncit"
+      ],
+      "curie": "NCIT:C2985",
+      "definedBy": [
+        "ncit"
+      ],
+      "definition": [
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "A metabolic disorder characterized by abnormally high blood sugar levels due to diminished production of insulin or insulin resistance/desensitization.",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P378": "NCI"
+            }
+          ]
+        }
+      ],
+      "definitionProperty": "http://purl.obolibrary.org/obo/IAO_0000115",
+      "directAncestor": [
+        "http://purl.obolibrary.org/obo/NCIT_C171128",
+        "http://purl.obolibrary.org/obo/NCIT_C27067",
+        "http://purl.obolibrary.org/obo/NCIT_C26842",
+        "http://purl.obolibrary.org/obo/NCIT_C2990",
+        "http://purl.obolibrary.org/obo/NCIT_C27551",
+        "http://purl.obolibrary.org/obo/NCIT_C2991",
+        "http://purl.obolibrary.org/obo/NCIT_C7057",
+        "http://purl.obolibrary.org/obo/NCIT_C3009",
+        "http://purl.obolibrary.org/obo/NCIT_C27565",
+        "http://purl.obolibrary.org/obo/NCIT_C53531",
+        "http://purl.obolibrary.org/obo/NCIT_C53529",
+        "http://purl.obolibrary.org/obo/NCIT_C53505",
+        "http://purl.obolibrary.org/obo/NCIT_C27550",
+        "http://purl.obolibrary.org/obo/NCIT_C53655",
+        "http://purl.obolibrary.org/obo/NCIT_C97089",
+        "http://purl.obolibrary.org/obo/NCIT_C3235",
+        "http://purl.obolibrary.org/obo/NCIT_C53547"
+      ],
+      "directParent": [
+        "http://purl.obolibrary.org/obo/NCIT_C171128",
+        "http://purl.obolibrary.org/obo/NCIT_C53655"
+      ],
+      "hasDirectChildren": true,
+      "hasDirectParents": true,
+      "hasHierarchicalChildren": true,
+      "hasHierarchicalParents": true,
+      "hierarchicalAncestor": [
+        "http://purl.obolibrary.org/obo/NCIT_C171128",
+        "http://purl.obolibrary.org/obo/NCIT_C27067",
+        "http://purl.obolibrary.org/obo/NCIT_C26842",
+        "http://purl.obolibrary.org/obo/NCIT_C2990",
+        "http://purl.obolibrary.org/obo/NCIT_C27551",
+        "http://purl.obolibrary.org/obo/NCIT_C2991",
+        "http://purl.obolibrary.org/obo/NCIT_C7057",
+        "http://purl.obolibrary.org/obo/NCIT_C3009",
+        "http://purl.obolibrary.org/obo/NCIT_C27565",
+        "http://purl.obolibrary.org/obo/NCIT_C53531",
+        "http://purl.obolibrary.org/obo/NCIT_C53529",
+        "http://purl.obolibrary.org/obo/NCIT_C53505",
+        "http://purl.obolibrary.org/obo/NCIT_C27550",
+        "http://purl.obolibrary.org/obo/NCIT_C53655",
+        "http://purl.obolibrary.org/obo/NCIT_C97089",
+        "http://purl.obolibrary.org/obo/NCIT_C3235",
+        "http://purl.obolibrary.org/obo/NCIT_C53547"
+      ],
+      "hierarchicalParent": [
+        "http://purl.obolibrary.org/obo/NCIT_C171128",
+        "http://purl.obolibrary.org/obo/NCIT_C53655"
+      ],
+      "hierarchicalProperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "imported": false,
+      "iri": "http://purl.obolibrary.org/obo/NCIT_C2985",
+      "isDefiningOntology": true,
+      "isObsolete": false,
+      "isPreferredRoot": false,
+      "label": [
+        "Diabetes Mellitus"
+      ],
+      "linkedEntities": {
+        "http://purl.obolibrary.org/obo/NCIT_C53505": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Non-Neoplastic Pancreatic Disorder"
+          ],
+          "curie": "NCIT:C53505",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C49487": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "No"
+          ],
+          "curie": "NCIT:C49487",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C49488": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Yes"
+          ],
+          "curie": "NCIT:C49488",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P325": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "ALT_DEFINITION"
+          ],
+          "curie": "NCIT:P325",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C158035": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "CPTAC Medical Conditions Codelist"
+          ],
+          "curie": "NCIT:C158035",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C158034": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "CPTAC Causes of Death Codelist"
+          ],
+          "curie": "NCIT:C158034",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C94608": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "C Peptide"
+          ],
+          "curie": "NCIT:C94608",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P322": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Contributing_Source"
+          ],
+          "curie": "NCIT:P322",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C3009": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Endocrine Disorder"
+          ],
+          "curie": "NCIT:C3009",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/IAO_0000115": {
+          "numAppearsIn": 9.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "definition"
+          ],
+          "curie": "IAO:0000115",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P207": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "UMLS_CUI"
+          ],
+          "curie": "NCIT:P207",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C27067": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Endocrine Pancreas Disorder"
+          ],
+          "curie": "NCIT:C27067",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P394": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Target_Term_Type"
+          ],
+          "curie": "NCIT:P394",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P393": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Relationship_to_Target"
+          ],
+          "curie": "NCIT:P393",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C165258": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Cellosaurus Disease Terminology"
+          ],
+          "curie": "NCIT:C165258",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P396": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Target_Terminology"
+          ],
+          "curie": "NCIT:P396",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P395": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Target_Code"
+          ],
+          "curie": "NCIT:P395",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C48660": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Not Applicable"
+          ],
+          "curie": "NCIT:C48660",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C3235": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Metabolic Disorder"
+          ],
+          "curie": "NCIT:C3235",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C16457": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Comorbidity"
+          ],
+          "curie": "NCIT:C16457",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C171128": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Non-Neoplastic Endocrine Pancreas Disorder"
+          ],
+          "curie": "NCIT:C171128",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C178718": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "SeroNet Research Participant Metadata"
+          ],
+          "curie": "NCIT:C178718",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C24522": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "IRS1 Gene"
+          ],
+          "curie": "NCIT:C24522",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P107": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Display_Name"
+          ],
+          "curie": "NCIT:P107",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P106": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Semantic_Type"
+          ],
+          "curie": "NCIT:P106",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C24514": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "INS Gene"
+          ],
+          "curie": "NCIT:C24514",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C24516": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "INSR Gene"
+          ],
+          "curie": "NCIT:C24516",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P108": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Preferred_Name"
+          ],
+          "curie": "NCIT:P108",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C118168": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "CTRP Disease Terminology"
+          ],
+          "curie": "NCIT:C118168",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_NHC0": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "code"
+          ],
+          "curie": "NCIT:NHC0",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C24523": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "IRS2 Gene"
+          ],
+          "curie": "NCIT:C24523",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://www.w3.org/2000/01/rdf-schema#label": {
+          "numAppearsIn": 6.0,
+          "hasLocalDefinition": false,
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ],
+          "label": [
+            "label"
+          ],
+          "curie": "label"
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C97089": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Carbohydrate Metabolism Disorder"
+          ],
+          "curie": "NCIT:C97089",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C26842": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Pancreatic Disorder"
+          ],
+          "curie": "NCIT:C26842",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C53547": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Non-Neoplastic Disorder by Special Category"
+          ],
+          "curie": "NCIT:C53547",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://www.geneontology.org/formats/oboInOwl#inSubset": {
+          "numAppearsIn": 6.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "in subset"
+          ],
+          "curie": "inSubset",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P366": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Legacy Concept Name"
+          ],
+          "curie": "NCIT:P366",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C189083": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "SeroNet Study Descriptors"
+          ],
+          "curie": "NCIT:C189083",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C2991": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Disease or Disorder"
+          ],
+          "curie": "NCIT:C2991",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C2990": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Digestive System Disorder"
+          ],
+          "curie": "NCIT:C2990",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C158520": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "CPTAC Codelists Terminology"
+          ],
+          "curie": "NCIT:C158520",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C17103": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Risk Factor"
+          ],
+          "curie": "NCIT:C17103",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C24545": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "LEPR Gene"
+          ],
+          "curie": "NCIT:C24545",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C95047": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "LEP Gene"
+          ],
+          "curie": "NCIT:C95047",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C118467": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Pediatric Endocrinology Terminology"
+          ],
+          "curie": "NCIT:C118467",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C157711": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "GDC Terminology"
+          ],
+          "curie": "NCIT:C157711",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C27551": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Disorder by Site"
+          ],
+          "curie": "NCIT:C27551",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_A37": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Has_SeroNet_Authorized_Value"
+          ],
+          "curie": "NCIT:A37",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym": {
+          "numAppearsIn": 7.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "has exact synonym"
+          ],
+          "curie": "hasExactSynonym",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_A32": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Is_Value_For_GDC_Property"
+          ],
+          "curie": "NCIT:A32",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P383": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Term Type"
+          ],
+          "curie": "NCIT:P383",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P385": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Source Code"
+          ],
+          "curie": "NCIT:P385",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C53529": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Non-Neoplastic Disorder"
+          ],
+          "curie": "NCIT:C53529",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P384": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Term Source"
+          ],
+          "curie": "NCIT:P384",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C27550": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Non-Neoplastic Digestive System Disorder"
+          ],
+          "curie": "NCIT:C27550",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C21293": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "ADRB2 Gene"
+          ],
+          "curie": "NCIT:C21293",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_R47": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Gene_Product_Is_Biomarker_Of"
+          ],
+          "curie": "NCIT:R47",
+          "type": [
+            "property",
+            "objectProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C17998": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Unknown"
+          ],
+          "curie": "NCIT:C17998",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C156952": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "CPTAC Terminology"
+          ],
+          "curie": "NCIT:C156952",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C156953": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "CPTAC Baseline Medical Forms Terminology"
+          ],
+          "curie": "NCIT:C156953",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C116977": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "CTRP Terminology"
+          ],
+          "curie": "NCIT:C116977",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C157528": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "CPTAC Cholangiocarcinoma Baseline Form"
+          ],
+          "curie": "NCIT:C157528",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C53531": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Non-Neoplastic Disorder by Site"
+          ],
+          "curie": "NCIT:C53531",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C27565": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Non-Neoplastic Endocrine Disorder"
+          ],
+          "curie": "NCIT:C27565",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C177537": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "GDC Value Terminology"
+          ],
+          "curie": "NCIT:C177537",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C53655": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Glucose Metabolism Disorder"
+          ],
+          "curie": "NCIT:C53655",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C7057": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Disease, Disorder or Finding"
+          ],
+          "curie": "NCIT:C7057",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C90259": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "NICHD Terminology"
+          ],
+          "curie": "NCIT:C90259",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P375": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Maps_To"
+          ],
+          "curie": "NCIT:P375",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C179026": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "SeroNet Variables"
+          ],
+          "curie": "NCIT:C179026",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_P378": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Definition Source"
+          ],
+          "curie": "NCIT:P378",
+          "type": [
+            "property",
+            "annotationProperty",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_C179027": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "SeroNet Authorized Values"
+          ],
+          "curie": "NCIT:C179027",
+          "type": [
+            "class",
+            "entity"
+          ]
+        },
+        "http://purl.obolibrary.org/obo/NCIT_R38": {
+          "definedBy": [
+            "ncit"
+          ],
+          "numAppearsIn": 1.0,
+          "hasLocalDefinition": true,
+          "label": [
+            "Gene_Associated_With_Disease"
+          ],
+          "curie": "NCIT:R38",
+          "type": [
+            "property",
+            "objectProperty",
+            "entity"
+          ]
+        }
+      },
+      "numDescendants": 29.0,
+      "numHierarchicalDescendants": 29.0,
+      "ontologyId": "ncit",
+      "ontologyIri": "http://purl.obolibrary.org/obo/ncit.owl",
+      "ontologyPreferredPrefix": "NCIT",
+      "relatedFrom": [
+        {
+          "property": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "value": "http://purl.obolibrary.org/obo/NCIT_C24545",
+          "type": [
+            "related"
+          ],
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/2002/07/owl#Restriction",
+          "http://www.w3.org/2002/07/owl#onProperty": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "http://www.w3.org/2002/07/owl#someValuesFrom": "http://purl.obolibrary.org/obo/NCIT_C2985",
+          "isObsolete": false
+        },
+        {
+          "property": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "value": "http://purl.obolibrary.org/obo/NCIT_C24514",
+          "type": [
+            "related"
+          ],
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/2002/07/owl#Restriction",
+          "http://www.w3.org/2002/07/owl#onProperty": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "http://www.w3.org/2002/07/owl#someValuesFrom": "http://purl.obolibrary.org/obo/NCIT_C2985",
+          "isObsolete": false
+        },
+        {
+          "property": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "value": "http://purl.obolibrary.org/obo/NCIT_C21293",
+          "type": [
+            "related"
+          ],
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/2002/07/owl#Restriction",
+          "http://www.w3.org/2002/07/owl#onProperty": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "http://www.w3.org/2002/07/owl#someValuesFrom": "http://purl.obolibrary.org/obo/NCIT_C2985",
+          "isObsolete": false
+        },
+        {
+          "property": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "value": "http://purl.obolibrary.org/obo/NCIT_C24516",
+          "type": [
+            "related"
+          ],
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/2002/07/owl#Restriction",
+          "http://www.w3.org/2002/07/owl#onProperty": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "http://www.w3.org/2002/07/owl#someValuesFrom": "http://purl.obolibrary.org/obo/NCIT_C2985",
+          "isObsolete": false
+        },
+        {
+          "property": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "value": "http://purl.obolibrary.org/obo/NCIT_C24522",
+          "type": [
+            "related"
+          ],
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/2002/07/owl#Restriction",
+          "http://www.w3.org/2002/07/owl#onProperty": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "http://www.w3.org/2002/07/owl#someValuesFrom": "http://purl.obolibrary.org/obo/NCIT_C2985",
+          "isObsolete": false
+        },
+        {
+          "property": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "value": "http://purl.obolibrary.org/obo/NCIT_C95047",
+          "type": [
+            "related"
+          ],
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/2002/07/owl#Restriction",
+          "http://www.w3.org/2002/07/owl#onProperty": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "http://www.w3.org/2002/07/owl#someValuesFrom": "http://purl.obolibrary.org/obo/NCIT_C2985",
+          "isObsolete": false
+        },
+        {
+          "property": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "value": "http://purl.obolibrary.org/obo/NCIT_C24523",
+          "type": [
+            "related"
+          ],
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/2002/07/owl#Restriction",
+          "http://www.w3.org/2002/07/owl#onProperty": "http://purl.obolibrary.org/obo/NCIT_R38",
+          "http://www.w3.org/2002/07/owl#someValuesFrom": "http://purl.obolibrary.org/obo/NCIT_C2985",
+          "isObsolete": false
+        },
+        {
+          "property": "http://purl.obolibrary.org/obo/NCIT_R47",
+          "value": "http://purl.obolibrary.org/obo/NCIT_C94608",
+          "type": [
+            "related"
+          ],
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/2002/07/owl#Restriction",
+          "http://www.w3.org/2002/07/owl#onProperty": "http://purl.obolibrary.org/obo/NCIT_R47",
+          "http://www.w3.org/2002/07/owl#someValuesFrom": "http://purl.obolibrary.org/obo/NCIT_C2985",
+          "isObsolete": false
+        }
+      ],
+      "searchableAnnotationValues": [
+        false
+      ],
+      "shortForm": "NCIT_C2985",
+      "synonym": [
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "DM",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "AB",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "NCI"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Diabetes",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "SY",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "NCI"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "SY",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "CPTAC"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "SY",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "GDC"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "SY",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "caDSR"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Diabetes Mellitus",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "SY",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "caDSR"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "DN",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "CTRP"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "CPTAC"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "NICHD"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "NCI"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "Cellosaurus"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Diabetes mellitus",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "SeroNet"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "diabetes",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "NCI-GLOSS",
+              "http://purl.obolibrary.org/obo/NCIT_P385": "CDR0000044911"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "diabetes mellitus",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "NCI-GLOSS",
+              "http://purl.obolibrary.org/obo/NCIT_P385": "CDR0000044129"
+            }
+          ]
+        }
+      ],
+      "synonymProperty": "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym",
+      "type": [
+        "class",
+        "entity"
+      ],
+      "http://purl.obolibrary.org/obo/IAO_0000115": {
+        "type": [
+          "reification"
+        ],
+        "value": "A metabolic disorder characterized by abnormally high blood sugar levels due to diminished production of insulin or insulin resistance/desensitization.",
+        "axioms": [
+          {
+            "http://purl.obolibrary.org/obo/NCIT_P378": "NCI"
+          }
+        ]
+      },
+      "http://purl.obolibrary.org/obo/NCIT_A32": [
+        "http://purl.obolibrary.org/obo/NCIT_C16457",
+        "http://purl.obolibrary.org/obo/NCIT_C17103"
+      ],
+      "http://purl.obolibrary.org/obo/NCIT_A37": [
+        "http://purl.obolibrary.org/obo/NCIT_C17998",
+        "http://purl.obolibrary.org/obo/NCIT_C48660",
+        "http://purl.obolibrary.org/obo/NCIT_C49487",
+        "http://purl.obolibrary.org/obo/NCIT_C49488"
+      ],
+      "http://purl.obolibrary.org/obo/NCIT_NHC0": "C2985",
+      "http://purl.obolibrary.org/obo/NCIT_P106": "Disease or Syndrome",
+      "http://purl.obolibrary.org/obo/NCIT_P107": "Diabetes Mellitus",
+      "http://purl.obolibrary.org/obo/NCIT_P108": "Diabetes Mellitus",
+      "http://purl.obolibrary.org/obo/NCIT_P207": "C4013416",
+      "http://purl.obolibrary.org/obo/NCIT_P322": [
+        "CPTAC",
+        "CTRP",
+        "Cellosaurus",
+        "GDC",
+        "NICHD",
+        "SeroNet"
+      ],
+      "http://purl.obolibrary.org/obo/NCIT_P325": [
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "A disease in which the body does not control the amount of glucose (a type of sugar) in the blood and the kidneys make a large amount of urine. This disease occurs when the body does not make enough insulin or does not use it the way it should.",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P378": "NCI-GLOSS"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "A metabolic condition, characterized by hyperglycemia, caused by insufficient secretion of insulin by the pancreas and/or decreased insulin action in target tissues.",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P378": "NICHD"
+            }
+          ]
+        }
+      ],
+      "http://purl.obolibrary.org/obo/NCIT_P366": "Diabetes_Mellitus",
+      "http://purl.obolibrary.org/obo/NCIT_P375": {
+        "type": [
+          "reification"
+        ],
+        "value": "Diabetes, NOS",
+        "axioms": [
+          {
+            "http://purl.obolibrary.org/obo/NCIT_P393": "Related To",
+            "http://purl.obolibrary.org/obo/NCIT_P394": "PT",
+            "http://purl.obolibrary.org/obo/NCIT_P395": "risk_factors",
+            "http://purl.obolibrary.org/obo/NCIT_P396": "GDC"
+          },
+          {
+            "http://purl.obolibrary.org/obo/NCIT_P393": "Has Synonym",
+            "http://purl.obolibrary.org/obo/NCIT_P394": "PT",
+            "http://purl.obolibrary.org/obo/NCIT_P395": "comorbidities",
+            "http://purl.obolibrary.org/obo/NCIT_P396": "GDC"
+          }
+        ]
+      },
+      "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym": [
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "DM",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "AB",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "NCI"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Diabetes",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "SY",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "NCI"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "SY",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "CPTAC"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "SY",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "GDC"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "SY",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "caDSR"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Diabetes Mellitus",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "SY",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "caDSR"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "DN",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "CTRP"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "CPTAC"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "NICHD"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "NCI"
+            },
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "Cellosaurus"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "Diabetes mellitus",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "SeroNet"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "diabetes",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "NCI-GLOSS",
+              "http://purl.obolibrary.org/obo/NCIT_P385": "CDR0000044911"
+            }
+          ]
+        },
+        {
+          "type": [
+            "reification"
+          ],
+          "value": "diabetes mellitus",
+          "axioms": [
+            {
+              "http://purl.obolibrary.org/obo/NCIT_P383": "PT",
+              "http://purl.obolibrary.org/obo/NCIT_P384": "NCI-GLOSS",
+              "http://purl.obolibrary.org/obo/NCIT_P385": "CDR0000044129"
+            }
+          ]
+        }
+      ],
+      "http://www.geneontology.org/formats/oboInOwl#inSubset": [
+        "http://purl.obolibrary.org/obo/NCIT_C116977",
+        "http://purl.obolibrary.org/obo/NCIT_C118168",
+        "http://purl.obolibrary.org/obo/NCIT_C118467",
+        "http://purl.obolibrary.org/obo/NCIT_C156952",
+        "http://purl.obolibrary.org/obo/NCIT_C156953",
+        "http://purl.obolibrary.org/obo/NCIT_C157528",
+        "http://purl.obolibrary.org/obo/NCIT_C157711",
+        "http://purl.obolibrary.org/obo/NCIT_C158034",
+        "http://purl.obolibrary.org/obo/NCIT_C158035",
+        "http://purl.obolibrary.org/obo/NCIT_C158520",
+        "http://purl.obolibrary.org/obo/NCIT_C165258",
+        "http://purl.obolibrary.org/obo/NCIT_C177537",
+        "http://purl.obolibrary.org/obo/NCIT_C178718",
+        "http://purl.obolibrary.org/obo/NCIT_C179026",
+        "http://purl.obolibrary.org/obo/NCIT_C179027",
+        "http://purl.obolibrary.org/obo/NCIT_C189083",
+        "http://purl.obolibrary.org/obo/NCIT_C90259"
+      ],
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/2002/07/owl#Class",
+      "http://www.w3.org/2000/01/rdf-schema#label": "Diabetes Mellitus",
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+        "http://purl.obolibrary.org/obo/NCIT_C171128",
+        "http://purl.obolibrary.org/obo/NCIT_C53655"
+      ]
+    }
+  ],
+  "facetFieldsToCounts": {}
+}
