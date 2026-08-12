@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RegisterRequest {
-    String username;
-    String id_token;
+public class SsoLoginRequest {
+  private String access_token;
+  private String id_token;
 }

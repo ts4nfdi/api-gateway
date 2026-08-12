@@ -19,7 +19,11 @@ models:
 
 endpoints:
   search:
-    path: /search?query=%s
+    path: /search
+    parameters:
+      query:
+        name: query
+        type: string
     responseMapping:
       nestedJson: member
       <<: *searchResult
@@ -64,11 +68,19 @@ endpoints:
       wasGeneratedBy: wasGeneratedBy
       includedInDataCatalog: includedInDataCatalog
   concept_details:
-    path: ontologies/%s/classes/%s?apikey=%s
+    path: ontologies/{artefact}/classes/{resourceUri}
+    parameters:
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       <<: *searchResult
   resource_details:
-    path: ontologies/%s?apikey=%s
+    path: ontologies/{artefact}
+    parameters:
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       nestedJson: ""
       label: title
@@ -109,7 +121,11 @@ endpoints:
       includedInDataCatalog: includedInDataCatalog
 
   concepts:
-    path: /ontologies/%s/classes?page=%s
+    path: /ontologies/{artefact}/classes
+    parameters:
+      page:
+        name: page
+        type: string
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -117,7 +133,11 @@ endpoints:
       <<: *searchResult
 
   properties:
-    path: /ontologies/%s/properties?page=%s
+    path: /ontologies/{artefact}/properties
+    parameters:
+      page:
+        name: page
+        type: string
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -125,12 +145,16 @@ endpoints:
       <<: *searchResult
 
   property_details:
-    path: ontologies/%s/properties/%s
+    path: ontologies/{artefact}/properties/{resourceUri}
     responseMapping:
       <<: *searchResult
 
   individuals:
-    path: /ontologies/%s/instances?page=%s
+    path: /ontologies/{artefact}/instances
+    parameters:
+      page:
+        name: page
+        type: string
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -138,12 +162,16 @@ endpoints:
       <<: *searchResult
 
   individual_details:
-    path: ontologies/%s/instances/%s
+    path: ontologies/{artefact}/instances/{resourceUri}
     responseMapping:
       <<: *searchResult
 
   schemes:
-    path: ontologies/%s/schemes?page=%s
+    path: ontologies/{artefact}/schemes
+    parameters:
+      page:
+        name: page
+        type: string
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -151,12 +179,16 @@ endpoints:
       <<: *searchResult
 
   scheme_details:
-    path: ontologies/%s/schemes/%s
+    path: ontologies/{artefact}/schemes/{resourceUri}
     responseMapping:
       <<: *searchResult
 
   collections:
-    path: ontologies/%s/collections?page=%s
+    path: ontologies/{artefact}/collections
+    parameters:
+      page:
+        name: page
+        type: string
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -164,7 +196,7 @@ endpoints:
       <<: *searchResult
 
   collection_details:
-    path: ontologies/%s/collections/%s
+    path: ontologies/{artefact}/collections/{resourceUri}
     responseMapping:
       <<: *searchResult
 

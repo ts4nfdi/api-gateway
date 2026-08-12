@@ -1,6 +1,6 @@
 "use client";
 
-import {useState} from "react";
+import React, {useState} from "react";
 import {Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card";
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
@@ -28,8 +28,9 @@ export default function LoginPage() {
             credentials: {username: username, password: password},
             onError: error => setError(error || '')
         })
-
     };
+
+    const [isLegacyFormVisible, setIsLegacyFormVisible] = useState(false);
 
     return (
         <div className="flex justify-center items-center h-screen bg-gray-50">
@@ -38,12 +39,24 @@ export default function LoginPage() {
                     <h2 className="text-lg font-semibold">Login</h2>
                 </CardHeader>
                 <CardContent>
+                    <div className="mt-4 pt-2">
+                        <p className="text-sm text-center text-gray-500 mb-4">Sign in with</p>
+                        <div className="grid grid-cols-1 gap-3">
+                            <SsoSignin/>
+                        </div>
+                    </div>
+
+                    <div
+                        className="mt-8 py-3 flex items-center text-sm text-stone-800 before:flex-1 before:border-t before:border-stone-200 before:me-6 after:flex-1 after:border-t after:border-stone-200 after:ms-6 dark:text-neutral-200 dark:before:border-neutral-600 dark:after:border-neutral-600">or
+                    </div>
+
                     {error && (
                         <Alert variant="destructive" className="mb-4">
                             {error}
                         </Alert>
                     )}
-                    <form onSubmit={handleLogin} className="space-y-4">
+                    <div className="text-center"><Button onClick={() => setIsLegacyFormVisible(!isLegacyFormVisible)}>Use legacy login</Button></div>
+                    <form onSubmit={handleLogin} className={(isLegacyFormVisible ? "block" : "hidden") + " space-y-4 "}>
                         <div>
                             <Label htmlFor="username" className="block text-sm font-medium">
                                 Username
@@ -80,9 +93,29 @@ export default function LoginPage() {
                     <Link href="/auth/register" className="text-blue-600">Sign up</Link>
                     <span> or go back to </span>
                     <Link href="/" className="text-blue-600">Homepage</Link>
-
                 </CardFooter>
             </Card>
         </div>
     );
+}
+
+const SsoSignin = () => {
+    const {ssoAuthorize} = useAuth();
+
+    const handleSsoAuthorization = async (e: any) => {
+        e.preventDefault();
+        await ssoAuthorize();
+    }
+
+    return (
+        <button
+            onClick={handleSsoAuthorization}
+            className="flex flex-col items-center justify-center p-5 border border-gray-200 rounded-xl hover:shadow-md hover:bg-gray-50 transition text-sm font-semibold text-gray-700 bg-white">
+            <img src="/api-gateway/media/logos/iam4nfdi.png"
+                 className="w-24 h-24 object-contain mb-3"
+                 alt="IAM4NFDI Infrastructure Proxy"/>
+            <span>IAM4NFDI Infrastructure Proxy</span>
+        </button>
+    )
+
 }

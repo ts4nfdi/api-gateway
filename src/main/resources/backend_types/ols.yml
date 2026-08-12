@@ -31,7 +31,11 @@ models:
 
 endpoints:
   search:
-    path: search?q=%s
+    path: search
+    parameters:
+      query:
+        name: q
+        type: string
     responseMapping:
       nestedJson: response
       collectionFilter: ontology
@@ -53,7 +57,14 @@ endpoints:
       <<: *artefact
 
   concepts:
-    path: terms?id=%s&size=50&page=%s
+    path: terms?size=50
+    parameters:
+      resourceUri:
+        name: id
+        type: string
+      page:
+        name: page
+        type: string
     caseInsensitive: false
     responseMapping:
       nestedJson: _embedded
@@ -63,7 +74,14 @@ endpoints:
       <<: *term
 
   properties:
-    path: properties?id=%s&size=50&page=%s
+    path: properties?size=50
+    parameters:
+      resourceUri:
+        name: id
+        type: string
+      page:
+        name: page
+        type: string
     responseMapping:
       nestedJson: _embedded
       page: page->number
@@ -72,28 +90,40 @@ endpoints:
       <<: *term
 
   concept_details:
-    path: ontologies/%s/terms?iri=%s
+    path: ontologies/{artefact}/terms
+    parameters:
+      resourceUri:
+        name: iri
+        type: string
     responseMapping:
       nestedJson: _embedded
       key: terms
       <<: *term
 
   property_details:
-    path: ontologies/%s/properties?iri=%s
+    path: ontologies/{artefact}/properties
+    parameters:
+      resourceUri:
+        name: iri
+        type: string
     responseMapping:
       nestedJson: _embedded
       key: properties
       <<: *term
 
   resource_details:
-    path: ontologies/%s
+    path: ontologies/{artefact}
     responseMapping:
       nestedJson: ""
       key: ""
       <<: *artefact
 
   individuals:
-    path: /ontologies/%s/individuals?page=%s&size=50
+    path: /ontologies/{artefact}/individuals?size=50
+    parameters:
+      page:
+        name: page
+        type: string
     responseMapping:
       nestedJson: _embedded
       page: page->number
@@ -102,14 +132,18 @@ endpoints:
       <<: *term
 
   individual_details:
-    path: ontologies/%s/individuals?iri=%s
+    path: ontologies/{artefact}/individuals
+    parameters:
+      resourceUri:
+        name: iri
+        type: string
     responseMapping:
       nestedJson: _embedded
       key: individuals
       <<: *term
 
   concepts_roots:
-    path: ontologies/%s/terms/roots?size=1000
+    path: ontologies/{artefact}/terms/roots?size=1000
     responseMapping:
       nestedJson: _embedded
       key: terms
@@ -117,7 +151,7 @@ endpoints:
       hasChildren: has_children
 
   concepts_children:
-    path: ontologies/%s/terms/%s/hierarchicalChildren
+    path: ontologies/{artefact}/terms/{resourceUri}/hierarchicalChildren
     responseMapping:
       nestedJson: _embedded
       key: terms
@@ -125,7 +159,7 @@ endpoints:
       hasChildren: has_children
 
   concept_tree:
-    path: ontologies/%s/terms/%s/hierarchicalAncestors
+    path: ontologies/{artefact}/terms/{resourceUri}/hierarchicalAncestors
     responseMapping:
       nestedJson: _embedded
       key: terms
@@ -133,11 +167,21 @@ endpoints:
       hasChildren: has_children
 
   suggest:
-    path: /suggest?q=%s&rows=%s&start=%s
+    path: /select
+    parameters:
+      query:
+        name: q
+        type: string
+      size:
+        name: rows
+        type: string
+      offset:
+        name: start
+        type: string
     responseMapping:
       nestedJson: response
       key: docs
-      iri: autosuggest
+      iri: iri
       label: autosuggest
       totalCount: response->numFound
       page: page->start

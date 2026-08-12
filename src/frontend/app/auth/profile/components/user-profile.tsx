@@ -1,7 +1,6 @@
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import {useAuth} from "@/lib/authGuard";
-import {router} from "next/client";
 import {useRouter} from "next/navigation";
 
 export default function UserProfile() {
@@ -27,9 +26,14 @@ export default function UserProfile() {
                         <div>{user?.username}</div>
                     </div>
 
-                    <div className="flex justify-between">
+                    <div className="flex justify-between border-b pb-4">
                         <div className="font-medium">Role</div>
                         <div>{user?.roles}</div>
+                    </div>
+
+                    <div className="flex justify-between">
+                        <div className="font-medium">OpenID Subject Identifier</div>
+                        <div>{user?.oidcSubjectIdentifier}</div>
                     </div>
                 </div>
             </CardContent>

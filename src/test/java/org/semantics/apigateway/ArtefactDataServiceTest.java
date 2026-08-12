@@ -87,7 +87,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         mockApiAccessor("artefact_individual", artefactsService.getAccessor());
         CommonRequestParams params = new CommonRequestParams();
         params.setDatabase("ols2");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", new CommonRequestParams(), apiAccessor, null);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", params, apiAccessor, null);
         assertMapEquality(response, createOls2FoodOnInstanceFixture());
 
         params = new CommonRequestParams();
