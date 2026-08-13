@@ -78,7 +78,7 @@ public class OlsV2Transformer implements DatabaseTransformer {
             }
             current = ((Map<String, Object>)current).get(pathSegment);
         }
-        return ((Map<String, Object>)current).get(path[path.length - 1]);
+        return current == null ? null : ((Map<String, Object>)current).get(path[path.length - 1]);
     }
 
     private Object transformNestedValue(Object value) {
