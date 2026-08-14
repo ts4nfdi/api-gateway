@@ -52,6 +52,18 @@ public class AuthController {
   @Value("${oidc.authorization-endpoint}")
   private final String authorizationEndpoint;
   
+  private static final String claims = """
+  {
+     "id_token" : {
+         "email": null,
+         "name": null,
+         "family_name": null,
+         "given_name": null,
+         "orcid": null,
+         "eduperson_orcid": null
+     }
+  }""";
+  
   @PostMapping("/register")
   @ResponseStatus(HttpStatus.CREATED)
   public SuccessResponse registerUser(@Valid @RequestBody RegisterRequest user) {
@@ -77,7 +89,7 @@ public class AuthController {
     
     Date expiration = jwtUtil.extractExpiration(token);
     GrantedAuthority role = userDetails.getAuthorities().stream().findFirst().orElse(null);
-    return new AuthResponse(token, loginRequest.getUsername(), role != null ? role.getAuthority() : "", expiration);
+    return new AuthResponse(token, loginRequest.getUsername(), loginRequest.getUsername(), role != null ? role.getAuthority() : "", expiration);
   }
   
   @GetMapping("/logout")
@@ -96,7 +108,8 @@ public class AuthController {
     
     RedirectView response = new RedirectView(authorizationEndpoint);
     response.addStaticAttribute("response_type", "code");
-    response.addStaticAttribute("scope", "openid email profile");
+    response.addStaticAttribute("scope", "openid");
+    response.addStaticAttribute("claims", claims);
     response.addStaticAttribute("client_id", clientId);
     response.addStaticAttribute("redirect_uri", redirect_uri);
     if (state != null)
@@ -117,10 +130,7 @@ public class AuthController {
     Jwt verifiedIdToken = oidcAuthService.verifyIdToken(loginRequest.getId_token());
     String subject = verifiedIdToken.getSubject();
     
-    Jwt verifiedAccessToken = oidcAuthService.verifyAccessToken(loginRequest.getAccess_token());
-    
-    // TODO add orcid claim as soon as supported by IDP
-    Object orcidClaim = verifiedIdToken.getClaim("orcid");
+    /*Jwt verifiedAccessToken = */ oidcAuthService.verifyAccessToken(loginRequest.getAccess_token());
     
     if (verifiedIdToken.getExpiresAt().isBefore(Instant.now())) {
       throw new OAuth2AuthenticationException("Token expired");
@@ -129,7 +139,18 @@ public class AuthController {
     if (!verifiedIdToken.getAudience().get(0).equals(clientId)) {
       throw new OAuth2AuthenticationException("Invalid audience");
     }
-
+    
+    
+    String orcid = verifiedIdToken.getClaim("eduperson_orcid");
+    if (orcid == null) {
+      // The claim's official name is "eduperson_orcid", but it used to
+      // be just "orcid". We check both just to be sure.
+      orcid = verifiedIdToken.getClaim("orcid");
+    }
+    // TODO connect ORCID to user account as soon as it is transmitted
+    
+    String fullname = verifiedIdToken.getClaim("name");
+    
     User user = userRepository.findByOidcSubjectIdentifier(subject).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     UserDetails userDetails = org.springframework.security.core.userdetails.User.builder()
             .username(user.getUsername())
@@ -141,6 +162,6 @@ public class AuthController {
     Date expiration = jwtUtil.extractExpiration(token);
     
     GrantedAuthority role = userDetails.getAuthorities().stream().findFirst().orElse(null);
-    return new AuthResponse(token, user.getUsername(), role != null ? role.getAuthority() : "", expiration);
+    return new AuthResponse(token, orcid, fullname, role != null ? role.getAuthority() : "", expiration);
   }
 }
