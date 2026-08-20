@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class CollectionsJsonLdMessageConverter implements HttpMessageConverter<Collection<TerminologyCollectionDto>> {

@@ -26,7 +26,7 @@ public class CollectionsController {
     private final CollectionRepository collectionRepository;
     private final AuthService authService;
     
-    @GetMapping(value = "/", produces = CollectionsJsonLdMessageConverter.MEDIA_TYPE_APPLICATION_LD_JSON_VALUE)
+    @GetMapping(value = {"", "/"}, produces = CollectionsJsonLdMessageConverter.MEDIA_TYPE_APPLICATION_LD_JSON_VALUE)
     public List<TerminologyCollectionDto> allCollections() {
         User user = authService.tryGetCurrentUser();
         List<TerminologyCollection> collections;
