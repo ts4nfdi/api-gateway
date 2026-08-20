@@ -23,7 +23,7 @@ public class ResponseAggregatorService {
         this.clazz = clazz;
     }
 
-    public TransformedApiResponse transformResponse(ApiResponse response, DatabaseConfig config, String endpoint, boolean paginate) {
+    public TransformedApiResponse transformResponse(ApiResponse response, DatabaseConfig config, String endpoint, boolean paginate, Map<RequestParameter, String> originalQueryParameters) {
         TransformedApiResponse newResponse = new TransformedApiResponse();
         newResponse.setOriginalResponse(response);
 
@@ -42,13 +42,13 @@ public class ResponseAggregatorService {
         String paginationKey = config.getResponseMapping(endpoint).getPage();
         String totalCount = config.getResponseMapping(endpoint).getTotalCount();
 
-        if(getData(response.getResponseBody(), paginationKey).isPresent()) {
+        if(getData(response.getResponseBody(), paginationKey, originalQueryParameters).isPresent()) {
           try {
-            newResponse.setPage((int)Double.parseDouble(getData(response.getResponseBody(), paginationKey).get()));
+            newResponse.setPage((int)Double.parseDouble(getData(response.getResponseBody(), paginationKey, originalQueryParameters).get()));
           } catch (NumberFormatException e) {
           }
           try {
-            newResponse.setTotalCollections((long)Double.parseDouble(getData(response.getResponseBody(), totalCount).orElse("0")));
+            newResponse.setTotalCollections((long)Double.parseDouble(getData(response.getResponseBody(), totalCount, originalQueryParameters).orElse("0")));
           } catch (NumberFormatException e) {
           }
           newResponse.setPaginate(true);
@@ -59,7 +59,7 @@ public class ResponseAggregatorService {
             return newResponse;
         }
 
-        List<AggregatedResourceBody> result = transformData(nestedData, config, endpoint);
+        List<AggregatedResourceBody> result = transformData(nestedData, config, endpoint, originalQueryParameters);
         newResponse.setCollection(result);
 
         logger.info("Transformed response: {} from  {}", result.size(), config.getName());
@@ -77,14 +77,14 @@ public class ResponseAggregatorService {
     }
 
     // Transform nested data into a list of AggregatedResourceBody
-    public List<AggregatedResourceBody> transformData(Object nestedData, DatabaseConfig config, String endpoint) {
+    public List<AggregatedResourceBody> transformData(Object nestedData, DatabaseConfig config, String endpoint, Map<RequestParameter, String> originalQueryParameters) {
         List<AggregatedResourceBody> result = new ArrayList<>();
         if (nestedData instanceof List && !((List) nestedData).isEmpty()) {
-            processList((List<?>) nestedData, result, config, endpoint);
+            processList((List<?>) nestedData, result, config, endpoint, originalQueryParameters);
         } else if (nestedData instanceof Map && !((Map) nestedData).isEmpty()) {
             Object docs = extractDocsFromMap((Map<?, ?>) nestedData, config, endpoint);
             if(docs != null){
-                processDocs(docs, result, config, endpoint);
+                processDocs(docs, result, config, endpoint, originalQueryParameters);
             }
         }
 
@@ -98,33 +98,33 @@ public class ResponseAggregatorService {
     }
 
     // Process the documents whether they are a List or single item
-    private void processDocs(Object docs, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint) {
+    private void processDocs(Object docs, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint, Map<RequestParameter, String> originalQueryParameters) {
         if (docs instanceof List) {
-            processList((List<?>) docs, result, config, endpoint);
+            processList((List<?>) docs, result, config, endpoint, originalQueryParameters);
         } else if (docs instanceof Map) {
             Map<?, ?> docsMap = (Map<?, ?>) docs;
             if(docsMap.containsKey("collection") && docsMap.size() == 1){
-                processList((List<?>) docsMap.get("collection"), result, config, endpoint);
+                processList((List<?>) docsMap.get("collection"), result, config, endpoint, originalQueryParameters);
             } else {
-                addNewItem(docs, result, config, endpoint);
+                addNewItem(docs, result, config, endpoint, originalQueryParameters);
             }
         } else {
             logger.error("Unexpected document type: {}. Expected List or Map.", docs.getClass().getSimpleName());
         }
     }
 
-    private void addNewItem(Object docs, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint) {
-        AggregatedResourceBody newItem = processItem((Map<String, Object>) docs, config, endpoint);
+    private void addNewItem(Object docs, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint, Map<RequestParameter, String> originalQueryParameters) {
+        AggregatedResourceBody newItem = processItem((Map<String, Object>) docs, config, endpoint, originalQueryParameters);
         if (newItem != null) {
             result.add(newItem);
         }
     }
 
     // Process list of items and add valid processed items to the result list
-    private void processList(List<?> dataList, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint) {
+    private void processList(List<?> dataList, List<AggregatedResourceBody> result, DatabaseConfig config, String endpoint, Map<RequestParameter, String> originalQueryParameters) {
         for (Object item : dataList) {
             if (item instanceof Map) {
-                addNewItem(item, result, config, endpoint);
+                addNewItem(item, result, config, endpoint, originalQueryParameters);
             } else {
                 logger.warn("Skipping non-Map item: {}", item);
             }
@@ -132,9 +132,9 @@ public class ResponseAggregatorService {
     }
 
     // Process individual map items into AggregatedResourceBody
-    private AggregatedResourceBody processItem(Map<String, Object> item, DatabaseConfig config, String endpoint) {
+    private AggregatedResourceBody processItem(Map<String, Object> item, DatabaseConfig config, String endpoint, Map<RequestParameter, String> originalQueryParameters) {
         try {
-            return AggregatedResourceBody.fromMap(item, config, endpoint, getClazz().getDeclaredConstructor().newInstance());
+            return AggregatedResourceBody.fromMap(item, config, endpoint, originalQueryParameters, getClazz().getDeclaredConstructor().newInstance());
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("Error processing item: {}", e.getMessage(), e);
@@ -152,9 +152,9 @@ public class ResponseAggregatorService {
         return config.getResponseMapping(endpoint).getKey();
     }
 
-    private Optional<String> getData(Map<String, Object> responseBody, String key) {
+    private Optional<String> getData(Map<String, Object> responseBody, String key, Map<RequestParameter, String> originalQueryParameters) {
         Optional<String> result = Optional.empty();
-        Object value = MappingTransformer.itemValueGetter(responseBody, key);
+        Object value = MappingTransformer.itemValueGetter(responseBody, key,  originalQueryParameters);
         if (value != null) {
             result = Optional.of(value.toString());
         }

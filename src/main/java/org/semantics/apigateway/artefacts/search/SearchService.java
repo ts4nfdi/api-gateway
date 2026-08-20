@@ -59,9 +59,11 @@ public class SearchService extends AbstractEndpointService {
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collection, endpoint);
         
+        HashMap<RequestParameter, String> requestParameters = new HashMap<>(Map.of(RequestParameter.query, query));
+        
         try {
-            return accessor.get(params.getTimeout(), new HashMap<>(Map.of(RequestParameter.query, query)))
-                    .thenApply(data -> this.transformApiResponses(data, endpoint))
+            return accessor.get(params.getTimeout(), requestParameters)
+                    .thenApply(data -> this.transformApiResponses(data, endpoint, requestParameters))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
                     .thenApply(data -> reIndexResults(query, data))
@@ -109,7 +111,7 @@ public class SearchService extends AbstractEndpointService {
         
         try {
             return accessor.get(params.getTimeout(), requestParameters)
-                    .thenApply(data -> this.transformApiResponses(data, endpoint))
+                    .thenApply(data -> this.transformApiResponses(data, endpoint, requestParameters))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
                     .thenApply(data -> reIndexResults(query, data))

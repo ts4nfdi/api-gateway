@@ -9,6 +9,7 @@ import org.semantics.apigateway.config.DatabaseConfig;
 import org.semantics.apigateway.config.ResponseMapping;
 import org.semantics.apigateway.model.ContextUri;
 import org.semantics.apigateway.service.MappingTransformer;
+import org.semantics.apigateway.service.RequestParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,7 +93,7 @@ public abstract class AggregatedResourceBody {
         return allFields;
     }
 
-    public void fillWithItem(Map<String, Object> item, ResponseMapping mapping, boolean hardcodedValuesConfig) {
+    public void fillWithItem(Map<String, Object> item, ResponseMapping mapping, boolean hardcodedValuesConfig, Map<RequestParameter, String> originalQueryParameters) {
         AggregatedResourceBody target = this;
         // Create a reflection-based mapping of getter methods from ResponseMapping to their values
         Map<String, String> responseMappings = mapping.toMap();
@@ -121,16 +122,16 @@ public abstract class AggregatedResourceBody {
                 Class<?> fieldType = field.getType();
 
                 if (fieldType == String.class) {
-                    setStringProperty(item, mappingValue,
+                    setStringProperty(item, mappingValue, originalQueryParameters,
                             value -> setFieldValue(target, field, value));
                 } else if (fieldType == boolean.class || fieldType == Boolean.class) {
-                    setBooleanProperty(item, mappingValue,
+                    setBooleanProperty(item, mappingValue, originalQueryParameters,
                             value -> setFieldValue(target, field, value));
                 } else if (List.class.isAssignableFrom(fieldType)) {
-                    setListProperty(item, mappingValue,
+                    setListProperty(item, mappingValue, originalQueryParameters,
                             value -> setFieldValue(target, field, value));
                 } else if (Map.class.isAssignableFrom(fieldType)) {
-                    setMapProperty(item, mappingValue,
+                    setMapProperty(item, mappingValue, originalQueryParameters,
                             value -> setFieldValue(target, field, value));
                 }
             } catch (Exception e) {
@@ -154,7 +155,7 @@ public abstract class AggregatedResourceBody {
                        
                        if (mappingValue != null) {
                            
-                           Object value = MappingTransformer.itemValueGetter(item, mappingValue);
+                           Object value = MappingTransformer.itemValueGetter(item, mappingValue, originalQueryParameters);
                            
                            HashMap<String, Object> rootMap = new HashMap<>();
                            HashMap<String, Object> current = rootMap;
@@ -182,12 +183,12 @@ public abstract class AggregatedResourceBody {
     public static <T extends AggregatedResourceBody> T fromMap(
             Map<String, Object> item,
             DatabaseConfig config,
-            String endpoint, T object) throws RuntimeException {
+            String endpoint, Map<RequestParameter, String> originalQueryParameters, T object) throws RuntimeException {
         ResponseMapping responseMapping = config.getResponseMapping(endpoint);
         boolean localDataValues = config.getUrl(endpoint).endsWith("localData");
 
         object.setOriginalBody(item);
-        object.fillWithItem(item, responseMapping, localDataValues);
+        object.fillWithItem(item, responseMapping, localDataValues,  originalQueryParameters);
         object.setDefaultValues(config);
 
 
@@ -280,12 +281,12 @@ public abstract class AggregatedResourceBody {
             return  field.get(this);
         }
     }
-    private void setStringProperty(Map<String, Object> item, String key, Consumer<String> setter) {
+    private void setStringProperty(Map<String, Object> item, String key, Map<RequestParameter, String> originalQueryParameters, Consumer<String> setter) {
         Object value;
         if (localDataValues) {
             value = key;
         } else {
-            value = MappingTransformer.itemValueGetter(item, key);
+            value = MappingTransformer.itemValueGetter(item, key, originalQueryParameters);
 
         }
         Optional.ofNullable(value)
@@ -298,21 +299,26 @@ public abstract class AggregatedResourceBody {
                 }).map(Object::toString).ifPresent(setter);
     }
 
-    private void setBooleanProperty(Map<String, Object> item, String key, Consumer<Boolean> setter) {
-        Object value = MappingTransformer.itemValueGetter(item, key);
+    private void setBooleanProperty(Map<String, Object> item, String key, Map<RequestParameter, String> originalQueryParameters, Consumer<Boolean> setter) {
+        Object value = MappingTransformer.itemValueGetter(item, key, originalQueryParameters);
         if (value != null) {
-            setter.accept(Boolean.parseBoolean(value.toString()));
+            if (value instanceof List<?> list) {
+                setter.accept(!list.isEmpty());
+            } else {
+                // For JsonPath mapping keys (always returns a list, we use it for checking whether there are elements)
+                setter.accept(Boolean.parseBoolean(value.toString()));
+            }
         } else {
             setter.accept(false);
         }
     }
 
-    private void setListProperty(Map<String, Object> item, String key, Consumer<List<Object>> setter) {
+    private void setListProperty(Map<String, Object> item, String key, Map<RequestParameter, String> originalQueryParameters, Consumer<List<Object>> setter) {
         Object value;
         if (localDataValues) {
             value = key != null ? List.of(key.split(";")) : Collections.emptyList();
         } else {
-            value = MappingTransformer.itemValueGetter(item, key);
+            value = MappingTransformer.itemValueGetter(item, key, originalQueryParameters);
         }
         List<Object> list = Collections.emptyList();
         if (value instanceof List) {
@@ -323,8 +329,8 @@ public abstract class AggregatedResourceBody {
         setter.accept(list);
     }
     
-    private void setMapProperty(Map<String, Object> item, String key, Consumer<Map<String, Object>> setter) {
-        Object value = MappingTransformer.itemValueGetter(item, key);
+    private void setMapProperty(Map<String, Object> item, String key, Map<RequestParameter, String> originalQueryParameters, Consumer<Map<String, Object>> setter) {
+        Object value = MappingTransformer.itemValueGetter(item, key, originalQueryParameters);
         if (!(value instanceof Map)) {
             setter.accept(Collections.emptyMap());
         } else {

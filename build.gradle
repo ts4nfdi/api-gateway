@@ -60,6 +60,9 @@ dependencies {
     // OIDC
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
+    // JSON mapping
+    implementation 'com.jayway.jsonpath:json-path:3.0.0'
+
     // Tests
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
