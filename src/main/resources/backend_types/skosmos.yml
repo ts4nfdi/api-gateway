@@ -29,7 +29,7 @@ endpoints:
       query:
         name: query
         type: stringAsterisk
-      childrenOf:
+      allChildrenOf:
         name: parent
         type: string
         optional: true
