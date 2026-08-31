@@ -31,7 +31,9 @@ public class OlsTransformer implements DatabaseTransformer {
                 value = item.get(toSnakeCaseRegex(ourKey));
             }
 
-            MappingTransformer.itemValueSetter(transformedItem, transformedKey, value);
+            if (!(value == null && ("docs".equals(transformedKey) || "response".equals(transformedKey)))) {
+              MappingTransformer.itemValueSetter(transformedItem, transformedKey, value);
+            }
         });
         
         Map<String, List<String>> annotations = (Map<String, List<String>>) transformedItem.get("annotation");
