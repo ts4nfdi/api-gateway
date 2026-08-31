@@ -32,6 +32,7 @@ endpoints:
       childrenOf:
         name: children
         type: string
+        optional: true
     responseMapping:
       nestedJson: results
       <<: *term

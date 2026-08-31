@@ -9,6 +9,7 @@ import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.user.User;
+import org.semantics.apigateway.service.RequestParameter;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 @RestController
@@ -60,7 +65,14 @@ public class Ols3Controller {
       timeout = 60 * 1000;
     }
     
-    AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("ontology"), "ols", allParams.get("collectionId"), false, timeout);
+    HashMap<RequestParameter, String> optionalParameters = new HashMap<>();
+    Optional.ofNullable(allParams.get("childrenOf")).ifPresent(value -> optionalParameters.put(RequestParameter.childrenOf, URLDecoder.decode(value, Charset.defaultCharset())));
+    Optional.ofNullable(allParams.get("allChildrenOf")).ifPresent(value -> optionalParameters.put(RequestParameter.allChildrenOf, URLDecoder.decode(value, Charset.defaultCharset())));
+    Optional.ofNullable(allParams.get("rows")).ifPresent(value -> optionalParameters.put(RequestParameter.rows, value));
+    Optional.ofNullable(allParams.get("start")).ifPresent(value -> optionalParameters.put(RequestParameter.start, value));
+    Optional.ofNullable(allParams.get("lang")).ifPresent(value -> optionalParameters.put(RequestParameter.lang, value));
+    
+    AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("database"), "ols", allParams.get("collectionId"), false, timeout, optionalParameters);
     return response.getCollection().get(0);
   }
   
