@@ -24,13 +24,17 @@ models:
 
 endpoints:
   search:
-    path: /search?lang=en&fields=scopeNote
+    path: /search?fields=scopeNote
     parameters:
       query:
         name: query
         type: stringAsterisk
       childrenOf:
-        name: children
+        name: parent
+        type: string
+        optional: true
+      lang:
+        name: lang
         type: string
         optional: true
     responseMapping:
