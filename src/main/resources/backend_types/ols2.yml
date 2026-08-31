@@ -34,16 +34,43 @@ models:
 
 endpoints:
   search:
-    path: /v2/entities
+    path: search
     parameters:
       query:
-        name: search
+        name: q
         type: string
+      childrenOf:
+        name: childrenOf
+        type: string
+        optional: true
+      allChildrenOf:
+        name: allChildrenOf
+        type: string
+        optional: true
+      lang:
+        name: lang
+        type: string
+        optional: true
+      rows:
+        name: rows
+        type: integer
+        optional: true
+      start:
+        name: start
+        type: integer
+        optional: true
     responseMapping:
-      collectionFilter: ontologyId
-      nestedJson: elements
-      <<: *term
-
+      nestedJson: response
+      collectionFilter: ontology
+      key: docs
+      label: label
+      iri: iri
+      ontology: ontology_name
+      synonyms: synonym
+      descriptions: description
+      shortForm: short_form
+      annotations: annotation
+      type: type
   resources:
     path: /v2/ontologies?size=10000
     responseMapping:
@@ -156,7 +183,31 @@ endpoints:
       hasChildren: hasDirectChildren
 
   suggest:
-    path: /select?q=%s&fieldList=iri&fieldList=label&fieldList=ontology_name&rows=%s&start=%s
+    path: /select?fieldList=iri&fieldList=label&fieldList=ontology_name
+    parameters:
+      query:
+        name: q
+        type: string
+      childrenOf:
+        name: childrenOf
+        type: string
+        optional: true
+      allChildrenOf:
+        name: allChildrenOf
+        type: string
+        optional: true
+      lang:
+        name: lang
+        type: string
+        optional: true
+      rows:
+        name: rows
+        type: integer
+        optional: true
+      start:
+        name: start
+        type: integer
+        optional: true
     responseMapping:
       nestedJson: response
       key: docs

@@ -1,15 +1,25 @@
 package org.semantics.apigateway.service;
 
 public enum RequestParameter {
+  
+  // Commonly available parameters
+  
   artefact,
   resourceUri,
   query,
-  childrenOf,
   
   offset,
   page,
   size,
   pageSize,
   
-  apiKey
+  apiKey,
+  
+  // Parameters supported only by some backend types
+  
+  childrenOf,
+  allChildrenOf,
+  lang,
+  rows,
+  start
 }
