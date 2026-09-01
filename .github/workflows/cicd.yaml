@@ -73,7 +73,6 @@ jobs:
         run: |
           mkdir -p .kube
           echo "${{ env.KUBECONFIG_FILE }}" > $KUBECONFIG
-            - name: Create Kubernetes secret for ONTOPORTAL_APIKEY
 
       - name: Create Kubernetes secret for ONTOPORTAL_APIKEY
         run: |
@@ -235,7 +234,6 @@ jobs:
         run: |
           mkdir -p .kube
           echo "${{ env.KUBECONFIG_FILE }}" > $KUBECONFIG
-            - name: Create Kubernetes secret for ONTOPORTAL_APIKEY
 
       - name: Create Kubernetes configmap for MATOMO_ENABLED
         run: |
