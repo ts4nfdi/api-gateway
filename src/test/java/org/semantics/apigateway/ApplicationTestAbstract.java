@@ -466,7 +466,7 @@ public abstract class ApplicationTestAbstract {
         assertThat(firstPlant.get("@id")).isEqualTo(firstPlant.get("iri"));
         assertThat(firstPlant.get("@context")).isNotNull().isNotEqualTo(Collections.emptyMap());
         Map<String, Object> context = (Map<String, Object>) firstPlant.get("@context");
-        List<String> keysNotInContext = List.of(new String[]{"@type", "@id", "@context"});
+        List<String> keysNotInContext = List.of(new String[]{"@type", "@id", "@context", "unsupportedSources"});
         Set<String> keys = firstPlant.keySet().stream()
                 .filter(x -> !keysNotInContext.contains(x)).collect(Collectors.toSet());
         keys.add("@base");
