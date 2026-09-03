@@ -34,5 +34,4 @@ public enum RequestParameter {
   Type type;
   
   public enum Type {common, backendSpecific}
-
 }
