@@ -73,11 +73,17 @@ public class ApiAccessor {
                 });
     }
 
-
     public ApiResponse call(String url, UrlConfig urlConfig, Map<RequestParameter, String> queryParams) {
         ApiResponse result = new ApiResponse();
         String fullUrl = url;
         result.setUrl(url);
+        
+        List<RequestParameter> unsupportedParams = checkForUnsupportedParams(queryParams.keySet(), urlConfig.parameterMappings().keySet());
+        result.setUnsupportedParams(unsupportedParams);
+        if (!unsupportedParams.isEmpty()) {
+           return result;
+        }
+        
         try {
             fullUrl = constructUrl(url, urlConfig, queryParams);
 
@@ -152,7 +158,13 @@ public class ApiAccessor {
             return result;
         }
     }
-
+    
+    private List<RequestParameter> checkForUnsupportedParams(Set<RequestParameter> requiredParameters, Set<RequestParameter> availableParameters) {
+        return requiredParameters.stream().filter(param ->
+                param.getType() == RequestParameter.Type.backendSpecific &&
+                !availableParameters.contains(param)).collect(Collectors.toList());
+    }
+    
     private String constructUrl(String url, UrlConfig config, Map<RequestParameter, String> requestParameters) {
         String apikey = config.apikey();
         

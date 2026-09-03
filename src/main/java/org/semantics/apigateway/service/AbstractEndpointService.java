@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -72,15 +73,47 @@ public abstract class AbstractEndpointService {
                 AggregatedApiResponse transformedResponse = new AggregatedApiResponse();
                 transformedResponse.setCollection(Collections.singletonList(transformedResults));
                 transformedResponse.setList(false);
+                transformedResponse.setOriginalResponses(data.getOriginalResponses());
+                transformedResponse = attachUnsupportedParameterInfo(transformedResponse);
                 return transformedResponse;
             } catch (IOException e) {
                 throw new RuntimeException("Error transforming results for target database schema", e);
             }
         } else {
+            data = attachUnsupportedParameterInfo(data);
             return data;
         }
     }
 
+    private AggregatedApiResponse attachUnsupportedParameterInfo(AggregatedApiResponse data) {
+        HashMap<String, TreeSet<String>> unsupportedParams = new HashMap<>();
+        for (ApiResponse originalResponse : data.getOriginalResponses()) {
+            var unsupportedParamsForResponse = originalResponse.getUnsupportedParams();
+            if (!CollectionUtils.isEmpty(unsupportedParamsForResponse)) {
+                for (RequestParameter param : unsupportedParamsForResponse) {
+                    TreeSet<String> backendsForParam = unsupportedParams.get(param.name());
+                    if (backendsForParam == null) {
+                        backendsForParam = new TreeSet<>();
+                        unsupportedParams.put(param.name(), backendsForParam);
+                    }
+                    DatabaseConfig dbConfig = configurationLoader.findBestMatchingConfig(originalResponse.getUrl());
+                    if (dbConfig != null) {
+                        backendsForParam.add(dbConfig.getType());
+                    } else {
+                        logger.error("Unable to find configuration for url {}", originalResponse.getUrl());
+                    }
+                }
+            }
+        }
+        if (!unsupportedParams.isEmpty()) {
+            if (data.isList()) {
+                data.getCollection().add(Map.of("unsupportedSources", unsupportedParams));
+            } else {
+                data.getCollection().get(0).put("unsupportedSources", unsupportedParams);
+            }
+        }
+        return data;
+    }
 
     protected Map<String, UrlConfig> buildUrls(String database, String endpoint) {
         String[] databases = (database == null || database.isEmpty()) ? new String[0] : database.split(",");

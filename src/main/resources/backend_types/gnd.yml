@@ -46,9 +46,11 @@ endpoints:
       offset:
         name: from
         type: string
+        optional: true
       size:
         name: size
         type: string
+        optional: true
     responseMapping:
       nestedJson: member
       <<: *searchResult
