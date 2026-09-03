@@ -156,9 +156,20 @@ endpoints:
       hasChildren: hasDirectChildren
 
   suggest:
-    path: /select?q=%s&fieldList=iri&fieldList=label&fieldList=ontology_name&rows=%s&start=%s
+    path: /select?fieldList=iri&fieldList=label&fieldList=ontology_name
+    parameters:
+      query:
+        name: q
+        type: string
+      size:
+        name: rows
+        type: string
+      offset:
+        name: start
+        type: string
     responseMapping:
       nestedJson: response
+      collectionFilter: ontology
       key: docs
       iri: iri
       label: label
