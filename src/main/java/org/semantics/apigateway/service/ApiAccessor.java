@@ -201,12 +201,18 @@ public class ApiAccessor {
         
         if (page.isPresent()) {
             if (requiredType == Pagination.PaginationType.offset) {
-                requestParameters.put(RequestParameter.offset, convertPageToOffset(page.get(), size.orElse(20) - 1 + config.pagination().getFirst()).toString());
+                offset = convertPageToOffset(page.get(), size.orElse(20));
+                requestParameters.put(RequestParameter.offset, getActualFirst(config.pagination().getFirst(), offset.get()).toString());
+            } else {
+                requestParameters.put(RequestParameter.page, getActualFirst(config.pagination().getFirst(), page.get()).toString());
             }
         } else if (offset.isPresent()) {
             if (requiredType == Pagination.PaginationType.page) {
-                requestParameters.put(RequestParameter.page, convertOffsetToPage(offset.get(), size.orElse(20) - 1 + config.pagination().getFirst()).toString());
                 logger.warn("Converting offset to required page parameter for URL {}. This calculation gives inaccurate results.", config.url());
+                page = convertPageToOffset(offset.get(), size.orElse(20));
+                requestParameters.put(RequestParameter.page, getActualFirst(config.pagination().getFirst(), page.get()).toString());
+            } else {
+                requestParameters.put(RequestParameter.offset, getActualFirst(config.pagination().getFirst(), offset.get()).toString());
             }
         }
     }
@@ -219,12 +225,16 @@ public class ApiAccessor {
         }
     }
     
-    private Integer convertPageToOffset(Integer page, Integer size) {
-        return (page - 1) * size;
+    private Optional<Integer> convertPageToOffset(Integer page, Integer size) {
+        return Optional.of((page - 1) * size);
     }
     
-    private Integer convertOffsetToPage(Integer offset, Integer size) {
-        return Math.floorDiv(offset, size) + 1;
+    private Optional<Integer> convertOffsetToPage(Integer offset, Integer size) {
+        return Optional.of(Math.floorDiv(offset, size) + 1);
+    }
+    
+    private Integer getActualFirst(Integer first, Integer value) {
+        return value - 1 + first;
     }
     
     private final static Pattern pathParamPattern = Pattern.compile("\\{(.*?)}");
