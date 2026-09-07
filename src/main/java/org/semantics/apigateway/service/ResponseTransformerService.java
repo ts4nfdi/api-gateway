@@ -7,10 +7,7 @@ import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,14 +23,15 @@ public class ResponseTransformerService {
   
   // Method to transform and structure results based on database
   public Map<String, Object> transformAndStructureResults(List<Map<String, Object>> combinedResults, String
-          targetDbSchema, String endpoint, boolean isList, boolean paginate, int page, long totalCount) throws IOException {
-    return transformJsonResponse(combinedResults, targetDbSchema, endpoint, isList, paginate, page, totalCount);
+          targetDbSchema, String endpoint, boolean isList, boolean paginate, int page, long totalCount,
+          Map<String, SortedSet<String>> unsupportedParameters) throws IOException {
+    return transformJsonResponse(combinedResults, targetDbSchema, endpoint, isList, paginate, page, totalCount,  unsupportedParameters);
   }
   
   // Method to transform the JSON response from a database into a specific format
   private Map<String, Object> transformJsonResponse(List<Map<String, Object>> originalResponse, String targetDataBase,
                                                     String endpoint, boolean isList, boolean paginate, int page,
-                                                    long totalCount) {
+                                                    long totalCount, Map<String, SortedSet<String>> unsupportedParameters) {
     DatabaseConfig databaseConfig = configurationLoader.getDatabaseConfig(targetDataBase);
     switch (targetDataBase) {
       case "ols": {
