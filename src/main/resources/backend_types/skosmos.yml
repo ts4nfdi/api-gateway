@@ -29,6 +29,12 @@ endpoints:
       query:
         name: query
         type: stringAsterisk
+      size:
+        name: maxhits
+        type: integer
+      offset:
+        name: offset
+        type: integer
       allChildrenOf:
         name: parent
         type: string

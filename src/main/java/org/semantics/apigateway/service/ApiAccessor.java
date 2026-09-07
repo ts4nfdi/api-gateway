@@ -3,6 +3,7 @@ package org.semantics.apigateway.service;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import org.semantics.apigateway.config.EndpointParameterMapping;
+import org.semantics.apigateway.config.Pagination;
 import org.semantics.apigateway.model.responses.ApiResponse;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -173,11 +174,7 @@ public class ApiAccessor {
         if(isCaseInsensitive && requestParameters.get(RequestParameter.artefact) != null)
             requestParameters.put(RequestParameter.artefact, (requestParameters.get(RequestParameter.artefact)).toUpperCase());
         
-        try {
-            requestParameters.put(RequestParameter.page, "" + (Integer.parseInt(Optional.ofNullable(requestParameters.get(RequestParameter.page)).orElse("0")) + config.pagination().getFirst()));
-        } catch (NumberFormatException e) {
-            logger.info("Pagination parameter missing for URL {} with query: {}", url, requestParameters);
-        }
+        calculateAndReplacePaginationValues(config, requestParameters);
         
         if (!apikey.isEmpty()) {
             requestParameters.put(RequestParameter.apiKey, apikey);
@@ -188,6 +185,46 @@ public class ApiAccessor {
         } else {
             return formatUrl(url, config, requestParameters);
         }
+    }
+    
+    private void calculateAndReplacePaginationValues(UrlConfig config, Map<RequestParameter, String> requestParameters) {
+        
+        Optional<Integer> page = parseInt(requestParameters.get(RequestParameter.page));
+        Optional<Integer> offset = parseInt(requestParameters.get(RequestParameter.offset));
+        Optional<Integer> size = parseInt(requestParameters.get(RequestParameter.size));
+        
+        Pagination.PaginationType requiredType = config.pagination().getType();
+        
+        if (page.isPresent() && offset.isPresent()) {
+            logger.warn("Mutually exclusive page and offset parameters are present for url {}. Using page.", config.url());
+        }
+        
+        if (page.isPresent()) {
+            if (requiredType == Pagination.PaginationType.offset) {
+                requestParameters.put(RequestParameter.offset, convertPageToOffset(page.get(), size.orElse(20) - 1 + config.pagination().getFirst()).toString());
+            }
+        } else if (offset.isPresent()) {
+            if (requiredType == Pagination.PaginationType.page) {
+                requestParameters.put(RequestParameter.page, convertOffsetToPage(offset.get(), size.orElse(20) - 1 + config.pagination().getFirst()).toString());
+                logger.warn("Converting offset to required page parameter for URL {}. This calculation gives inaccurate results.", config.url());
+            }
+        }
+    }
+    
+    private Optional<Integer> parseInt (String value) {
+        try {
+            return Optional.of(Integer.parseInt(value));
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
+    }
+    
+    private Integer convertPageToOffset(Integer page, Integer size) {
+        return (page - 1) * size;
+    }
+    
+    private Integer convertOffsetToPage(Integer offset, Integer size) {
+        return Math.floorDiv(offset, size) + 1;
     }
     
     private final static Pattern pathParamPattern = Pattern.compile("\\{(.*?)}");
