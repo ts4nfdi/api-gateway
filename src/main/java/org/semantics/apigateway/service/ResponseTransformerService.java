@@ -3,6 +3,7 @@ package org.semantics.apigateway.service;
 import lombok.Getter;
 import org.semantics.apigateway.api.*;
 import org.semantics.apigateway.config.DatabaseConfig;
+import org.semantics.apigateway.config.ResponseMapping;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class ResponseTransformerService {
   // Method to transform and structure results based on database
   public Map<String, Object> transformAndStructureResults(List<Map<String, Object>> combinedResults, String
           targetDbSchema, String endpoint, boolean isList, boolean paginate, int page, long totalCount,
-          Map<String, SortedSet<String>> unsupportedParameters) throws IOException {
+          Map<String, SortedSet<String>> unsupportedParameters) {
     return transformJsonResponse(combinedResults, targetDbSchema, endpoint, isList, paginate, page, totalCount,  unsupportedParameters);
   }
   
@@ -33,53 +34,31 @@ public class ResponseTransformerService {
                                                     String endpoint, boolean isList, boolean paginate, int page,
                                                     long totalCount, Map<String, SortedSet<String>> unsupportedParameters) {
     DatabaseConfig databaseConfig = configurationLoader.getDatabaseConfig(targetDataBase);
-    switch (targetDataBase) {
-      case "ols": {
-        OlsTransformer olsTransformer = new OlsTransformer();
-        var responseMapping = databaseConfig.getResponseMapping(endpoint);
-        List<Map<String, Object>> transformedResults = originalResponse.stream()
-                .map(x -> olsTransformer.transformItem(x, responseMapping))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        
-        return olsTransformer.constructResponse(transformedResults, responseMapping.getKey(), isList, paginate, page, totalCount);
-      }
-      case "ols2": {
-        OlsV2Transformer olsTransformer = new OlsV2Transformer();
-        var responseMapping = databaseConfig.getResponseMapping(endpoint);
-        List<Map<String, Object>> transformedResults = originalResponse.stream()
-                .map(x -> olsTransformer.transformItem(x, responseMapping))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        
-        return olsTransformer.constructResponse(transformedResults, responseMapping.getKey(), isList, paginate, page, totalCount);
-      }
-      case "ontoportal":
-        OntoPortalTransformer ontoPortalTransformer = new OntoPortalTransformer();
-        List<Map<String, Object>> transformedResultsOntoPortal = originalResponse.stream()
-                .map(x -> ontoPortalTransformer.transformItem(x, databaseConfig.getResponseMapping(endpoint)))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        
-        return ontoPortalTransformer.constructResponse(transformedResultsOntoPortal, null, false, paginate, page, totalCount);
-      case "skosmos":
-        SkosmosTransformer skosmosTransformer = new SkosmosTransformer();
-        List<Map<String, Object>> transformedResultsSkosmos = originalResponse.stream()
-                .map(x -> skosmosTransformer.transformItem(x, databaseConfig.getResponseMapping(endpoint)))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        return skosmosTransformer.constructResponse(transformedResultsSkosmos, null, false, paginate, page, totalCount);
-      case "mod":
-        ModTransformer modTransformer = new ModTransformer();
-        List<Map<String, Object>> transformedResultsMod = originalResponse.stream()
-                .map(x -> modTransformer.transformItem(x, databaseConfig.getResponseMapping(endpoint)))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        
-        return modTransformer.constructResponse(transformedResultsMod, null, isList, paginate, page, totalCount);
-      default:
-        
-        return (Map<String, Object>) new HashMap<>().put("error", "No database configuration found");
-    }
+    
+    DatabaseTransformer transformer = switch (targetDataBase) {
+      case "ols" -> new OlsTransformer();
+      case "ols2" -> new OlsV2Transformer();
+      case "ontoportal" -> new OntoPortalTransformer();
+      case "skosmos" -> new SkosmosTransformer();
+      case "mod" -> new ModTransformer();
+      default -> new DatabaseTransformer() {
+        @Override
+        public Map<String, Object> transformItem(Map<String, Object> item, ResponseMapping mapping) {
+          return Map.of();
+        }
+        @Override
+        public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount, Map<String, SortedSet<String>> unsupportedParameters) {
+          return Map.of("error", "No transformer found for backend type " + targetDataBase);
+        }
+      };
+    };
+    
+    var responseMapping = databaseConfig.getResponseMapping(endpoint);
+    List<Map<String, Object>> transformedResults = originalResponse.stream()
+            .map(x -> transformer.transformItem(x, responseMapping))
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList());
+    
+    return transformer.constructResponse(transformedResults, responseMapping.getKey(), isList, paginate, page, totalCount, unsupportedParameters);
   }
 }

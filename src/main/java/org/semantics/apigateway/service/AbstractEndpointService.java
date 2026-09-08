@@ -75,12 +75,15 @@ public abstract class AbstractEndpointService {
                 transformedResponse.setList(false);
                 transformedResponse.setOriginalResponses(data.getOriginalResponses());
                 return transformedResponse;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new RuntimeException("Error transforming results for target database schema", e);
             }
         } else {
             for(Map<String, Object> resultElement : data.getCollection()) {
-                resultElement.put("unsupportedSources", getStructuredUnsupportedParameters(data));
+                var unsupportedParameters = getStructuredUnsupportedParameters(data);
+                if (!unsupportedParameters.isEmpty()) {
+                    resultElement.put("unsupportedSources", unsupportedParameters);
+                }
             }
             return data;
         }

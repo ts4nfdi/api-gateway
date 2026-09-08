@@ -34,7 +34,7 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
         return findAll(artefactId, endpoint, params, accessor, currentUser).thenApply(x -> {
             x.setCollection(sortChildren(x.getCollection()));
             return x;
-        });
+        }).thenApply(x -> transformForTargetDbSchema(x, params.getTargetDbSchema(), endpoint, true));
     }
 
     public Object getChildren(String artefactId, String resourceUri, CommonRequestParams params, Integer page, ApiAccessor accessor,  User currentUser) {

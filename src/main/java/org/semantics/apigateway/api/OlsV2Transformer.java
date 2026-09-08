@@ -55,7 +55,7 @@ public class OlsV2Transformer implements DatabaseTransformer {
 
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount, Map<String, SortedSet<String>> unsupportedParameters) {
         if (list) {
             transformedResults = transformedResults.stream().filter(x -> x != null).collect(Collectors.toUnmodifiableList());
             Map<String, Object> response = new HashMap<>();
@@ -63,10 +63,20 @@ public class OlsV2Transformer implements DatabaseTransformer {
             response.put("totalElements", transformedResults.size());
             response.put("numElements", transformedResults.size());
             response.put("page", page == 0 ? 0 : page - 1);
+            if (!unsupportedParameters.isEmpty()) {
+                response.put("unsupportedSources", unsupportedParameters);
+            }
             return response;
         }
         
-        return transformedResults.isEmpty() ? null : transformedResults.get(0);
+        if (transformedResults.isEmpty()) {
+            return null;
+        }
+        Map<String, Object> response = transformedResults.get(0);
+        if (!unsupportedParameters.isEmpty()) {
+            response.put("unsupportedSources", unsupportedParameters);
+        }
+        return response;
     }
 
     private Object getNestedValue(Map<String, Object> item, String key) {

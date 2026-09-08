@@ -61,8 +61,12 @@ public class OlsTransformer implements DatabaseTransformer {
 
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount, Map<String, SortedSet<String>> unsupportedParameters) {
         Map<String, Object> response = new HashMap<>();
+      
+        if (!unsupportedParameters.isEmpty()) {
+          response.put("unsupportedSources", unsupportedParameters);
+        }
         
         if (!list && !"terms".equals(mappingKey)) {
           transformedResults.stream().findFirst().ifPresent(response::putAll);
