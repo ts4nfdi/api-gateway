@@ -11,6 +11,8 @@ import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+
 
 @RestController
 @RequestMapping("/")
@@ -37,7 +39,7 @@ public class SearchController {
             @ParameterObject CommonRequestParams params
     ) {
         User user = authService.tryGetCurrentUser();
-        return searchService.performSearch(query, params, user, null);
+        return searchService.performSearch(query, params, user, null, Collections.emptyMap());
     }
 
 

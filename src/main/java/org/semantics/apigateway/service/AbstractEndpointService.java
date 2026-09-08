@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -67,20 +68,49 @@ public abstract class AbstractEndpointService {
                 } else {
                     collections = (List<Map<String, Object>>) data;
                 }
-                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList, data.isPaginate(), data.getPage(), data.getTotalCount());
+                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList, data.isPaginate(), data.getPage(), data.getTotalCount(), getStructuredUnsupportedParameters(data));
                 logger.debug("Transformed results for database schema: {}", transformedResults);
                 AggregatedApiResponse transformedResponse = new AggregatedApiResponse();
                 transformedResponse.setCollection(Collections.singletonList(transformedResults));
                 transformedResponse.setList(false);
+                transformedResponse.setOriginalResponses(data.getOriginalResponses());
                 return transformedResponse;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new RuntimeException("Error transforming results for target database schema", e);
             }
         } else {
+            for(Map<String, Object> resultElement : data.getCollection()) {
+                var unsupportedParameters = getStructuredUnsupportedParameters(data);
+                if (!unsupportedParameters.isEmpty()) {
+                    resultElement.put("unsupportedSources", unsupportedParameters);
+                }
+            }
             return data;
         }
     }
 
+    private Map<String, SortedSet<String>> getStructuredUnsupportedParameters(AggregatedApiResponse data) {
+        HashMap<String, SortedSet<String>> unsupportedParams = new HashMap<>();
+        for (ApiResponse originalResponse : data.getOriginalResponses()) {
+            var unsupportedParamsForResponse = originalResponse.getUnsupportedParams();
+            if (!CollectionUtils.isEmpty(unsupportedParamsForResponse)) {
+                for (RequestParameter param : unsupportedParamsForResponse) {
+                    SortedSet<String> backendsForParam = unsupportedParams.get(param.name());
+                    if (backendsForParam == null) {
+                        backendsForParam = new TreeSet<>();
+                        unsupportedParams.put(param.name(), backendsForParam);
+                    }
+                    DatabaseConfig dbConfig = configurationLoader.findBestMatchingConfig(originalResponse.getUrl());
+                    if (dbConfig != null) {
+                        backendsForParam.add(dbConfig.getType());
+                    } else {
+                        logger.error("Unable to find configuration for url {}", originalResponse.getUrl());
+                    }
+                }
+            }
+        }
+        return unsupportedParams;
+    }
 
     protected Map<String, UrlConfig> buildUrls(String database, String endpoint) {
         String[] databases = (database == null || database.isEmpty()) ? new String[0] : database.split(",");

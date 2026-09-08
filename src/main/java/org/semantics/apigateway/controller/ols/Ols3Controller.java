@@ -2,13 +2,13 @@ package org.semantics.apigateway.controller.ols;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.ws.rs.QueryParam;
-import org.semantics.apigateway.api.OlsTransformer;
 import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
 import org.semantics.apigateway.artefacts.metadata.ArtefactsService;
 import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.user.User;
+import org.semantics.apigateway.service.RequestParameter;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 @RestController
@@ -29,8 +33,6 @@ public class Ols3Controller {
   private final ArtefactsDataService artefactsDataService;
   private final AuthService authService;
 
-  private final OlsTransformer olsTransformer = new OlsTransformer(); // TODO This breaks decoupling. Better pass original request through the services, so that we know how to construct the response in the transformers.
-  
   public Ols3Controller(SearchService searchService, ArtefactsService artefactsService, ArtefactsDataService artefactsDataService, AuthService authService) {
     this.searchService = searchService;
     this.artefactsService = artefactsService;
@@ -60,7 +62,14 @@ public class Ols3Controller {
       timeout = 60 * 1000;
     }
     
-    AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("ontology"), "ols", allParams.get("collectionId"), false, timeout);
+    HashMap<RequestParameter, String> optionalParameters = new HashMap<>();
+    Optional.ofNullable(allParams.get("childrenOf")).ifPresent(value -> optionalParameters.put(RequestParameter.childrenOf, URLDecoder.decode(value, Charset.defaultCharset())));
+    Optional.ofNullable(allParams.get("allChildrenOf")).ifPresent(value -> optionalParameters.put(RequestParameter.allChildrenOf, URLDecoder.decode(value, Charset.defaultCharset())));
+    Optional.ofNullable(allParams.get("rows")).ifPresent(value -> optionalParameters.put(RequestParameter.rows, value));
+    Optional.ofNullable(allParams.get("start")).ifPresent(value -> optionalParameters.put(RequestParameter.start, value));
+    Optional.ofNullable(allParams.get("lang")).ifPresent(value -> optionalParameters.put(RequestParameter.lang, value));
+    
+    AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("database"), "ols", allParams.get("collectionId"), false, timeout, optionalParameters);
     return response.getCollection().get(0);
   }
   
@@ -105,8 +114,7 @@ public class Ols3Controller {
   @GetMapping("/ontologies/{onto}/individuals")
   public Object getAllIndividualsForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
     if (iri == null) return artefactsDataService.getArtefactIndividuals(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactIndividual(onto, iri, params, null, authService.tryGetCurrentUser());
-    return olsTransformer.constructResponse(response.getCollection(), "individuals", true, true, 1, response.getCollection().size());
+    return artefactsDataService.getArtefactIndividual(onto, iri, params, null, authService.tryGetCurrentUser());
   }
 
   @CrossOrigin
@@ -119,8 +127,7 @@ public class Ols3Controller {
   @GetMapping("/ontologies/{onto}/properties")
   public Object getPropertiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
     if (iri == null) return artefactsDataService.getArtefactProperties(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactProperty(onto, iri, params, null, authService.tryGetCurrentUser());
-    return olsTransformer.constructResponse(response.getCollection(), "properties", true, true, 1, response.getCollection().size());
+    return artefactsDataService.getArtefactProperty(onto, iri, params, null, authService.tryGetCurrentUser());
   }
 
   @CrossOrigin

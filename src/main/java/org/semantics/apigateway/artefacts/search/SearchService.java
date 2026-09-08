@@ -36,7 +36,7 @@ public class SearchService extends AbstractEndpointService {
         this.collectionService = collectionService;
     }
 
-    public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, String collectionId, boolean showResponseConfiguration, long timeoutMillis) {
+    public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, String collectionId, boolean showResponseConfiguration, long timeoutMillis, Map<RequestParameter, String> optionalParameters) {
         TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase(database);
@@ -44,14 +44,15 @@ public class SearchService extends AbstractEndpointService {
         commonRequestParams.setCollectionId(collectionId);
         commonRequestParams.setShowResponseConfiguration(showResponseConfiguration);
         commonRequestParams.setTimeout(timeoutMillis);
-        return  performSearch(query, commonRequestParams, null, null);
+        return  performSearch(query, commonRequestParams, null, null, optionalParameters);
     }
     
     public AggregatedApiResponse performSearch(
             String query,
             CommonRequestParams params,
             User currentUser,
-            ApiAccessor accessor) {
+            ApiAccessor accessor,
+            Map<RequestParameter, String> optionalParameters) {
         String endpoint = "search";
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
@@ -60,6 +61,7 @@ public class SearchService extends AbstractEndpointService {
         accessor = applyCollection(accessor, collection, endpoint);
         
         HashMap<RequestParameter, String> requestParameters = new HashMap<>(Map.of(RequestParameter.query, query));
+        requestParameters.putAll(optionalParameters);
         
         try {
             return accessor.get(params.getTimeout(), requestParameters)

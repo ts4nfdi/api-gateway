@@ -24,14 +24,25 @@ models:
 
 endpoints:
   search:
-    path: /search?lang=en&fields=scopeNote
+    path: /search?fields=scopeNote
     parameters:
       query:
         name: query
         type: stringAsterisk
-      childrenOf:
-        name: children
+      size:
+        name: maxhits
+        type: integer
+      offset:
+        name: offset
+        type: integer
+      allChildrenOf:
+        name: parent
         type: string
+        optional: true
+      lang:
+        name: lang
+        type: string
+        optional: true
     responseMapping:
       nestedJson: results
       <<: *term

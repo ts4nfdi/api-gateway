@@ -46,7 +46,7 @@ public class CommonRequestParamsTest extends ApplicationTestAbstract {
         assertThat(object.get("label")).isEqualTo(expected.get("label"));
         assertThat(object.get("descriptions")).isEqualTo(expected.get("descriptions"));
         assertThat(object.keySet().stream().sorted().toList())
-                .isEqualTo(Stream.of("descriptions", "synonyms", "label", "@type", "@context", "short_form", "backend_type").sorted().toList());
+                .isEqualTo(Stream.of("descriptions", "synonyms", "label", "@type", "@context", "short_form", "backend_type", "unsupportedSources").sorted().toList());
     }
 
 

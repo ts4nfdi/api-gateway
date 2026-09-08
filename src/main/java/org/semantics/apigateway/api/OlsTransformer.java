@@ -31,7 +31,9 @@ public class OlsTransformer implements DatabaseTransformer {
                 value = item.get(toSnakeCaseRegex(ourKey));
             }
 
-            MappingTransformer.itemValueSetter(transformedItem, transformedKey, value);
+            if (!(value == null && ("docs".equals(transformedKey) || "response".equals(transformedKey)))) {
+              MappingTransformer.itemValueSetter(transformedItem, transformedKey, value);
+            }
         });
         
         Map<String, List<String>> annotations = (Map<String, List<String>>) transformedItem.get("annotation");
@@ -59,8 +61,12 @@ public class OlsTransformer implements DatabaseTransformer {
 
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount, Map<String, SortedSet<String>> unsupportedParameters) {
         Map<String, Object> response = new HashMap<>();
+      
+        if (!unsupportedParameters.isEmpty()) {
+          response.put("unsupportedSources", unsupportedParameters);
+        }
         
         if (!list && !"terms".equals(mappingKey)) {
           transformedResults.stream().findFirst().ifPresent(response::putAll);

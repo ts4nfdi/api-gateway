@@ -36,6 +36,26 @@ endpoints:
       query:
         name: q
         type: string
+      childrenOf:
+        name: childrenOf
+        type: string
+        optional: true
+      allChildrenOf:
+        name: allChildrenOf
+        type: string
+        optional: true
+      lang:
+        name: lang
+        type: string
+        optional: true
+      rows:
+        name: rows
+        type: integer
+        optional: true
+      start:
+        name: start
+        type: integer
+        optional: true
     responseMapping:
       nestedJson: response
       collectionFilter: ontology
@@ -172,12 +192,26 @@ endpoints:
       query:
         name: q
         type: string
-      size:
+      childrenOf:
+        name: childrenOf
+        type: string
+        optional: true
+      allChildrenOf:
+        name: allChildrenOf
+        type: string
+        optional: true
+      lang:
+        name: lang
+        type: string
+        optional: true
+      rows:
         name: rows
-        type: string
-      offset:
+        type: integer
+        optional: true
+      start:
         name: start
-        type: string
+        type: integer
+        optional: true
     responseMapping:
       nestedJson: response
       key: docs
