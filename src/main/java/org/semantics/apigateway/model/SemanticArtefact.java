@@ -11,7 +11,9 @@ import java.util.List;
 @ContextBaseUri("dct")
 public class SemanticArtefact extends AggregatedResourceBody {
 
+    @ContextUri("owl")
     private String versionIRI;
+    
     private String accessRights;
     private String license;
     private String identifier;
@@ -26,8 +28,7 @@ public class SemanticArtefact extends AggregatedResourceBody {
     private List<String> publisher;
     private String coverage;
     private List<String> hasFormat;
-
-
+    
     @ContextUri("dcat")
     private List<String> keywords;
     @ContextUri("dcat")
