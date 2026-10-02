@@ -15,7 +15,6 @@ import java.util.List;
 @JsonldResource
 @JsonldNamespace(name="collection", uri="https://w3id.org/ts4nfdi/collection/", applyToProperties = false)
 @JsonldType("collection:Collection")
-@JsonldLink(name = "iri", href = "http://base4nfdi.de/ts4nfdi/schema/iri", rel = "iri")
 public class TerminologyCollectionDto {
     
     private static final IRIFactory iriFactory = IRIFactory.iriImplementation();
