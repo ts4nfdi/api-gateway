@@ -6,7 +6,7 @@ pagination:
 
 models:
   artefact: &artefact
-    label: title|http://www.w3.org/2000/01/rdf-schema#label
+    label: title|http://www.w3.org/2000/01/rdf-schema#label|label
     iri: uri|iri
     ontology: ontologyId
     synonyms: label
@@ -22,8 +22,8 @@ models:
     label: label
     iri: iri
     ontology: ontologyId
-    synonyms: synonym->value|synonym
-    descriptions: definition->value|description->value|definition
+    synonyms: synonym|synonym->value
+    descriptions: definition|description|definition->value|description->value
     shortForm: shortForm
     type: type
     sourceUrl: linkedEntities->self->source
@@ -34,14 +34,18 @@ models:
 
 endpoints:
   search:
-    path: /entities?search=%s
+    path: /v2/entities
+    parameters:
+      query:
+        name: search
+        type: string
     responseMapping:
       collectionFilter: ontologyId
       nestedJson: elements
       <<: *term
 
   resources:
-    path: /ontologies?size=10000
+    path: /v2/ontologies?size=10000
     responseMapping:
       nestedJson: elements
       page: page
@@ -49,7 +53,12 @@ endpoints:
       <<: *artefact
 
   concepts:
-    path: /ontologies/%s/classes?page=%s&size=50
+    path: /v2/ontologies/{artefact}/classes?size=50
+    parameters:
+      page:
+        name: page
+        type: string
+        optional: true
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -57,7 +66,12 @@ endpoints:
       <<: *term
 
   properties:
-    path: /ontologies/%s/properties?page=%s&size=50
+    path: /v2/ontologies/{artefact}/properties?size=50
+    parameters:
+      page:
+        name: page
+        type: string
+        optional: true
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -65,26 +79,39 @@ endpoints:
       <<: *term
 
   concept_details:
-    path: /ontologies/%s/classes?iri=%s
+    path: /v2/ontologies/{artefact}/classes
+    parameters:
+      resourceUri:
+        name: iri
+        type: string
     responseMapping:
       nestedJson: elements
       <<: *term
 
   property_details:
-    path: /ontologies/%s/properties?iri=%s
+    path: /v2/ontologies/{artefact}/properties
+    parameters:
+      resourceUri:
+        name: iri
+        type: string
     responseMapping:
       nestedJson: elements
       <<: *term
 
   resource_details:
-    path: /ontologies/%s
+    path: /v2/ontologies/{artefact}
     responseMapping:
       nestedJson: ""
       key: ""
       <<: *artefact
 
   individuals:
-    path: /ontologies/%s/individuals?page=%s&size=50
+    path: /v2/ontologies/{artefact}/individuals?size=50
+    parameters:
+      page:
+        name: page
+        type: string
+        optional: true
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -92,20 +119,24 @@ endpoints:
       <<: *term
 
   individual_details:
-    path: /ontologies/%s/individuals?iri=%s
+    path: /v2/ontologies/{artefact}/individuals
+    parameters:
+      resourceUri:
+        name: iri
+        type: string
     responseMapping:
       nestedJson: elements
       <<: *term
 
   concepts_roots:
-    path: /ontologies/%s/classes?hasDirectParents=false&size=1000&lang=en&includeObsoleteEntities=false
+    path: /v2/ontologies/{artefact}/classes?hasDirectParents=false&size=1000&lang=en&includeObsoleteEntities=false
     responseMapping:
       nestedJson: elements
       <<: *term
       hasChildren: hasDirectChildren
 
   concepts_children:
-    path: /ontologies/%s/classes/%s/hierarchicalChildren?size=1000&lang=en&includeObsoleteEntities=false
+    path: /v2/ontologies/{artefact}/classes/{resourceUri}/hierarchicalChildren?size=1000&lang=en&includeObsoleteEntities=false
     caseInsensitive: false
     responseMapping:
       nestedJson: elements
@@ -115,7 +146,7 @@ endpoints:
       hasChildren: hasDirectChildren
 
   concept_tree:
-    path: /ontologies/%s/classes/%s/hierarchicalAncestors?page=0&size=10000&lang=en
+    path: /v2/ontologies/{artefact}/classes/{resourceUri}/hierarchicalAncestors?page=0&size=10000&lang=en
     caseInsensitive: false
     responseMapping:
       nestedJson: elements
@@ -123,3 +154,25 @@ endpoints:
       page: page
       <<: *term
       hasChildren: hasDirectChildren
+
+  suggest:
+    path: /select?fieldList=iri&fieldList=label&fieldList=ontology_name
+    parameters:
+      query:
+        name: q
+        type: string
+      size:
+        name: rows
+        type: string
+      offset:
+        name: start
+        type: string
+    responseMapping:
+      nestedJson: response
+      collectionFilter: ontology
+      key: docs
+      iri: iri
+      label: label
+      ontologyIri: ontology_name
+      totalCount: response->numFound
+      page: page->start

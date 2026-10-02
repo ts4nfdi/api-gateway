@@ -8,19 +8,13 @@ import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 import org.semantics.apigateway.model.user.User;
-import org.semantics.apigateway.service.AbstractEndpointService;
-import org.semantics.apigateway.service.ApiAccessor;
-import org.semantics.apigateway.service.JsonLdTransform;
-import org.semantics.apigateway.service.ResponseTransformerService;
+import org.semantics.apigateway.service.*;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -31,20 +25,20 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
         super(configurationLoader, cacheManager, transform, responseTransformerService, collectionService, RDFResource.class);
     }
 
-    public Object getRoots(String acronym, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
-        if (acronym == null || acronym.isEmpty()) {
+    public Object getRoots(String artefactId, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+        if (artefactId == null || artefactId.isEmpty()) {
             return new AggregatedApiResponse();
         }
         String endpoint = Endpoints.concepts_roots.toString();
         accessor = initAccessor(params.getDatabase(), endpoint, accessor);
-        return findAll(acronym, endpoint, params, accessor, currentUser).thenApply(x -> {
+        return findAll(artefactId, endpoint, params, accessor, currentUser).thenApply(x -> {
             x.setCollection(sortChildren(x.getCollection()));
             return x;
         });
     }
 
-    public Object getChildren(String acronym, String uri, CommonRequestParams params, Integer page, ApiAccessor accessor,  User currentUser) {
-        if (acronym == null || acronym.isEmpty() || uri == null || uri.isEmpty()) {
+    public Object getChildren(String artefactId, String resourceUri, CommonRequestParams params, Integer page, ApiAccessor accessor,  User currentUser) {
+        if (artefactId == null || artefactId.isEmpty() || resourceUri == null || resourceUri.isEmpty()) {
             return Collections.EMPTY_LIST;
         }
 
@@ -52,32 +46,32 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
         DatabaseConfig databaseConfig = configurationLoader.getConfigByName(params.getDatabase());
         accessor = initAccessor(params.getDatabase(), endpoint, accessor);
         if (databaseConfig.isOls2()) {
-            uri = URLEncoder.encode(URLEncoder.encode(uri)); // OLS2 requires URI double encoding
+            resourceUri = URLEncoder.encode(URLEncoder.encode(resourceUri)); // OLS2 requires URI double encoding
         }
-        return paginatedList(acronym, uri, endpoint, params, page, accessor,  currentUser);
+        return paginatedList(artefactId, resourceUri, endpoint, params, page, accessor,  currentUser);
     }
 
-    public Object getTree(String acronym, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
-        if (acronym == null || acronym.isEmpty() || uri == null || uri.isEmpty()) {
+    public Object getTree(String artefactId, String resourceUri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+        if (artefactId == null || artefactId.isEmpty() || resourceUri == null || resourceUri.isEmpty()) {
             return Collections.EMPTY_LIST;
         }
         String endpoint = Endpoints.concept_tree.toString();
         DatabaseConfig databaseConfig = configurationLoader.getConfigByName(params.getDatabase());
         accessor = initAccessor(params.getDatabase(), endpoint, accessor);
-        String finalUri = uri;
+        String finalUri = resourceUri;
         if (databaseConfig.isOls2()) {
-            finalUri = URLEncoder.encode(URLEncoder.encode(uri)); // OLS2 requires URI double encoding
+            finalUri = URLEncoder.encode(URLEncoder.encode(resourceUri)); // OLS2 requires URI double encoding
         }
 
-        return findAll(acronym, finalUri, endpoint, params, accessor, currentUser)
-                .thenApply(data -> databaseConfig.isOls() ? buildOlsTree(data, acronym, uri, params, currentUser) : data)
-                .thenApply(data -> databaseConfig.isOntoPortal() ? transformAllNestedChildren(data, databaseConfig, endpoint) : data);
+        return findAll(artefactId, finalUri, endpoint, params, accessor, currentUser)
+                .thenApply(data -> databaseConfig.isOls() ? buildOlsTree(data, artefactId, resourceUri, params, currentUser) : data)
+                .thenApply(data -> databaseConfig.isOntoPortal() ? transformAllNestedChildren(data, databaseConfig, endpoint, new HashMap<>()) : data);
     }
 
-    private AggregatedApiResponse buildOlsTree(AggregatedApiResponse data, String acronym, String uri, CommonRequestParams params, User currentUser) {
+    private AggregatedApiResponse buildOlsTree(AggregatedApiResponse data, String artefactId, String resourceUri, CommonRequestParams params, User currentUser) {
         List<Map<String, Object>> pathToRoot = data.getCollection();
         List<Map<String, Object>> cleanedPath = new ArrayList<>();
-        Map<String, Object> leafNode = findUri(acronym, uri, Endpoints.concept_details.toString(), params, null, currentUser).getCollection().get(0);
+        Map<String, Object> leafNode = findUri(artefactId, resourceUri, Endpoints.concept_details.toString(), params, null, currentUser).getCollection().get(0);
 
         for (Map<String, Object> child : pathToRoot) {
             if (child.get("iri").equals("http://www.w3.org/2002/07/owl#Thing")) {
@@ -92,17 +86,17 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
         return data;
     }
 
-    private AggregatedApiResponse transformAllNestedChildren(AggregatedApiResponse data, DatabaseConfig databaseConfig, String endpoint) {
+    private AggregatedApiResponse transformAllNestedChildren(AggregatedApiResponse data, DatabaseConfig databaseConfig, String endpoint, Map<RequestParameter, String> originalQueryParameters) {
         List<Map<String, Object>> items = data.getCollection();
         items.forEach(item -> {
-            List<Map<String, Object>> transformedChildren = transformNestedChildren((List<Map<String, Object>>) item.get("children"), databaseConfig, endpoint);
+            List<Map<String, Object>> transformedChildren = transformNestedChildren((List<Map<String, Object>>) item.get("children"), databaseConfig, endpoint, originalQueryParameters);
             item.put("children", transformedChildren);
         });
         data.setCollection(items);
         return data;
     }
 
-    private List<Map<String, Object>> transformNestedChildren(List<Map<String, Object>> children, DatabaseConfig databaseConfig, String endpoint) {
+    private List<Map<String, Object>> transformNestedChildren(List<Map<String, Object>> children, DatabaseConfig databaseConfig, String endpoint, Map<RequestParameter, String> originalQueryParameters) {
         if (children == null || children.isEmpty()) {
             return Collections.emptyList();
         }
@@ -110,13 +104,13 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
 
         children.forEach(child -> {
 
-            List<AggregatedResourceBody> transformedData = aggregatorTransformer.transformData(child, databaseConfig, endpoint);
+            List<AggregatedResourceBody> transformedData = aggregatorTransformer.transformData(child, databaseConfig, endpoint, originalQueryParameters);
             if (transformedData == null || transformedData.isEmpty()) {
                 return;
             }
 
             Map<String, Object> transformedChild = transformedData.get(0).toMap(false, true);
-            transformedChild.put("children", transformNestedChildren((List<Map<String, Object>>) transformedChild.get("children"), databaseConfig, endpoint));
+            transformedChild.put("children", transformNestedChildren((List<Map<String, Object>>) transformedChild.get("children"), databaseConfig, endpoint,  originalQueryParameters));
             transformedChildren.add(transformedChild);
         });
 

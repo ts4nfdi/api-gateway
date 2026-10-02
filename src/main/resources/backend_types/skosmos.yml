@@ -13,10 +13,25 @@ models:
     ontology: vocab
     type: type
     hasChildren: hasDirectChildren
+  graph: &graph
+    label: "$.graph[?(@.uri=='{resourceUri}')].prefLabel[?(@.lang=='en')].value"
+    iri: "$.graph[?(@.uri=='{resourceUri}')].uri"
+    synonyms: "$.graph[?(@.uri=='{resourceUri}')].altLabel[?(@.lang=='en')].value"
+    descriptions: "$.graph[?(@.uri in $.graph[?(@.uri=='{resourceUri}')]['skos:definition'][*].uri)]['http://www.w3.org/1999/02/22-rdf-syntax-ns#value'][?(@.lang=='en')].value"
+    ontologyIri: "$.graph[?(@.uri=='{resourceUri}')].inScheme.uri"
+    type: "$.graph[?(@.uri=='{resourceUri}')].type"
+    hasChildren: "$.graph[?(@.uri=='{resourceUri}')].narrower"
 
 endpoints:
   search:
-    path: /search?query=%s*&lang=en&fields=scopeNote
+    path: /search?lang=en&fields=scopeNote
+    parameters:
+      query:
+        name: query
+        type: stringAsterisk
+      childrenOf:
+        name: children
+        type: string
     responseMapping:
       nestedJson: results
       <<: *term
@@ -33,17 +48,31 @@ endpoints:
       descriptions: title
 
   concepts:
-    path: /agrovoc/label?acronym=%s
+    path: /{artefact}/label
+    caseInsensitive: false
+    parameters:
+      artefact:
+        name: acronym
+        type: string
     responseMapping:
       <<: *term
 
   concept_details:
-    path: /agrovoc/label?acronym=%s&uri=%s
+    path: /{artefact}/data?format=application%2Fld%2Bjson
+    caseInsensitive: false
+    parameters:
+      artefact:
+        name: vocid
+        type: string
+      resourceUri:
+        name: uri
+        type: string
     responseMapping:
-      <<: *term
+      <<: *graph
 
   resource_details:
-    path: /agrovoc
+    path: /{artefact}
+    caseInsensitive: false
     responseMapping:
       label: id
       iri: conceptschemes->uri|uri
@@ -53,7 +82,7 @@ endpoints:
       shortForm: id
 
   concepts_roots:
-    path: /%s/topConcepts?lang=en
+    path: /{artefact}/topConcepts?lang=en
     caseInsensitive: false
     responseMapping:
       nestedJson: topconcepts
@@ -61,7 +90,11 @@ endpoints:
       hasChildren: hasChildren
 
   concepts_children:
-    path: /%s/children?uri=%s&lang=en
+    path: /{artefact}/children?lang=en
+    parameters:
+      resourceUri:
+        name: uri
+        type: string
     caseInsensitive: false
     responseMapping:
       nestedJson: narrower

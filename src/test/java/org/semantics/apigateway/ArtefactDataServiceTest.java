@@ -32,23 +32,18 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         mockApiAccessor("artefact_term", artefactsService.getAccessor());
         CommonRequestParams params = new CommonRequestParams();
         params.setDatabase("skosmos");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactTerm("AGROVOC", "http://aims.fao.org/aos/agrovoc/c_330834", params, apiAccessor, null);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactTerm("agrovoc", "http://aims.fao.org/aos/agrovoc/c_330834", params, apiAccessor, null);
         assertMapEquality(response, createSkosmosAgrovocTerm());
 
         params = new CommonRequestParams();
         params.setDatabase("ontoportal");
-        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("AGROVOC", "http://aims.fao.org/aos/agrovoc/c_330834", params, apiAccessor, null);
+        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("agrovoc", "http://aims.fao.org/aos/agrovoc/c_330834", params, apiAccessor, null);
         assertMapEquality(response, createOntoPortalAgrovocTermFixture());
 
         params = new CommonRequestParams();
         params.setDatabase("ols2");
         response = (AggregatedApiResponse) artefactsService.getArtefactTerm("ncbitaxon", "http://purl.obolibrary.org/obo/NCBITaxon_2", params, apiAccessor, null);
         assertMapEquality(response, createOls2NCBITaxonFixture());
-
-        params = new CommonRequestParams();
-        params.setDatabase("ols");
-        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("ncbitaxon", "http://purl.obolibrary.org/obo/NCBITaxon_2", params, apiAccessor, null);
-        assertMapEquality(response, createNCBITaxonFixture());
 
         params = new CommonRequestParams();
         params.setDatabase("gnd");
@@ -74,12 +69,6 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactProperty("AGROVOC", "http://purl.org/dc/terms/abstract", params, apiAccessor, null);
         assertMapEquality(response, createOntoPortalAgrovocPropertyFixture());
 
-
-        params = new CommonRequestParams();
-        params.setDatabase("ols");
-        response = (AggregatedApiResponse) artefactsService.getArtefactProperty("NCBITAXON", "http://purl.obolibrary.org/obo/ncbitaxon#has_rank", params, apiAccessor, null);
-        assertMapEquality(response, createOlsNCBITaxonPropertyFixture());
-
         params = new CommonRequestParams();
         params.setDatabase("ols2");
         response = (AggregatedApiResponse) artefactsService.getArtefactProperty("NCBITAXON", "http://purl.obolibrary.org/obo/ncbitaxon#has_rank", params, apiAccessor, null);
@@ -98,18 +87,13 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         mockApiAccessor("artefact_individual", artefactsService.getAccessor());
         CommonRequestParams params = new CommonRequestParams();
         params.setDatabase("ols2");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", new CommonRequestParams(), apiAccessor, null);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", params, apiAccessor, null);
         assertMapEquality(response, createOls2FoodOnInstanceFixture());
 
         params = new CommonRequestParams();
         params.setDatabase("ontoportal");
         response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", params, apiAccessor, null);
         assertMapEquality(response, createOntoPortalFoodOnInstanceFixture());
-
-        params = new CommonRequestParams();
-        params.setDatabase("ols");
-        response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", params, apiAccessor, null);
-        assertMapEquality(response, createOlsFoodOnInstanceFixture());
     }
 
     @Test
@@ -119,10 +103,31 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         assertMapEquality(response, createOntoPortalInraeScheme());
     }
 
+    @Test
+    public void testGetEntity() {
+        mockApiAccessor("artefact_entity", "zbmed", artefactsService.getAccessor(), Map.of(
+                "classes", "class.json",
+                "properties", "property.json",
+                "individuals", "individual.json"));
+        CommonRequestParams params = new CommonRequestParams();
+        params.setDatabase("ols2");
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactEntity("NCIT", "http://purl.obolibrary.org/obo/NCIT_C2985", params, apiAccessor, null);
+        assertMapEquality(response, createOls2NcitEntityFixture());
+    }
+
+    private Map<String, Object> createOls2NcitEntityFixture() {
+        Map<String, Object> element = new HashMap<>();
+        element.put("iri", "http://purl.obolibrary.org/obo/NCIT_C2985");
+        element.put("label", "Diabetes Mellitus");
+        element.put("ontology", "ncit");
+        element.put("short_form", "NCIT_C2985");
+        return element;
+    }
+
     private Map<String, Object> createOls2NCBITaxonPropertyFixture() {
         Map<String, Object> map = createOlsNCBITaxonPropertyFixture();
         map.put("backend_type", "ols2");
-        map.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
+        map.put("source", "https://www.ebi.ac.uk/ols4/api");
         map.put("source_name", "ebi");
         map.put("type", "property");
         map.put("source_url", null); //TODO: add source_url
@@ -154,10 +159,111 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
     private Map<String, Object> createOls2NCBITaxonFixture() {
         Map<String, Object> map = createNCBITaxonFixture();
         map.put("backend_type", "ols2");
-        map.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
+        map.put("source", "https://www.ebi.ac.uk/ols4/api");
         map.put("source_name", "ebi");
         map.put("type", "class");
-        map.put("source_url", null); //TODO: add source_url
+        map.put("source_url", null); //TODO: add source_url "https://www.ebi.ac.uk/ols4/api/v2/ontologies/NCBITAXON/classes?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCBITaxon_2"
+        map.put("synonyms", List.of(
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#genbank_common_name",
+                                "oboSynonymTypeName", "genbank common name"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "eubacteria"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#synonym",
+                                "oboSynonymTypeName", "synonym"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Bacteria (ex Cavalier-Smith 1987)"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#synonym",
+                                "oboSynonymTypeName", "synonym"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Bacteria Woese et al. 2024"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#synonym",
+                                "oboSynonymTypeName", "synonym"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Bacteriobiota"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+                                "oboSynonymTypeName", "in-part"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Monera"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+                                "oboSynonymTypeName", "in-part"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Procaryotae"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+                                "oboSynonymTypeName", "in-part"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Prokaryota"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+                                "oboSynonymTypeName", "in-part"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "Prokaryotae"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#blast_name",
+                                "oboSynonymTypeName", "blast name"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "bacteria"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+                                "oboSynonymTypeName", "in-part"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "prokaryote"
+                ),
+                Map.of(
+                        "axioms", List.of(Map.of(
+                                "http://www.geneontology.org/formats/oboInOwl#hasSynonymType",
+                                "http://purl.obolibrary.org/obo/ncbitaxon#in_part",
+                                "oboSynonymTypeName", "in-part"
+                        )),
+                        "type", List.of("reification"),
+                        "value", "prokaryotes"
+                )
+        ));
         return map;
     }
 
@@ -221,13 +327,13 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         fixture.put("source", "https://agrovoc.fao.org/browse/rest/v1");
         fixture.put("source_name", "agrovoc");
         fixture.put("synonyms", Collections.emptyList());
-        fixture.put("descriptions", Collections.emptyList());
+        fixture.put("descriptions", List.of("A sequence of actions organized towards a specific goal."));
         fixture.put("created", null);
         fixture.put("modified", null);
         fixture.put("obsolete", false);
         fixture.put("source_url", null);
         fixture.put("version", null);
-        fixture.put("ontology_iri", "https://agrovoc.fao.org/browse/rest/v1");
+        fixture.put("ontology_iri", "http://aims.fao.org/aos/agrovoc");
         fixture.put("short_form", "c_330834");
         fixture.put("ontology", "agrovoc");
         return fixture;
@@ -289,7 +395,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
     private Map<String, Object> createOls2FoodOnInstanceFixture() {
         Map<String, Object> fixture = createFoodOnInstanceFixture();
         fixture.put("backend_type", "ols2");
-        fixture.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
+        fixture.put("source", "https://www.ebi.ac.uk/ols4/api");
         fixture.put("source_name", "ebi");
         fixture.put("ontology", "foodon");
         fixture.put("type", "individual");

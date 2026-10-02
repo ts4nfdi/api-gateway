@@ -26,15 +26,15 @@ public class User {
     @NotEmpty
     private String username;
 
-    @Column(nullable = false)
-    @NonNull
-    @NotEmpty
+    @Column
     @JsonIgnore
     private String password;
-
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
-
+    
+    // TODO at some point, we will want this to be @NotEmpty and @Column(nullable = false), but for the period of transitioning to OIDC, we will need to allow users that are not associated with an OIDC identity yet.
+    @Column(unique = true)
+    private String oidcSubjectIdentifier;
 }

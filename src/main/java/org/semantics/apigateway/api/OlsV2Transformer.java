@@ -29,12 +29,24 @@ public class OlsV2Transformer implements DatabaseTransformer {
                 value = item.get(toSnakeCaseRegex(ourKey));
             } else if (ourKey.equals("type")) {
                 value = List.of(value.toString());
-            }
+            } else if (ourKey.equals("synonyms")) {
+                value = transformNestedValue(value);
+            } else if (ourKey.equals("descriptions")) {
+                value = transformNestedValue(value);
+                }
 
             if (value != null ) {
                 MappingTransformer.itemValueSetter(transformedItem, transformedKey, value);
             }
         });
+
+        Map<String, Object> provider = new HashMap<>();
+        if (item.get("backend_type") != null) provider.put("provider_type", item.get("backend_type"));
+        if (item.get("source") != null) provider.put("provider_api", item.get("source"));
+        if (item.get("source_name") != null) provider.put("provider_name", item.get("source_name"));
+        if (!provider.isEmpty()) {
+            transformedItem.put("provider", provider);
+        }
 
         transformedItem.put("URI", item.get("iri"));
         transformedItem.put("@type", new SemanticArtefact().getTypeURI());
@@ -56,7 +68,7 @@ public class OlsV2Transformer implements DatabaseTransformer {
         
         return transformedResults.isEmpty() ? null : transformedResults.get(0);
     }
-    
+
     private Object getNestedValue(Map<String, Object> item, String key) {
         String[] path = key.split("->");
         Object current = item;
@@ -66,6 +78,26 @@ public class OlsV2Transformer implements DatabaseTransformer {
             }
             current = ((Map<String, Object>)current).get(pathSegment);
         }
-        return ((Map<String, Object>)current).get(path[path.length - 1]);
+        return current == null ? null : ((Map<String, Object>)current).get(path[path.length - 1]);
     }
+
+    private Object transformNestedValue(Object value) {
+        if (value instanceof String s) {
+            return List.of(s);
+        } else if (value instanceof List<?> list) {
+            return list.stream()
+                    .map(item -> {
+                        if (item instanceof Map<?, ?> itemMap) {
+                            return new HashMap<>((Map<String, Object>) itemMap);
+                        } else if (item instanceof String itemString) {
+                            return itemString;
+                        }
+                        return Map.of("value", item.toString());
+                    })
+                    .toList();
+        } else {
+            return List.of();
+        }
+    }
+
 }

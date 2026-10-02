@@ -62,20 +62,38 @@ models:
 
 endpoints:
   search:
-    path: /search?q=%s&apikey=%s
+    path: /search
+    parameters:
+      query:
+        name: q
+        type: string
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       nestedJson: collection
       collectionFilter: ontologies
       <<: *searchResult
 
   resources:
-    path: /submissions?apikey=%s&display_links=true&display_context=false&display=ontology,description,URI,released,modificationDate,alternative,version,status,versionIRI,hasLicense,contact,hasCreator,identifier,keyword,naturalLanguage,publisher,homepage,hasDomain,accrualMethod,accrualPeriodicity,publication,hasContributor,coverage,hasFormat,copyrightHolder,competencyQuestion,wasGeneratedBy,includedInDataCatalog,ontologyRelatedTo,usedOntologyEngineeringTool,keywords,obsolete&lang=en
+    path: /submissions?display_links=true&display_context=false&display=ontology,description,URI,released,modificationDate,alternative,version,status,versionIRI,hasLicense,contact,hasCreator,identifier,keyword,naturalLanguage,publisher,homepage,hasDomain,accrualMethod,accrualPeriodicity,publication,hasContributor,coverage,hasFormat,copyrightHolder,competencyQuestion,wasGeneratedBy,includedInDataCatalog,ontologyRelatedTo,usedOntologyEngineeringTool,keywords,obsolete&lang=en
+    parameters:
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       nestedJson: collection
       <<: *artefact
 
   concepts:
-    path: /ontologies/%s/classes?page=%s&apikey=%s&pagesize=50&display_links=true&display_context=false&lang=en
+    path: /ontologies/{artefact}/classes?pagesize=50&display_links=true&display_context=false&lang=en
+    parameters:
+      page:
+        name: page
+        type: string
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       nestedJson: collection
       totalCount: totalCount
@@ -83,7 +101,14 @@ endpoints:
       <<: *term
 
   properties:
-    path: /ontologies/%s/properties?page=%s&apikey=%s&pagesize=50&display_links=true&display_context=false&lang=en
+    path: /ontologies/{artefact}/properties?pagesize=50&display_links=true&display_context=false&lang=en
+    parameters:
+      page:
+        name: page
+        type: string
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       nestedJson: collection
       totalCount: totalCount
@@ -91,22 +116,41 @@ endpoints:
       <<: *term
 
   concept_details:
-    path: ontologies/%s/classes/%s?apikey=%s&lang=en
+    path: ontologies/{artefact}/classes/{resourceUri}?lang=en
+    parameters:
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       <<: *term
 
   property_details:
-    path: ontologies/%s/properties/%s?apikey=%s&lang=en
+    path: ontologies/{artefact}/properties/{resourceUri}?lang=en
+    parameters:
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       <<: *term
 
   resource_details:
-    path: ontologies/%s/latest_submission?apikey=%s&display=all&lang=en
+    path: ontologies/{artefact}/latest_submission?display=all&lang=en
+    parameters:
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       <<: *artefact
 
   individuals:
-    path: /ontologies/%s/instances?page=%s&apikey=%s&pagesize=50&display_links=true&display_context=false&lang=en
+    path: /ontologies/{artefact}/instances?pagesize=50&display_links=true&display_context=false&lang=en
+    parameters:
+      page:
+        name: page
+        type: string
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       nestedJson: collection
       totalCount: totalCount
@@ -114,45 +158,88 @@ endpoints:
       <<: *term
 
   individual_details:
-    path: ontologies/%s/instances/%s?apikey=%s&lang=en
+    path: ontologies/{artefact}/instances/{resourceUri}?lang=en
+    parameters:
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       <<: *term
 
   schemes:
-    path: ontologies/%s/schemes?page=%s&apikey=%s&lang=en
+    path: ontologies/{artefact}/schemes?lang=en
+    parameters:
+      page:
+        name: page
+        type: string
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       <<: *term
 
   scheme_details:
-    path: ontologies/%s/schemes/%s?apikey=%s&lang=en
+    path: ontologies/{artefact}/schemes/{resourceUri}?lang=en
+    parameters:
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       <<: *term
 
   collections:
-    path: ontologies/%s/collections?page=%s&apikey=%s&lang=en
+    path: ontologies/{artefact}/collections?lang=en
+    parameters:
+      page:
+        name: page
+        type: string
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       <<: *term
 
   collection_details:
-    path: ontologies/%s/collections/%s?apikey=%s&lang=en
+    path: ontologies/{artefact}/collections/{resourceUri}?lang=en
+    parameters:
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       <<: *term
 
   concepts_roots:
-    path: ontologies/%s/classes/roots?apikey=%s&lang=en&display=prefLabel,definition,synonym,created,modified,obsolete,hasChildren
+    path: ontologies/{artefact}/classes/roots?lang=en&display=prefLabel,definition,synonym,created,modified,obsolete,hasChildren
+    parameters:
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       <<: *term
       hasChildren: hasChildren
+
   concepts_children:
-    path: ontologies/%s/classes/%s/children?page=%s&apikey=%s&lang=en&display=prefLabel,definition,synonym,created,modified,obsolete,hasChildren
+    path: ontologies/{artefact}/classes/{resourceUri}/children?lang=en&display=prefLabel,definition,synonym,created,modified,obsolete,hasChildren
+    parameters:
+      page:
+        name: page
+        type: string
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       nestedJson: collection
       totalCount: totalCount
       page: page
       <<: *term
       hasChildren: hasChildren
+
   concept_tree:
-    path: ontologies/%s/classes/%s/tree?apikey=%s&lang=en&display=prefLabel,definition,synonym,URI,created,modified,obsolete,hasChildren,children
+    path: ontologies/{artefact}/classes/{resourceUri}/tree?lang=en&display=prefLabel,definition,synonym,URI,created,modified,obsolete,hasChildren,children
+    parameters:
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       <<: *term
       hasChildren: hasChildren

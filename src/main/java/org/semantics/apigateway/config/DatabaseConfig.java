@@ -3,10 +3,7 @@ package org.semantics.apigateway.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.semantics.apigateway.model.BackendType;
 import org.semantics.apigateway.model.Endpoints;
 import org.semantics.apigateway.model.RDFResource;
@@ -22,6 +19,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
+@ToString(exclude = {"apiKey", "serviceConfig", "responseMappings"})
 public class DatabaseConfig {
     private String type;
     private String name;
@@ -32,6 +30,7 @@ public class DatabaseConfig {
     private ServiceConfig serviceConfig;
     @JsonIgnore
     private final HashMap<String, ResponseMapping>  responseMappings = new HashMap<>();
+    @JsonIgnore
 
     // TODO The response mappings are constructed anew at each request-response cycle, although they should presumably remain unchanged throughout the application lifetime.
     public ResponseMapping getResponseMapping(String endpoint) {
@@ -96,7 +95,7 @@ public class DatabaseConfig {
     }
 
     public UrlConfig getUrlConfig(String endpoint) {
-        return new UrlConfig(getUrl(), getApiKey(), getEndpointConfig(endpoint).isCaseInsensitive(), serviceConfig.getPagination());
+        return new UrlConfig(getUrl(), getApiKey(), getEndpointConfig(endpoint).isCaseInsensitive(), serviceConfig.getPagination(), getEndpointConfig(endpoint).getParameters());
     }
 
     public String getSearchUrl() {

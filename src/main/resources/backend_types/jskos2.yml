@@ -42,7 +42,11 @@ models:
 
 endpoints:
   search:
-    path: /concepts/search?search=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    path: /concepts/search?properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    parameters:
+      query:
+        name: search
+        type: string
     responseMapping:
       <<: *searchResult
 
@@ -53,17 +57,38 @@ endpoints:
 
   resource_details:
     caseInsensitive: false
-    path: /voc?limit=1000000&notation=%s # jskos v2 does not support filtering by notation only by URI
+    path: /voc?limit=1000000 # jskos v2 does not support filtering by notation only by URI
+    parameters:
+      artefact:
+        name: query
+        type: pipeList
     responseMapping:
       <<: *artefact
 
   concept_details:
     caseInsensitive: false
-    path: /concepts?voc=%s&uri=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate,depiction
+    path: /concepts?properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate,depiction
+    parameters:
+      artefact:
+        name: voc
+        type: string
+      resourceUri:
+        name: uri
+        type: string
     responseMapping:
       <<: *searchResult
 
   suggest:
-    path: /concepts/suggest?search=%s&format=jskos&limit=%s&offset=%s
+    path: /concepts/suggest?format=jskos
+    parameters:
+      query:
+        name: search
+        type: string
+      offset:
+        name: offset
+        type: string
+      size:
+        name: limit
+        type: string
     responseMapping:
       <<: *searchResult

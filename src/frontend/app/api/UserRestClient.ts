@@ -6,10 +6,16 @@ export interface LoginRequest {
     password: string;
 }
 
+export interface SsoLoginRequest {
+    id_token: string;
+    access_token: string;
+}
+
 export interface UserResponse {
     email?: string;
     username: string;
     roles?: Array<string>;
+    oidcSubjectIdentifier? : string;
 }
 
 export interface LoginResponse {
@@ -17,6 +23,22 @@ export interface LoginResponse {
         username: string;
         token: string;
         role: string;
+    }
+}
+
+export interface SsoTokenExchangeRequest {
+    code: string;
+    redirect_uri: string;
+    code_verifier?: string;
+}
+
+export interface SsoTokenExchangeResponse {
+    data: {
+        access_token: string;
+        scope: string;
+        id_token: string;
+        token_type: string;
+        expires_in: bigint;
     }
 }
 
@@ -33,11 +55,19 @@ interface UpdateUserRequest {
 export class UserRestClient extends RestApplicationClient {
 
     login(body: LoginRequest): RestResponse<LoginResponse> {
-        return this.httpClient.request({method: "POST", url: 'auth/login', data: body});
+        return this.httpClient.request({method: "POST", url: '/auth/login', data: body});
+    }
+
+    ssoExchangeToken(body: SsoTokenExchangeRequest): RestResponse<SsoTokenExchangeResponse> {
+        return this.httpClient.request({method: "POST", url: 'auth/sso/token', data: body});
+    }
+
+    ssoLogin(body: SsoLoginRequest): RestResponse<LoginResponse> {
+        return this.httpClient.request({method: "POST", url: 'auth/sso/login', data: body});
     }
 
     logout(): RestResponse<void> {
-        return this.httpClient.request({method: "POST", url: 'auth/logout'});
+        return this.httpClient.request({method: "POST", url: '/auth/logout'});
     }
 
     getAllUsers(): RestResponse<UserResponse[]> {

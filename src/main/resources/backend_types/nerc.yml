@@ -55,7 +55,11 @@ models:
     modified: modified
 endpoints:
   search:
-    path: /search/content?q=%s
+    path: /search/content
+    parameters:
+      query:
+        name: q
+        type: string
     responseMapping:
       nestedJson: "member"
       totalCount: totalItems
@@ -68,17 +72,29 @@ endpoints:
       <<: *artefact
 
   concept_details:
-    path: /artefacts/%s/concepts/%s?apikey=%s
+    path: /artefacts/{artefact}/concepts/{resourceUri}
+    parameters:
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       <<: *searchResult
 
   resource_details:
-    path: /artefacts/%s?apikey=%s
+    path: /artefacts/{artefact}
+    parameters:
+      apiKey:
+        name: apikey
+        type: string
     responseMapping:
       <<: *artefact
 
   concepts:
-    path: /artefacts/%s/concepts?page=%s
+    path: /artefacts/{artefact}/concepts
+    parameters:
+      page:
+        name: page
+        type: string
     responseMapping:
       nestedJson: "member"
       totalCount: totalItems
@@ -86,7 +102,11 @@ endpoints:
       <<: *searchResult
 
   properties:
-    path: /artefacts/%s/properties?page=%s
+    path: /artefacts/{artefact}/properties
+    parameters:
+      page:
+        name: page
+        type: string
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -94,12 +114,16 @@ endpoints:
       <<: *searchResult
 
   property_details:
-    path: /artefacts/%s/properties/%s
+    path: /artefacts/{artefact}/properties/{resourceUri}
     responseMapping:
       <<: *searchResult
 
   schemes:
-    path: /artefacts/%s/schemes?page=%s
+    path: /artefacts/{artefact}/schemes
+    parameters:
+      page:
+        name: page
+        type: string
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -107,12 +131,16 @@ endpoints:
       <<: *searchResult
 
   scheme_details:
-    path: /artefacts/%s/schemes/%s
+    path: /artefacts/{artefact}/schemes/{resourceUri}
     responseMapping:
       <<: *searchResult
 
   collections:
-    path: /artefacts/%s/collections?page=%s
+    path: /artefacts/{artefact}/collections
+    parameters:
+      page:
+        name: page
+        type: string
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -120,6 +148,6 @@ endpoints:
       <<: *searchResult
 
   collection_details:
-    path: /artefacts/%s/collections/%s
+    path: /artefacts/{artefact}/collections/{resourceUri}
     responseMapping:
       <<: *searchResult

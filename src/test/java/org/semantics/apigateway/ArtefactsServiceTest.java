@@ -35,7 +35,7 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
     public void testGetAllArtefacts() {
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefacts(new CommonRequestParams(), null, apiAccessor);
         int index;
-        int size = 1256;
+        int size = 1029;
         List<Map<String, Object>> responseList = response.getCollection();
 
 
@@ -46,9 +46,6 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         Map<String, Object> skosmosExpected = createSkosmosAgrovocFixture();
         skosmosExpected.put("iri", "agrovoc");
         assertMapEquality(response, skosmosExpected, size, index);
-
-        index = indexOfShortFormAndBackendType(responseList, "bto", "ols");
-        assertMapEquality(response, createOlsFixture(), size, index);
 
         index = indexOfShortFormAndBackendType(responseList, "bto", "ols2");
         assertMapEquality(response, createOls2Fixture(), size, index);
@@ -63,7 +60,7 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         assertMapEquality(response, createColiConc(), size, index);
 
         assertThat(responseList.stream().map(x -> x.get("source_name")).distinct().sorted().toArray())
-                .isEqualTo(new String[]{"agroportal", "agrovoc", "coli-conc", "dante", "ebi", "gnd", "tib"});
+                .isEqualTo(new String[]{"agroportal", "agrovoc", "coli-conc", "dante", "ebi", "gnd"});
     }
 
 
@@ -94,7 +91,7 @@ public class ArtefactsServiceTest extends ApplicationTestAbstract {
         fixture.put("backend_type", "ols2");
         fixture.put("short_form", "bto");
         fixture.put("label", "BRENDA tissue / enzyme source");
-        fixture.put("source", "https://www.ebi.ac.uk/ols4/api/v2");
+        fixture.put("source", "https://www.ebi.ac.uk/ols4/api");
         fixture.put("type", "ontology");
         fixture.put("source_name", "ebi");
         fixture.put("synonyms", Collections.singletonList("The BRENDA Tissue Ontology (BTO)"));

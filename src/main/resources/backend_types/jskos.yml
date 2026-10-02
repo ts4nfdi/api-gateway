@@ -36,7 +36,11 @@ models:
 
 endpoints:
   search:
-    path: /search?query=%s&properties=+notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    path: /search?properties=+notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    parameters:
+      query:
+        name: query
+        type: string
     responseMapping:
       <<: *searchResult
 
@@ -47,11 +51,18 @@ endpoints:
 
   resource_details:
     caseInsensitive: false
-    path: /voc/%s
+    path: /voc/{artefact}
     responseMapping:
       <<: *artefact
 
   concept_details:
-    path: /data?voc=%s&id=%s&properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    path: /data?properties=notation,definition,prefLabel,altLabel,inScheme,deprecated,created,modified,issued,startDate,endDate
+    parameters:
+      artefact:
+        name: voc
+        type: string
+      resourceUri:
+        name: id
+        type: string
     responseMapping:
       <<: *searchResult
