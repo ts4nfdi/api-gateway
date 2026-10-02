@@ -154,6 +154,8 @@ public class ApiAccessor {
     }
 
     private String constructUrl(String url, UrlConfig config, Map<RequestParameter, String> requestParameters) {
+    private String constructUrl(String url, UrlConfig config, Map<RequestParameter, String> sharedRequestParameters) {
+        Map<RequestParameter, String> requestParameters = new HashMap<>(sharedRequestParameters);
         String apikey = config.apikey();
         
         boolean isCaseInsensitive = config.caseInSensitive();
