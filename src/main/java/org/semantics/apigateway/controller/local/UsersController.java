@@ -7,13 +7,11 @@ import lombok.AllArgsConstructor;
 import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.semantics.apigateway.service.auth.UserRepository;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -38,4 +36,17 @@ public class UsersController {
                 "username", x.getUsername()
         )).toList();
     }
+    
+    @PostMapping("/me/externalIdentifiers")
+    public void updateUser(@RequestBody String externalIdentifier) {
+        User user = getCurrentUser();
+        user.getExternalPersistentIdentifiers().add(externalIdentifier);
+        userRepository.save(user);
+    }
+    
+    @GetMapping("/{externalIdentifier}")
+    public Optional<User> getUserByExternalId(@PathVariable("externalIdentifier") String externalIdentifier) {
+        return userRepository.findByExternalPersistentIdentifiers(externalIdentifier);
+    }
+    
 }
