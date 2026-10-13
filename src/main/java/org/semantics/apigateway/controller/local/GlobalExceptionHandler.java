@@ -34,4 +34,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler(MissingOrcidException.class)
+    public ResponseEntity<ErrorResponse> handleMissingOricdException(Exception ex) {
+        ErrorResponse errorResponse = new ErrorResponse("MISSING_ORCID", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
 }
