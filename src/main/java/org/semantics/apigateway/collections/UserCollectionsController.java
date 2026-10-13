@@ -25,11 +25,9 @@ public class UserCollectionsController {
     private final CollectionService collectionService;
     private final AuthService authService;
 
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
     public TerminologyCollectionDto createCollection(@RequestBody TerminologyCollectionDto collection) {
-
         return TerminologyCollectionDto.toDto(collectionService.createCollection(authService.getCurrentUser().getId(), collection));
     }
 
@@ -42,7 +40,7 @@ public class UserCollectionsController {
         return TerminologyCollectionDto.toDto(this.collectionService.updateCollection(authService.getCurrentUser(), id, collection));
     }
 
-    @GetMapping("/")
+    @GetMapping(value = "/", produces = CollectionsJsonLdMessageConverter.MEDIA_TYPE_APPLICATION_LD_JSON_VALUE)
     public List<TerminologyCollectionDto> allCollections() {
         List<TerminologyCollection> collections = this.collectionRepository.findAllUserCollections(authService.getCurrentUser());
         return collections.stream().map(TerminologyCollectionDto::toDto).toList();

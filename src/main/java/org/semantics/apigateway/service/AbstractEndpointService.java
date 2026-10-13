@@ -286,7 +286,7 @@ public abstract class AbstractEndpointService {
 
         return filterOutByTerminologies(terminologiesCollection.getTerminologies(), data);
     }
-
+    
     protected AggregatedApiResponse paginate(TransformedApiResponse response, CommonRequestParams
             commonRequestParams, int page) {
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
@@ -521,10 +521,9 @@ public abstract class AbstractEndpointService {
         
         String id = artefactId == null ? resourceUri : artefactId;
         
-        return apiResponses.stream().map(x -> {
+        return apiResponses.stream().peek(x -> {
                     List<AggregatedResourceBody> filtered = x.getCollection().stream().filter(y -> y.getShortForm().equalsIgnoreCase(id) || y.getIri().equals(id)).toList();
                     x.setCollection(filtered);
-                    return x;
                 })
                 .filter(x -> !x.getCollection().isEmpty())
                 .toList();
