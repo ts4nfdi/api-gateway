@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +26,7 @@ public class TerminologyCollectionDto {
     boolean isPublic;
     List<CollectionCollaboratorDto> collaborators = Collections.emptyList();
     List<ResourceDto> terminologies = Collections.emptyList();
+    List<CollectionStatisticDto> statistics = Collections.emptyList();
 
 
     public static TerminologyCollectionDto toDto(TerminologyCollection x) {
@@ -48,6 +50,11 @@ public class TerminologyCollectionDto {
                     r.getType()
             );
         }).toList());
+        dto.setStatistics(x.getStatistics().stream()
+                .max(Comparator.comparing(CollectionStatistic::getTimestamp)
+                        .thenComparing(CollectionStatistic::getId))
+                .map(statistic -> List.of(CollectionStatisticDto.from(statistic)))
+                .orElse(Collections.emptyList()));
         return dto;
     }
 }
