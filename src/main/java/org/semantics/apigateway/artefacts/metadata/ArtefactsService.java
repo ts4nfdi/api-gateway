@@ -40,7 +40,7 @@ public class ArtefactsService extends AbstractEndpointService {
             return
                     findAllArtefacts(params, currentUser, accessor)
                             .thenApply(data -> transformJsonLd(data, params))
-                            .thenApply(this::addTerminologyStatistics)
+                            .thenApply(data -> addTerminologyStatistics(data, params))
                             .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint)).get();
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);
@@ -52,7 +52,7 @@ public class ArtefactsService extends AbstractEndpointService {
     public Object getArtefact(String id, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
         try {
             AggregatedApiResponse result = findUriBase(id, null, "resource_details", params, accessor, currentUser)
-                    .thenApply(this::addTerminologyStatistics)
+                    .thenApply(data -> addTerminologyStatistics(data, params))
                     .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), "resource_details", false))
                     .get();
             return result == null ? null : filterOutArtefactsWithoutProperIri(result, params);
@@ -68,11 +68,11 @@ public class ArtefactsService extends AbstractEndpointService {
         return findAllArtefacts(params, null, accessor)
                 .thenApply(data -> filterOutByQuery(query, data))
                 .thenApply(x -> transformJsonLd(x, params))
-                .thenApply(this::addTerminologyStatistics)
+                .thenApply(data -> addTerminologyStatistics(data, params))
                 .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint));
     }
 
-    private AggregatedApiResponse addTerminologyStatistics(AggregatedApiResponse data) {
+    private AggregatedApiResponse addTerminologyStatistics(AggregatedApiResponse data, CommonRequestParams params) {
         if (data == null || data.getCollection() == null || data.getCollection().isEmpty()) {
             return data;
         }
@@ -81,12 +81,12 @@ public class ArtefactsService extends AbstractEndpointService {
                 .collect(Collectors.groupingBy(TerminologyStatistic::getUri));
 
         data.setCollection(data.getCollection().stream()
-                .map(item -> withStatistics(item, latestByUri))
+                .map(item -> withStatistics(item, latestByUri, params))
                 .toList());
         return data;
     }
 
-    private Map<String, Object> withStatistics(Map<String, Object> item, Map<String, List<TerminologyStatistic>> latestByUri) {
+    private Map<String, Object> withStatistics(Map<String, Object> item, Map<String, List<TerminologyStatistic>> latestByUri, CommonRequestParams params) {
         if (item == null) {
             return null;
         }
@@ -97,10 +97,16 @@ public class ArtefactsService extends AbstractEndpointService {
         }
 
         Object source = item.get("source_name");
-        List<TerminologyStatisticDto> statistics = latestByUri.getOrDefault(uri.toString(), List.of()).stream()
+        List<TerminologyStatisticDto> statistics = latestByUri
+                .getOrDefault(uri.toString(), List.of())
+                .stream()
                 .filter(s -> source == null || s.getSource().equals(source.toString()))
                 .map(TerminologyStatisticDto::from)
                 .toList();
+
+        if (!params.isDisplayEmptyValues() && statistics.isEmpty()) {
+            return item;
+        }
 
         Map<String, Object> copy = new LinkedHashMap<>(item);
         copy.put(STATISTICS_FIELD, statistics);
