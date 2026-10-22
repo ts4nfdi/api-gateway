@@ -43,7 +43,7 @@ public class ArtefactsService extends AbstractEndpointService {
 
 
     public Object getArtefact(String id, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
-        AggregatedApiResponse result = findUri(id, null, "resource_details", params, accessor, currentUser);
+        AggregatedApiResponse result = findUri(id, null, "resource_details", new HashMap<>(), params, accessor, currentUser);
         return result == null ? null : filterOutArtefactsWithoutProperIri(result, params);
     }
 

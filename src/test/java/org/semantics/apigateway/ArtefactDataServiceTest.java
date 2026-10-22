@@ -32,31 +32,31 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         mockApiAccessor("artefact_term", artefactsService.getAccessor());
         CommonRequestParams params = new CommonRequestParams();
         params.setDatabase("skosmos");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactTerm("agrovoc", "http://aims.fao.org/aos/agrovoc/c_330834", params, apiAccessor, null);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactTerm("agrovoc", "http://aims.fao.org/aos/agrovoc/c_330834", new HashMap<>(), params, apiAccessor, null);
         assertMapEquality(response, createSkosmosAgrovocTerm());
 
         params = new CommonRequestParams();
         params.setDatabase("ontoportal");
-        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("agrovoc", "http://aims.fao.org/aos/agrovoc/c_330834", params, apiAccessor, null);
+        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("agrovoc", "http://aims.fao.org/aos/agrovoc/c_330834", new HashMap<>(), params, apiAccessor, null);
         assertMapEquality(response, createOntoPortalAgrovocTermFixture());
 
         params = new CommonRequestParams();
         params.setDatabase("ols2");
-        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("ncbitaxon", "http://purl.obolibrary.org/obo/NCBITaxon_2", params, apiAccessor, null);
+        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("ncbitaxon", "http://purl.obolibrary.org/obo/NCBITaxon_2", new HashMap<>(), params, apiAccessor, null);
         assertMapEquality(response, createOls2NCBITaxonFixture());
 
         params = new CommonRequestParams();
         params.setDatabase("gnd");
-        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("gnd", "4074335-4", params, apiAccessor, null);
+        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("gnd", "4074335-4", new HashMap<>(), params, apiAccessor, null);
         assertMapEquality(response, createGndTermFixture());
             params = new CommonRequestParams();
 
         params.setDatabase("jskos");
-        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("test", "http://superdatensatz.gbv.de/abc", params, apiAccessor, null);
+        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("test", "http://superdatensatz.gbv.de/abc", new HashMap<>(), params, apiAccessor, null);
         assertMapEquality(response, createdDanteTermFixture());
 
         params.setDatabase("jskos2");
-        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("DDC", "http://dewey.info/class/612.112/e23/", params, apiAccessor, null);
+        response = (AggregatedApiResponse) artefactsService.getArtefactTerm("DDC", "http://dewey.info/class/612.112/e23/", new HashMap<>(), params, apiAccessor, null);
         assertMapEquality(response, createColiConcTermFixture());
     }
 
@@ -66,19 +66,19 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
 
         CommonRequestParams params = new CommonRequestParams();
         params.setDatabase("ontoportal");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactProperty("AGROVOC", "http://purl.org/dc/terms/abstract", params, apiAccessor, null);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactProperty("AGROVOC", "http://purl.org/dc/terms/abstract", new HashMap<>(), params, apiAccessor, null);
         assertMapEquality(response, createOntoPortalAgrovocPropertyFixture());
 
         params = new CommonRequestParams();
         params.setDatabase("ols2");
-        response = (AggregatedApiResponse) artefactsService.getArtefactProperty("NCBITAXON", "http://purl.obolibrary.org/obo/ncbitaxon#has_rank", params, apiAccessor, null);
+        response = (AggregatedApiResponse) artefactsService.getArtefactProperty("NCBITAXON", "http://purl.obolibrary.org/obo/ncbitaxon#has_rank", new HashMap<>(), params, apiAccessor, null);
         assertMapEquality(response, createOls2NCBITaxonPropertyFixture());
     }
 
     @Test
     public void testGetCollection() {
         mockApiAccessor("artefact_collection", artefactsService.getAccessor());
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactCollection("INRAETHES", "http://opendata.inrae.fr/thesaurusINRAE/gr_6c79e7c5", new CommonRequestParams(), apiAccessor, null);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactCollection("INRAETHES", "http://opendata.inrae.fr/thesaurusINRAE/gr_6c79e7c5", new HashMap<>(), new CommonRequestParams(), apiAccessor, null);
         assertMapEquality(response, createOntoPortalINRAEThesCollectionFixture());
     }
 
@@ -87,19 +87,19 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
         mockApiAccessor("artefact_individual", artefactsService.getAccessor());
         CommonRequestParams params = new CommonRequestParams();
         params.setDatabase("ols2");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", params, apiAccessor, null);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", new HashMap<>(), params, apiAccessor, null);
         assertMapEquality(response, createOls2FoodOnInstanceFixture());
 
         params = new CommonRequestParams();
         params.setDatabase("ontoportal");
-        response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", params, apiAccessor, null);
+        response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", new HashMap<>(), params, apiAccessor, null);
         assertMapEquality(response, createOntoPortalFoodOnInstanceFixture());
     }
 
     @Test
     public void testGetScheme() {
         mockApiAccessor("artefact_scheme", artefactsService.getAccessor());
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactScheme("INRAETHES", "http://opendata.inrae.fr/thesaurusINRAE/mt_50", new CommonRequestParams(), apiAccessor, null);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactScheme("INRAETHES", "http://opendata.inrae.fr/thesaurusINRAE/mt_50", new HashMap<>(), new CommonRequestParams(), apiAccessor, null);
         assertMapEquality(response, createOntoPortalInraeScheme());
     }
 
@@ -111,7 +111,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
                 "individuals", "individual.json"));
         CommonRequestParams params = new CommonRequestParams();
         params.setDatabase("ols2");
-        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactEntity("NCIT", "http://purl.obolibrary.org/obo/NCIT_C2985", params, apiAccessor, null);
+        AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactEntity("NCIT", "http://purl.obolibrary.org/obo/NCIT_C2985", new HashMap<>(), params, apiAccessor, null);
         assertMapEquality(response, createOls2NcitEntityFixture());
     }
 

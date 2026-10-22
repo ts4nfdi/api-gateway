@@ -60,12 +60,12 @@ public class SearchService extends AbstractEndpointService {
         accessor = initAccessor(database, endpoint, accessor);
         accessor = applyCollection(accessor, collection, endpoint);
         
-        HashMap<RequestParameter, String> requestParameters = new HashMap<>(Map.of(RequestParameter.query, query));
-        requestParameters.putAll(optionalParameters);
+        HashMap<RequestParameter, String> apiParameters = new HashMap<>(Map.of(RequestParameter.query, query));
+        apiParameters.putAll(optionalParameters);
         
         try {
-            return accessor.get(params.getTimeout(), requestParameters)
-                    .thenApply(data -> this.transformApiResponses(data, endpoint, requestParameters))
+            return accessor.get(params.getTimeout(), apiParameters)
+                    .thenApply(data -> this.transformApiResponses(data, endpoint, apiParameters))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
                     .thenApply(data -> reIndexResults(query, data))
@@ -104,7 +104,7 @@ public class SearchService extends AbstractEndpointService {
         
         // TODO add ontology parameter as soon as https://github.com/ts4nfdi/api-gateway/issues/123 has been resolved.
         
-        Map<RequestParameter, String> requestParameters = new HashMap<>(Map.of(
+        Map<RequestParameter, String> apiParameters = new HashMap<>(Map.of(
                 RequestParameter.artefact, artifactId,
                 RequestParameter.query, query,
                 RequestParameter.size, "" + size,
@@ -112,8 +112,8 @@ public class SearchService extends AbstractEndpointService {
         ));
         
         try {
-            return accessor.get(params.getTimeout(), requestParameters)
-                    .thenApply(data -> this.transformApiResponses(data, endpoint, requestParameters))
+            return accessor.get(params.getTimeout(), apiParameters)
+                    .thenApply(data -> this.transformApiResponses(data, endpoint, apiParameters))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
                     .thenApply(data -> reIndexResults(query, data))

@@ -83,18 +83,18 @@ public class Ols3Controller {
   @GetMapping("/terms")
   public Object getAllTermsInOLSTargetDBSchema(@RequestParam(required = false, defaultValue = "0") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
     if (iri != null) {
-      return this.artefactsDataService.getArtefactTerms(iri, params, page + 1, null, authService.tryGetCurrentUser());
+      return this.artefactsDataService.getArtefactTerms(iri, new HashMap<>(), params, page + 1, null, authService.tryGetCurrentUser());
     }
-    return this.artefactsDataService.getArtefactTerms("", params, page + 1, null, authService.tryGetCurrentUser());
+    return this.artefactsDataService.getArtefactTerms("", new HashMap<>(), params, page + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/terms")
   public Object getTermsInOLSTargetDBSchema(@PathVariable String onto, @RequestParam(required = false, defaultValue = "1") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
     if (iri != null) {
-      return this.artefactsDataService.getArtefactTerm(onto, iri, params, null, authService.tryGetCurrentUser());
+      return this.artefactsDataService.getArtefactTerm(onto, iri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
     }
-    return this.artefactsDataService.getArtefactTerms(onto, params, page + 1, null, authService.tryGetCurrentUser());
+    return this.artefactsDataService.getArtefactTerms(onto, new HashMap<>(), params, page + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
@@ -113,27 +113,27 @@ public class Ols3Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/individuals")
   public Object getAllIndividualsForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    if (iri == null) return artefactsDataService.getArtefactIndividuals(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    return artefactsDataService.getArtefactIndividual(onto, iri, params, null, authService.tryGetCurrentUser());
+    if (iri == null) return artefactsDataService.getArtefactIndividuals(onto, new HashMap<>(), params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    return artefactsDataService.getArtefactIndividual(onto, iri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
   }
 
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/individuals/{individual}")
   public Object getIndividualForOntologyInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String individual, @ParameterObject CommonRequestParams params) {
-    return artefactsDataService.getArtefactIndividual(onto, individual, params, null, authService.tryGetCurrentUser());
+    return artefactsDataService.getArtefactIndividual(onto, individual, new HashMap<>(), params, null, authService.tryGetCurrentUser());
   }
 
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties")
   public Object getPropertiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    if (iri == null) return artefactsDataService.getArtefactProperties(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    return artefactsDataService.getArtefactProperty(onto, iri, params, null, authService.tryGetCurrentUser());
+    if (iri == null) return artefactsDataService.getArtefactProperties(onto, new HashMap<>(), params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    return artefactsDataService.getArtefactProperty(onto, iri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
   }
 
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties/{property}")
   public Object getPropertyInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params) {
-    return  artefactsDataService.getArtefactProperty(onto, property, params, null, authService.tryGetCurrentUser());
+    return  artefactsDataService.getArtefactProperty(onto, property, new HashMap<>(), params, null, authService.tryGetCurrentUser());
   }
 }
 

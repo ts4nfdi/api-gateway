@@ -8,6 +8,7 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URLEncoder;
+import java.util.HashMap;
 
 
 @RestController
@@ -34,7 +35,7 @@ public class ArtefactsDataTreeController {
     public Object getConceptChildren(@PathVariable String id, @RequestParam String uri, @ModelAttribute CommonRequestParams params,
                                      @RequestParam(required = false, defaultValue = "1") Integer page) {
         uri = URLEncoder.encode(uri);
-        return this.artefactsService.getChildren(id, uri, params, page, null, authService.tryGetCurrentUser());
+        return this.artefactsService.getChildren(id, uri, new HashMap<>(), params, page, null, authService.tryGetCurrentUser());
     }
 
 

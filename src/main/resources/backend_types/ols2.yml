@@ -34,17 +34,17 @@ models:
 
 endpoints:
   search:
-    path: search
+    path: /v2/entities
     parameters:
       query:
-        name: q
+        name: search
         type: string
       childrenOf:
-        name: childrenOf
+        name: hierarchicalParent
         type: string
         optional: true
       allChildrenOf:
-        name: allChildrenOf
+        name: hierarchicalAncestor
         type: string
         optional: true
       lang:
@@ -60,17 +60,9 @@ endpoints:
         type: integer
         optional: true
     responseMapping:
-      nestedJson: response
-      collectionFilter: ontology
-      key: docs
-      label: label
-      iri: iri
-      ontology: ontology_name
-      synonyms: synonym
-      descriptions: description
-      shortForm: short_form
-      annotations: annotation
-      type: type
+      collectionFilter: ontologyId
+      nestedJson: elements
+      <<: *term
   resources:
     path: /v2/ontologies?size=10000
     responseMapping:
