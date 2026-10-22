@@ -56,7 +56,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
         assertThat(responseList.stream().map(x -> x.get("backend_type")).distinct().sorted().toArray())
                 .isEqualTo(new String[]{"ols2", "ontoportal", "skosmos"});
         assertThat(responseList.stream().map(x -> x.get("source_name")).distinct().sorted().toArray())
-                .isEqualTo(new String[]{"agroportal", "agrovoc", "biodivportal", "ebi", "tib"});
+                .isEqualTo(new String[]{"agroportal", "agrovoc", "biodivportal", "ebi"});
     }
 
     @Test
