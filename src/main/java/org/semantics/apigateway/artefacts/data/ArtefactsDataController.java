@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/artefacts/{id}")
 @CrossOrigin
-@Tag(name = "Artefacts / Data")
+@Tag(name = "MOD - Artefact Data")
 public class ArtefactsDataController {
     private final ArtefactsDataService artefactsService;
     private final AuthService authService;

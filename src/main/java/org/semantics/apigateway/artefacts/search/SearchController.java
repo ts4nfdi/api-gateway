@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/")
 @CrossOrigin
-@Tag(name = "Search")
+@Tag(name = "MOD - Search")
 public class SearchController {
     private final SearchService searchService;
     private final ArtefactsService artefactsService;

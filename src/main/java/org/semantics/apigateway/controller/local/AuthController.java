@@ -34,7 +34,7 @@ import java.util.concurrent.CompletableFuture;
 @CrossOrigin
 @RestController
 @RequestMapping("/auth")
-@Tag(name = "Users - Authentication")
+@Tag(name = "Authentication")
 @RequiredArgsConstructor
 public class AuthController {
   

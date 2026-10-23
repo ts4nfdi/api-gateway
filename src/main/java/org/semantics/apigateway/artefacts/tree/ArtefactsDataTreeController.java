@@ -13,7 +13,7 @@ import java.net.URLEncoder;
 @RestController
 @RequestMapping("/artefacts/{id}")
 @CrossOrigin
-@Tag(name = "Artefacts / Data")
+@Tag(name = "MOD - Artefact Data")
 public class ArtefactsDataTreeController {
     private final ArtefactsDataTreeService artefactsService;
     private final AuthService authService;
