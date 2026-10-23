@@ -3,18 +3,16 @@ package org.semantics.apigateway.collections;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.ws.rs.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.semantics.apigateway.collections.models.TerminologyCollection;
 import org.semantics.apigateway.collections.models.TerminologyCollectionDto;
 import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.auth.AuthService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -71,11 +69,11 @@ public class CollectionsController {
         try {
             collectionId = UUID.fromString(id.substring(id.lastIndexOf('/') + 1));
         } catch (IllegalArgumentException e) {
-            throw new NotFoundException("Invalid collection id or permalink");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid collection id or permalink");
         }
         User user = authService.tryGetCurrentUser();
         TerminologyCollection collection = collectionService.getCollectionById(collectionId, user)
-                .orElseThrow(() -> new NotFoundException("Collection not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Collection not found"));
         return TerminologyCollectionDto.toDto(collection);
     }
 
