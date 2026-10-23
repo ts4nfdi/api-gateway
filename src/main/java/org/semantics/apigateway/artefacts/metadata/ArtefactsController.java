@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
-@Tag(name = "Artefacts / Metadata")
+@Tag(name = "MOD - Artefacts")
 @CrossOrigin
 public class ArtefactsController {
     private final ArtefactsService artefactsService;

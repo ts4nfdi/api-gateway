@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/collections")
-@Tag(name = "Users - Collections")
+@Tag(name = "Collections")
 @SecurityRequirement(name = "BearerAuth")
 @AllArgsConstructor
 @CrossOrigin
