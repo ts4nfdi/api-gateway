@@ -29,12 +29,14 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public class Ols4Controller {
   
+  private final SearchService searchService;
   private final ArtefactsService artefactsService;
   private final ArtefactsDataService artefactsDataService;
   private final AuthService authService;
   private final ArtefactsDataTreeService treeService;
   
   public Ols4Controller(SearchService searchService, ArtefactsService artefactsService, ArtefactsDataService artefactsDataService, AuthService authService, ArtefactsDataTreeService treeService) {
+    this.searchService = searchService;
     this.artefactsService = artefactsService;
     this.artefactsDataService = artefactsDataService;
     this.authService = authService;
@@ -110,13 +112,19 @@ public class Ols4Controller {
   @Hidden
   @CrossOrigin
   @GetMapping("/entities")
-  public Object getAllEntitiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri, @RequestParam(name = "hierarchicalParent", required = false) String hierarchicalParent, @RequestParam(name = "hierarchicalAncestor", required = false) String hierarchicalAncestor) {
+  public Object getAllEntitiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable,
+                                                  @QueryParam("iri") String iri,
+                                                  @RequestParam(name = "hierarchicalParent", required = false) String hierarchicalParent,
+                                                  @RequestParam(name = "hierarchicalAncestor", required = false) String hierarchicalAncestor) {
     // TODO Is there a way to run a federated query over all endpoints and their respective artifacts for all entities? Improbable, solely for performance reasons.
     Map<RequestParameter, String> apiParameters = new HashMap<>();
     apiParameters.put(RequestParameter.childrenOf, hierarchicalParent);
     apiParameters.put(RequestParameter.allChildrenOf, hierarchicalAncestor);
     if (iri != null) {
       return this.artefactsDataService.getArtefactEntities(iri, apiParameters, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    }
+    if (ols4Params.getSearch() != null) {
+      return this.searchService.performSearch(ols4Params.getSearch(), params, authService.tryGetCurrentUser(), null, apiParameters);
     }
     return this.artefactsDataService.getArtefactEntities("", apiParameters, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
   }
