@@ -35,21 +35,22 @@ public class TerminologyCollectionDto {
         dto.setLabel(x.getLabel());
         dto.setDescription(x.getDescription());
         dto.setPublic(x.isPublic());
-        dto.setCreator(x.getUser().getUsername());
-        dto.setCollaborators(x.getCollaborators().stream().map(c -> {
-            return new CollectionCollaboratorDto(
+        dto.setCreator(x.getUser().getPrimaryOrcid() != null ? x.getUser().getPrimaryOrcid() : x.getUser().getUsername());
+        dto.setCollaborators(x.getCollaborators().stream().map(c ->
+            new CollectionCollaboratorDto(
                     c.getUser().getUsername(),
+                    c.getUser().getPrimaryOrcid(),
                     c.getRole()
-            );
-        }).toList());
-        dto.setTerminologies(x.getTerminologies().stream().map(r -> {
-            return new ResourceDto(
+            )
+        ).toList());
+        dto.setTerminologies(x.getTerminologies().stream().map(r ->
+            new ResourceDto(
                     r.getUri(),
                     r.getLabel(),
                     r.getSource(),
                     r.getType()
-            );
-        }).toList());
+            )
+        ).toList());
         dto.setStatistics(x.getStatistics().stream()
                 .max(Comparator.comparing(CollectionStatistic::getTimestamp)
                         .thenComparing(CollectionStatistic::getId))
