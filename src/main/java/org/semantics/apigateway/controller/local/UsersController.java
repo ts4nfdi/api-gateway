@@ -33,7 +33,8 @@ public class UsersController {
     public List<Map<String, String>> getAllUsers() {
         getCurrentUser();
         return this.userRepository.findAll().stream().map(x -> Map.of(
-                "username", x.getUsername()
+                "username", x.getUsername(),
+                "orcid", Optional.ofNullable(x.getPrimaryOrcid()).orElse("")
         )).toList();
     }
     
