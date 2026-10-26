@@ -35,7 +35,7 @@ public class TerminologyCollectionDto {
         dto.setLabel(x.getLabel());
         dto.setDescription(x.getDescription());
         dto.setPublic(x.isPublic());
-        dto.setCreator(x.getUser().getUsername());
+        dto.setCreator(x.getUser().getPrimaryOrcid() != null ? x.getUser().getPrimaryOrcid() : x.getUser().getUsername());
         dto.setCollaborators(x.getCollaborators().stream().map(c ->
             new CollectionCollaboratorDto(
                     c.getUser().getUsername(),
