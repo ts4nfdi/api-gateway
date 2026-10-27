@@ -3,7 +3,7 @@ name: CI/CD
 on:
   push:
     branches:
-      - "fix/ols4-common-params"
+      - "main"
     tags:
       - "*"
   pull_request:
