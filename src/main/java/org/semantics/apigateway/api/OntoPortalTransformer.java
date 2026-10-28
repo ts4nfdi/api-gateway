@@ -61,6 +61,9 @@ public class OntoPortalTransformer implements DatabaseTransformer {
                 }
             });
         }
+        if (item.get("statistics") != null) {
+            transformedItem.put("statistics", item.get("statistics"));
+        }
         return transformedItem;
     }
 

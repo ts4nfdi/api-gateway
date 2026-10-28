@@ -2,6 +2,7 @@ package org.semantics.apigateway.artefacts.metadata;
 
 import org.semantics.apigateway.collections.CollectionService;
 import org.semantics.apigateway.collections.models.TerminologyCollection;
+import org.semantics.apigateway.collections.models.TerminologyStatisticDto;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
@@ -14,18 +15,23 @@ import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 
 @Service
 public class ArtefactsService extends AbstractEndpointService {
 
-    public ArtefactsService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform transform, ResponseTransformerService responseTransformerService, CollectionService collectionService) {
+    private final TerminologyStatisticRepository terminologyStatisticRepository;
+
+    private static final String STATISTICS_FIELD = "statistics";
+    private static final List<String> URI_KEYS = List.of("@id", "iri", "uri", "short_form");
+
+    public ArtefactsService(ConfigurationLoader configurationLoader, CacheManager cacheManager, JsonLdTransform transform, ResponseTransformerService responseTransformerService, CollectionService collectionService, TerminologyStatisticRepository terminologyStatisticRepository) {
         super(configurationLoader, cacheManager, transform, responseTransformerService, collectionService, SemanticArtefact.class);
+        this.terminologyStatisticRepository = terminologyStatisticRepository;
     }
 
     public Object getArtefacts(CommonRequestParams params, User currentUser, ApiAccessor accessor) {
@@ -34,6 +40,7 @@ public class ArtefactsService extends AbstractEndpointService {
             return
                     findAllArtefacts(params, currentUser, accessor)
                             .thenApply(data -> transformJsonLd(data, params))
+                            .thenApply(data -> addTerminologyStatistics(data, params))
                             .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint)).get();
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);
@@ -43,8 +50,16 @@ public class ArtefactsService extends AbstractEndpointService {
 
 
     public Object getArtefact(String id, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
-        AggregatedApiResponse result = findUri(id, null, "resource_details", params, accessor, currentUser);
-        return result == null ? null : filterOutArtefactsWithoutProperIri(result, params);
+        try {
+            AggregatedApiResponse result = findUriBase(id, null, "resource_details", params, accessor, currentUser)
+                    .thenApply(data -> addTerminologyStatistics(data, params))
+                    .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), "resource_details", false))
+                    .get();
+            return result == null ? null : filterOutArtefactsWithoutProperIri(result, params);
+        } catch (InterruptedException | ExecutionException e) {
+            logger.error(e.getMessage(), e);
+            return null;
+        }
     }
 
 
@@ -53,7 +68,49 @@ public class ArtefactsService extends AbstractEndpointService {
         return findAllArtefacts(params, null, accessor)
                 .thenApply(data -> filterOutByQuery(query, data))
                 .thenApply(x -> transformJsonLd(x, params))
+                .thenApply(data -> addTerminologyStatistics(data, params))
                 .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint));
+    }
+
+    private AggregatedApiResponse addTerminologyStatistics(AggregatedApiResponse data, CommonRequestParams params) {
+        if (data == null || data.getCollection() == null || data.getCollection().isEmpty()) {
+            return data;
+        }
+
+        Map<String, List<TerminologyStatistic>> latestByUri = terminologyStatisticRepository.findLatest().stream()
+                .collect(Collectors.groupingBy(TerminologyStatistic::getUri));
+
+        data.setCollection(data.getCollection().stream()
+                .map(item -> withStatistics(item, latestByUri, params))
+                .toList());
+        return data;
+    }
+
+    private Map<String, Object> withStatistics(Map<String, Object> item, Map<String, List<TerminologyStatistic>> latestByUri, CommonRequestParams params) {
+        if (item == null) {
+            return null;
+        }
+
+        Object uri = URI_KEYS.stream().map(item::get).filter(Objects::nonNull).findFirst().orElse(null);
+        if (uri == null) {
+            return item;
+        }
+
+        Object source = item.get("source_name");
+        List<TerminologyStatisticDto> statistics = latestByUri
+                .getOrDefault(uri.toString(), List.of())
+                .stream()
+                .filter(s -> source == null || s.getSource().equals(source.toString()))
+                .map(TerminologyStatisticDto::from)
+                .toList();
+
+        if (!params.isDisplayEmptyValues() && statistics.isEmpty()) {
+            return item;
+        }
+
+        Map<String, Object> copy = new LinkedHashMap<>(item);
+        copy.put(STATISTICS_FIELD, statistics);
+        return copy;
     }
 
     private AggregatedApiResponse filterOutByQuery(String query, AggregatedApiResponse data) {
