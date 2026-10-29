@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Objects;
 
 @Component
 @RestController
@@ -53,11 +54,10 @@ public class Ols3Controller {
       query = "*";
     }
     
-    long timeout;
+    Long timeout = null;
     try {
       timeout = Long.parseLong(allParams.get("timeout"));
-    } catch (Exception e) {
-      timeout = 60 * 1000;
+    } catch (NumberFormatException e) {
     }
     
     AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("ontology"), "ols", allParams.get("collectionId"), false, timeout);
@@ -73,10 +73,7 @@ public class Ols3Controller {
   @CrossOrigin
   @GetMapping("/terms")
   public Object getAllTermsInOLSTargetDBSchema(@RequestParam(required = false, defaultValue = "0") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
-    if (iri != null) {
-      return this.artefactsDataService.getArtefactTerms(iri, params, page + 1, null, authService.tryGetCurrentUser());
-    }
-    return this.artefactsDataService.getArtefactTerms("", params, page + 1, null, authService.tryGetCurrentUser());
+    return this.artefactsDataService.getArtefactTerms(Objects.requireNonNullElse(iri, ""), params, page + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin

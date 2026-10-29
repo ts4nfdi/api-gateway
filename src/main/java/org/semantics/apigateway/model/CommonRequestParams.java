@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.ws.rs.QueryParam;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -56,9 +57,10 @@ public class CommonRequestParams {
         return result;
     }
     
+    @Value("${application.timeout_ms.maxvalue}")
     @QueryParam("timeout")
     @Parameter(name = "timeout", in = ParameterIn.QUERY, description = "Set a timeout (in milliseconds) for the operation")
-    private long timeout = 60*1000;
+    private Long timeout;
     
     @QueryParam("omitArtefactsWithoutIri")
     @Parameter(name = "omitArtefactsWithoutIri", in = ParameterIn.QUERY, description = "If true, artefact queries will only return artefacts that have a proper IRI as their identifier (and filter out all that don't).")
