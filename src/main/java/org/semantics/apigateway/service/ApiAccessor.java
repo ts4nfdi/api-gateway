@@ -58,6 +58,11 @@ public class ApiAccessor {
 
         List<CompletableFuture<Map.Entry<String, ApiResponse>>> futures = this.urls.entrySet().stream()
                 .map(config -> CompletableFuture.supplyAsync(() -> call(config.getKey(), config.getValue(), queryParams), customThreadPool)
+                        .completeOnTimeout(new ApiResponse(), timeoutMillis, TimeUnit.MILLISECONDS)
+                        .exceptionally(e -> {
+                            logger.error("Error processing results: {}", e.getMessage(), e);
+                            return new ApiResponse();
+                        })
                         .thenApply(response -> Map.entry(config.getKey(), response))
                 )
                 .toList();
@@ -68,11 +73,7 @@ public class ApiAccessor {
                                 future -> future.join().getKey(),
                                 future -> future.join().getValue()
                         ))
-                ).completeOnTimeout(Map.of(), timeoutMillis, TimeUnit.MILLISECONDS)
-                .exceptionally(e -> {
-                    logger.error("Error processing results: {}", e.getMessage(), e);
-                    return Collections.emptyMap();
-                });
+                );
     }
 
 
