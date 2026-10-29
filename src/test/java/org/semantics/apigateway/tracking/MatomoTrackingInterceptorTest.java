@@ -49,7 +49,7 @@ class MatomoTrackingInterceptorTest {
 
         assertThat(event.url()).endsWith("/api-gateway" + CLASSES_TEMPLATE);
         assertThat(event.url()).doesNotContain(iri);
-        assertThat(event.actionName()).isEqualTo("Artefacts / Data / GET " + CLASSES_TEMPLATE);
+        assertThat(event.actionName()).isEqualTo("MOD - Artefact Data / GET " + CLASSES_TEMPLATE);
     }
 
     @Test
@@ -59,7 +59,7 @@ class MatomoTrackingInterceptorTest {
 
         MatomoEvent event = capture(request, new MockHttpServletResponse(), handler("search"));
 
-        assertThat(event.actionName()).isEqualTo("Search / GET /search");
+        assertThat(event.actionName()).isEqualTo("MOD - Search / GET /search");
     }
 
     @Test
@@ -216,10 +216,10 @@ class MatomoTrackingInterceptorTest {
         throw new IllegalArgumentException("No method " + methodName + " on " + bean.getClass());
     }
 
-    @Tag(name = "Artefacts / Data")
+    @Tag(name = "MOD - Artefact Data")
     static class TestController {
 
-        @Tag(name = "Search")
+        @Tag(name = "MOD - Search")
         @GetMapping("/search")
         public String search() {
             return "";
