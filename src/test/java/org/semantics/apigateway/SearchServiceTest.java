@@ -30,7 +30,7 @@ public class SearchServiceTest extends ApplicationTestAbstract {
 
     @BeforeEach
     public void setup() {
-        mockApiAccessor("search", searchService.getAccessor());
+        mockApiAccessor("search", searchService.getAccessor(DEFAULT_TIMEOUT_MILLIS));
         this.responseClass = RDFResource.class;
     }
 

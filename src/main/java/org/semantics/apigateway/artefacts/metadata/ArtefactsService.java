@@ -152,10 +152,10 @@ public class ArtefactsService extends AbstractEndpointService {
         String database = params.getDatabase();
         TerminologyCollection collection = collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser);
 
-        accessor = initAccessor(database, endpoint, accessor);
+        accessor = initAccessor(database, endpoint, accessor, params.getTimeout());
         accessor = applyCollection(accessor, collection, endpoint);
 
-        return accessor.get(params.getTimeout())
+        return accessor.get()
                 .thenApply(data -> this.transformApiResponses(data, endpoint, new HashMap<>()))
                 .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                 .thenApply(data -> filterOutArtefactsWithoutProperIri(data, params))

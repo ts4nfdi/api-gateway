@@ -11,6 +11,7 @@ import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,9 @@ import java.util.stream.Stream;
 
 @Service
 public abstract class AbstractEndpointService {
+    
+    @Value("${application.timeout_ms.maxvalue}")
+    private Long providerMaxTimeoutMillis;
 
     protected final ConfigurationLoader configurationLoader;
     private final ResponseTransformerService responseTransformerService;
@@ -48,8 +52,15 @@ public abstract class AbstractEndpointService {
         this.collectionService = collectionService;
     }
 
-    public ApiAccessor getAccessor() {
-        return new ApiAccessor(this.cacheManager);
+    public ApiAccessor getAccessor(Long timeoutMillis) {
+        long actualTimeoutMillis;
+        if (timeoutMillis == null || timeoutMillis < 0 || timeoutMillis > providerMaxTimeoutMillis) {
+            actualTimeoutMillis = providerMaxTimeoutMillis;
+        } else {
+            actualTimeoutMillis = timeoutMillis;
+        }
+        
+        return new ApiAccessor(this.cacheManager,  actualTimeoutMillis);
     }
 
     protected AggregatedApiResponse transformForTargetDbSchema(AggregatedApiResponse data, TargetDbSchema targetDbSchemaEnum, String endpoint) {
@@ -61,13 +72,7 @@ public abstract class AbstractEndpointService {
 
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
             try {
-                List<Map<String, Object>> collections;
-                if (data instanceof AggregatedApiResponse) {
-                    collections = data.getCollection();
-                } else {
-                    collections = (List<Map<String, Object>>) data;
-                }
-                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(collections, targetDbSchema, endpoint, isList, data.isPaginate(), data.getPage(), data.getTotalCount());
+                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(data.getCollection(), targetDbSchema, endpoint, isList, data.isPaginate(), data.getPage(), data.getTotalCount());
                 logger.debug("Transformed results for database schema: {}", transformedResults);
                 AggregatedApiResponse transformedResponse = new AggregatedApiResponse();
                 transformedResponse.setCollection(Collections.singletonList(transformedResults));
@@ -342,12 +347,11 @@ public abstract class AbstractEndpointService {
         response.setCollection(collection);
     }
 
-    protected ApiAccessor initAccessor(String database, String endpoint, ApiAccessor accessor) {
+    protected ApiAccessor initAccessor(String database, String endpoint, ApiAccessor accessor, Long timeoutMillis) {
         Map<String, UrlConfig> apiUrls = buildUrls(database, endpoint);
 
-
         if (accessor == null) {
-            accessor = getAccessor();
+            accessor = getAccessor(timeoutMillis);
         }
 
         accessor.setUrls(apiUrls);
@@ -409,13 +413,13 @@ public abstract class AbstractEndpointService {
                                    Integer page, ApiAccessor accessor, User currentUser) {
 
         String database = params.getDatabase();
-        accessor = initAccessor(database, endpoint, accessor);
+        accessor = initAccessor(database, endpoint, accessor, params.getTimeout());
         accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
         
         Map<RequestParameter, String> apiParameters = getRequestIds(accessor, artefactId, resourceUri);
         apiParameters.put(RequestParameter.page, "" + page);
 
-        return accessor.get(params.getTimeout(), apiParameters)
+        return accessor.get(apiParameters)
                 .thenApply(data -> this.transformApiResponses(data, endpoint, true, apiParameters))
                 .thenApply(data -> selectResultsByDatabase(data, database))
                 .thenApply(x -> paginate(x, params, page))
@@ -444,11 +448,11 @@ public abstract class AbstractEndpointService {
 
     protected CompletableFuture<AggregatedApiResponse> findAll(String artefactId, String resourceUri, String endpoint, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
         String database = params.getDatabase();
-        accessor = initAccessor(database, endpoint, accessor);
+        accessor = initAccessor(database, endpoint, accessor, params.getTimeout());
         accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
         Map<RequestParameter, String> requestParameters = getRequestIds(accessor, artefactId, resourceUri);
 
-        return accessor.get(params.getTimeout(), requestParameters)
+        return accessor.get(requestParameters)
                 .thenApply(data -> this.transformApiResponses(data, endpoint, requestParameters))
                 .thenApply(data -> selectResultsByDatabase(data, database))
                 .thenApply(data -> listResponse(data, params))
@@ -477,11 +481,11 @@ public abstract class AbstractEndpointService {
     protected CompletableFuture<AggregatedApiResponse> findUriBase(String id, String resourceUri, String endpoint, CommonRequestParams params, ApiAccessor
             accessor,  User currentUser) {
         String database = params.getDatabase();
-        accessor = initAccessor(database, endpoint, accessor);
+        accessor = initAccessor(database, endpoint, accessor,  params.getTimeout());
         accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
         Map<RequestParameter, String> requestParameters = getRequestIds(accessor, id, resourceUri);
 
-        return accessor.get(params.getTimeout(), requestParameters)
+        return accessor.get(requestParameters)
                 .thenApply(data -> this.transformApiResponses(data, endpoint, requestParameters))
                 .thenApply(x -> filterById(x, requestParameters))
                 .thenApply(data -> selectResultsByDatabase(data, database))
@@ -521,10 +525,9 @@ public abstract class AbstractEndpointService {
         
         String id = artefactId == null ? resourceUri : artefactId;
         
-        return apiResponses.stream().map(x -> {
+        return apiResponses.stream().peek(x -> {
                     List<AggregatedResourceBody> filtered = x.getCollection().stream().filter(y -> y.getShortForm().equalsIgnoreCase(id) || y.getIri().equals(id)).toList();
                     x.setCollection(filtered);
-                    return x;
                 })
                 .filter(x -> !x.getCollection().isEmpty())
                 .toList();

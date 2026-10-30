@@ -20,7 +20,7 @@ public class ArtefactServiceTest extends ApplicationTestAbstract {
 
     @BeforeEach
     public void setup() {
-        mockApiAccessor("artefact", artefactsService.getAccessor());
+        mockApiAccessor("artefact", artefactsService.getAccessor(DEFAULT_TIMEOUT_MILLIS));
         this.responseClass = SemanticArtefact.class;
     }
 

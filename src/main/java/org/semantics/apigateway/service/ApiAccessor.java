@@ -10,6 +10,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -26,7 +27,10 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @Service
+@Component
 public class ApiAccessor {
+    
+    private long timeoutMillis;
 
     private RestTemplate restTemplate;
     private Map<String, UrlConfig> urls;
@@ -35,25 +39,30 @@ public class ApiAccessor {
     private CacheService cacheService;
     private boolean cacheEnabled;
 
-    @Autowired
-    public ApiAccessor(CacheManager cacheManager) {
+    public ApiAccessor(CacheManager cacheManager, Long timeoutMillis) {
+        this.timeoutMillis = timeoutMillis;
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         this.cacheService = new CacheService(cacheManager);
-        factory.setConnectTimeout(60000);
-        factory.setReadTimeout(60000);
+        factory.setConnectTimeout(Math.toIntExact(timeoutMillis));
+        factory.setReadTimeout(Math.toIntExact(timeoutMillis));
         this.restTemplate = new RestTemplate(factory);
         this.urls = new HashMap<>();
         this.unDecodeUrl = false;
         this.cacheEnabled = true;
     }
-
-    @Async
-    public CompletableFuture<Map<String, ApiResponse>> get(long timeoutMillis) {
-        return get(timeoutMillis, new HashMap<>());
+    
+    @Autowired
+    public ApiAccessor(CacheManager cacheManager) {
+        this(cacheManager, 60_000L);
     }
 
     @Async
-    public CompletableFuture<Map<String, ApiResponse>> get(long timeoutMillis, Map<RequestParameter, String> queryParams) {
+    public CompletableFuture<Map<String, ApiResponse>> get() {
+        return get(new HashMap<>());
+    }
+
+    @Async
+    public CompletableFuture<Map<String, ApiResponse>> get(Map<RequestParameter, String> queryParams) {
         ForkJoinPool customThreadPool = new ForkJoinPool(Math.max(this.urls.size(), 1));
 
         List<CompletableFuture<Map.Entry<String, ApiResponse>>> futures = this.urls.entrySet().stream()
@@ -126,7 +135,7 @@ public class ApiAccessor {
             logger.info("URL accessed {} in {}ms", fullUrl, responseTime);
             result.setResponseTime(responseTime);
 
-            result.setStatusCode(response.getStatusCodeValue());
+            result.setStatusCode(response.getStatusCode().value());
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 logger.debug("Raw API Response: {}", response.getBody());
