@@ -31,24 +31,33 @@ public class StatusController {
     }
 
     @GetMapping("/ping")
+    @Operation(summary = "Check whether the gateway is running.",
+            description = "Returns `pong` if the gateway is up. Does not contact any provider.")
     public String ping() {
         return "pong";
     }
 
 
-    @Operation(summary = "Get all examples we provide to have a better understanding of the API")
+    @Operation(summary = "Get example requests.",
+            description = "Returns a list of ready-to-use example requests, grouped into `data` (terms of an artefact), `metadata` (artefacts), and `search`. " +
+                    "Each example has a short title and a gateway path that you can call directly or pass to `GET /status/check`.")
     @GetMapping("/examples")
     public ResponseEntity<Map<String, Map<String, String>>> getAllExamples() {
         return ResponseEntity.ok(examplesService.getAllExamples());
     }
 
 
-    @Operation(summary = "Check the endpoint status and get the examples")
+    @Operation(summary = "Check how the providers respond to a request.",
+            description = "Runs the given gateway request and, instead of its results, returns statistics about how the providers responded: " +
+                    "the URL called at each provider with its HTTP status code and response time, the total response time, the total number of results, " +
+                    "and how completely the result fields were filled. " +
+                    "Useful to find slow or failing providers.\n\n" +
+                    "Example: `GET /status/check?endpoint=/search?query=plant`")
     @GetMapping("/check")
-    @ApiResponse(responseCode = "200", description = "Endpoint status and examples",
+    @ApiResponse(responseCode = "200", description = "Statistics about the responses of the providers",
             content = @Content(schema = @Schema(implementation = ResponseConfig.class)))
     public ResponseEntity<Map<String,Object>> runCheck(
-            @Parameter(description = "Endpoint to check (e.g /artefacts)", required = true)
+            @Parameter(description = "Gateway path to check, optionally with query parameters, e.g. `/artefacts` or `/search?query=plant`", required = true)
             @RequestParam String endpoint) {
         return ResponseEntity.ok(examplesService.checkEndpoint(endpoint));
     }

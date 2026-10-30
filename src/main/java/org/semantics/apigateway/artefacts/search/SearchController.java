@@ -28,11 +28,18 @@ public class SearchController {
     }
 
 
-    @Operation(summary = "Search all of the content in a catalogue.")
+    @Operation(summary = "Search for entities in all connected providers.",
+            description = "Searches the *content* of the artefacts, i.e. entities such as classes and concepts, by their labels, in all connected providers at once, " +
+                    "and returns one combined result list. Each result contains, among others, the term's `iri`, `label`, the artefact it belongs to (`ontology`), " +
+                    "and the provider it comes from (`provider_name`). " +
+                    "Use `database` to search only some providers and `collectionId` to search only the terminologies of a terminology collection. " +
+                    "If you are logged in, your private terminology collections can be used as well. " +
+                    "To search for whole artefacts instead of entities, use `GET /search/metadata`.\n\n" +
+                    "Example: `GET /search?query=plant&database=ontoportal`")
     @SecurityRequirement(name = "BearerAuth")
     @GetMapping(value = {"/search", "/search/content"})
     public Object search(
-            @Parameter(description = "The text to search", example = "plant")
+            @Parameter(description = "The text to search for in the labels of the entities", example = "plant")
             @RequestParam String query,
             @ParameterObject CommonRequestParams params
     ) {
@@ -41,10 +48,14 @@ public class SearchController {
     }
 
 
-    @Operation(summary = "Search all of the metadata in a catalogue.")
+    @Operation(summary = "Search for artefacts in all connected providers.",
+            description = "Searches the *metadata* of the artefacts, i.e. finds whole ontologies, thesauri, or vocabularies (not single entities). " +
+                    "Returns all artefacts whose label or IRI contains the search text (case-insensitive). " +
+                    "To search for single entities instead, use `GET /search`.\n\n" +
+                    "Example: `GET /search/metadata?query=plant`")
     @GetMapping(value = {"/search/metadata"})
     public Object searchMetadata(
-            @Parameter(description = "The text to search", example = "plant")
+            @Parameter(description = "The text to search for in the labels and IRIs of the artefacts", example = "plant")
             @RequestParam String query,
             @ParameterObject CommonRequestParams params
     ) {

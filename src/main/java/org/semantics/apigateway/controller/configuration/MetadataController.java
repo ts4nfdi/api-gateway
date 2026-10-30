@@ -21,19 +21,27 @@ public class MetadataController {
         this.metadataService = metadataService;
     }
 
-    @Operation(summary = "Get information about the artefacts metamodel")
+    @Operation(summary = "Show how artefact metadata fields are mapped per provider type.",
+            description = "Returns, for each provider type (e.g. `ols2`, `ontoportal`, `skosmos`), which field of the provider's response is used for which " +
+                    "artefact field of the gateway (e.g. `label`, `descriptions`, `version`). " +
+                    "Helps to understand where a value in a `GET /artefacts` response comes from, or why it is empty for some providers.")
     @GetMapping("/artefact")
     public Object getArtefactMetadata() {
         return metadataService.getArtefactMetadata();
     }
 
-    @Operation(summary = "Get information about the artefact terms metamodel")
+    @Operation(summary = "Show how term fields are mapped per provider type.",
+            description = "Returns, for each provider type (e.g. `ols2`, `ontoportal`, `skosmos`), which field of the provider's response is used for which " +
+                    "term field of the gateway (e.g. `label`, `synonyms`, `descriptions`). " +
+                    "Helps to understand where a value in a class, concept, property, or individual comes from, or why it is empty for some providers.")
     @GetMapping("/term")
     public Object getTermMetadata() {
         return metadataService.getTermMetadata();
     }
 
-    @Operation(summary = "Get information about the artefact search metamodel")
+    @Operation(summary = "Show how search result fields are mapped per provider type.",
+            description = "Returns, for each provider type (e.g. `ols2`, `ontoportal`, `skosmos`), which field of the provider's response is used for which " +
+                    "field of a search result. Currently returns the same mapping as `GET /config/metadata/term`.")
     @GetMapping("/search")
     public Object getSearchMetadata() {
         return metadataService.getSearchMetadata();

@@ -1,5 +1,6 @@
 package org.semantics.apigateway.collections;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,12 @@ public class CollectionsController {
     private final AuthService authService;
 
     @GetMapping("/")
+    @Operation(summary = "List all terminology collections you can see.",
+            description = "Without login, returns all public terminology collections. " +
+                    "When logged in, additionally returns the terminology collections you created or that are shared with you as a collaborator. " +
+                    "Each terminology collection contains its `id`, `label`, `description`, `creator`, `collaborators`, the contained `terminologies` " +
+                    "(each with `uri`, `label`, `source`, and `type`), and the latest `statistics`. " +
+                    "Pass the `id` as `collectionId` to other endpoints to restrict them to the terminologies of the collection.")
     public List<TerminologyCollectionDto> allCollections() {
         User user = authService.tryGetCurrentUser();
         List<TerminologyCollection> collections;

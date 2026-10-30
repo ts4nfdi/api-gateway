@@ -1,6 +1,7 @@
 package org.semantics.apigateway.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.semantics.apigateway.model.SemanticArtefactCatalog;
@@ -17,6 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/")
 @CrossOrigin
+@Tag(name = "MOD - Catalogue")
 public class GatewayController {
 
 
@@ -28,6 +30,10 @@ public class GatewayController {
 
 
     @GetMapping(path = "/")
+    @Operation(summary = "Get information about the gateway as a catalogue.",
+            description = "Returns a short description of the gateway as a MOD catalogue (`mod:SemanticArtefactCatalog`): title, description, status, license, " +
+                    "and links to the most important entry points (documentation, search, artefacts, examples). " +
+                    "A good first request to check that the gateway is reachable and to discover where to go next.")
     public SemanticArtefactCatalog home(HttpServletRequest request) throws IOException {
         SemanticArtefactCatalog catalog = new SemanticArtefactCatalog();
         catalog.setId(statusService.getBaseUrl(request));
@@ -74,7 +80,9 @@ public class GatewayController {
 
 
     @GetMapping(path = "doc/api", produces = {MediaType.TEXT_HTML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    @Operation(summary = "Get API documentation")
+    @Operation(summary = "Get the API documentation.",
+            description = "In a browser (`Accept: text/html`), redirects to this interactive documentation. " +
+                    "With `Accept: application/json`, returns the machine-readable OpenAPI description of the API, e.g. for generating client code.")
     public Object doc(
             @RequestHeader(value = "Accept", defaultValue = MediaType.TEXT_HTML_VALUE) String accept,
             HttpServletRequest request, HttpServletResponse response

@@ -87,14 +87,14 @@ public class CommonRequestParams {
     @QueryParam("timeout")
     @Parameter(name = "timeout", in = ParameterIn.QUERY, required = false,
             description =
-                    "Maximum time span in milliseconds the gateway waits for all queried providers to respond. " +
-                    "The providers are queried in parallel and their results are only aggregated once every provider has answered. " +
-                    "If at least one provider has not answered within the timeout, the response contains no results at all, " +
-                    "not even those of the providers that answered in time. " +
-                    "Providers that answer with an error within the timeout are skipped and do not empty the result. " +
+                    "Maximum time span in milliseconds the gateway waits for each queried provider to respond. " +
+                    "The providers are queried in parallel. " +
+                    "Providers that do not answer within the timeout, or that answer with an error, are skipped; " +
+                    "the results of all other providers are returned as usual. " +
                     "Use the `database` parameter to exclude slow providers. " +
-                    "If omitted, a default of 60000 ms (60 seconds) is used. " +
-                    "See the *Global parameters* section of the API description for details.",
+                    "The value is limited by a configured maximum (default 60000 ms = 60 seconds). " +
+                    "If omitted, negative, or larger than the maximum, the maximum is used. " +
+                    "See *The timeout parameter* section of the API description for details.",
             schema = @Schema(type = "integer", format = "int64", defaultValue = "60000", example = "60000"))
     private long timeout = 60*1000;
     

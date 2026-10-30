@@ -1,5 +1,7 @@
 package org.semantics.apigateway.controller.local;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -54,6 +56,11 @@ public class AuthController {
   
   @PostMapping("/register")
   @ResponseStatus(HttpStatus.CREATED)
+  @Operation(summary = "Register a new user account via single sign-on.",
+          description = "Creates a new user account linked to an NFDI AAI single sign-on (SSO) identity. " +
+                  "Send the chosen `username` and the `id_token` received from the SSO flow (see `/auth/sso/authorize` and `/auth/sso/token`). " +
+                  "An ORCID iD is required: it is taken from the ID token, or from the `orcid` field if the token contains none. " +
+                  "After registering, log in with `POST /auth/sso/login`.")
   public SuccessResponse registerUser(@Valid @RequestBody RegisterRequest user) {
     Jwt idTokenVerified = oidcAuthService.verifyIdToken(user.getId_token());
     String orcid = idTokenVerified.getClaim("orcid");
@@ -79,6 +86,10 @@ public class AuthController {
   }
   
   @PostMapping("/login")
+  @Operation(summary = "Log in with username and password.",
+          description = "Checks `username` and `password` and returns a bearer token (JWT) together with the username, role, and expiration date of the token. " +
+                  "Send the token in the `Authorization: Bearer <token>` header (or use the *Authorize* button) to call endpoints that require login. " +
+                  "Accounts created via single sign-on log in with `POST /auth/sso/login` instead.")
   public AuthResponse loginUser(@RequestBody LoginRequest loginRequest) {
     Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -91,18 +102,28 @@ public class AuthController {
   }
   
   @GetMapping("/logout")
+  @Operation(summary = "Log out.",
+          description = "Ends the current request's login on the gateway. " +
+                  "The bearer token itself stays valid until it expires, so clients should also delete the token on their side.")
   public SuccessResponse logout(HttpServletRequest request) {
     SecurityContextHolder.clearContext();
     return new SuccessResponse("Logged out successfully.", "success");
   }
-  
+
   @GetMapping("/me")
+  @Operation(summary = "Get your own user profile.",
+          description = "Returns the profile of the logged-in user; the same as `GET /users/me`. Useful to check whether a bearer token is valid. Requires login.")
   public User getCurrentUser() {
     return this.authService.getCurrentUser();
   }
-  
+
   @GetMapping("/sso/authorize")
-  public RedirectView getAuthentication(@RequestParam String redirect_uri, @RequestParam(required = false) String state) {
+  @Operation(summary = "Start single sign-on (step 1 of 3).",
+          description = "Redirects the browser to the login page of NFDI AAI (OpenID Connect). " +
+                  "After a successful login there, the browser is sent back to `redirect_uri` with an authorization `code` (and the given `state`). " +
+                  "Continue with `POST /auth/sso/token`.")
+  public RedirectView getAuthentication(@Parameter(description = "URL of your application to which NFDI AAI redirects after login") @RequestParam String redirect_uri,
+                                        @Parameter(description = "Optional value that is passed back unchanged to `redirect_uri`, e.g. to protect against CSRF") @RequestParam(required = false) String state) {
     
     RedirectView response = new RedirectView(authorizationEndpoint);
     response.addStaticAttribute("response_type", "code");
@@ -115,6 +136,9 @@ public class AuthController {
   }
   
   @PostMapping(path = "/sso/token", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.APPLICATION_JSON_VALUE})
+  @Operation(summary = "Exchange the SSO authorization code for tokens (step 2 of 3).",
+          description = "Exchanges the authorization `code` received at `redirect_uri` (see `/auth/sso/authorize`) for an ID token and an access token from NFDI AAI. " +
+                  "Send the same `redirect_uri` as in step 1. Continue with `POST /auth/sso/login` (or `POST /auth/register` for new users).")
   public @ResponseBody CompletableFuture<TokenResponse> getToken(@RequestBody TokenRequest tokenRequest) {
     tokenRequest.setClient_id(clientId);
     tokenRequest.setClient_secret(clientSecret);
@@ -123,6 +147,9 @@ public class AuthController {
   }
   
   @PostMapping("/sso/login")
+  @Operation(summary = "Log in with single sign-on tokens (step 3 of 3).",
+          description = "Checks the `id_token` and `access_token` received from `POST /auth/sso/token` and returns a bearer token (JWT) of the gateway, " +
+                  "together with the username, role, and expiration date. The user must have registered before (see `POST /auth/register`).")
   public AuthResponse loginSsoUser(@RequestBody SsoLoginRequest loginRequest) {
     Jwt verifiedIdToken = oidcAuthService.verifyIdToken(loginRequest.getId_token());
     String subject = verifiedIdToken.getSubject();
