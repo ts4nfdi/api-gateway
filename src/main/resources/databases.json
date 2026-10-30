@@ -25,12 +25,6 @@
       "apiKey": "${ECOPORTAL_API_KEY}"
     },
     {
-      "type": "ontoportal",
-      "name": "lovportal",
-      "url": "https://data.lovportal.lirmm.fr",
-      "apiKey": "${LOVPORTAL_API_KEY}"
-    },
-    {
       "type": "ols2",
       "name": "ebi",
       "url": "https://www.ebi.ac.uk/ols4/api"
