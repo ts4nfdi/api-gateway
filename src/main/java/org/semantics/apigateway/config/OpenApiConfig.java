@@ -87,6 +87,8 @@ public class OpenApiConfig {
         String description = String.join("\n",
                 markdown(loader, "intro.md"),
 
+                details("Help", true,
+                        markdown(loader, "help.md")),
                 details("Glossary", true,
                         details("MOD, catalogue, semantic artefact", false,
                                 markdown(loader, "glossary-mod.md")),
