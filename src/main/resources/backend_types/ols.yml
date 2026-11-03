@@ -36,11 +36,11 @@ endpoints:
       query:
         name: q
         type: string
-      childrenOf:
+      hierarchicalParent:
         name: childrenOf
         type: string
         optional: true
-      allChildrenOf:
+      hierarchicalAncestor:
         name: allChildrenOf
         type: string
         optional: true
@@ -48,11 +48,11 @@ endpoints:
         name: lang
         type: string
         optional: true
-      rows:
+      size:
         name: rows
         type: integer
         optional: true
-      start:
+      page:
         name: start
         type: integer
         optional: true
@@ -192,11 +192,11 @@ endpoints:
       query:
         name: q
         type: string
-      childrenOf:
+      hierarchicalParent:
         name: childrenOf
         type: string
         optional: true
-      allChildrenOf:
+      hierarchicalAncestor:
         name: allChildrenOf
         type: string
         optional: true
@@ -204,11 +204,11 @@ endpoints:
         name: lang
         type: string
         optional: true
-      rows:
+      size:
         name: rows
         type: integer
         optional: true
-      start:
+      page:
         name: start
         type: integer
         optional: true

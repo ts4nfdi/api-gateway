@@ -18,17 +18,14 @@ public enum RequestParameter {
   offset(common),
   page(common),
   size(common),
-  pageSize(common),
   
   apiKey(common),
   
   // Parameters supported only by some backend types
   
-  childrenOf(backendSpecific),
-  allChildrenOf(backendSpecific),
-  lang(backendSpecific),
-  rows(backendSpecific),
-  start(backendSpecific);
+  hierarchicalParent(backendSpecific),
+  hierarchicalAncestor(backendSpecific),
+  lang(backendSpecific);
   
   @Getter
   Type type;

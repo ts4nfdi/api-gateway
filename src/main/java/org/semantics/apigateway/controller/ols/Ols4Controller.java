@@ -91,8 +91,8 @@ public class Ols4Controller {
   @GetMapping("/ontologies/{onto}/entities")
   public Object getAllEntitiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri, @RequestParam(name = "hierarchicalParent", required = false) String hierarchicalParent, @RequestParam(name = "hierarchicalAncestor", required = false) String hierarchicalAncestor) {
     Map<RequestParameter, String> apiParameters = new HashMap<>();
-    apiParameters.put(RequestParameter.childrenOf, hierarchicalParent);
-    apiParameters.put(RequestParameter.allChildrenOf, hierarchicalAncestor);
+    apiParameters.put(RequestParameter.hierarchicalParent, hierarchicalParent);
+    apiParameters.put(RequestParameter.hierarchicalAncestor, hierarchicalAncestor);
     if (iri == null) return artefactsDataService.getArtefactEntities(onto, apiParameters, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
     return artefactsDataService.getArtefactEntity(onto, iri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
   }
@@ -118,8 +118,8 @@ public class Ols4Controller {
                                                   @RequestParam(name = "hierarchicalAncestor", required = false) String hierarchicalAncestor) {
     // TODO Is there a way to run a federated query over all endpoints and their respective artifacts for all entities? Improbable, solely for performance reasons.
     Map<RequestParameter, String> apiParameters = new HashMap<>();
-    apiParameters.put(RequestParameter.childrenOf, hierarchicalParent);
-    apiParameters.put(RequestParameter.allChildrenOf, hierarchicalAncestor);
+    apiParameters.put(RequestParameter.hierarchicalParent, hierarchicalParent);
+    apiParameters.put(RequestParameter.hierarchicalAncestor, hierarchicalAncestor);
     if (iri != null) {
       return this.artefactsDataService.getArtefactEntities(iri, apiParameters, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
     }

@@ -24,6 +24,18 @@ endpoints:
       query:
         name: query
         type: string
+      hierarchicalParent:
+        name: hierarchicalParent
+        type: string
+        optional: true
+      hierarchicalAncestor:
+        name: hierarchicalAncestor
+        type: string
+        optional: true
+      lang:
+        name: lang
+        type: string
+        optional: true
     responseMapping:
       nestedJson: member
       <<: *searchResult

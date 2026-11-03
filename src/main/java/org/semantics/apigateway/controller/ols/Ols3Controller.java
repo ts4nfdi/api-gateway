@@ -63,10 +63,10 @@ public class Ols3Controller {
     }
     
     HashMap<RequestParameter, String> optionalParameters = new HashMap<>();
-    Optional.ofNullable(allParams.get("childrenOf")).ifPresent(value -> optionalParameters.put(RequestParameter.childrenOf, URLDecoder.decode(value, Charset.defaultCharset())));
-    Optional.ofNullable(allParams.get("allChildrenOf")).ifPresent(value -> optionalParameters.put(RequestParameter.allChildrenOf, URLDecoder.decode(value, Charset.defaultCharset())));
-    Optional.ofNullable(allParams.get("rows")).ifPresent(value -> optionalParameters.put(RequestParameter.rows, value));
-    Optional.ofNullable(allParams.get("start")).ifPresent(value -> optionalParameters.put(RequestParameter.start, value));
+    Optional.ofNullable(allParams.get("childrenOf")).ifPresent(value -> optionalParameters.put(RequestParameter.hierarchicalParent, URLDecoder.decode(value, Charset.defaultCharset())));
+    Optional.ofNullable(allParams.get("allChildrenOf")).ifPresent(value -> optionalParameters.put(RequestParameter.hierarchicalAncestor, URLDecoder.decode(value, Charset.defaultCharset())));
+    Optional.ofNullable(allParams.get("rows")).ifPresent(value -> optionalParameters.put(RequestParameter.size, value));
+    Optional.ofNullable(allParams.get("start")).ifPresent(value -> optionalParameters.put(RequestParameter.page, value));
     Optional.ofNullable(allParams.get("lang")).ifPresent(value -> optionalParameters.put(RequestParameter.lang, value));
     
     AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("database"), "ols", allParams.get("collectionId"), false, timeout, optionalParameters);

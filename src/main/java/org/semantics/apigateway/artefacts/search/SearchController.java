@@ -7,11 +7,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.semantics.apigateway.artefacts.metadata.ArtefactsService;
 import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.user.User;
+import org.semantics.apigateway.service.RequestParameter;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.Objects;
 
 
 @RestController
@@ -29,17 +31,24 @@ public class SearchController {
         this.authService = authService;
     }
 
-
     @Operation(summary = "Search all of the content in a catalogue.")
     @SecurityRequirement(name = "BearerAuth")
     @GetMapping(value = {"/search", "/search/content"})
     public Object search(
             @Parameter(description = "The text to search", example = "plant")
             @RequestParam String query,
-            @ParameterObject CommonRequestParams params
+            @ParameterObject CommonRequestParams params,
+            @RequestParam(name = "hierarchicalParent", required = false) String hierarchicalParent,
+            @RequestParam(name = "hierarchicalAncestor", required = false) String hierarchicalAncestor,
+            @RequestParam(name = "lang", required = false) String lang
     ) {
         User user = authService.tryGetCurrentUser();
-        return searchService.performSearch(query, params, user, null, Collections.emptyMap());
+        HashMap customParams = new HashMap<>();
+        customParams.put(RequestParameter.hierarchicalParent, hierarchicalParent);
+        customParams.put(RequestParameter.hierarchicalAncestor, hierarchicalAncestor);
+        customParams.put(RequestParameter.lang, lang);
+        customParams.values().removeIf(Objects::isNull);
+        return searchService.performSearch(query, params, user, null, customParams);
     }
 
 
