@@ -254,6 +254,9 @@ public class ApiAccessor {
             RequestParameter key = entry.getKey();
             EndpointParameterMapping mapping = entry.getValue();
             String paramValue = queryParams.get(key);
+            if (paramValue == null) {
+                paramValue = mapping.getDefaultValue();
+            }
             if (paramValue != null) {
                 url = appendQueryParam(url, mapping.serializeParameter(paramValue));
             } else if (!mapping.isOptional()) {
