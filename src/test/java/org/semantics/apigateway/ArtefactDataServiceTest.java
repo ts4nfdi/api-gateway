@@ -29,7 +29,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
 
     @Test
     public void testGetTerm() {
-        mockApiAccessor("artefact_term", artefactsService.getAccessor());
+        mockApiAccessor("artefact_term", artefactsService.getAccessor(DEFAULT_TIMEOUT_MILLIS));
         CommonRequestParams params = new CommonRequestParams();
         params.setDatabase("skosmos");
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactTerm("agrovoc", "http://aims.fao.org/aos/agrovoc/c_330834", params, apiAccessor, null);
@@ -62,7 +62,7 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
 
     @Test
     public void testGetProperty() {
-        mockApiAccessor("artefact_property", artefactsService.getAccessor());
+        mockApiAccessor("artefact_property", artefactsService.getAccessor(DEFAULT_TIMEOUT_MILLIS));
 
         CommonRequestParams params = new CommonRequestParams();
         params.setDatabase("ontoportal");
@@ -77,14 +77,14 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
 
     @Test
     public void testGetCollection() {
-        mockApiAccessor("artefact_collection", artefactsService.getAccessor());
+        mockApiAccessor("artefact_collection", artefactsService.getAccessor(DEFAULT_TIMEOUT_MILLIS));
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactCollection("INRAETHES", "http://opendata.inrae.fr/thesaurusINRAE/gr_6c79e7c5", new CommonRequestParams(), apiAccessor, null);
         assertMapEquality(response, createOntoPortalINRAEThesCollectionFixture());
     }
 
     @Test
     public void testGetIndividuals() {
-        mockApiAccessor("artefact_individual", artefactsService.getAccessor());
+        mockApiAccessor("artefact_individual", artefactsService.getAccessor(DEFAULT_TIMEOUT_MILLIS));
         CommonRequestParams params = new CommonRequestParams();
         params.setDatabase("ols2");
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactIndividual("FOODON", "http://purl.obolibrary.org/obo/GAZ_00000464", params, apiAccessor, null);
@@ -98,14 +98,14 @@ public class ArtefactDataServiceTest extends ApplicationTestAbstract {
 
     @Test
     public void testGetScheme() {
-        mockApiAccessor("artefact_scheme", artefactsService.getAccessor());
+        mockApiAccessor("artefact_scheme", artefactsService.getAccessor(DEFAULT_TIMEOUT_MILLIS));
         AggregatedApiResponse response = (AggregatedApiResponse) artefactsService.getArtefactScheme("INRAETHES", "http://opendata.inrae.fr/thesaurusINRAE/mt_50", new CommonRequestParams(), apiAccessor, null);
         assertMapEquality(response, createOntoPortalInraeScheme());
     }
 
     @Test
     public void testGetEntity() {
-        mockApiAccessor("artefact_entity", "zbmed", artefactsService.getAccessor(), Map.of(
+        mockApiAccessor("artefact_entity", "zbmed", artefactsService.getAccessor(DEFAULT_TIMEOUT_MILLIS), Map.of(
                 "classes", "class.json",
                 "properties", "property.json",
                 "individuals", "individual.json"));

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -37,4 +38,9 @@ public class User {
     // TODO at some point, we will want this to be @NotEmpty and @Column(nullable = false), but for the period of transitioning to OIDC, we will need to allow users that are not associated with an OIDC identity yet.
     @Column(unique = true)
     private String oidcSubjectIdentifier;
+    
+    private String primaryOrcid;
+    
+    @ElementCollection(fetch = FetchType.LAZY)
+    private Set<String> externalPersistentIdentifiers = new HashSet<>();
 }

@@ -56,10 +56,20 @@ public class AuthController {
   @ResponseStatus(HttpStatus.CREATED)
   public SuccessResponse registerUser(@Valid @RequestBody RegisterRequest user) {
     Jwt idTokenVerified = oidcAuthService.verifyIdToken(user.getId_token());
+    String orcid = idTokenVerified.getClaim("orcid");
+    if (orcid == null) {
+      orcid = user.getOrcid();
+    }
+    if (orcid == null) {
+      throw new MissingOrcidException("No orcid in id token or request parameters");
+    }
     
     User newUser = new User();
     newUser.setUsername(user.getUsername());
     newUser.setOidcSubjectIdentifier(idTokenVerified.getSubject());
+    newUser.setPrimaryOrcid(orcid);
+    newUser.getExternalPersistentIdentifiers().add(orcid);
+    
     newUser.setRoles(Collections.singleton(Role.USER));
     userRepository.save(newUser);
     
@@ -118,9 +128,6 @@ public class AuthController {
     String subject = verifiedIdToken.getSubject();
     
     Jwt verifiedAccessToken = oidcAuthService.verifyAccessToken(loginRequest.getAccess_token());
-    
-    // TODO add orcid claim as soon as supported by IDP
-    Object orcidClaim = verifiedIdToken.getClaim("orcid");
     
     if (verifiedIdToken.getExpiresAt().isBefore(Instant.now())) {
       throw new OAuth2AuthenticationException("Token expired");

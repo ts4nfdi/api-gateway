@@ -33,6 +33,9 @@ public class TerminologyCollection {
     @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CollectionCollaborator> collaborators = new ArrayList<>();
 
+    @OneToMany(mappedBy = "collection")
+    private List<CollectionStatistic> statistics = new ArrayList<>();
+
     @Column(nullable = false)
     private boolean isPublic;
 }

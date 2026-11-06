@@ -10,7 +10,10 @@ import org.springframework.cache.CacheManager;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URL;
@@ -24,7 +27,10 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @Service
+@Component
 public class ApiAccessor {
+    
+    private long timeoutMillis;
 
     private RestTemplate restTemplate;
     private Map<String, UrlConfig> urls;
@@ -33,29 +39,39 @@ public class ApiAccessor {
     private CacheService cacheService;
     private boolean cacheEnabled;
 
-    @Autowired
-    public ApiAccessor(CacheManager cacheManager) {
+    public ApiAccessor(CacheManager cacheManager, Long timeoutMillis) {
+        this.timeoutMillis = timeoutMillis;
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         this.cacheService = new CacheService(cacheManager);
-        factory.setConnectTimeout(60000);
-        factory.setReadTimeout(60000);
+        factory.setConnectTimeout(Math.toIntExact(timeoutMillis));
+        factory.setReadTimeout(Math.toIntExact(timeoutMillis));
         this.restTemplate = new RestTemplate(factory);
         this.urls = new HashMap<>();
         this.unDecodeUrl = false;
         this.cacheEnabled = true;
     }
-
-    @Async
-    public CompletableFuture<Map<String, ApiResponse>> get(long timeoutMillis) {
-        return get(timeoutMillis, new HashMap<>());
+    
+    @Autowired
+    public ApiAccessor(CacheManager cacheManager) {
+        this(cacheManager, 60_000L);
     }
 
     @Async
-    public CompletableFuture<Map<String, ApiResponse>> get(long timeoutMillis, Map<RequestParameter, String> queryParams) {
+    public CompletableFuture<Map<String, ApiResponse>> get() {
+        return get(new HashMap<>());
+    }
+
+    @Async
+    public CompletableFuture<Map<String, ApiResponse>> get(Map<RequestParameter, String> queryParams) {
         ForkJoinPool customThreadPool = new ForkJoinPool(Math.max(this.urls.size(), 1));
 
         List<CompletableFuture<Map.Entry<String, ApiResponse>>> futures = this.urls.entrySet().stream()
                 .map(config -> CompletableFuture.supplyAsync(() -> call(config.getKey(), config.getValue(), queryParams), customThreadPool)
+                        .completeOnTimeout(new ApiResponse(), timeoutMillis, TimeUnit.MILLISECONDS)
+                        .exceptionally(e -> {
+                            logger.error("Error processing results: {}", e.getMessage(), e);
+                            return new ApiResponse();
+                        })
                         .thenApply(response -> Map.entry(config.getKey(), response))
                 )
                 .toList();
@@ -66,11 +82,7 @@ public class ApiAccessor {
                                 future -> future.join().getKey(),
                                 future -> future.join().getValue()
                         ))
-                ).completeOnTimeout(Map.of(), timeoutMillis, TimeUnit.MILLISECONDS)
-                .exceptionally(e -> {
-                    logger.error("Error processing results: {}", e.getMessage(), e);
-                    return Collections.emptyMap();
-                });
+                );
     }
 
 
@@ -120,10 +132,10 @@ public class ApiAccessor {
 
             long endTime = System.currentTimeMillis();
             long responseTime = endTime - startTime;
-            logger.info("URL accessed {} in {}s", fullUrl, responseTime);
+            logger.info("URL accessed {} in {}ms", fullUrl, responseTime);
             result.setResponseTime(responseTime);
 
-            result.setStatusCode(response.getStatusCodeValue());
+            result.setStatusCode(response.getStatusCode().value());
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 logger.debug("Raw API Response: {}", response.getBody());
@@ -134,7 +146,7 @@ public class ApiAccessor {
                 } else {
                     Map<String, Object> resultMap = (Map<String, Object>) response.getBody();
                     if (resultMap.containsKey("error")) {
-                        logger.error("Backend returned an error message processing the request {}: {}", fullUrl, resultMap.get("error"));
+                        logger.error("Provider returned an error message processing the request {}: {}", fullUrl, resultMap.get("error"));
                     } else {
                         result.setResponseBody(resultMap);
                     }
@@ -147,13 +159,38 @@ public class ApiAccessor {
                 logger.error("API {} Response Error: Status Code - {}", fullUrl, response.getStatusCode());
                 return result;
             }
+        } catch (HttpClientErrorException.NotFound e) {
+            // Expected when a provider does not provide the requested artefact/resource; not an error of the gateway.
+            result.setStatusCode(e.getStatusCode().value());
+            logger.info("Not available at provider (404): {} - {}", fullUrl, summarizeBody(e.getResponseBodyAsString()));
+            return result;
+        } catch (HttpStatusCodeException e) {
+            result.setStatusCode(e.getStatusCode().value());
+            logger.warn("Provider responded with {} for request {}: {}", e.getStatusCode(), fullUrl, summarizeBody(e.getResponseBodyAsString()));
+            return result;
         } catch (Exception e) {
-            logger.error("An error occurred while processing the request {}: {}", fullUrl, e.getMessage());
+            logger.error("An error occurred while processing the request {}: {}: {}", fullUrl, e.getClass().getSimpleName(), e.getMessage());
+            logger.debug("Stack trace for request {}", fullUrl, e);
             return result;
         }
     }
 
-    private String constructUrl(String url, UrlConfig config, Map<RequestParameter, String> requestParameters) {
+    private static final int MAX_LOGGED_BODY_LENGTH = 200;
+
+    private String summarizeBody(String body) {
+        if (body == null || body.isBlank()) {
+            return "<empty body>";
+        }
+        String text = body
+                .replaceAll("(?is)<(head|script|style)[^>]*>.*?</\\1>", " ")
+                .replaceAll("<[^>]+>", " ")
+                .replaceAll("\\s+", " ")
+                .trim();
+        return text.length() > MAX_LOGGED_BODY_LENGTH ? text.substring(0, MAX_LOGGED_BODY_LENGTH) + "..." : text;
+    }
+
+    private String constructUrl(String url, UrlConfig config, Map<RequestParameter, String> sharedRequestParameters) {
+        Map<RequestParameter, String> requestParameters = new HashMap<>(sharedRequestParameters);
         String apikey = config.apikey();
         
         boolean isCaseInsensitive = config.caseInSensitive();

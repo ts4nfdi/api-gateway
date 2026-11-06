@@ -2,6 +2,7 @@ package org.semantics.apigateway.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.semantics.apigateway.artefacts.metadata.TerminologyStatistic;
 import org.semantics.apigateway.model.responses.AggregatedResourceBody;
 
 import java.util.List;
@@ -28,7 +29,8 @@ public class SemanticArtefact extends AggregatedResourceBody {
     private List<String> publisher;
     private String coverage;
     private List<String> hasFormat;
-    
+    private List<TerminologyStatistic> statistics;
+
     @ContextUri("dcat")
     private List<String> keywords;
     @ContextUri("dcat")
