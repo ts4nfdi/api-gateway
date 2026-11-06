@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Component
 public class TrailingSlashHandlerFilter extends OncePerRequestFilter {
@@ -19,6 +21,12 @@ public class TrailingSlashHandlerFilter extends OncePerRequestFilter {
     
     if (requestUri.endsWith("/") && !requestUri.equals(request.getContextPath() + "/")) {
       String newUrl = requestUri.substring(0, requestUri.length() - 1);
+      if (!request.getParameterMap().isEmpty()) {
+        newUrl += "?"
+                + request.getParameterMap().entrySet().stream().map(e -> e.getKey() + "="
+                + Arrays.stream(e.getValue()).collect(Collectors.joining(",")))
+                .collect(Collectors.joining("&"));
+      }
       response.setStatus(HttpStatus.MOVED_PERMANENTLY.value());
       response.setHeader(HttpHeaders.LOCATION, newUrl);
       return;
