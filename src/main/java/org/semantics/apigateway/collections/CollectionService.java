@@ -11,10 +11,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Service
 public class CollectionService  {
+    
+    private static final Pattern permalinkPattern = Pattern.compile("https://w3id\\.org/ts4nfdi/collection/([a-f0-9-]+)");
 
     private final CollectionRepository collectionRepository;
     private final AuthService authService;
@@ -44,7 +48,13 @@ public class CollectionService  {
         if (collectionId == null || collectionId.isEmpty()) {
             return null;
         }
-
+        
+        // https://github.com/ts4nfdi/api-gateway/issues/150
+        Matcher matcher = permalinkPattern.matcher(collectionId);
+        if (matcher.matches()) {
+            collectionId = matcher.group(1);
+        }
+        
         Optional<TerminologyCollection> collection = this.getCollectionById(UUID.fromString(collectionId), user);
 
         if (collection.isPresent()) {
@@ -104,7 +114,6 @@ public class CollectionService  {
         this.collectionRepository.delete(collection);
     }
 
-
     private List<CollectionResource> createCollectionResources(List<ResourceDto> resources, TerminologyCollection collection) {
         List<CollectionResource> collectionResources = resources.stream().map(resource -> {
             CollectionResource collectionResource = new CollectionResource();
@@ -117,6 +126,7 @@ public class CollectionService  {
         }).toList();
         return  collectionResourceRepository.saveAll(collectionResources);
     }
+    
     private List<CollectionCollaborator> createCollectionCollaborators(List<CollectionCollaboratorDto> usernames, TerminologyCollection collection) {
         List<User> collaborators = userRepository.findByUsernameIn(usernames.stream().map(CollectionCollaboratorDto::username).toList());
         List<CollectionCollaborator> collectionCollaborators =  collaborators.stream().map(user -> {

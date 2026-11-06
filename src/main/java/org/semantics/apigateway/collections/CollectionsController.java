@@ -29,7 +29,7 @@ public class CollectionsController {
     private final CollectionService collectionService;
     private final AuthService authService;
 
-    @GetMapping("/")
+    @GetMapping(value = "", produces = CollectionsJsonLdMessageConverter.MEDIA_TYPE_APPLICATION_LD_JSON_VALUE)
     @Operation(summary = "List collections")
     @Parameter(name = "id", in = ParameterIn.QUERY, required = false,
             description = "If given, returns the single collection with this id instead of the list")
@@ -45,7 +45,7 @@ public class CollectionsController {
     }
 
     @Operation(hidden = true)
-    @GetMapping(value = {"", "/"}, params = "id")
+    @GetMapping(value = {""}, params = "id")
     public TerminologyCollectionDto getCollectionById(@RequestParam String id) {
         return resolveCollection(id);
     }

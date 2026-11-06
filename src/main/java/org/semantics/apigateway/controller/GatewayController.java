@@ -15,7 +15,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("")
 @CrossOrigin
 public class GatewayController {
 
@@ -27,7 +27,7 @@ public class GatewayController {
     }
 
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "")
     public SemanticArtefactCatalog home(HttpServletRequest request) throws IOException {
         SemanticArtefactCatalog catalog = new SemanticArtefactCatalog();
         catalog.setId(statusService.getBaseUrl(request));

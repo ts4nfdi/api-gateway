@@ -291,7 +291,7 @@ public abstract class AbstractEndpointService {
 
         return filterOutByTerminologies(terminologiesCollection.getTerminologies(), data);
     }
-
+    
     protected AggregatedApiResponse paginate(TransformedApiResponse response, CommonRequestParams
             commonRequestParams, int page) {
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();

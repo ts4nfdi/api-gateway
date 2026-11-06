@@ -12,7 +12,9 @@ import java.util.List;
 @ContextBaseUri("dct")
 public class SemanticArtefact extends AggregatedResourceBody {
 
+    @ContextUri("owl")
     private String versionIRI;
+    
     private String accessRights;
     private String license;
     private String identifier;
