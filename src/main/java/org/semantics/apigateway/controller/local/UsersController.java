@@ -29,7 +29,7 @@ public class UsersController {
         return this.authService.getCurrentUser();
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<Map<String, String>> getAllUsers() {
         getCurrentUser();
         return this.userRepository.findAll().stream().map(x -> Map.of(
