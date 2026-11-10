@@ -53,6 +53,7 @@ public class OlsTransformer implements DatabaseTransformer {
         if (!provider.isEmpty()) {
             transformedItem.put("provider", provider);
         }
+        if (item.get("statistics") != null) transformedItem.put("statistics", item.get("statistics"));
 
         transformedItem.put("URI", item.get("iri"));
         transformedItem.put("@type", new SemanticArtefact().getTypeURI());

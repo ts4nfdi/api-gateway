@@ -21,11 +21,12 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Objects;
 
 @Component
 @RestController
 @RequestMapping(value={"/ols/api", "/ols4/api"})
-@Tag(name = "OLS")
+@Tag(name = "OLS4")
 public class Ols3Controller {
   
   private final SearchService searchService;
@@ -55,11 +56,10 @@ public class Ols3Controller {
       query = "*";
     }
     
-    long timeout;
+    Long timeout = null;
     try {
       timeout = Long.parseLong(allParams.get("timeout"));
-    } catch (Exception e) {
-      timeout = 60 * 1000;
+    } catch (NumberFormatException e) {
     }
     
     HashMap<RequestParameter, String> optionalParameters = new HashMap<>();
@@ -82,10 +82,7 @@ public class Ols3Controller {
   @CrossOrigin
   @GetMapping("/terms")
   public Object getAllTermsInOLSTargetDBSchema(@RequestParam(required = false, defaultValue = "0") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
-    if (iri != null) {
-      return this.artefactsDataService.getArtefactTerms(iri, new HashMap<>(), params, page + 1, null, authService.tryGetCurrentUser());
-    }
-    return this.artefactsDataService.getArtefactTerms("", new HashMap<>(), params, page + 1, null, authService.tryGetCurrentUser());
+    return this.artefactsDataService.getArtefactTerms(Objects.requireNonNullElse(iri, ""),  new HashMap<>(),params, page + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin

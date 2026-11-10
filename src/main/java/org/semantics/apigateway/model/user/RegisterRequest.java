@@ -8,4 +8,5 @@ import lombok.Setter;
 public class RegisterRequest {
     String username;
     String id_token;
+    String orcid;
 }

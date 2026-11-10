@@ -36,7 +36,7 @@ public class SearchService extends AbstractEndpointService {
         this.collectionService = collectionService;
     }
 
-    public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, String collectionId, boolean showResponseConfiguration, long timeoutMillis, Map<RequestParameter, String> optionalParameters) {
+    public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, String collectionId, boolean showResponseConfiguration, Long timeoutMillis, Map<RequestParameter, String> optionalParameters) {
         TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase(database);
@@ -57,14 +57,14 @@ public class SearchService extends AbstractEndpointService {
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
         TerminologyCollection collection = collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser);
-        accessor = initAccessor(database, endpoint, accessor);
+        accessor = initAccessor(database, endpoint, accessor, params.getTimeout());
         accessor = applyCollection(accessor, collection, endpoint);
         
         HashMap<RequestParameter, String> apiParameters = new HashMap<>(Map.of(RequestParameter.query, query));
         apiParameters.putAll(optionalParameters);
         
         try {
-            return accessor.get(params.getTimeout(), apiParameters)
+            return accessor.get(apiParameters)
                     .thenApply(data -> this.transformApiResponses(data, endpoint, apiParameters))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
@@ -99,7 +99,7 @@ public class SearchService extends AbstractEndpointService {
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
         TerminologyCollection collection = collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser);
-        accessor = initAccessor(database, endpoint, accessor);
+        accessor = initAccessor(database, endpoint, accessor, params.getTimeout());
         accessor = applyCollection(accessor, collection, endpoint);
         
         // TODO add ontology parameter as soon as https://github.com/ts4nfdi/api-gateway/issues/123 has been resolved.
@@ -112,7 +112,7 @@ public class SearchService extends AbstractEndpointService {
         ));
         
         try {
-            return accessor.get(params.getTimeout(), apiParameters)
+            return accessor.get(apiParameters)
                     .thenApply(data -> this.transformApiResponses(data, endpoint, apiParameters))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))

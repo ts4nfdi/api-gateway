@@ -63,6 +63,7 @@ endpoints:
       collectionFilter: ontologyId
       nestedJson: elements
       <<: *term
+
   resources:
     path: /v2/ontologies?size=10000
     responseMapping:
@@ -196,12 +197,13 @@ endpoints:
         name: rows
         type: integer
         optional: true
-      page:
+      offset:
         name: start
         type: integer
         optional: true
     responseMapping:
       nestedJson: response
+      collectionFilter: ontology
       key: docs
       iri: iri
       label: label

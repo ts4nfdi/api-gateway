@@ -33,6 +33,8 @@ import static org.semantics.apigateway.service.JsonLdTransform.DEFAULT_BASE_URI;
 
 public abstract class ApplicationTestAbstract {
     private final Logger logger = LoggerFactory.getLogger(SearchServiceTest.class);
+    
+    public static final long DEFAULT_TIMEOUT_MILLIS = 60000;
 
     public JsonLdTransform jsonLdTransform = new JsonLdTransform();
 
@@ -53,9 +55,8 @@ public abstract class ApplicationTestAbstract {
         Map<String, String> mockResponses = new HashMap<>();
         for (DatabaseConfig config : configs) {
             String serviceName = String.format("src/test/resources/mocks/" + key + "/%s.json", config.getName());
-            String jsonResponse = "";
             try {
-                jsonResponse = new String(Files.readAllBytes(Paths.get(serviceName)));
+                String jsonResponse = new String(Files.readAllBytes(Paths.get(serviceName)));
                 mockResponses.put(config.getName(), jsonResponse);
                 logger.info("Mocking file: {}", serviceName);
             } catch (Exception e) {
@@ -304,7 +305,7 @@ public abstract class ApplicationTestAbstract {
                         if (configHost.equals(currentURLHost)) {
                             String jsonResponse = mockResponses.get(config.getName());
                             Gson gson = new Gson();
-                            Type mapType = new TypeToken<Object>() {
+                            Type mapType = new TypeToken<>() {
                             }.getType();
                             Object map = gson.fromJson(jsonResponse, mapType);
 
@@ -385,7 +386,7 @@ public abstract class ApplicationTestAbstract {
 
                     String jsonResponse = endpointMocks.get(matchedEndpoint);
                     Gson gson = new Gson();
-                    Type mapType = new TypeToken<Object>() {}.getType();
+                    Type mapType = new TypeToken<>() {}.getType();
                     Object parsed = gson.fromJson(jsonResponse, mapType);
 
                     if (parsed instanceof List) {
@@ -535,11 +536,12 @@ public abstract class ApplicationTestAbstract {
         fixture.put("label", "Multilingual Thesaurus of the European Union");
         fixture.put("source", "https://coli-conc.gbv.de/api");
         fixture.put("source_name", "coli-conc");
-        fixture.put("descriptions", List.of("\"EuroVoc is a multilingual, multidisciplinary thesaurus covering the activities of the EU, the European Parliament in particular. It contains terms in 23 EU languages (Bulgarian, Croatian, Czech, Danish, Dutch, English, Estonian, Finnish, French, German, Greek, Hungarian, Italian, Latvian, Lithuanian, Maltese, Polish, Portuguese, Romanian, Slovak, Slovenian, Spanish and Swedish), plus in three languages of countries which are candidates for EU accession: македонски (mk), shqip (sq) and cрпски (sr).\n"+
-"\n"+
-"It is a multi-disciplinary thesaurus covering fields which are sufficiently wide-ranging to encompass both Community and national points of view, with a certain emphasis on parliamentary activities. EuroVoc is a controlled set of vocabulary which can be used outside the EU institutions, particularly by parliaments.\n"+
-                "\n"+
-"The aim of the thesaurus is to provide the information management and dissemination services with a coherent indexing tool for the effective management of their documentary resources and to enable users to carry out documentary searches using controlled vocabulary.\""));
+        fixture.put("descriptions", List.of("""
+                "EuroVoc is a multilingual, multidisciplinary thesaurus covering the activities of the EU, the European Parliament in particular. It contains terms in 23 EU languages (Bulgarian, Croatian, Czech, Danish, Dutch, English, Estonian, Finnish, French, German, Greek, Hungarian, Italian, Latvian, Lithuanian, Maltese, Polish, Portuguese, Romanian, Slovak, Slovenian, Spanish and Swedish), plus in three languages of countries which are candidates for EU accession: македонски (mk), shqip (sq) and cрпски (sr).
+                
+                It is a multi-disciplinary thesaurus covering fields which are sufficiently wide-ranging to encompass both Community and national points of view, with a certain emphasis on parliamentary activities. EuroVoc is a controlled set of vocabulary which can be used outside the EU institutions, particularly by parliaments.
+                
+                The aim of the thesaurus is to provide the information management and dissemination services with a coherent indexing tool for the effective management of their documentary resources and to enable users to carry out documentary searches using controlled vocabulary.\""""));
         fixture.put("type", "http://www.w3.org/2004/02/skos/core#ConceptScheme");
         fixture.put("version", null);
         fixture.put("publisher", List.of("Publications Office of the European Union"));

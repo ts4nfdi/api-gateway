@@ -1,5 +1,6 @@
 package org.semantics.apigateway;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +9,9 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 @Configuration
 public class TomcatConfig {
+    
+    @Value("${application.timeout_ms.maxvalue}")
+    private long defaultTimeout;
 
     @Bean
     public TomcatServletWebServerFactory tomcatFactory() {
@@ -16,6 +20,7 @@ public class TomcatConfig {
         factory.addConnectorCustomizers(connector -> {
             // Additional settings to make sure encoding is handled properly
             connector.setEncodedSolidusHandling("passthrough");
+            connector.setAsyncTimeout(defaultTimeout + 10000);
         });
 
         return factory;

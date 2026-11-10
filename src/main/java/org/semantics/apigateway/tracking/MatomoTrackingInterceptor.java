@@ -105,7 +105,7 @@ public class MatomoTrackingInterceptor implements HandlerInterceptor {
     // -- action naming -------------------------------------------------------------------------------------------
 
     /**
-     * {@code <category> / <METHOD> <uri template>}, e.g. {@code Artefacts / Data / GET /artefacts/{id}}.
+     * {@code <category> / <METHOD> <uri template>}, e.g. {@code MOD - Artefact Data / GET /artefacts/{id}}.
      * Matomo splits the action name on slashes to build its page hierarchy, so this mirrors the swagger grouping
      * that the controllers already declare.
      */

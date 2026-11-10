@@ -1,0 +1,2 @@
+ALTER TABLE users
+    ADD COLUMN primary_orcid VARCHAR(255) UNIQUE;
