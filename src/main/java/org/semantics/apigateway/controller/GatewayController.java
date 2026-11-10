@@ -16,7 +16,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("")
 @CrossOrigin
 @Tag(name = "MOD - Catalogue")
 public class GatewayController {
@@ -29,7 +29,7 @@ public class GatewayController {
     }
 
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "")
     @Operation(summary = "Get information about the gateway as a catalogue.",
             description = "Returns a short description of the gateway as a MOD catalogue (`mod:SemanticArtefactCatalog`): title, description, status, license, " +
                     "and links to the most important entry points (documentation, search, artefacts, examples). " +

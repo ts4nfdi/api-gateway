@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.ws.rs.QueryParam;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -84,6 +85,7 @@ public class CommonRequestParams {
         return result;
     }
     
+    @Value("${application.timeout_ms.maxvalue}")
     @QueryParam("timeout")
     @Parameter(name = "timeout", in = ParameterIn.QUERY, required = false,
             description =
@@ -96,7 +98,7 @@ public class CommonRequestParams {
                     "If omitted, negative, or larger than the maximum, the maximum is used. " +
                     "See *The timeout parameter* section of the API description for details.",
             schema = @Schema(type = "integer", format = "int64", defaultValue = "60000", example = "60000"))
-    private long timeout = 60*1000;
+    private long timeout;
     
     @QueryParam("omitArtefactsWithoutIri")
     @Parameter(name = "omitArtefactsWithoutIri", in = ParameterIn.QUERY, required = false,

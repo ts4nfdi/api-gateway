@@ -33,13 +33,14 @@ public class UsersController {
         return this.authService.getCurrentUser();
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     @Operation(summary = "List all usernames.",
             description = "Returns the usernames of all registered users, e.g. to pick collaborators for a terminology collection. Requires login.")
     public List<Map<String, String>> getAllUsers() {
         getCurrentUser();
         return this.userRepository.findAll().stream().map(x -> Map.of(
-                "username", x.getUsername()
+                "username", x.getUsername(),
+                "orcid", Optional.ofNullable(x.getPrimaryOrcid()).orElse("")
         )).toList();
     }
     

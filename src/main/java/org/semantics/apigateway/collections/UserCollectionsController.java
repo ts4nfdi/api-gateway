@@ -27,16 +27,14 @@ public class UserCollectionsController {
     private final CollectionService collectionService;
     private final AuthService authService;
 
-
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/")
+    @PostMapping("")
     @Operation(summary = "Create a terminology collection.",
             description = "Creates a new terminology collection owned by the logged-in user and returns it, including its generated `id`. " +
                     "Required fields: `label`, `description`, `isPublic` (whether everybody can see and use it). " +
                     "Optional: `terminologies`, the terminologies to include (each with the artefact's `uri`, its `label`, and the `source` hosting it), " +
                     "and `collaborators`, the usernames of other users who may edit the collection. Requires login.")
     public TerminologyCollectionDto createCollection(@RequestBody TerminologyCollectionDto collection) {
-
         return TerminologyCollectionDto.toDto(collectionService.createCollection(authService.getCurrentUser().getId(), collection));
     }
 
@@ -52,7 +50,7 @@ public class UserCollectionsController {
         return TerminologyCollectionDto.toDto(this.collectionService.updateCollection(authService.getCurrentUser(), id, collection));
     }
 
-    @GetMapping("/")
+    @GetMapping(value = "", produces = CollectionsJsonLdMessageConverter.MEDIA_TYPE_APPLICATION_LD_JSON_VALUE)
     @Operation(summary = "List your own terminology collections.",
             description = "Returns the terminology collections that the logged-in user created or is a collaborator of, both public and private. " +
                     "Unlike `GET /collections/`, public collections of other users are not included. Requires login.")

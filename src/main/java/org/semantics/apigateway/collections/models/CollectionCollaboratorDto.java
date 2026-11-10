@@ -5,10 +5,11 @@ import org.semantics.apigateway.model.user.Role;
 
 public record CollectionCollaboratorDto(
         @NotNull  String username,
+        String orcid,
         Role role
 ) {
-    public CollectionCollaboratorDto(String username) {
-        this(username, Role.USER);
+    public CollectionCollaboratorDto(String username, String orcid) {
+        this(username, orcid, Role.USER);
     }
 }
 

@@ -14,6 +14,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 
@@ -30,7 +31,7 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
             return new AggregatedApiResponse();
         }
         String endpoint = Endpoints.concepts_roots.toString();
-        accessor = initAccessor(params.getDatabase(), endpoint, accessor);
+        accessor = initAccessor(params.getDatabase(), endpoint, accessor, params.getTimeout());
         return findAll(artefactId, endpoint, params, accessor, currentUser).thenApply(x -> {
             x.setCollection(sortChildren(x.getCollection()));
             return x;
@@ -44,9 +45,9 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
 
         String endpoint = Endpoints.concepts_children.toString();
         DatabaseConfig databaseConfig = configurationLoader.getConfigByName(params.getDatabase());
-        accessor = initAccessor(params.getDatabase(), endpoint, accessor);
+        accessor = initAccessor(params.getDatabase(), endpoint, accessor, params.getTimeout());
         if (databaseConfig.isOls2()) {
-            resourceUri = URLEncoder.encode(URLEncoder.encode(resourceUri)); // OLS2 requires URI double encoding
+            resourceUri = URLEncoder.encode(URLEncoder.encode(resourceUri, StandardCharsets.UTF_8)); // OLS2 requires URI double encoding
         }
         return paginatedList(artefactId, resourceUri, endpoint, params, page, accessor,  currentUser);
     }
@@ -57,10 +58,10 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
         }
         String endpoint = Endpoints.concept_tree.toString();
         DatabaseConfig databaseConfig = configurationLoader.getConfigByName(params.getDatabase());
-        accessor = initAccessor(params.getDatabase(), endpoint, accessor);
+        accessor = initAccessor(params.getDatabase(), endpoint, accessor, params.getTimeout());
         String finalUri = resourceUri;
         if (databaseConfig.isOls2()) {
-            finalUri = URLEncoder.encode(URLEncoder.encode(resourceUri)); // OLS2 requires URI double encoding
+            finalUri = URLEncoder.encode(URLEncoder.encode(resourceUri, StandardCharsets.UTF_8)); // OLS2 requires URI double encoding
         }
 
         return findAll(artefactId, finalUri, endpoint, params, accessor, currentUser)
