@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/collections")
-@Tag(name = "Users - Collections")
+@Tag(name = "Collections")
 @SecurityRequirement(name = "BearerAuth")
 @AllArgsConstructor
 @CrossOrigin
@@ -30,7 +30,12 @@ public class CollectionsController {
     private final AuthService authService;
 
     @GetMapping(value = "", produces = CollectionsJsonLdMessageConverter.MEDIA_TYPE_APPLICATION_LD_JSON_VALUE)
-    @Operation(summary = "List collections")
+    @Operation(summary = "List all terminology collections you can see.",
+            description = "Without login, returns all public terminology collections. " +
+                    "When logged in, additionally returns the terminology collections you created or that are shared with you as a collaborator. " +
+                    "Each terminology collection contains its `id`, `label`, `description`, `creator`, `collaborators`, the contained `terminologies` " +
+                    "(each with `uri`, `label`, `source`, and `type`), and the latest `statistics`. " +
+                    "Pass the `id` as `collectionId` to other endpoints to restrict them to the terminologies of the collection.")
     @Parameter(name = "id", in = ParameterIn.QUERY, required = false,
             description = "If given, returns the single collection with this id instead of the list")
     public List<TerminologyCollectionDto> allCollections() {

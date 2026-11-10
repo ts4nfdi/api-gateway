@@ -22,7 +22,7 @@ import java.util.Objects;
 @Component
 @RestController
 @RequestMapping(value={"/ols/api", "/ols4/api"})
-@Tag(name = "OLS")
+@Tag(name = "OLS4")
 public class Ols3Controller {
   
   private final SearchService searchService;

@@ -1,23 +1,23 @@
 data:
-  "NCIT_C2984 term (OLS)": "/artefacts/ncit/resources/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCIT_C2984?showResponseConfiguration=true"
+  "NCIT_C2984 term (OLS4)": "/artefacts/ncit/resources/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCIT_C2984?showResponseConfiguration=true"
   "AGROVOC/c_330834 term (OntoPortal, SKOSMOS)": "/artefacts/AGROVOC/resources/classes/http%3A%2F%2Faims.fao.org%2Faos%2Fagrovoc%2Fc_330834?showResponseConfiguration=true"
-  "NCBITaxon_131567 term from BCO (OntoPortal, ols, ols2)": "/artefacts/bco/resources/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCBITaxon_131567?showResponseConfiguration=true"
-  "NCBITaxon_2 term from NCBITaxon (OntoPortal, ols2)": "/artefacts/ncbitaxon/resources/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCBITaxon_2?showResponseConfiguration=true"
+  "NCBITaxon_131567 term from BCO (OntoPortal, OLS4v2)": "/artefacts/bco/resources/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCBITaxon_131567?showResponseConfiguration=true"
+  "NCBITaxon_2 term from NCBITaxon (OntoPortal, OLS4v2)": "/artefacts/ncbitaxon/resources/classes/http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCBITaxon_2?showResponseConfiguration=true"
 
 metadata:
-  "Artefacts from OLS v1": "/artefacts?database=OLS&showResponseConfiguration=true"
+  "Artefacts from OLS4": "/artefacts?database=OLS&showResponseConfiguration=true"
   "Artefacts from NERC": "/artefacts?database=nerc&showResponseConfiguration=true"
   "Artefacts from jskos": "/artefacts?database=jskos&showResponseConfiguration=true"
   "Artefacts from OntoPortal": "/artefacts?database=ontoportal&showResponseConfiguration=true"
-  "Artefacts from EBI (ols v2)": "/artefacts?database=ebi&showResponseConfiguration=true"
+  "Artefacts from EBI (OLS4v2)": "/artefacts?database=ebi&showResponseConfiguration=true"
   "Artefacts from SKOSMOS (AGROVOC)": "/artefacts?database=skosmos&showResponseConfiguration=true"
   "Artefacts from all": "/artefacts?showResponseConfiguration=true"
 
 search:
   "Search \"concept\" in all": "/search?query=concept&showResponseConfiguration=true"
   "Search \"plant\" in OntoPortal": "/search?query=plant&database=ontoportal&showResponseConfiguration=true"
-  "Search \"cancer\" in EBI (ols v2)": "/search?query=cancer&database=ols2&showResponseConfiguration=true"
-  "Search \"cancer\" in Ols v1": "/search?query=cancer&database=OLS&showResponseConfiguration=true"
+  "Search \"cancer\" in EBI (OLS4v2)": "/search?query=cancer&database=ols2&showResponseConfiguration=true"
+  "Search \"cancer\" in OLS4": "/search?query=cancer&database=OLS&showResponseConfiguration=true"
   "Search \"honey\" in BiodivPortal": "/search?query=honey&database=biodivportal&showResponseConfiguration=true"
   "Search \"chlorophyll\" in NERC": "/search?query=chlorophyll&database=nerc&showResponseConfiguration=true"
   "Search \"chlorophyll\" in GND": "/search?query=chlorophyll&database=gnd&showResponseConfiguration=true"

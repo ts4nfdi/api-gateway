@@ -30,9 +30,12 @@ public class ConfigController {
         this.configurationLoader = configurationLoader;
     }
 
-    @Operation(summary = "Show all current enabled databases configurations (e.g BiodivPortal, AgroPortal, EBI, TIB etc.)")
+    @Operation(summary = "List the connected providers.",
+            description = "Returns all providers (terminology services) the gateway currently queries, e.g. AgroPortal, BiodivPortal, EBI OLS4, or TIB, " +
+                    "each with its `name`, its `type` (the kind of software it runs, e.g. `ols2`, `ontoportal`, `skosmos`), and the `url` of its API. " +
+                    "Use the `name` or `type` values in the `database` parameter of the other endpoints.")
     @ApiResponses(value = @ApiResponse(
-            responseCode = "200", description = "Successful retrieval of terms",
+            responseCode = "200", description = "List of the connected providers",
             content = @Content(mediaType = "application/json", schema = @Schema(type = "array", implementation = DatabaseConfig.class)))
     )
     @GetMapping("/databases")
@@ -41,10 +44,13 @@ public class ConfigController {
     }
 
 
-    @Operation(summary = "Show all current enabled services configurations and endpoints mappings (e.g. OLS, OntoPortal)")
+    @Operation(summary = "List the supported provider types and their endpoint mappings.",
+            description = "Returns, for each supported type of terminology service (e.g. OLS, OntoPortal, Skosmos), how the endpoints of the gateway are translated " +
+                    "into requests to that service's API, and how the fields of its responses are mapped to the unified fields of the gateway. " +
+                    "Mainly useful for developers and for operators adding new providers.")
     @ApiResponses(value = @ApiResponse(
-            responseCode = "200", description = "Successful retrieval of terms",
-            content = @Content(mediaType = "application/json", schema = @Schema(type = "array", implementation = DatabaseConfig.class)))
+            responseCode = "200", description = "List of the supported provider types and their mappings",
+            content = @Content(mediaType = "application/json", schema = @Schema(type = "array", implementation = ServiceConfig.class)))
     )
     @GetMapping("/services")
     public List<ServiceConfig> getAllServices() {
