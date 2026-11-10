@@ -98,7 +98,7 @@ public class CommonRequestParams {
                     "If omitted, negative, or larger than the maximum, the maximum is used. " +
                     "See *The timeout parameter* section of the API description for details.",
             schema = @Schema(type = "integer", format = "int64", defaultValue = "60000", example = "60000"))
-    private long timeout;
+    private Long timeout;
     
     @QueryParam("omitArtefactsWithoutIri")
     @Parameter(name = "omitArtefactsWithoutIri", in = ParameterIn.QUERY, required = false,

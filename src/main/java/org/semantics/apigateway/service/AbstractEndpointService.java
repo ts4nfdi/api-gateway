@@ -72,7 +72,7 @@ public abstract class AbstractEndpointService {
 
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
             try {
-                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(data.getCollection(), targetDbSchema, endpoint, isList, data.isPaginate(), data.getPage(), data.getTotalCount());
+                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(data.getCollection(), targetDbSchema, endpoint, isList, data.isPaginate(), data.getPage(), data.getTotalCount(), getStructuredUnsupportedParameters(data));
                 logger.debug("Transformed results for database schema: {}", transformedResults);
                 AggregatedApiResponse transformedResponse = new AggregatedApiResponse();
                 transformedResponse.setCollection(Collections.singletonList(transformedResults));
