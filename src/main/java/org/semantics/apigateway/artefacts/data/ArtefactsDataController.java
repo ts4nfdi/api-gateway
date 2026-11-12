@@ -8,6 +8,8 @@ import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 
 @RestController
 @RequestMapping("/artefacts/{id}")
@@ -31,7 +33,7 @@ public class ArtefactsDataController {
     public Object getArtefactTerms(@Parameter(description = "Short name or ID of the artefact", example = "ncit") @PathVariable String id,
                                    @Parameter(description = "Page number, starting at 1") @RequestParam(required = false, defaultValue = "1") Integer page,
                                    @ParameterObject CommonRequestParams params) {
-        return this.artefactsService.getArtefactTerms(id, params, page, null, authService.tryGetCurrentUser());
+        return this.artefactsService.getArtefactTerms(id, new HashMap<>(), params, page, null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = {"/resources/properties"})
@@ -42,7 +44,7 @@ public class ArtefactsDataController {
     public Object getProperties(@Parameter(description = "Short name or ID of the artefact", example = "ncit") @PathVariable String id,
                                 @ModelAttribute CommonRequestParams params,
                                 @Parameter(description = "Page number, starting at 1") @RequestParam(required = false, defaultValue = "1") Integer page) {
-        return this.artefactsService.getArtefactProperties(id, params, page, null, authService.tryGetCurrentUser());
+        return this.artefactsService.getArtefactProperties(id, new HashMap<>(), params, page, null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = {"/resources/individuals"})
@@ -54,7 +56,7 @@ public class ArtefactsDataController {
     public Object getIndividuals(@Parameter(description = "Short name or ID of the artefact", example = "ncit") @PathVariable String id,
                                  @ModelAttribute CommonRequestParams params,
                                  @Parameter(description = "Page number, starting at 1") @RequestParam(required = false, defaultValue = "1") Integer page) {
-        return this.artefactsService.getArtefactIndividuals(id, params, page, null, authService.tryGetCurrentUser());
+        return this.artefactsService.getArtefactIndividuals(id, new HashMap<>(), params, page, null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = { "/resources/classes/{uri}", "/resources/concepts/{uri}"})
@@ -66,7 +68,7 @@ public class ArtefactsDataController {
     public Object getArtefactTerms(@Parameter(description = "Short name or ID of the artefact", example = "ncit") @PathVariable String id,
                                    @Parameter(description = "Full IRI of the class or concept, URL-encoded", example = "http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FNCIT_C2984") @PathVariable String uri,
                                    @ParameterObject CommonRequestParams params) {
-        return this.artefactsService.getArtefactTerm(id, uri, params, null, authService.tryGetCurrentUser());
+        return this.artefactsService.getArtefactTerm(id, uri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = {"/resources/properties/{uri}"})
@@ -76,7 +78,7 @@ public class ArtefactsDataController {
     public Object getPropertyDetails(@Parameter(description = "Short name or ID of the artefact", example = "ncit") @PathVariable String id,
                                      @Parameter(description = "Full IRI of the property, URL-encoded") @PathVariable String uri,
                                      @ParameterObject CommonRequestParams params) {
-        return this.artefactsService.getArtefactProperty(id, uri, params, null, authService.tryGetCurrentUser());
+        return this.artefactsService.getArtefactProperty(id, uri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = {"/resources/individuals/{uri}"})
@@ -86,7 +88,7 @@ public class ArtefactsDataController {
     public Object getIndividualDetails(@Parameter(description = "Short name or ID of the artefact", example = "ncit") @PathVariable String id,
                                        @Parameter(description = "Full IRI of the individual, URL-encoded") @PathVariable String uri,
                                        @ParameterObject CommonRequestParams params) {
-        return this.artefactsService.getArtefactIndividual(id, uri, params, null, authService.tryGetCurrentUser());
+        return this.artefactsService.getArtefactIndividual(id, uri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = { "/resources/schemes"})
@@ -98,7 +100,7 @@ public class ArtefactsDataController {
     public Object getSchemes(@Parameter(description = "Short name or ID of the artefact", example = "agrovoc") @PathVariable String id,
                              @ParameterObject CommonRequestParams params,
                              @Parameter(description = "Page number, starting at 1") @RequestParam(required = false, defaultValue = "1") Integer page) {
-        return this.artefactsService.getArtefactSchemes(id, params, page, null, authService.tryGetCurrentUser());
+        return this.artefactsService.getArtefactSchemes(id, new HashMap<>(), params, page, null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = {"/resources/schemes/{uri}"})
@@ -108,7 +110,7 @@ public class ArtefactsDataController {
     public Object getSchemeDetails(@Parameter(description = "Short name or ID of the artefact", example = "agrovoc") @PathVariable String id,
                                    @Parameter(description = "Full IRI of the concept scheme, URL-encoded") @PathVariable String uri,
                                    @ParameterObject CommonRequestParams params) {
-        return this.artefactsService.getArtefactScheme(id, uri, params, null, authService.tryGetCurrentUser());
+        return this.artefactsService.getArtefactScheme(id, uri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = {"/resources/collections"})
@@ -120,7 +122,7 @@ public class ArtefactsDataController {
     public Object getCollections(@Parameter(description = "Short name or ID of the artefact", example = "agrovoc") @PathVariable String id,
                                  @ParameterObject CommonRequestParams params,
                                  @Parameter(description = "Page number, starting at 1") @RequestParam(required = false, defaultValue = "1") Integer page) {
-        return this.artefactsService.getArtefactCollections(id, params, page, null, authService.tryGetCurrentUser());
+        return this.artefactsService.getArtefactCollections(id, new HashMap<>(), params, page, null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = { "/resources/collections/{uri}"})
@@ -130,6 +132,6 @@ public class ArtefactsDataController {
     public Object getCollectionDetails(@Parameter(description = "Short name or ID of the artefact", example = "agrovoc") @PathVariable String id,
                                        @Parameter(description = "Full IRI of the SKOS collection, URL-encoded") @PathVariable String uri,
                                        @ParameterObject CommonRequestParams params) {
-        return this.artefactsService.getArtefactCollection(id, uri, params, null, authService.tryGetCurrentUser());
+        return this.artefactsService.getArtefactCollection(id, uri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
     }
 }

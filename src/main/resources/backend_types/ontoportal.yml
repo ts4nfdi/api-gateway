@@ -76,21 +76,32 @@ endpoints:
       <<: *searchResult
 
   resources:
-    path: /submissions?display_links=true&display_context=false&display=ontology,description,URI,released,modificationDate,alternative,version,status,versionIRI,hasLicense,contact,hasCreator,identifier,keyword,naturalLanguage,publisher,homepage,hasDomain,accrualMethod,accrualPeriodicity,publication,hasContributor,coverage,hasFormat,copyrightHolder,competencyQuestion,wasGeneratedBy,includedInDataCatalog,ontologyRelatedTo,usedOntologyEngineeringTool,keywords,obsolete&lang=en
+    path: /submissions?display_links=true&display_context=false&display=ontology,description,URI,released,modificationDate,alternative,version,status,versionIRI,hasLicense,contact,hasCreator,identifier,keyword,naturalLanguage,publisher,homepage,hasDomain,accrualMethod,accrualPeriodicity,publication,hasContributor,coverage,hasFormat,copyrightHolder,competencyQuestion,wasGeneratedBy,includedInDataCatalog,ontologyRelatedTo,usedOntologyEngineeringTool,keywords,obsolete
     parameters:
       apiKey:
         name: apikey
         type: string
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
     responseMapping:
       nestedJson: collection
       <<: *artefact
 
   concepts:
-    path: /ontologies/{artefact}/classes?pagesize=50&display_links=true&display_context=false&lang=en
+    path: /ontologies/{artefact}/classes?display_links=true&display_context=false
     parameters:
       page:
         name: page
         type: string
+      size:
+        name: pagesize
+        type: string
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string
@@ -101,11 +112,18 @@ endpoints:
       <<: *term
 
   properties:
-    path: /ontologies/{artefact}/properties?pagesize=50&display_links=true&display_context=false&lang=en
+    path: /ontologies/{artefact}/properties?display_links=true&display_context=false
     parameters:
       page:
         name: page
         type: string
+      size:
+        name: pagesize
+        type: string
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string
@@ -116,8 +134,12 @@ endpoints:
       <<: *term
 
   concept_details:
-    path: ontologies/{artefact}/classes/{resourceUri}?lang=en
+    path: ontologies/{artefact}/classes/{resourceUri}
     parameters:
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string
@@ -125,8 +147,12 @@ endpoints:
       <<: *term
 
   property_details:
-    path: ontologies/{artefact}/properties/{resourceUri}?lang=en
+    path: ontologies/{artefact}/properties/{resourceUri}
     parameters:
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string
@@ -134,8 +160,12 @@ endpoints:
       <<: *term
 
   resource_details:
-    path: ontologies/{artefact}/latest_submission?display=all&lang=en
+    path: ontologies/{artefact}/latest_submission?display=all
     parameters:
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string
@@ -143,11 +173,18 @@ endpoints:
       <<: *artefact
 
   individuals:
-    path: /ontologies/{artefact}/instances?pagesize=50&display_links=true&display_context=false&lang=en
+    path: /ontologies/{artefact}/instances?display_links=true&display_context=false
     parameters:
       page:
         name: page
         type: string
+      size:
+        name: pagesize
+        type: string
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string
@@ -158,8 +195,12 @@ endpoints:
       <<: *term
 
   individual_details:
-    path: ontologies/{artefact}/instances/{resourceUri}?lang=en
+    path: ontologies/{artefact}/instances/{resourceUri}
     parameters:
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string
@@ -167,11 +208,15 @@ endpoints:
       <<: *term
 
   schemes:
-    path: ontologies/{artefact}/schemes?lang=en
+    path: ontologies/{artefact}/schemes
     parameters:
       page:
         name: page
         type: string
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string
@@ -179,8 +224,12 @@ endpoints:
       <<: *term
 
   scheme_details:
-    path: ontologies/{artefact}/schemes/{resourceUri}?lang=en
+    path: ontologies/{artefact}/schemes/{resourceUri}
     parameters:
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string
@@ -188,11 +237,15 @@ endpoints:
       <<: *term
 
   collections:
-    path: ontologies/{artefact}/collections?lang=en
+    path: ontologies/{artefact}/collections
     parameters:
       page:
         name: page
         type: string
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string
@@ -200,8 +253,12 @@ endpoints:
       <<: *term
 
   collection_details:
-    path: ontologies/{artefact}/collections/{resourceUri}?lang=en
+    path: ontologies/{artefact}/collections/{resourceUri}
     parameters:
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string
@@ -209,8 +266,12 @@ endpoints:
       <<: *term
 
   concepts_roots:
-    path: ontologies/{artefact}/classes/roots?lang=en&display=prefLabel,definition,synonym,created,modified,obsolete,hasChildren
+    path: ontologies/{artefact}/classes/roots?display=prefLabel,definition,synonym,created,modified,obsolete,hasChildren
     parameters:
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string
@@ -219,11 +280,15 @@ endpoints:
       hasChildren: hasChildren
 
   concepts_children:
-    path: ontologies/{artefact}/classes/{resourceUri}/children?lang=en&display=prefLabel,definition,synonym,created,modified,obsolete,hasChildren
+    path: ontologies/{artefact}/classes/{resourceUri}/children?display=prefLabel,definition,synonym,created,modified,obsolete,hasChildren
     parameters:
       page:
         name: page
         type: string
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string
@@ -235,8 +300,12 @@ endpoints:
       hasChildren: hasChildren
 
   concept_tree:
-    path: ontologies/{artefact}/classes/{resourceUri}/tree?lang=en&display=prefLabel,definition,synonym,URI,created,modified,obsolete,hasChildren,children
+    path: ontologies/{artefact}/classes/{resourceUri}/tree?display=prefLabel,definition,synonym,URI,created,modified,obsolete,hasChildren,children
     parameters:
+      lang:
+        name: lang
+        type: string
+        defaultValue: en
       apiKey:
         name: apikey
         type: string

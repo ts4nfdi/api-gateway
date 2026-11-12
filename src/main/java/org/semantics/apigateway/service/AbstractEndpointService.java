@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -72,20 +72,49 @@ public abstract class AbstractEndpointService {
 
         if (targetDbSchema != null && !targetDbSchema.isEmpty()) {
             try {
-                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(data.getCollection(), targetDbSchema, endpoint, isList, data.isPaginate(), data.getPage(), data.getTotalCount());
+                Map<String, Object> transformedResults = responseTransformerService.transformAndStructureResults(data.getCollection(), targetDbSchema, endpoint, isList, data.isPaginate(), data.getPage(), data.getTotalCount(), getStructuredUnsupportedParameters(data));
                 logger.debug("Transformed results for database schema: {}", transformedResults);
                 AggregatedApiResponse transformedResponse = new AggregatedApiResponse();
                 transformedResponse.setCollection(Collections.singletonList(transformedResults));
                 transformedResponse.setList(false);
+                transformedResponse.setOriginalResponses(data.getOriginalResponses());
                 return transformedResponse;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new RuntimeException("Error transforming results for target database schema", e);
             }
         } else {
+            for(Map<String, Object> resultElement : data.getCollection()) {
+                var unsupportedParameters = getStructuredUnsupportedParameters(data);
+                if (!unsupportedParameters.isEmpty()) {
+                    resultElement.put("unsupportedSources", unsupportedParameters);
+                }
+            }
             return data;
         }
     }
 
+    private Map<String, SortedSet<String>> getStructuredUnsupportedParameters(AggregatedApiResponse data) {
+        HashMap<String, SortedSet<String>> unsupportedParams = new HashMap<>();
+        for (ApiResponse originalResponse : data.getOriginalResponses()) {
+            var unsupportedParamsForResponse = originalResponse.getUnsupportedParams();
+            if (!CollectionUtils.isEmpty(unsupportedParamsForResponse)) {
+                for (RequestParameter param : unsupportedParamsForResponse) {
+                    SortedSet<String> backendsForParam = unsupportedParams.get(param.name());
+                    if (backendsForParam == null) {
+                        backendsForParam = new TreeSet<>();
+                        unsupportedParams.put(param.name(), backendsForParam);
+                    }
+                    DatabaseConfig dbConfig = configurationLoader.findBestMatchingConfig(originalResponse.getUrl());
+                    if (dbConfig != null) {
+                        backendsForParam.add(dbConfig.getType());
+                    } else {
+                        logger.error("Unable to find configuration for url {}", originalResponse.getUrl());
+                    }
+                }
+            }
+        }
+        return unsupportedParams;
+    }
 
     protected Map<String, UrlConfig> buildUrls(String database, String endpoint) {
         String[] databases = (database == null || database.isEmpty()) ? new String[0] : database.split(",");
@@ -291,7 +320,7 @@ public abstract class AbstractEndpointService {
 
         return filterOutByTerminologies(terminologiesCollection.getTerminologies(), data);
     }
-    
+
     protected AggregatedApiResponse paginate(TransformedApiResponse response, CommonRequestParams
             commonRequestParams, int page) {
         AggregatedApiResponse aggregatedApiResponse = new AggregatedApiResponse();
@@ -349,6 +378,7 @@ public abstract class AbstractEndpointService {
 
     protected ApiAccessor initAccessor(String database, String endpoint, ApiAccessor accessor, Long timeoutMillis) {
         Map<String, UrlConfig> apiUrls = buildUrls(database, endpoint);
+
 
         if (accessor == null) {
             accessor = getAccessor(timeoutMillis);
@@ -409,14 +439,14 @@ public abstract class AbstractEndpointService {
         return a;
     }
 
-    protected CompletableFuture<AggregatedApiResponse> paginatedListBase(String artefactId, String resourceUri, String endpoint, CommonRequestParams params,
+    protected CompletableFuture<AggregatedApiResponse> paginatedListBase(String artefactId, String resourceUri, String endpoint, Map<RequestParameter, String> apiParameters, CommonRequestParams params,
                                    Integer page, ApiAccessor accessor, User currentUser) {
 
         String database = params.getDatabase();
         accessor = initAccessor(database, endpoint, accessor, params.getTimeout());
         accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
         
-        Map<RequestParameter, String> apiParameters = getRequestIds(accessor, artefactId, resourceUri);
+        apiParameters.putAll(getRequestIds(accessor, artefactId, resourceUri));
         apiParameters.put(RequestParameter.page, "" + page);
 
         return accessor.get(apiParameters)
@@ -426,34 +456,34 @@ public abstract class AbstractEndpointService {
                 .thenApply(x -> transformJsonLd(x, params));
     }
 
-    protected Object paginatedList(String acronym, String uri, String endpoint, CommonRequestParams params,
+    protected Object paginatedList(String acronym, String uri, String endpoint, Map<RequestParameter, String> apiParameters, CommonRequestParams params,
                                    Integer page, ApiAccessor accessor, User currentUser) {
 
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
 
-        return paginatedListBase(acronym, uri, endpoint, params, page, accessor, currentUser)
+        return paginatedListBase(acronym, uri, endpoint, apiParameters, params, page, accessor, currentUser)
                 .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, true));
     }
 
-    protected Object paginatedList(String id, String endpoint, CommonRequestParams params, Integer
+    protected Object paginatedList(String id, String endpoint, Map<RequestParameter, String> apiParameters, CommonRequestParams params, Integer
             page, ApiAccessor accessor,  User currentUser) {
-        return paginatedList(id, null, endpoint, params, page, accessor, currentUser);
+        return paginatedList(id, null, endpoint, apiParameters, params, page, accessor, currentUser);
     }
 
     protected CompletableFuture<AggregatedApiResponse> paginatedListRaw(String acronym, String uri, String endpoint,
-                                                                        CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
+                                                                        Map<RequestParameter, String> apiParameters, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
 
-        return paginatedListBase(acronym, uri, endpoint, params, page, accessor, currentUser);
+        return paginatedListBase(acronym, uri, endpoint, apiParameters, params, page, accessor, currentUser);
     }
 
     protected CompletableFuture<AggregatedApiResponse> findAll(String artefactId, String resourceUri, String endpoint, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
         String database = params.getDatabase();
         accessor = initAccessor(database, endpoint, accessor, params.getTimeout());
         accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
-        Map<RequestParameter, String> requestParameters = getRequestIds(accessor, artefactId, resourceUri);
+        Map<RequestParameter, String> apiParameters = getRequestIds(accessor, artefactId, resourceUri);
 
-        return accessor.get(requestParameters)
-                .thenApply(data -> this.transformApiResponses(data, endpoint, requestParameters))
+        return accessor.get(apiParameters)
+                .thenApply(data -> this.transformApiResponses(data, endpoint, apiParameters))
                 .thenApply(data -> selectResultsByDatabase(data, database))
                 .thenApply(data -> listResponse(data, params))
                 .thenApply(x -> transformJsonLd(x, params));
@@ -478,26 +508,26 @@ public abstract class AbstractEndpointService {
         return result;
     }
 
-    protected CompletableFuture<AggregatedApiResponse> findUriBase(String id, String resourceUri, String endpoint, CommonRequestParams params, ApiAccessor
+    protected CompletableFuture<AggregatedApiResponse> findUriBase(String id, String resourceUri, String endpoint, Map<RequestParameter, String> apiParameters, CommonRequestParams params, ApiAccessor
             accessor,  User currentUser) {
         String database = params.getDatabase();
         accessor = initAccessor(database, endpoint, accessor,  params.getTimeout());
         accessor = applyCollection(accessor, collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser), endpoint);
-        Map<RequestParameter, String> requestParameters = getRequestIds(accessor, id, resourceUri);
+        apiParameters.putAll(getRequestIds(accessor, id, resourceUri));
 
-        return accessor.get(requestParameters)
-                .thenApply(data -> this.transformApiResponses(data, endpoint, requestParameters))
-                .thenApply(x -> filterById(x, requestParameters))
+        return accessor.get(apiParameters)
+                .thenApply(data -> this.transformApiResponses(data, endpoint, apiParameters))
+                .thenApply(x -> filterById(x, apiParameters))
                 .thenApply(data -> selectResultsByDatabase(data, database))
                 .thenApply(x -> singleResponse(x, params))
                 .thenApply(x -> transformJsonLd(x, params));
     }
 
-    protected AggregatedApiResponse findUri(String id, String resourceUri, String endpoint, CommonRequestParams params, ApiAccessor
+    protected AggregatedApiResponse findUri(String id, String resourceUri, String endpoint, Map<RequestParameter, String> apiParameters, CommonRequestParams params, ApiAccessor
             accessor,  User currentUser) {
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
         try {
-            return findUriBase(id, resourceUri, endpoint, params, accessor, currentUser)
+            return findUriBase(id, resourceUri, endpoint, apiParameters, params, accessor, currentUser)
                     .thenApply(data -> transformForTargetDbSchema(data, targetDbSchema, endpoint, false))
                     .get();
         } catch (InterruptedException | ExecutionException e) {
@@ -507,9 +537,9 @@ public abstract class AbstractEndpointService {
     }
 
     protected CompletableFuture<AggregatedApiResponse> findUriRaw(String id, String uri, String endpoint,
-                                                                  CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+                                                                  Map<RequestParameter, String> apiParameters, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
 
-        return findUriBase(id, uri, endpoint, params, accessor, currentUser);
+        return findUriBase(id, uri, endpoint, apiParameters, params, accessor, currentUser);
     }
 
     private List<TransformedApiResponse> filterById

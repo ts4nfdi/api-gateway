@@ -51,7 +51,7 @@ public class ArtefactsService extends AbstractEndpointService {
 
     public Object getArtefact(String id, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
         try {
-            AggregatedApiResponse result = findUriBase(id, null, "resource_details", params, accessor, currentUser)
+            AggregatedApiResponse result = findUriBase(id, null, "resource_details", new HashMap<>(), params, accessor, currentUser)
                     .thenApply(data -> addTerminologyStatistics(data, params))
                     .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), "resource_details", false))
                     .get();

@@ -36,7 +36,7 @@ public class SearchService extends AbstractEndpointService {
         this.collectionService = collectionService;
     }
 
-    public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, String collectionId, boolean showResponseConfiguration, Long timeoutMillis) {
+    public AggregatedApiResponse performSearch(String query, String database, String targetDbSchema, String collectionId, boolean showResponseConfiguration, Long timeoutMillis, Map<RequestParameter, String> optionalParameters) {
         TargetDbSchema targetDbSchemaEnum = targetDbSchema == null ? null : TargetDbSchema.valueOf(targetDbSchema);
         CommonRequestParams commonRequestParams = new CommonRequestParams();
         commonRequestParams.setDatabase(database);
@@ -44,14 +44,15 @@ public class SearchService extends AbstractEndpointService {
         commonRequestParams.setCollectionId(collectionId);
         commonRequestParams.setShowResponseConfiguration(showResponseConfiguration);
         commonRequestParams.setTimeout(timeoutMillis);
-        return  performSearch(query, commonRequestParams, null, null);
+        return  performSearch(query, commonRequestParams, null, null, optionalParameters);
     }
     
     public AggregatedApiResponse performSearch(
             String query,
             CommonRequestParams params,
             User currentUser,
-            ApiAccessor accessor) {
+            ApiAccessor accessor,
+            Map<RequestParameter, String> optionalParameters) {
         String endpoint = "search";
         String database = params.getDatabase();
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
@@ -59,11 +60,12 @@ public class SearchService extends AbstractEndpointService {
         accessor = initAccessor(database, endpoint, accessor, params.getTimeout());
         accessor = applyCollection(accessor, collection, endpoint);
         
-        HashMap<RequestParameter, String> requestParameters = new HashMap<>(Map.of(RequestParameter.query, query));
+        HashMap<RequestParameter, String> apiParameters = new HashMap<>(Map.of(RequestParameter.query, query));
+        apiParameters.putAll(optionalParameters);
         
         try {
-            return accessor.get(requestParameters)
-                    .thenApply(data -> this.transformApiResponses(data, endpoint, requestParameters))
+            return accessor.get(apiParameters)
+                    .thenApply(data -> this.transformApiResponses(data, endpoint, apiParameters))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
                     .thenApply(data -> reIndexResults(query, data))
@@ -102,7 +104,7 @@ public class SearchService extends AbstractEndpointService {
         
         // TODO add ontology parameter as soon as https://github.com/ts4nfdi/api-gateway/issues/123 has been resolved.
         
-        Map<RequestParameter, String> requestParameters = new HashMap<>(Map.of(
+        Map<RequestParameter, String> apiParameters = new HashMap<>(Map.of(
                 RequestParameter.artefact, artifactId,
                 RequestParameter.query, query,
                 RequestParameter.size, "" + size,
@@ -110,8 +112,8 @@ public class SearchService extends AbstractEndpointService {
         ));
         
         try {
-            return accessor.get(requestParameters)
-                    .thenApply(data -> this.transformApiResponses(data, endpoint, requestParameters))
+            return accessor.get(apiParameters)
+                    .thenApply(data -> this.transformApiResponses(data, endpoint, apiParameters))
                     .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                     .thenApply(data -> filterOutByCollection(collection, data))
                     .thenApply(data -> reIndexResults(query, data))

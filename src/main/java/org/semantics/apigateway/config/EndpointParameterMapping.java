@@ -35,6 +35,7 @@ public class EndpointParameterMapping {
   private Type type;
   
   private String name;
+  private String defaultValue;
   private boolean optional = false;
   
   public String serializeParameter(String value) {
