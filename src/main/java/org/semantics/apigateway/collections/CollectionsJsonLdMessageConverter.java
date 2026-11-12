@@ -2,6 +2,7 @@ package org.semantics.apigateway.collections;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import ioinformarics.oss.jackson.module.jsonld.JsonldModule;
 import org.semantics.apigateway.collections.models.TerminologyCollectionDto;
 import org.springframework.http.HttpInputMessage;
@@ -17,7 +18,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class CollectionsJsonLdMessageConverter implements HttpMessageConverter<Collection<TerminologyCollectionDto>> {
@@ -30,6 +30,7 @@ public class CollectionsJsonLdMessageConverter implements HttpMessageConverter<C
   static {
     customObjectMapper = new ObjectMapper();
     customObjectMapper.registerModule(new JsonldModule());
+    customObjectMapper.registerModule(new JavaTimeModule()); // for Java8 date/time support required by collection statistics
     customObjectMapper.enable(SerializationFeature.INDENT_OUTPUT);
   }
   
