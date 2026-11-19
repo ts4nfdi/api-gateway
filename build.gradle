@@ -64,6 +64,8 @@ dependencies {
     // JSON mapping
     implementation 'com.jayway.jsonpath:json-path:3.0.0'
 
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
     // Tests
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
