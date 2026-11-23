@@ -48,7 +48,12 @@ endpoints:
       <<: *term
 
   resources:
-    path: /vocabularies?lang=en
+    path: /vocabularies
+    parameters:
+      lang:
+        name: lang
+        type: string
+        default: en
     responseMapping:
       nestedJson: vocabularies
       label: id

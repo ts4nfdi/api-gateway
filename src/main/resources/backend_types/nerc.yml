@@ -60,19 +60,36 @@ endpoints:
       query:
         name: q
         type: string
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: pagesize
+        type: integer
+        default: 50
     responseMapping:
       nestedJson: "member"
       totalCount: totalItems
       page: page
       <<: *searchResult
   resources:
-    path: /artefacts?pagesize=10000
+    path: /artefacts
+    parameters:
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: pagesize
+        type: integer
+        default: 50
     responseMapping:
       nestedJson: "member"
       <<: *artefact
 
   concept_details:
-    path: /artefacts/{artefact}/concepts/{resourceUri}
+    path: /artefacts/{artefact}/resources/concepts/{resourceUri}
     parameters:
       apiKey:
         name: apikey
@@ -90,11 +107,16 @@ endpoints:
       <<: *artefact
 
   concepts:
-    path: /artefacts/{artefact}/concepts
+    path: /artefacts/{artefact}/resources/concepts
     parameters:
       page:
         name: page
-        type: string
+        type: integer
+        optional: true
+      size:
+        name: pagesize
+        type: integer
+        default: 50
     responseMapping:
       nestedJson: "member"
       totalCount: totalItems
@@ -106,7 +128,7 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -123,7 +145,7 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -140,7 +162,7 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
     responseMapping:
       nestedJson: member
       totalCount: totalItems

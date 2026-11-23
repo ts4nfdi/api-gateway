@@ -70,21 +70,34 @@ endpoints:
       type: type
 
   resources:
-    path: ontologies?size=10000
+    path: ontologies
+    parameters:
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
     responseMapping:
       nestedJson: _embedded
       key: ontologies
       <<: *artefact
-
   concepts:
-    path: terms?size=50
+    path: terms
     parameters:
       resourceUri:
         name: id
         type: string
       page:
         name: page
-        type: string
+        type: integer
+        optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
     caseInsensitive: false
     responseMapping:
       nestedJson: _embedded
@@ -94,14 +107,19 @@ endpoints:
       <<: *term
 
   properties:
-    path: properties?size=50
+    path: properties
     parameters:
       resourceUri:
         name: id
         type: string
       page:
         name: page
-        type: string
+        type: integer
+        optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
     responseMapping:
       nestedJson: _embedded
       page: page->number
@@ -139,11 +157,16 @@ endpoints:
       <<: *artefact
 
   individuals:
-    path: /ontologies/{artefact}/individuals?size=50
+    path: /ontologies/{artefact}/individuals
     parameters:
       page:
         name: page
-        type: string
+        type: integer
+        optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
     responseMapping:
       nestedJson: _embedded
       page: page->number
@@ -163,7 +186,16 @@ endpoints:
       <<: *term
 
   concepts_roots:
-    path: ontologies/{artefact}/terms/roots?size=1000
+    path: ontologies/{artefact}/terms/roots
+    parameters:
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
     responseMapping:
       nestedJson: _embedded
       key: terms
@@ -188,6 +220,9 @@ endpoints:
 
   suggest:
     path: /select
+    pagination:
+      type: offset
+      first: 0
     parameters:
       query:
         name: q

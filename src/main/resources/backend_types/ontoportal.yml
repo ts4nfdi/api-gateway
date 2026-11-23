@@ -84,7 +84,7 @@ endpoints:
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
     responseMapping:
       nestedJson: collection
       <<: *artefact
@@ -94,14 +94,14 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
       size:
         name: pagesize
         type: string
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string
@@ -116,14 +116,14 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
       size:
         name: pagesize
         type: string
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string
@@ -139,7 +139,7 @@ endpoints:
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string
@@ -152,7 +152,7 @@ endpoints:
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string
@@ -165,7 +165,7 @@ endpoints:
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string
@@ -177,14 +177,14 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
       size:
         name: pagesize
         type: string
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string
@@ -200,7 +200,7 @@ endpoints:
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string
@@ -212,11 +212,11 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string
@@ -229,7 +229,7 @@ endpoints:
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string
@@ -241,11 +241,11 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string
@@ -258,7 +258,7 @@ endpoints:
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string
@@ -271,7 +271,7 @@ endpoints:
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string
@@ -284,11 +284,11 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string
@@ -305,7 +305,7 @@ endpoints:
       lang:
         name: lang
         type: string
-        defaultValue: en
+        default: en
       apiKey:
         name: apikey
         type: string

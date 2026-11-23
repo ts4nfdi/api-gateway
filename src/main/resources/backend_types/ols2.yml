@@ -50,13 +50,13 @@ endpoints:
       lang:
         name: lang
         type: string
-        optional: true
+        default: en
       size:
-        name: rows
+        name: size
         type: integer
         optional: true
       page:
-        name: start
+        name: page
         type: integer
         optional: true
     responseMapping:
@@ -65,7 +65,20 @@ endpoints:
       <<: *term
 
   resources:
-    path: /v2/ontologies?size=10000
+    path: /v2/ontologies
+    parameters:
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
+      lang:
+        name: lang
+        type: string
+        default: en
     responseMapping:
       nestedJson: elements
       page: page
@@ -73,12 +86,20 @@ endpoints:
       <<: *artefact
 
   concepts:
-    path: /v2/ontologies/{artefact}/classes?size=50
+    path: /v2/ontologies/{artefact}/classes
     parameters:
       page:
         name: page
-        type: string
+        type: integer
         optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
+      lang:
+        name: lang
+        type: string
+        default: en
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -86,12 +107,20 @@ endpoints:
       <<: *term
 
   properties:
-    path: /v2/ontologies/{artefact}/properties?size=50
+    path: /v2/ontologies/{artefact}/properties
     parameters:
       page:
         name: page
-        type: string
+        type: integer
         optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
+      lang:
+        name: lang
+        type: string
+        default: en
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -104,6 +133,18 @@ endpoints:
       resourceUri:
         name: iri
         type: string
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
+      lang:
+        name: lang
+        type: string
+        default: en
     responseMapping:
       nestedJson: elements
       <<: *term
@@ -114,24 +155,57 @@ endpoints:
       resourceUri:
         name: iri
         type: string
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
+      lang:
+        name: lang
+        type: string
+        default: en
     responseMapping:
       nestedJson: elements
       <<: *term
 
   resource_details:
     path: /v2/ontologies/{artefact}
+    parameters:
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
+      lang:
+        name: lang
+        type: string
+        default: en
     responseMapping:
       nestedJson: ""
       key: ""
       <<: *artefact
 
   individuals:
-    path: /v2/ontologies/{artefact}/individuals?size=50
+    path: /v2/ontologies/{artefact}/individuals
     parameters:
       page:
         name: page
-        type: string
+        type: integer
         optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
+      lang:
+        name: lang
+        type: string
+        default: en
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -144,20 +218,58 @@ endpoints:
       resourceUri:
         name: iri
         type: string
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
+      lang:
+        name: lang
+        type: string
+        default: en
     responseMapping:
       nestedJson: elements
       <<: *term
 
   concepts_roots:
-    path: /v2/ontologies/{artefact}/classes?hasDirectParents=false&size=1000&lang=en&includeObsoleteEntities=false
+    path: /v2/ontologies/{artefact}/classes?hasDirectParents=false&includeObsoleteEntities=false
+    parameters:
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
+      lang:
+        name: lang
+        type: string
+        default: en
     responseMapping:
       nestedJson: elements
       <<: *term
       hasChildren: hasDirectChildren
 
   concepts_children:
-    path: /v2/ontologies/{artefact}/classes/{resourceUri}/hierarchicalChildren?size=1000&lang=en&includeObsoleteEntities=false
+    path: /v2/ontologies/{artefact}/classes/{resourceUri}/hierarchicalChildren?includeObsoleteEntities=false
     caseInsensitive: false
+    parameters:
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
+      lang:
+        name: lang
+        type: string
+        default: en
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -166,8 +278,21 @@ endpoints:
       hasChildren: hasDirectChildren
 
   concept_tree:
-    path: /v2/ontologies/{artefact}/classes/{resourceUri}/hierarchicalAncestors?page=0&size=10000&lang=en
+    path: /v2/ontologies/{artefact}/classes/{resourceUri}/hierarchicalAncestors
     caseInsensitive: false
+    parameters:
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: size
+        type: integer
+        default: 50
+      lang:
+        name: lang
+        type: string
+        default: en
     responseMapping:
       nestedJson: elements
       totalCount: totalElements
@@ -177,6 +302,9 @@ endpoints:
 
   suggest:
     path: /select?fieldList=iri&fieldList=label&fieldList=ontology_name
+    pagination:
+      type: offset
+      first: 0
     parameters:
       query:
         name: q

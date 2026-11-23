@@ -1,7 +1,8 @@
 name: gnd
 
 pagination:
-  type: none
+  type: offset
+  first: 0
 
 models:
   artefact: &artefact
@@ -35,6 +36,7 @@ models:
     shortForm: gndIdentifier
     sourceUrl: id
     type: type
+    annotations->depiction: depiction->id
 
 endpoints:
   search:
@@ -55,10 +57,30 @@ endpoints:
       nestedJson: member
       <<: *searchResult
 
+  suggest:
+    path: /gnd/search?format=json:suggest
+    parameters:
+      query:
+        name: q
+        type: string
+      offset:
+        name: from
+        type: string
+        optional: true
+      size:
+        name: size
+        type: string
+        optional: true
+    responseMapping:
+      label: label
+      iri: id
+      annotations->depiction: image
+
   resources:
     path: localData # means locally hardcoded values
     responseMapping:
       <<: *artefact
+
   resource_details:
     path: localData # means locally hardcoded values
     responseMapping:

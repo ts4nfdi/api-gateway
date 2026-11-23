@@ -47,20 +47,45 @@ endpoints:
       query:
         name: search
         type: string
+      lang:
+        name: language
+        type: commaList
+        optional: true
+      size:
+        name: limit
+        type: integer
+        default: 50
+      offset:
+        name: offset
+        type: integer
+        optional: true
     responseMapping:
       <<: *searchResult
 
   resources:
-    path: /voc?limit=1000000
+    path: /voc
+    parameters:
+      size:
+        name: limit
+        type: integer
+        default: 50
+      offset:
+        name: offset
+        type: integer
+        optional: true
+      lang:
+        name: languages
+        type: commaList
+        optional: true
     responseMapping:
       <<: *artefact
 
   resource_details:
     caseInsensitive: false
-    path: /voc?limit=1000000 # jskos v2 does not support filtering by notation only by URI
+    path: /voc # jskos v2 does not support filtering by notation only by URI
     parameters:
       artefact:
-        name: query
+        name: uri
         type: pipeList
     responseMapping:
       <<: *artefact
@@ -84,11 +109,17 @@ endpoints:
       query:
         name: search
         type: string
-      offset:
-        name: offset
-        type: string
+      lang:
+        name: language
+        type: commaList
+        optional: true
       size:
         name: limit
-        type: string
+        type: integer
+        default: 50
+      offset:
+        name: offset
+        type: integer
+        optional: true
     responseMapping:
       <<: *searchResult
