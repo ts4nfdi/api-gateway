@@ -58,11 +58,6 @@ public class ApiAccessor {
     }
 
     @Async
-    public CompletableFuture<Map<String, ApiResponse>> get() {
-        return get(new HashMap<>());
-    }
-
-    @Async
     public CompletableFuture<Map<String, ApiResponse>> get(Map<RequestParameter, String> queryParams) {
         ForkJoinPool customThreadPool = new ForkJoinPool(Math.max(this.urls.size(), 1));
 

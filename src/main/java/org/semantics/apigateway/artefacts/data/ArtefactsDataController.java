@@ -4,11 +4,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.PaginationParams;
+import org.semantics.apigateway.service.RequestParameter;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -32,8 +35,12 @@ public class ArtefactsDataController {
                     "Example: `GET /artefacts/ncit/resources/classes?page=2`")
     public Object getArtefactTerms(@Parameter(description = "Short name or ID of the artefact", example = "ncit") @PathVariable String id,
                                    @Parameter(description = "Page number, starting at 1") @RequestParam(required = false, defaultValue = "1") Integer page,
-                                   @ParameterObject CommonRequestParams params) {
-        return this.artefactsService.getArtefactTerms(id, new HashMap<>(), params, page, null, authService.tryGetCurrentUser());
+                                   @ParameterObject CommonRequestParams params,
+                                   @ParameterObject PaginationParams pagination) {
+        Map<RequestParameter, String> optionalParameters = new HashMap<>();
+        optionalParameters.put(RequestParameter.page, String.valueOf(pagination.getPage()));
+        optionalParameters.put(RequestParameter.size, String.valueOf(pagination.getPagesize()));
+        return this.artefactsService.getArtefactTerms(id, optionalParameters, params, page, null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = {"/resources/properties"})
@@ -43,8 +50,11 @@ public class ArtefactsDataController {
                     "Example: `GET /artefacts/ncit/resources/properties`")
     public Object getProperties(@Parameter(description = "Short name or ID of the artefact", example = "ncit") @PathVariable String id,
                                 @ModelAttribute CommonRequestParams params,
-                                @Parameter(description = "Page number, starting at 1") @RequestParam(required = false, defaultValue = "1") Integer page) {
-        return this.artefactsService.getArtefactProperties(id, new HashMap<>(), params, page, null, authService.tryGetCurrentUser());
+                                @ParameterObject PaginationParams pagination) {
+        Map<RequestParameter, String> optionalParameters = new HashMap<>();
+        optionalParameters.put(RequestParameter.page, String.valueOf(pagination.getPage()));
+        optionalParameters.put(RequestParameter.size, String.valueOf(pagination.getPagesize()));
+        return this.artefactsService.getArtefactProperties(id, optionalParameters, params, pagination.getPage(), null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = {"/resources/individuals"})
@@ -55,8 +65,11 @@ public class ArtefactsDataController {
                     "Example: `GET /artefacts/ncit/resources/individuals`")
     public Object getIndividuals(@Parameter(description = "Short name or ID of the artefact", example = "ncit") @PathVariable String id,
                                  @ModelAttribute CommonRequestParams params,
-                                 @Parameter(description = "Page number, starting at 1") @RequestParam(required = false, defaultValue = "1") Integer page) {
-        return this.artefactsService.getArtefactIndividuals(id, new HashMap<>(), params, page, null, authService.tryGetCurrentUser());
+                                 @ParameterObject PaginationParams pagination) {
+        Map<RequestParameter, String> optionalParameters = new HashMap<>();
+        optionalParameters.put(RequestParameter.page, String.valueOf(pagination.getPage()));
+        optionalParameters.put(RequestParameter.size, String.valueOf(pagination.getPagesize()));
+        return this.artefactsService.getArtefactIndividuals(id, optionalParameters, params, pagination.getPage(), null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = { "/resources/classes/{uri}", "/resources/concepts/{uri}"})

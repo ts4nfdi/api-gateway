@@ -5,10 +5,15 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.PaginationParams;
 import org.semantics.apigateway.model.user.User;
+import org.semantics.apigateway.service.RequestParameter;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -35,9 +40,12 @@ public class ArtefactsController {
                     "As the list can be long, `display` (e.g. `display=short_form,label,source_name`) helps to keep the response small.\n\n" +
                     "Example: `GET /artefacts?database=tib&display=short_form,label`")
     @SecurityRequirement(name = "BearerAuth")
-    public Object getArtefacts(@ParameterObject CommonRequestParams params) {
+    public Object getArtefacts(@ParameterObject CommonRequestParams params, @ParameterObject PaginationParams pagination) {
         User user = authService.tryGetCurrentUser();
-        return this.artefactsService.getArtefacts(params, user, null);
+        Map<RequestParameter, String> optionalParameters = new HashMap<>();
+        optionalParameters.put(RequestParameter.page, String.valueOf(pagination.getPage()));
+        optionalParameters.put(RequestParameter.size, String.valueOf(pagination.getPagesize()));
+        return this.artefactsService.getArtefacts(params, optionalParameters, user, null);
     }
 
     @GetMapping("/artefacts/{id}")

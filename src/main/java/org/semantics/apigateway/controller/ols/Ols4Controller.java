@@ -10,6 +10,7 @@ import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.artefacts.tree.ArtefactsDataTreeService;
 import org.semantics.apigateway.controller.ols.model.CommonOLS4Params;
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.PaginationParams;
 import org.semantics.apigateway.service.RequestParameter;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
@@ -45,8 +46,11 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies")
-  public Object getAllOntologiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @ParameterObject @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return artefactsService.getArtefacts(params, authService.tryGetCurrentUser(), null);
+  public Object getAllOntologiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @ParameterObject PaginationParams pagination) {
+    Map<RequestParameter, String> optionalParameters = new HashMap<>();
+    optionalParameters.put(RequestParameter.page, String.valueOf(pagination.getPage()));
+    optionalParameters.put(RequestParameter.size, String.valueOf(pagination.getPagesize()));
+    return artefactsService.getArtefacts(params, optionalParameters, authService.tryGetCurrentUser(), null);
   }
   
   @CrossOrigin

@@ -6,6 +6,7 @@ import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
 import org.semantics.apigateway.artefacts.metadata.ArtefactsService;
 import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.PaginationParams;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.user.User;
 import org.semantics.apigateway.service.RequestParameter;
@@ -102,9 +103,13 @@ public class Ols3Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies")
-  public Object getArtefactsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params) {
+  public Object getArtefactsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params,
+                                                @ParameterObject PaginationParams pagination) {
+    Map<RequestParameter, String> optionalParameters = new HashMap<>();
+    optionalParameters.put(RequestParameter.page, String.valueOf(pagination.getPage()));
+    optionalParameters.put(RequestParameter.size, String.valueOf(pagination.getPagesize()));
     User user = authService.tryGetCurrentUser();
-    return this.artefactsService.getArtefacts(params, user, null);
+    return this.artefactsService.getArtefacts(params, optionalParameters, user, null);
   }
 
   @CrossOrigin
