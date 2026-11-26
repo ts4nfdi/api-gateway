@@ -235,18 +235,18 @@ public class ApiAccessor {
         
         if (page.isPresent()) {
             if (requiredType == Pagination.PaginationType.offset) {
-                offset = convertPageToOffset(page.get(), size.orElse(20));
-                requestParameters.put(RequestParameter.offset, getActualFirst(config.pagination().getFirst(), offset.get()).toString());
+                offset = convertPageToOffset(page.get(), size.orElse(50));
+                requestParameters.put(RequestParameter.offset, offset.get().toString());
             } else {
                 requestParameters.put(RequestParameter.page, getActualFirst(config.pagination().getFirst(), page.get()).toString());
             }
         } else if (offset.isPresent()) {
             if (requiredType == Pagination.PaginationType.page) {
                 logger.warn("Converting offset to required page parameter for URL {}. This calculation gives inaccurate results.", config.url());
-                page = convertPageToOffset(offset.get(), size.orElse(20));
+                page = convertOffsetToPage(offset.get(), size.orElse(50));
                 requestParameters.put(RequestParameter.page, getActualFirst(config.pagination().getFirst(), page.get()).toString());
             } else {
-                requestParameters.put(RequestParameter.offset, getActualFirst(config.pagination().getFirst(), offset.get()).toString());
+                requestParameters.put(RequestParameter.offset, offset.get().toString());
             }
         }
     }
