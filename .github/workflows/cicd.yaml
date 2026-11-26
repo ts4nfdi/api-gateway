@@ -63,7 +63,7 @@ jobs:
 
   prepare_secrets:
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/ols4-common-params'
     runs-on: ubuntu-latest
     steps:
 
@@ -223,7 +223,7 @@ jobs:
 
   prepare_matomo:
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/ols4-common-params'
     runs-on: ubuntu-latest
     environment: staging
     steps:
@@ -256,9 +256,9 @@ jobs:
             --namespace='ts4nfdi' \
             --dry-run=client -o yaml | kubectl apply -f -
 
-  deploy_main:
+  deploy_branch:
     needs: [build, prepare_secrets, prepare_matomo]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/ols4-common-params'
     runs-on: ubuntu-latest
     steps:
       - id: generate-image-tag
