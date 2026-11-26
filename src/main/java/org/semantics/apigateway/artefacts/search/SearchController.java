@@ -6,10 +6,16 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.semantics.apigateway.artefacts.metadata.ArtefactsService;
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.PaginationParams;
 import org.semantics.apigateway.model.user.User;
+import org.semantics.apigateway.service.RequestParameter;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 
 @RestController
@@ -41,10 +47,18 @@ public class SearchController {
     public Object search(
             @Parameter(description = "The text to search for in the labels of the entities", example = "plant")
             @RequestParam String query,
-            @ParameterObject CommonRequestParams params
+            @ParameterObject CommonRequestParams params,
+            @RequestParam(name = "hierarchicalParent", required = false) String hierarchicalParent,
+            @RequestParam(name = "hierarchicalAncestor", required = false) String hierarchicalAncestor,
+            @RequestParam(name = "lang", required = false) String lang
     ) {
         User user = authService.tryGetCurrentUser();
-        return searchService.performSearch(query, params, user, null);
+        HashMap customParams = new HashMap<>();
+        customParams.put(RequestParameter.hierarchicalParent, hierarchicalParent);
+        customParams.put(RequestParameter.hierarchicalAncestor, hierarchicalAncestor);
+        customParams.put(RequestParameter.lang, lang);
+        customParams.values().removeIf(Objects::isNull);
+        return searchService.performSearch(query, params, user, null, customParams);
     }
 
 
@@ -57,8 +71,12 @@ public class SearchController {
     public Object searchMetadata(
             @Parameter(description = "The text to search for in the labels and IRIs of the artefacts", example = "plant")
             @RequestParam String query,
-            @ParameterObject CommonRequestParams params
+            @ParameterObject CommonRequestParams params,
+            @ParameterObject PaginationParams pagination
     ) {
-        return artefactsService.searchMetadata(query, params, null);
+        Map<RequestParameter, String> optionalParameters = new HashMap<>();
+        optionalParameters.put(RequestParameter.page, String.valueOf(pagination.getPage()));
+        optionalParameters.put(RequestParameter.size, String.valueOf(pagination.getPagesize()));
+        return artefactsService.searchMetadata(query, params, optionalParameters, null);
     }
 }

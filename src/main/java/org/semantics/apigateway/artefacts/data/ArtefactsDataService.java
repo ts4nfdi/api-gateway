@@ -5,18 +5,12 @@ import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.RDFResource;
 import org.semantics.apigateway.model.TargetDbSchema;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
-import org.semantics.apigateway.model.responses.ApiResponse;
 import org.semantics.apigateway.model.user.User;
-import org.semantics.apigateway.service.AbstractEndpointService;
-import org.semantics.apigateway.service.ApiAccessor;
-import org.semantics.apigateway.service.JsonLdTransform;
-import org.semantics.apigateway.service.ResponseTransformerService;
+import org.semantics.apigateway.service.*;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -30,54 +24,54 @@ public class ArtefactsDataService extends AbstractEndpointService {
         super(configurationLoader, cacheManager, transform, responseTransformerService, collectionService, RDFResource.class);
     }
 
-    public Object getArtefactTerm(String id, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
-        return findUri(id, uri, "concept_details", params, accessor, currentUser);
+    public Object getArtefactTerm(String id, String uri, Map<RequestParameter, String> apiParameters, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+        return findUri(id, uri, "concept_details", apiParameters, params, accessor, currentUser);
     }
 
-    public Object getArtefactTerms(String id,CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
-        return paginatedList(id, "concepts", params, page, accessor, currentUser);
+    public Object getArtefactTerms(String id, Map<RequestParameter, String> apiParameters, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
+        return paginatedList(id, "concepts", apiParameters, params, page, accessor, currentUser);
     }
 
-    public Object getArtefactProperty(String id, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
-        return findUri(id, uri, "property_details", params, accessor, currentUser);
+    public Object getArtefactProperty(String id, String uri, Map<RequestParameter, String> apiParameters, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+        return findUri(id, uri, "property_details", apiParameters, params, accessor, currentUser);
     }
 
-    public Object getArtefactProperties(String id, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
-        return paginatedList(id, "properties", params, page, accessor, currentUser);
+    public Object getArtefactProperties(String id, Map<RequestParameter, String> apiParameters, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
+        return paginatedList(id, "properties", apiParameters, params, page, accessor, currentUser);
     }
 
-    public Object getArtefactIndividual(String id, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
-        return findUri(id, uri, "individual_details", params, accessor, currentUser);
+    public Object getArtefactIndividual(String id, String uri, Map<RequestParameter, String> apiParameters, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+        return findUri(id, uri, "individual_details", apiParameters, params, accessor, currentUser);
     }
 
-    public Object getArtefactIndividuals(String id, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
-        return paginatedList(id, "individuals", params, page, accessor, currentUser);
+    public Object getArtefactIndividuals(String id, Map<RequestParameter, String> apiParameters, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
+        return paginatedList(id, "individuals", apiParameters, params, page, accessor, currentUser);
     }
 
-    public Object getArtefactSchemes(String id, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
-        return paginatedList(id, "schemes", params, page, accessor, currentUser);
+    public Object getArtefactSchemes(String id, Map<RequestParameter, String> apiParameters, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
+        return paginatedList(id, "schemes", apiParameters, params, page, accessor, currentUser);
     }
 
-    public Object getArtefactScheme(String id, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
-        return findUri(id, uri, "scheme_details", params, accessor, currentUser);
+    public Object getArtefactScheme(String id, String uri, Map<RequestParameter, String> apiParameters, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+        return findUri(id, uri, "scheme_details", apiParameters, params, accessor, currentUser);
     }
 
-    public Object getArtefactCollections(String id, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
-        return paginatedList(id, "collections", params, page, accessor, currentUser);
+    public Object getArtefactCollections(String id, Map<RequestParameter, String> apiParameters, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
+        return paginatedList(id, "collections", apiParameters, params, page, accessor, currentUser);
     }
 
-    public Object getArtefactCollection(String id, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
-        return findUri(id, uri, "collection_details", params, accessor, currentUser);
+    public Object getArtefactCollection(String id, String uri, Map<RequestParameter, String> apiParameters, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+        return findUri(id, uri, "collection_details", apiParameters, params, accessor, currentUser);
     }
 
-    public Object getArtefactEntities(String id, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
+    public Object getArtefactEntities(String id, Map<RequestParameter, String> apiParameters, CommonRequestParams params, Integer page, ApiAccessor accessor, User currentUser) {
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
 
-        CompletableFuture<AggregatedApiResponse> termsF = paginatedListRaw(id, null, "concepts", params, page, accessor, currentUser)
+        CompletableFuture<AggregatedApiResponse> termsF = paginatedListRaw(id, null, "concepts", apiParameters, params, page, accessor, currentUser)
                 .exceptionally(ex -> emptyOnError("concepts", ex));
-        CompletableFuture<AggregatedApiResponse> propsF = paginatedListRaw(id, null, "properties", params, page, accessor, currentUser)
+        CompletableFuture<AggregatedApiResponse> propsF = paginatedListRaw(id, null, "properties", apiParameters, params, page, accessor, currentUser)
                 .exceptionally(ex -> emptyOnError("properties", ex));
-        CompletableFuture<AggregatedApiResponse> indivF = paginatedListRaw(id, null, "individuals", params, page, accessor, currentUser)
+        CompletableFuture<AggregatedApiResponse> indivF = paginatedListRaw(id, null, "individuals", apiParameters, params, page, accessor, currentUser)
                 .exceptionally(ex -> emptyOnError("individuals", ex));
 
         return CompletableFuture.allOf(termsF, propsF, indivF)
@@ -85,14 +79,14 @@ public class ArtefactsDataService extends AbstractEndpointService {
                 .thenApply(merged -> transformForTargetDbSchema(merged, targetDbSchema, "concepts", true));
     }
 
-    public Object getArtefactEntity(String id, String uri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
+    public Object getArtefactEntity(String id, String uri, Map<RequestParameter, String> apiParameters, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
         TargetDbSchema targetDbSchema = params.getTargetDbSchema();
 
-        CompletableFuture<AggregatedApiResponse> conceptF = findUriRaw(id, uri, "concept_details", params, accessor, currentUser)
+        CompletableFuture<AggregatedApiResponse> conceptF = findUriRaw(id, uri, "concept_details", apiParameters, params, accessor, currentUser)
                 .exceptionally(ex -> emptyOnError("concept_details", ex));
-        CompletableFuture<AggregatedApiResponse> propF = findUriRaw(id, uri, "property_details", params, accessor, currentUser)
+        CompletableFuture<AggregatedApiResponse> propF = findUriRaw(id, uri, "property_details", apiParameters, params, accessor, currentUser)
                 .exceptionally(ex -> emptyOnError("property_details", ex));
-        CompletableFuture<AggregatedApiResponse> indivF = findUriRaw(id, uri, "individual_details", params, accessor, currentUser)
+        CompletableFuture<AggregatedApiResponse> indivF = findUriRaw(id, uri, "individual_details", apiParameters, params, accessor, currentUser)
                 .exceptionally(ex -> emptyOnError("individual_details", ex));
 
         try {

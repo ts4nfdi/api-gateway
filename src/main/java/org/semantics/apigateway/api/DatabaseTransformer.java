@@ -4,6 +4,7 @@ import org.semantics.apigateway.config.ResponseMapping;
 
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 
 public interface DatabaseTransformer {
 
@@ -21,7 +22,7 @@ public interface DatabaseTransformer {
     }
 
     Map<String, Object> transformItem(Map<String,Object> item, ResponseMapping mapping);
-    Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount);
+    Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount, Map<String, SortedSet<String>> unsupportedParameters);
 
     // You can incorporate a new transformer class into the application and then restart it to establish a
     // mapping to database schema of your preference

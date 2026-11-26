@@ -2,13 +2,14 @@ package org.semantics.apigateway.controller.ols;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.ws.rs.QueryParam;
-import org.semantics.apigateway.api.OlsTransformer;
 import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
 import org.semantics.apigateway.artefacts.metadata.ArtefactsService;
 import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.model.CommonRequestParams;
+import org.semantics.apigateway.model.PaginationParams;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.user.User;
+import org.semantics.apigateway.service.RequestParameter;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Objects;
 
 @Component
@@ -30,8 +35,6 @@ public class Ols3Controller {
   private final ArtefactsDataService artefactsDataService;
   private final AuthService authService;
 
-  private final OlsTransformer olsTransformer = new OlsTransformer(); // TODO This breaks decoupling. Better pass original request through the services, so that we know how to construct the response in the transformers.
-  
   public Ols3Controller(SearchService searchService, ArtefactsService artefactsService, ArtefactsDataService artefactsDataService, AuthService authService) {
     this.searchService = searchService;
     this.artefactsService = artefactsService;
@@ -60,7 +63,14 @@ public class Ols3Controller {
     } catch (NumberFormatException e) {
     }
     
-    AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("ontology"), "ols", allParams.get("collectionId"), false, timeout);
+    HashMap<RequestParameter, String> optionalParameters = new HashMap<>();
+    Optional.ofNullable(allParams.get("childrenOf")).ifPresent(value -> optionalParameters.put(RequestParameter.hierarchicalParent, URLDecoder.decode(value, Charset.defaultCharset())));
+    Optional.ofNullable(allParams.get("allChildrenOf")).ifPresent(value -> optionalParameters.put(RequestParameter.hierarchicalAncestor, URLDecoder.decode(value, Charset.defaultCharset())));
+    Optional.ofNullable(allParams.get("rows")).ifPresent(value -> optionalParameters.put(RequestParameter.size, value));
+    Optional.ofNullable(allParams.get("start")).ifPresent(value -> optionalParameters.put(RequestParameter.page, value));
+    Optional.ofNullable(allParams.get("lang")).ifPresent(value -> optionalParameters.put(RequestParameter.lang, value));
+    
+    AggregatedApiResponse response = searchService.performSearch(query + "*", allParams.get("database"), "ols", allParams.get("collectionId"), false, timeout, optionalParameters);
     return response.getCollection().get(0);
   }
   
@@ -73,16 +83,16 @@ public class Ols3Controller {
   @CrossOrigin
   @GetMapping("/terms")
   public Object getAllTermsInOLSTargetDBSchema(@RequestParam(required = false, defaultValue = "0") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
-    return this.artefactsDataService.getArtefactTerms(Objects.requireNonNullElse(iri, ""), params, page + 1, null, authService.tryGetCurrentUser());
+    return this.artefactsDataService.getArtefactTerms(Objects.requireNonNullElse(iri, ""),  new HashMap<>(),params, page + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/terms")
   public Object getTermsInOLSTargetDBSchema(@PathVariable String onto, @RequestParam(required = false, defaultValue = "1") Integer page, @QueryParam("iri") String iri, @ParameterObject CommonRequestParams params) {
     if (iri != null) {
-      return this.artefactsDataService.getArtefactTerm(onto, iri, params, null, authService.tryGetCurrentUser());
+      return this.artefactsDataService.getArtefactTerm(onto, iri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
     }
-    return this.artefactsDataService.getArtefactTerms(onto, params, page + 1, null, authService.tryGetCurrentUser());
+    return this.artefactsDataService.getArtefactTerms(onto, new HashMap<>(), params, page + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
@@ -93,37 +103,39 @@ public class Ols3Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies")
-  public Object getArtefactsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params) {
+  public Object getArtefactsInOLSTargetDBSchema(@ParameterObject CommonRequestParams params,
+                                                @ParameterObject PaginationParams pagination) {
+    Map<RequestParameter, String> optionalParameters = new HashMap<>();
+    optionalParameters.put(RequestParameter.page, String.valueOf(pagination.getPage()));
+    optionalParameters.put(RequestParameter.size, String.valueOf(pagination.getPagesize()));
     User user = authService.tryGetCurrentUser();
-    return this.artefactsService.getArtefacts(params, user, null);
+    return this.artefactsService.getArtefacts(params, optionalParameters, user, null);
   }
 
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/individuals")
   public Object getAllIndividualsForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    if (iri == null) return artefactsDataService.getArtefactIndividuals(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactIndividual(onto, iri, params, null, authService.tryGetCurrentUser());
-    return olsTransformer.constructResponse(response.getCollection(), "individuals", true, true, 1, response.getCollection().size());
+    if (iri == null) return artefactsDataService.getArtefactIndividuals(onto, new HashMap<>(), params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    return artefactsDataService.getArtefactIndividual(onto, iri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
   }
 
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/individuals/{individual}")
   public Object getIndividualForOntologyInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String individual, @ParameterObject CommonRequestParams params) {
-    return artefactsDataService.getArtefactIndividual(onto, individual, params, null, authService.tryGetCurrentUser());
+    return artefactsDataService.getArtefactIndividual(onto, individual, new HashMap<>(), params, null, authService.tryGetCurrentUser());
   }
 
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties")
   public Object getPropertiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri) {
-    if (iri == null) return artefactsDataService.getArtefactProperties(onto, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    AggregatedApiResponse response = (AggregatedApiResponse) artefactsDataService.getArtefactProperty(onto, iri, params, null, authService.tryGetCurrentUser());
-    return olsTransformer.constructResponse(response.getCollection(), "properties", true, true, 1, response.getCollection().size());
+    if (iri == null) return artefactsDataService.getArtefactProperties(onto, new HashMap<>(), params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    return artefactsDataService.getArtefactProperty(onto, iri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
   }
 
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties/{property}")
   public Object getPropertyInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params) {
-    return  artefactsDataService.getArtefactProperty(onto, property, params, null, authService.tryGetCurrentUser());
+    return  artefactsDataService.getArtefactProperty(onto, property, new HashMap<>(), params, null, authService.tryGetCurrentUser());
   }
 }
 

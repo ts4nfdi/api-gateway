@@ -3,8 +3,10 @@ package org.semantics.apigateway.model.responses;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.semantics.apigateway.service.RequestParameter;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -16,4 +18,5 @@ public  class ApiResponse {
     private long responseTime;
     private String url;
     private String name;
+    private List<RequestParameter> unsupportedParams;
 }

@@ -8,6 +8,7 @@ import org.semantics.apigateway.service.MappingTransformer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 
 public class ModTransformer implements DatabaseTransformer {
 
@@ -37,7 +38,7 @@ public class ModTransformer implements DatabaseTransformer {
     }
 
     @Override
-    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount) {
+    public Map<String, Object> constructResponse(List<Map<String, Object>> transformedResults, String mappingKey, boolean list, boolean paginate, int page, long totalCount, Map<String, SortedSet<String>> unsupportedParameters) {
         PaginatedResponse paginatedResponse = new PaginatedResponse(
                 transformedResults,
                 transformedResults.size(),

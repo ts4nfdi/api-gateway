@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -95,7 +96,9 @@ public class DatabaseConfig {
     }
 
     public UrlConfig getUrlConfig(String endpoint) {
-        return new UrlConfig(getUrl(), getApiKey(), getEndpointConfig(endpoint).isCaseInsensitive(), serviceConfig.getPagination(), getEndpointConfig(endpoint).getParameters());
+        EndpointConfig endpointConfig = getEndpointConfig(endpoint);
+        Pagination pagination = Objects.requireNonNullElse(endpointConfig.getPagination(), serviceConfig.getPagination());
+        return new UrlConfig(getUrl(), getApiKey(), getEndpointConfig(endpoint).isCaseInsensitive(), pagination, endpointConfig.getParameters());
     }
 
     public String getSearchUrl() {

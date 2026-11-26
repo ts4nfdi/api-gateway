@@ -35,10 +35,10 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
         return findAll(artefactId, endpoint, params, accessor, currentUser).thenApply(x -> {
             x.setCollection(sortChildren(x.getCollection()));
             return x;
-        });
+        }).thenApply(x -> transformForTargetDbSchema(x, params.getTargetDbSchema(), endpoint, true));
     }
 
-    public Object getChildren(String artefactId, String resourceUri, CommonRequestParams params, Integer page, ApiAccessor accessor,  User currentUser) {
+    public Object getChildren(String artefactId, String resourceUri, Map<RequestParameter, String> apiParameters, CommonRequestParams params, Integer page, ApiAccessor accessor,  User currentUser) {
         if (artefactId == null || artefactId.isEmpty() || resourceUri == null || resourceUri.isEmpty()) {
             return Collections.EMPTY_LIST;
         }
@@ -49,7 +49,7 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
         if (databaseConfig.isOls2()) {
             resourceUri = URLEncoder.encode(URLEncoder.encode(resourceUri, StandardCharsets.UTF_8)); // OLS2 requires URI double encoding
         }
-        return paginatedList(artefactId, resourceUri, endpoint, params, page, accessor,  currentUser);
+        return paginatedList(artefactId, resourceUri, endpoint, apiParameters, params, page, accessor,  currentUser);
     }
 
     public Object getTree(String artefactId, String resourceUri, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
@@ -72,7 +72,7 @@ public class ArtefactsDataTreeService extends AbstractEndpointService {
     private AggregatedApiResponse buildOlsTree(AggregatedApiResponse data, String artefactId, String resourceUri, CommonRequestParams params, User currentUser) {
         List<Map<String, Object>> pathToRoot = data.getCollection();
         List<Map<String, Object>> cleanedPath = new ArrayList<>();
-        Map<String, Object> leafNode = findUri(artefactId, resourceUri, Endpoints.concept_details.toString(), params, null, currentUser).getCollection().get(0);
+        Map<String, Object> leafNode = findUri(artefactId, resourceUri, Endpoints.concept_details.toString(), new HashMap<>(), params, null, currentUser).getCollection().get(0);
 
         for (Map<String, Object> child : pathToRoot) {
             if (child.get("iri").equals("http://www.w3.org/2002/07/owl#Thing")) {

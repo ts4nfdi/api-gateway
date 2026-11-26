@@ -17,7 +17,6 @@ models:
     shortForm: notation
     language: languages
 
-
   searchResult: &searchResult
     iri: uri
     type: type
@@ -41,11 +40,36 @@ endpoints:
       query:
         name: query
         type: string
+      lang:
+        name: language
+        type: commaList
+        optional: true
+      size:
+        name: limit
+        type: integer
+        default: 50
+      offset:
+        name: offset
+        type: integer
+        optional: true
     responseMapping:
       <<: *searchResult
 
   resources:
     path: /voc
+    parameters:
+      lang:
+        name: languages
+        type: commaList
+        optional: true
+      size:
+        name: limit
+        type: integer
+        default: 50
+      offset:
+        name: offset
+        type: integer
+        optional: true
     responseMapping:
       <<: *artefact
 

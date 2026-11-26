@@ -7,10 +7,7 @@ import org.semantics.apigateway.model.CommonRequestParams;
 import org.semantics.apigateway.model.SemanticArtefact;
 import org.semantics.apigateway.model.responses.AggregatedApiResponse;
 import org.semantics.apigateway.model.user.User;
-import org.semantics.apigateway.service.AbstractEndpointService;
-import org.semantics.apigateway.service.ApiAccessor;
-import org.semantics.apigateway.service.JsonLdTransform;
-import org.semantics.apigateway.service.ResponseTransformerService;
+import org.semantics.apigateway.service.*;
 import org.semantics.apigateway.service.configuration.ConfigurationLoader;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
@@ -34,11 +31,11 @@ public class ArtefactsService extends AbstractEndpointService {
         this.terminologyStatisticRepository = terminologyStatisticRepository;
     }
 
-    public Object getArtefacts(CommonRequestParams params, User currentUser, ApiAccessor accessor) {
+    public Object getArtefacts(CommonRequestParams params, Map<RequestParameter, String> optionalParameters, User currentUser, ApiAccessor accessor) {
         String endpoint = "resources";
         try {
             return
-                    findAllArtefacts(params, currentUser, accessor)
+                    findAllArtefacts(params, optionalParameters, currentUser, accessor)
                             .thenApply(data -> transformJsonLd(data, params))
                             .thenApply(data -> addTerminologyStatistics(data, params))
                             .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), endpoint)).get();
@@ -51,7 +48,7 @@ public class ArtefactsService extends AbstractEndpointService {
 
     public Object getArtefact(String id, CommonRequestParams params, ApiAccessor accessor, User currentUser) {
         try {
-            AggregatedApiResponse result = findUriBase(id, null, "resource_details", params, accessor, currentUser)
+            AggregatedApiResponse result = findUriBase(id, null, "resource_details", new HashMap<>(), params, accessor, currentUser)
                     .thenApply(data -> addTerminologyStatistics(data, params))
                     .thenApply(data -> transformForTargetDbSchema(data, params.getTargetDbSchema(), "resource_details", false))
                     .get();
@@ -63,9 +60,9 @@ public class ArtefactsService extends AbstractEndpointService {
     }
 
 
-    public Object searchMetadata(String query, CommonRequestParams params, ApiAccessor accessor) {
+    public Object searchMetadata(String query, CommonRequestParams params, Map<RequestParameter, String> optionalParameters, ApiAccessor accessor) {
         String endpoint = "resources";
-        return findAllArtefacts(params, null, accessor)
+        return findAllArtefacts(params, optionalParameters, null, accessor)
                 .thenApply(data -> filterOutByQuery(query, data))
                 .thenApply(x -> transformJsonLd(x, params))
                 .thenApply(data -> addTerminologyStatistics(data, params))
@@ -147,7 +144,7 @@ public class ArtefactsService extends AbstractEndpointService {
         return data;
     }
 
-    private CompletableFuture<AggregatedApiResponse> findAllArtefacts(CommonRequestParams params, User currentUser, ApiAccessor accessor) {
+    private CompletableFuture<AggregatedApiResponse> findAllArtefacts(CommonRequestParams params, Map<RequestParameter, String> optionalParameters, User currentUser, ApiAccessor accessor) {
         String endpoint = "resources";
         String database = params.getDatabase();
         TerminologyCollection collection = collectionService.getCurrentUserCollection(params.getCollectionId(), currentUser);
@@ -155,7 +152,7 @@ public class ArtefactsService extends AbstractEndpointService {
         accessor = initAccessor(database, endpoint, accessor, params.getTimeout());
         accessor = applyCollection(accessor, collection, endpoint);
 
-        return accessor.get()
+        return accessor.get(optionalParameters)
                 .thenApply(data -> this.transformApiResponses(data, endpoint, new HashMap<>()))
                 .thenApply(transformedData -> flattenResponseList(transformedData, params, collection))
                 .thenApply(data -> filterOutArtefactsWithoutProperIri(data, params))

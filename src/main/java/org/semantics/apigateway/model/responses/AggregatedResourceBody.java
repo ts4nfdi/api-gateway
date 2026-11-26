@@ -157,20 +157,21 @@ public abstract class AggregatedResourceBody {
                            
                            Object value = MappingTransformer.itemValueGetter(item, mappingValue, originalQueryParameters);
                            
-                           HashMap<String, Object> rootMap = new HashMap<>();
-                           HashMap<String, Object> current = rootMap;
-                           
-                           // the following is safe because path.length >= 2 is guaranteed
-                           for (String pathSegment : Arrays.stream(path).skip(1).limit(path.length - 2).toList()) {
-                               HashMap<String, Object> map = new HashMap<>();
-                               current.put(pathSegment, map);
-                               current = map;
+                           if (value != null) {
+                               HashMap<String, Object> rootMap = new HashMap<>();
+                               HashMap<String, Object> current = rootMap;
+                               
+                               // the following is safe because path.length >= 2 is guaranteed
+                               for (String pathSegment : Arrays.stream(path).skip(1).limit(path.length - 2).toList()) {
+                                   HashMap<String, Object> map = new HashMap<>();
+                                   current.put(pathSegment, map);
+                                   current = map;
+                               }
+                               
+                               current.put(path[path.length - 1], value);
+                               field.setAccessible(true);
+                               setFieldValue(target, field, rootMap);
                            }
-                           
-                           current.put(path[path.length - 1], value);
-                           
-                           field.setAccessible(true);
-                           setFieldValue(target, field, rootMap);
                        }
                    }
                } else {

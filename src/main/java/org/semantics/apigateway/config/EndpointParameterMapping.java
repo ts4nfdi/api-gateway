@@ -1,5 +1,6 @@
 package org.semantics.apigateway.config;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.Arrays;
@@ -35,6 +36,7 @@ public class EndpointParameterMapping {
   private Type type;
   
   private String name;
+  @JsonProperty("default") private String defaultValue;
   private boolean optional = false;
   
   public String serializeParameter(String value) {

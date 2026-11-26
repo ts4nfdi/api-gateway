@@ -18,6 +18,7 @@ import java.util.Map;
 public class EndpointConfig {
     private String path;
     private Map<String, String> responseMapping;
+    private Pagination pagination;
     private Map<RequestParameter, EndpointParameterMapping> parameters = Map.of();
     private boolean caseInsensitive = true;
 }

@@ -24,11 +24,40 @@ endpoints:
       query:
         name: query
         type: string
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: pagesize
+        type: integer
+        default: 50
+      hierarchicalParent:
+        name: hierarchicalParent
+        type: string
+        optional: true
+      hierarchicalAncestor:
+        name: hierarchicalAncestor
+        type: string
+        optional: true
+      lang:
+        name: lang
+        type: string
+        optional: true
     responseMapping:
       nestedJson: member
       <<: *searchResult
   resources:
-    path: /artefacts?pagesize=10000
+    path: /artefacts
+    parameters:
+      page:
+        name: page
+        type: integer
+        optional: true
+      size:
+        name: pagesize
+        type: integer
+        default: 50
     responseMapping:
       nestedJson: member
       label: title
@@ -125,7 +154,12 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
+        optional: true
+      size:
+        name: pagesize
+        type: integer
+        default: 50
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -137,7 +171,12 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
+        optional: true
+      size:
+        name: pagesize
+        type: integer
+        default: 50
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -154,7 +193,12 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
+        optional: true
+      size:
+        name: pagesize
+        type: integer
+        default: 50
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -171,7 +215,12 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
+        optional: true
+      size:
+        name: pagesize
+        type: integer
+        default: 50
     responseMapping:
       nestedJson: member
       totalCount: totalItems
@@ -188,7 +237,12 @@ endpoints:
     parameters:
       page:
         name: page
-        type: string
+        type: integer
+        optional: true
+      size:
+        name: pagesize
+        type: integer
+        default: 50
     responseMapping:
       nestedJson: member
       totalCount: totalItems
