@@ -50,13 +50,15 @@ public class SearchController {
             @ParameterObject CommonRequestParams params,
             @RequestParam(name = "hierarchicalParent", required = false) String hierarchicalParent,
             @RequestParam(name = "hierarchicalAncestor", required = false) String hierarchicalAncestor,
-            @RequestParam(name = "lang", required = false) String lang
-    ) {
+            @RequestParam(name = "lang", required = false) String lang,
+            @ParameterObject PaginationParams pagination) {
         User user = authService.tryGetCurrentUser();
         HashMap customParams = new HashMap<>();
         customParams.put(RequestParameter.hierarchicalParent, hierarchicalParent);
         customParams.put(RequestParameter.hierarchicalAncestor, hierarchicalAncestor);
         customParams.put(RequestParameter.lang, lang);
+        customParams.put(RequestParameter.page, String.valueOf(pagination.getPage()));
+        customParams.put(RequestParameter.size, String.valueOf(pagination.getPagesize()));
         customParams.values().removeIf(Objects::isNull);
         return searchService.performSearch(query, params, user, null, customParams);
     }

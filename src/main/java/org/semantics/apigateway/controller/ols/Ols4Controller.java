@@ -9,7 +9,6 @@ import org.semantics.apigateway.artefacts.search.SearchService;
 import org.semantics.apigateway.artefacts.tree.ArtefactsDataTreeService;
 import org.semantics.apigateway.controller.ols.model.CommonOLS4Params;
 import org.semantics.apigateway.model.CommonRequestParams;
-import org.semantics.apigateway.model.PaginationParams;
 import org.semantics.apigateway.service.RequestParameter;
 import org.semantics.apigateway.service.auth.AuthService;
 import org.springdoc.core.annotations.ParameterObject;
@@ -45,10 +44,10 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies")
-  public Object getAllOntologiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @ParameterObject PaginationParams pagination) {
+  public Object getAllOntologiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @ParameterObject @PageableDefault(page = 0, size = 20) Pageable pageable) {
     Map<RequestParameter, String> optionalParameters = new HashMap<>();
-    optionalParameters.put(RequestParameter.page, String.valueOf(pagination.getPage()));
-    optionalParameters.put(RequestParameter.size, String.valueOf(pagination.getPagesize()));
+    optionalParameters.put(RequestParameter.page, String.valueOf(pageable.getPageNumber() + 1));
+    optionalParameters.put(RequestParameter.size, String.valueOf(pageable.getPageSize()));
     return artefactsService.getArtefacts(params, optionalParameters, authService.tryGetCurrentUser(), null);
   }
   
@@ -67,8 +66,11 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/individuals")
   public Object getAllIndividualsForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @ParameterObject @PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(name = "iri", required = false) String iri) {
-    if (iri == null) return artefactsDataService.getArtefactIndividuals(onto, new HashMap<>(), params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    return artefactsDataService.getArtefactIndividual(onto, iri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
+    Map<RequestParameter, String> optionalParameters = new HashMap<>();
+    optionalParameters.put(RequestParameter.page, String.valueOf(pageable.getPageNumber() + 1));
+    optionalParameters.put(RequestParameter.size, String.valueOf(pageable.getPageSize()));
+    if (iri == null) return artefactsDataService.getArtefactIndividuals(onto, optionalParameters, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    return artefactsDataService.getArtefactIndividual(onto, iri, optionalParameters, params, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
@@ -123,6 +125,9 @@ public class Ols4Controller {
     Map<RequestParameter, String> apiParameters = new HashMap<>();
     apiParameters.put(RequestParameter.hierarchicalParent, hierarchicalParent);
     apiParameters.put(RequestParameter.hierarchicalAncestor, hierarchicalAncestor);
+    apiParameters.put(RequestParameter.page, String.valueOf(pageable.getPageNumber() + 1));
+    apiParameters.put(RequestParameter.size, String.valueOf(pageable.getPageSize()));
+    
     if (iri != null) {
       return this.artefactsDataService.getArtefactEntities(iri, apiParameters, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
     }
@@ -141,6 +146,9 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes")
   public Object getClassesInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @ParameterObject @PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(name = "iri", required = false) String iri) {
+    Map<RequestParameter, String> optionalParameters = new HashMap<>();
+    optionalParameters.put(RequestParameter.page, String.valueOf(pageable.getPageNumber() + 1));
+    optionalParameters.put(RequestParameter.size, String.valueOf(pageable.getPageSize()));
     if (iri == null) return artefactsDataService.getArtefactTerms(onto, new HashMap<>(), params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
     return artefactsDataService.getArtefactTerm(onto, iri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
   }
@@ -184,7 +192,10 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/classes/{class}/children")
   public Object getClassChildrenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable("class") String clazz, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @ParameterObject @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return treeService.getChildren(onto, clazz, new HashMap<>(), params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    Map<RequestParameter, String> optionalParameters = new HashMap<>();
+    optionalParameters.put(RequestParameter.page, String.valueOf(pageable.getPageNumber() + 1));
+    optionalParameters.put(RequestParameter.size, String.valueOf(pageable.getPageSize()));
+    return treeService.getChildren(onto, clazz, optionalParameters, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
@@ -210,8 +221,11 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties")
   public Object getPropertiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @ParameterObject @PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(name = "iri", required = false) String iri) {
-    if (iri == null) return artefactsDataService.getArtefactProperties(onto, new HashMap<>(), params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
-    return artefactsDataService.getArtefactProperty(onto, iri, new HashMap<>(), params, null, authService.tryGetCurrentUser());
+    Map<RequestParameter, String> optionalParameters = new HashMap<>();
+    optionalParameters.put(RequestParameter.page, String.valueOf(pageable.getPageNumber() + 1));
+    optionalParameters.put(RequestParameter.size, String.valueOf(pageable.getPageSize()));
+    if (iri == null) return artefactsDataService.getArtefactProperties(onto, optionalParameters, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    return artefactsDataService.getArtefactProperty(onto, iri, optionalParameters, params, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
@@ -223,7 +237,10 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/properties/{property}/children")
   public Object getPropertyChildrenInOLSTargetDBSchema(@PathVariable String onto, @PathVariable String property, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @ParameterObject @PageableDefault(page = 0, size = 20) Pageable pageable) {
-    return treeService.getChildren(onto, property, new HashMap<>(), params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
+    Map<RequestParameter, String> optionalParameters = new HashMap<>();
+    optionalParameters.put(RequestParameter.page, String.valueOf(pageable.getPageNumber() + 1));
+    optionalParameters.put(RequestParameter.size, String.valueOf(pageable.getPageSize()));
+    return treeService.getChildren(onto, property, optionalParameters, params, pageable.getPageNumber() + 1, null, authService.tryGetCurrentUser());
   }
   
   @CrossOrigin
