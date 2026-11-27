@@ -2,7 +2,6 @@ package org.semantics.apigateway.controller.ols;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.ws.rs.QueryParam;
 import org.apache.commons.lang3.NotImplementedException;
 import org.semantics.apigateway.artefacts.data.ArtefactsDataService;
 import org.semantics.apigateway.artefacts.metadata.ArtefactsService;
@@ -93,7 +92,7 @@ public class Ols4Controller {
   
   @CrossOrigin
   @GetMapping("/ontologies/{onto}/entities")
-  public Object getAllEntitiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @QueryParam("iri") String iri, @RequestParam(name = "hierarchicalParent", required = false) String hierarchicalParent, @RequestParam(name = "hierarchicalAncestor", required = false) String hierarchicalAncestor) {
+  public Object getAllEntitiesForOntologyInOLSTargetDBSchema(@PathVariable String onto, @ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(name = "iri", required = false) String iri, @RequestParam(name = "hierarchicalParent", required = false) String hierarchicalParent, @RequestParam(name = "hierarchicalAncestor", required = false) String hierarchicalAncestor) {
     Map<RequestParameter, String> apiParameters = new HashMap<>();
     apiParameters.put(RequestParameter.hierarchicalParent, hierarchicalParent);
     apiParameters.put(RequestParameter.hierarchicalAncestor, hierarchicalAncestor);
@@ -117,7 +116,7 @@ public class Ols4Controller {
   @CrossOrigin
   @GetMapping("/entities")
   public Object getAllEntitiesInOLSTargetDBSchema(@ParameterObject CommonRequestParams params, @ParameterObject CommonOLS4Params ols4Params, @PageableDefault(page = 0, size = 20) Pageable pageable,
-                                                  @QueryParam("iri") String iri,
+                                                  @RequestParam(name = "iri", required = false) String iri,
                                                   @RequestParam(name = "hierarchicalParent", required = false) String hierarchicalParent,
                                                   @RequestParam(name = "hierarchicalAncestor", required = false) String hierarchicalAncestor) {
     // TODO Is there a way to run a federated query over all endpoints and their respective artifacts for all entities? Improbable, solely for performance reasons.
