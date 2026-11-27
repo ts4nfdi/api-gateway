@@ -34,13 +34,12 @@ public class ArtefactsDataController {
                     "Both paths return the same result.\n\n" +
                     "Example: `GET /artefacts/ncit/resources/classes?page=2`")
     public Object getArtefactTerms(@Parameter(description = "Short name or ID of the artefact", example = "ncit") @PathVariable String id,
-                                   @Parameter(description = "Page number, starting at 1") @RequestParam(required = false, defaultValue = "1") Integer page,
                                    @ParameterObject CommonRequestParams params,
                                    @ParameterObject PaginationParams pagination) {
         Map<RequestParameter, String> optionalParameters = new HashMap<>();
         optionalParameters.put(RequestParameter.page, String.valueOf(pagination.getPage()));
         optionalParameters.put(RequestParameter.size, String.valueOf(pagination.getPagesize()));
-        return this.artefactsService.getArtefactTerms(id, optionalParameters, params, page, null, authService.tryGetCurrentUser());
+        return this.artefactsService.getArtefactTerms(id, optionalParameters, params, pagination.getPage(), null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = {"/resources/properties"})
@@ -112,8 +111,11 @@ public class ArtefactsDataController {
                     "Example: `GET /artefacts/agrovoc/resources/schemes`")
     public Object getSchemes(@Parameter(description = "Short name or ID of the artefact", example = "agrovoc") @PathVariable String id,
                              @ParameterObject CommonRequestParams params,
-                             @Parameter(description = "Page number, starting at 1") @RequestParam(required = false, defaultValue = "1") Integer page) {
-        return this.artefactsService.getArtefactSchemes(id, new HashMap<>(), params, page, null, authService.tryGetCurrentUser());
+                             @ParameterObject PaginationParams pagination) {
+        Map<RequestParameter, String> optionalParameters = new HashMap<>();
+        optionalParameters.put(RequestParameter.page, String.valueOf(pagination.getPage()));
+        optionalParameters.put(RequestParameter.size, String.valueOf(pagination.getPagesize()));
+        return this.artefactsService.getArtefactSchemes(id, new HashMap<>(), params, pagination.getPage(), null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = {"/resources/schemes/{uri}"})
@@ -134,8 +136,11 @@ public class ArtefactsDataController {
                     "Only SKOS vocabularies have SKOS collections; for OWL ontologies the result is usually empty.")
     public Object getCollections(@Parameter(description = "Short name or ID of the artefact", example = "agrovoc") @PathVariable String id,
                                  @ParameterObject CommonRequestParams params,
-                                 @Parameter(description = "Page number, starting at 1") @RequestParam(required = false, defaultValue = "1") Integer page) {
-        return this.artefactsService.getArtefactCollections(id, new HashMap<>(), params, page, null, authService.tryGetCurrentUser());
+                                 @ParameterObject PaginationParams pagination) {
+        Map<RequestParameter, String> optionalParameters = new HashMap<>();
+        optionalParameters.put(RequestParameter.page, String.valueOf(pagination.getPage()));
+        optionalParameters.put(RequestParameter.size, String.valueOf(pagination.getPagesize()));
+        return this.artefactsService.getArtefactCollections(id, new HashMap<>(), params, pagination.getPage(), null, authService.tryGetCurrentUser());
     }
 
     @GetMapping(value = { "/resources/collections/{uri}"})
