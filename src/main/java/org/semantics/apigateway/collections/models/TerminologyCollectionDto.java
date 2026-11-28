@@ -38,8 +38,8 @@ public class TerminologyCollectionDto {
     String description;
     
     @NotNull
-    @JsonProperty("collection:isPublic")
-    boolean isPublic;
+    @JsonldProperty("collection:isPublic")
+    Boolean isPublic;
     
     @JsonldProperty("collection:collaborators")
     List<CollectionCollaboratorDto> collaborators = Collections.emptyList();
@@ -55,7 +55,7 @@ public class TerminologyCollectionDto {
         dto.setId(iriFactory.create("https://w3id.org/ts4nfdi/collection/" + x.getId()).toString());
         dto.setLabel(x.getLabel());
         dto.setDescription(x.getDescription());
-        dto.setPublic(x.isPublic());
+        dto.setIsPublic(x.isPublic());
         dto.setCreator(x.getUser().getPrimaryOrcid() != null ? x.getUser().getPrimaryOrcid() : x.getUser().getUsername());
         dto.setCollaborators(x.getCollaborators().stream().map(c ->
             new CollectionCollaboratorDto(
