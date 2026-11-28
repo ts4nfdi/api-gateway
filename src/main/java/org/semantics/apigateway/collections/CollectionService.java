@@ -76,7 +76,7 @@ public class CollectionService  {
 
         terminologyCollection.setLabel(dto.getLabel());
         terminologyCollection.setDescription(dto.getDescription());
-        terminologyCollection.setPublic(dto.isPublic());
+        terminologyCollection.setPublic(dto.getIsPublic());
 
         terminologyCollection.getTerminologies().addAll(resources);
         terminologyCollection.getCollaborators().addAll(collectionCollaborators);
@@ -94,7 +94,7 @@ public class CollectionService  {
         collection.setUser(owner);
         collection.setLabel(dto.getLabel());
         collection.setDescription(dto.getDescription());
-        collection.setPublic(dto.isPublic());
+        collection.setPublic(dto.getIsPublic());
         TerminologyCollection savedCollection = collectionRepository.save(collection);
 
         List<CollectionCollaborator> collectionCollaborators = createCollectionCollaborators(dto.getCollaborators(), savedCollection);
