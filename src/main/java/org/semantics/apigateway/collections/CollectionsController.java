@@ -29,7 +29,7 @@ public class CollectionsController {
     private final CollectionService collectionService;
     private final AuthService authService;
 
-    @GetMapping(value = {"", "/"}, produces = CollectionsJsonLdMessageConverter.MEDIA_TYPE_APPLICATION_LD_JSON_VALUE)
+    @GetMapping(value = "", produces = CollectionsJsonLdMessageConverter.MEDIA_TYPE_APPLICATION_LD_JSON_VALUE)
     @Operation(summary = "List all terminology collections you can see.",
             description = "Without login, returns all public terminology collections. " +
                     "When logged in, additionally returns the terminology collections you created or that are shared with you as a collaborator. " +
@@ -50,7 +50,7 @@ public class CollectionsController {
     }
 
     @Operation(hidden = true)
-    @GetMapping(value = {"", "/"}, params = "id")
+    @GetMapping(value = "", params = "id")
     public TerminologyCollectionDto getCollectionById(@RequestParam String id) {
         return resolveCollection(id);
     }
